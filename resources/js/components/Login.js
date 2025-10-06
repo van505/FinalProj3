@@ -1,4 +1,5 @@
 import axios from "axios";
+import { loadDashboard } from "./Dashboard"; // ✅ Import this
 
 export function loadLogin(app, goRegister) {
     app.innerHTML = `
@@ -15,20 +16,23 @@ export function loadLogin(app, goRegister) {
 
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
         try {
             const response = await axios.post("/api/login", { email, password });
 
+            // ✅ Save token for later API use
             localStorage.setItem("token", response.data.token);
-            axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
 
-            // Go to dashboard only after successful login
-            window.location.href = "/dashboard";
-            
+            // ✅ Go to dashboard after successful login
+            loadDashboard(app);
+
         } catch (err) {
-            alert("Invalid credentials!");
+            console.error("Login error:", err.response?.data || err.message);
+            alert(err.response?.data?.message || "Invalid credentials!");
         }
     });
 

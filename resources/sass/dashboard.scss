@@ -1,0 +1,71 @@
+.dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.sidebar {
+  background-color: #1e3a8a;
+  color: white;
+  width: 230px;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+.main-content {
+  flex: 1;
+  background: #f8fafc;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box input {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.stats {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  flex: 1;
+}
+
+.chart-section {
+  background: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+}

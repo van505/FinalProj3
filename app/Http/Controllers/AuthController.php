@@ -43,6 +43,12 @@ class AuthController extends Controller
         ]);
 
        if (!Auth::attempt($request->only('email', 'password'))) {
+           \Log::info('Failed login attempt', [
+                'email' => $request->email,
+                'password' => $request->password
+            ]); 
+
+
             return response()->json(['message' => 'Invalid login details'], 401);
         }
 

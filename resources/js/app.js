@@ -1,24 +1,18 @@
+import axios from "axios";
 axios.defaults.headers.common["Accept"] = "application/json";
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other helpers. It's a great starting point while
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-require('./bootstrap');
-
+require("./bootstrap");
 import "./bootstrap";
 
 // Import components
 import { loadLogin } from "./components/Login";
 import { loadRegister } from "./components/Register";
+import { loadDashboard } from "./components/Dashboard";
 
 // Mount app
 const app = document.getElementById("app");
 
-// Default to Login screen
 if (app) {
-  loadLogin(app, loadRegister);
+    // Always start at login when loading the site
+    loadLogin(app, loadRegister);
 }
-    
