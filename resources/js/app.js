@@ -13,6 +13,22 @@ import { loadDashboard } from "./components/Dashboard";
 const app = document.getElementById("app");
 
 if (app) {
-    // Always start at login when loading the site
-    loadLogin(app, loadRegister);
+    const token = localStorage.getItem("token");
+    const path = window.location.pathname;
+
+    if (token) {
+        // ✅ If token exists, stay or go to dashboard
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        if (path !== "/dashboard") {
+            window.location.href = "/dashboard";
+        } else {
+            loadDashboard(app);
+        }
+    } else {
+        // 🚪 No token = always show login/register
+        if (path !== "/") {
+            window.history.pushState({}, "", "/");
+        }
+        loadLogin(app, loadRegister);
+    }
 }

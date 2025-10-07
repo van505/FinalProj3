@@ -1,64 +1,81 @@
 import Chart from "chart.js/auto";
 
+// ✅ Export function so app.js can call it
 export function loadDashboard(app) {
-    app.innerHTML = `
-      <div class="dashboard">
-        <aside class="sidebar">
-          <h2>Home</h2>
-          <ul>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Students</a></li>
-            <li><a href="#">Faculty</a></li>
-            <li><a href="#">Archive</a></li>
-            <li><a href="#">Report</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </aside>
-
-        <main class="main-content">
-          <header class="topbar">
-            <h1>Dashboard</h1>
-            <div class="search-box">
-              <input type="text" placeholder="Search" />
-            </div>
-            <div class="user-info">
-              <span>👤 Balbuena Ivan</span>
-            </div>
-          </header>
-
-          <section class="overview">
-            <h2>Overview</h2>
-            <p>Stay informed with the latest updates across your campus</p>
-            <div class="stats">
-              <div class="card"><h3>👨‍🎓 12,437</h3><p>Total Students</p></div>
-              <div class="card"><h3>📚 136</h3><p>Courses</p></div>
-              <div class="card"><h3>🏫 9</h3><p>Departments</p></div>
-              <div class="card"><h3>📅 2024–2025</h3><p>Academic Year</p></div>
-            </div>
-          </section>
-
-          <section class="chart-section">
-            <h3>Total number of students per course</h3>
-            <canvas id="studentChart" height="120"></canvas>
-          </section>
-        </main>
-      </div>
+    const sidebar = `
+        <div class="sidebar">
+            <h2>Home</h2>
+            <ul>
+                <li><a href="#">Overview</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Faculty</a></li>
+                <li><a href="#">Archive</a></li>
+                <li><a href="#">Report</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </div>
     `;
 
-    // Bar Chart Example
-    const ctx = document.getElementById("studentChart").getContext("2d");
+    const dashboardContent = `
+        <div class="main">
+            <div class="topbar">
+                <h1>Dashboard</h1>
+                <div class="search">
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="user">👤 Balbuena Ivan</div>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+
+            <div class="overview">
+                <div class="card">
+                    <h3>Total Students</h3>
+                    <p>12,437</p>
+                </div>
+                <div class="card">
+                    <h3>Courses</h3>
+                    <p>136</p>
+                </div>
+                <div class="card">
+                    <h3>Departments</h3>
+                    <p>9</p>
+                </div>
+                <div class="card">
+                    <h3>Academic Year</h3>
+                    <p>2024 - 2025</p>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h2>Total Number of Students per Course</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    `;
+
+    // ✅ Render layout
+    app.innerHTML = sidebar + dashboardContent;
+
+    // ✅ Create chart
+    const ctx = document.getElementById("barChart").getContext("2d");
     new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["CSP", "Criminology", "Engineering", "Art & Science", "Nursing", "Accountancy"],
-            datasets: [{
-                label: "Students",
-                data: [4567, 2345, 1345, 2300, 1200, 1500],
-                backgroundColor: [
-                    "#3b82f6", "#ef4444", "#f97316", "#22c55e", "#a855f7", "#facc15"
-                ],
-                borderRadius: 8,
-            }]
+            labels: ["CSP", "Criminology", "Engineering", "Arts & Science", "Nursing", "Accountancy"],
+            datasets: [
+                {
+                    label: "Number of Students",
+                    data: [4500, 2800, 800, 750, 650, 600],
+                    backgroundColor: [
+                        "#4B6BFB",
+                        "#E74C3C",
+                        "#F39C12",
+                        "#27AE60",
+                        "#8E44AD",
+                        "#3498DB",
+                    ],
+                },
+            ],
         },
         options: {
             responsive: true,
@@ -66,8 +83,14 @@ export function loadDashboard(app) {
                 legend: { display: false },
             },
             scales: {
-                y: { beginAtZero: true }
-            }
-        }
+                y: { beginAtZero: true },
+            },
+        },
+    });
+
+    // ✅ Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "/";
     });
 }

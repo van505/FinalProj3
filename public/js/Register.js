@@ -17546,20 +17546,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.js");
 
-function loadDashboard(app) {
-  app.innerHTML = "\n      <div class=\"dashboard\">\n        <aside class=\"sidebar\">\n          <h2>Home</h2>\n          <ul>\n            <li><a href=\"#\">Overview</a></li>\n            <li><a href=\"#\">Students</a></li>\n            <li><a href=\"#\">Faculty</a></li>\n            <li><a href=\"#\">Archive</a></li>\n            <li><a href=\"#\">Report</a></li>\n            <li><a href=\"#\">Profile</a></li>\n          </ul>\n        </aside>\n\n        <main class=\"main-content\">\n          <header class=\"topbar\">\n            <h1>Dashboard</h1>\n            <div class=\"search-box\">\n              <input type=\"text\" placeholder=\"Search\" />\n            </div>\n            <div class=\"user-info\">\n              <span>\uD83D\uDC64 Balbuena Ivan</span>\n            </div>\n          </header>\n\n          <section class=\"overview\">\n            <h2>Overview</h2>\n            <p>Stay informed with the latest updates across your campus</p>\n            <div class=\"stats\">\n              <div class=\"card\"><h3>\uD83D\uDC68\u200D\uD83C\uDF93 12,437</h3><p>Total Students</p></div>\n              <div class=\"card\"><h3>\uD83D\uDCDA 136</h3><p>Courses</p></div>\n              <div class=\"card\"><h3>\uD83C\uDFEB 9</h3><p>Departments</p></div>\n              <div class=\"card\"><h3>\uD83D\uDCC5 2024\u20132025</h3><p>Academic Year</p></div>\n            </div>\n          </section>\n\n          <section class=\"chart-section\">\n            <h3>Total number of students per course</h3>\n            <canvas id=\"studentChart\" height=\"120\"></canvas>\n          </section>\n        </main>\n      </div>\n    ";
 
-  // Bar Chart Example
-  var ctx = document.getElementById("studentChart").getContext("2d");
+// ✅ Export function so app.js can call it
+function loadDashboard(app) {
+  var sidebar = "\n        <div class=\"sidebar\">\n            <h2>Home</h2>\n            <ul>\n                <li><a href=\"#\">Overview</a></li>\n                <li><a href=\"#\">Students</a></li>\n                <li><a href=\"#\">Faculty</a></li>\n                <li><a href=\"#\">Archive</a></li>\n                <li><a href=\"#\">Report</a></li>\n                <li><a href=\"#\">Profile</a></li>\n            </ul>\n        </div>\n    ";
+  var dashboardContent = "\n        <div class=\"main\">\n            <div class=\"topbar\">\n                <h1>Dashboard</h1>\n                <div class=\"search\">\n                    <input type=\"text\" placeholder=\"Search\">\n                </div>\n                <div class=\"user\">\uD83D\uDC64 Balbuena Ivan</div>\n                <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n            </div>\n\n            <div class=\"overview\">\n                <div class=\"card\">\n                    <h3>Total Students</h3>\n                    <p>12,437</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Courses</h3>\n                    <p>136</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Departments</h3>\n                    <p>9</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Academic Year</h3>\n                    <p>2024 - 2025</p>\n                </div>\n            </div>\n\n            <div class=\"chart-section\">\n                <h2>Total Number of Students per Course</h2>\n                <canvas id=\"barChart\"></canvas>\n            </div>\n        </div>\n    ";
+
+  // ✅ Render layout
+  app.innerHTML = sidebar + dashboardContent;
+
+  // ✅ Create chart
+  var ctx = document.getElementById("barChart").getContext("2d");
   new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](ctx, {
     type: "bar",
     data: {
-      labels: ["CSP", "Criminology", "Engineering", "Art & Science", "Nursing", "Accountancy"],
+      labels: ["CSP", "Criminology", "Engineering", "Arts & Science", "Nursing", "Accountancy"],
       datasets: [{
-        label: "Students",
-        data: [4567, 2345, 1345, 2300, 1200, 1500],
-        backgroundColor: ["#3b82f6", "#ef4444", "#f97316", "#22c55e", "#a855f7", "#facc15"],
-        borderRadius: 8
+        label: "Number of Students",
+        data: [4500, 2800, 800, 750, 650, 600],
+        backgroundColor: ["#4B6BFB", "#E74C3C", "#F39C12", "#27AE60", "#8E44AD", "#3498DB"]
       }]
     },
     options: {
@@ -17575,6 +17580,12 @@ function loadDashboard(app) {
         }
       }
     }
+  });
+
+  // ✅ Logout
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   });
 }
 

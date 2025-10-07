@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loadDashboard } from "./Dashboard"; // ✅ Import this
+
 
 export function loadLogin(app, goRegister) {
     app.innerHTML = `
@@ -28,7 +28,7 @@ export function loadLogin(app, goRegister) {
             axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
 
             // ✅ Go to dashboard after successful login
-            loadDashboard(app);
+            window.location.href = '/dashboard';
 
         } catch (err) {
             console.error("Login error:", err.response?.data || err.message);

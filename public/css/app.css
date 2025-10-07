@@ -11980,3 +11980,314 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f3f4f6;
+  font-family: Arial, sans-serif;
+}
+.login-page .login-box {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 380px;
+  text-align: left;
+}
+.login-page .login-box h1, .login-page .login-box .h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.login-page .login-box p {
+  color: #6b7280;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.login-page .login-box .form-group {
+  margin-bottom: 15px;
+}
+.login-page .login-box .form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #374151;
+}
+.login-page .login-box .form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.login-page .login-box .form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+.login-page .login-box .options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.login-page .login-box .options a {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+}
+.login-page .login-box .options a:hover {
+  text-decoration: underline;
+}
+.login-page .login-box .btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login-page .login-box .btn:hover {
+  background: #1e40af;
+}
+.login-page .login-box .divider {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #9ca3af;
+  position: relative;
+}
+.login-page .login-box .divider:before, .login-page .login-box .divider:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #d1d5db;
+}
+.login-page .login-box .divider:before {
+  left: 0;
+}
+.login-page .login-box .divider:after {
+  right: 0;
+}
+.login-page .login-box .register-link {
+  text-align: center;
+  margin-top: 10px;
+}
+.login-page .login-box .register-link a {
+  color: #2563eb;
+  font-weight: bold;
+  text-decoration: none;
+}
+.login-page .login-box .register-link a:hover {
+  text-decoration: underline;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+}
+.dashboard .sidebar {
+  width: 230px;
+  background: #4b6bfb;
+  color: #fff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard .sidebar h2, .dashboard .sidebar .h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+.dashboard .sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.dashboard .sidebar ul li {
+  margin: 0.8rem 0;
+}
+.dashboard .sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.4rem;
+  transition: background 0.2s ease;
+}
+.dashboard .sidebar ul li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.dashboard .main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+.dashboard .main .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.dashboard .main .topbar h1, .dashboard .main .topbar .h1 {
+  font-size: 1.8rem;
+  color: #222;
+}
+.dashboard .main .topbar .search input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 0.95rem;
+  width: 200px;
+}
+.dashboard .main .topbar .search input:focus {
+  border-color: #4b6bfb;
+  outline: none;
+}
+.dashboard .main .topbar .user {
+  font-weight: 600;
+  margin-left: 1rem;
+  color: #4b6bfb;
+}
+.dashboard .main .topbar .logout-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.dashboard .main .topbar .logout-btn:hover {
+  background: #c0392b;
+}
+.dashboard .main .overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.dashboard .main .overview .card {
+  background: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.dashboard .main .overview .card:hover {
+  transform: translateY(-3px);
+}
+.dashboard .main .overview .card h3, .dashboard .main .overview .card .h3 {
+  color: #4b6bfb;
+  margin-bottom: 0.5rem;
+}
+.dashboard .main .overview .card p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.dashboard .main .chart-section {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.dashboard .main .chart-section h2, .dashboard .main .chart-section .h2 {
+  margin-bottom: 1rem;
+  color: #4b6bfb;
+  font-size: 1.2rem;
+}
+.dashboard .main .chart-section canvas {
+  width: 100%;
+  max-height: 350px;
+}
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+.auth-header h1, .auth-header .h1 {
+  margin-bottom: 0.2rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.auth-header p {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.auth-form {
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.form-group.check {
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #4f46e5;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #4338ca;
+}
+
+.switch-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.switch-text a {
+  color: #4f46e5;
+  text-decoration: none;
+}
