@@ -12089,6 +12089,26 @@ textarea.form-control-lg {
   text-decoration: underline;
 }
 
+body {
+  background: #f5f7fb;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .dashboard {
   display: flex;
   min-height: 100vh;
@@ -12215,6 +12235,306 @@ textarea.form-control-lg {
   max-height: 350px;
 }
 
+.new-sidebar {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+  background: #163d7d;
+  color: #fff;
+  padding: 1.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 2px 0 8px rgba(22, 61, 125, 0.04);
+}
+.new-sidebar .new-item-btn {
+  background: #4b6bfb;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.new-sidebar .new-item-btn:hover {
+  background: #3752b3;
+}
+.new-sidebar .sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.new-sidebar .sidebar-menu li {
+  margin-bottom: 0.5rem;
+}
+.new-sidebar .sidebar-menu li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.new-sidebar .sidebar-menu li a.active, .new-sidebar .sidebar-menu li a:hover {
+  background: #4b6bfb;
+}
+
+.new-main {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.new-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.new-topbar .topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.new-topbar .topbar-left .dashboard-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+.new-topbar .topbar-left .system-settings {
+  font-size: 1rem;
+  color: #888;
+}
+.new-topbar .topbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.new-topbar .topbar-center .search-input {
+  width: 260px;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #e0e6ed;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #fff;
+  transition: border 0.2s;
+}
+.new-topbar .topbar-center .search-input:focus {
+  border-color: #4b6bfb;
+  outline: none;
+}
+.new-topbar .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.new-topbar .topbar-right .user {
+  font-weight: 600;
+  color: #4b6bfb;
+  font-size: 1rem;
+}
+.new-topbar .topbar-right .logout-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.new-topbar .topbar-right .logout-btn:hover {
+  background: #c0392b;
+}
+
+.overview-section {
+  margin-bottom: 2.5rem;
+}
+.overview-section .overview-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  color: #222;
+}
+.overview-section .overview-desc {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+.overview-section .overview-cards {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.overview-section .overview-cards .overview-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(22, 61, 125, 0.06);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 210px;
+  flex: 1 1 210px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.overview-section .overview-cards .overview-card:hover {
+  box-shadow: 0 4px 16px rgba(22, 61, 125, 0.1);
+  transform: translateY(-2px) scale(1.01);
+}
+.overview-section .overview-cards .overview-card .card-icon {
+  font-size: 2rem;
+  background: #f5f7fb;
+  border-radius: 0.7rem;
+  padding: 0.5rem 0.7rem;
+  color: #4b6bfb;
+  margin-right: 0.2rem;
+}
+.overview-section .overview-cards .overview-card .card-label {
+  font-size: 0.98rem;
+  color: #888;
+  margin-bottom: 0.2rem;
+}
+.overview-section .overview-cards .overview-card .card-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.new-chart-section {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(22, 61, 125, 0.06);
+  padding: 1.5rem 2rem 2.2rem 2rem;
+  margin-bottom: 2rem;
+}
+.new-chart-section .chart-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+.new-chart-section .chart-header .chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  background: #f9f6f6;
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #f3eaea;
+}
+.new-chart-section .chart-container {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.new-chart-section .chart-container canvas {
+  width: 100% !important;
+  max-width: 700px;
+  max-height: 350px;
+}
+
+.settings-section {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(22, 61, 125, 0.06);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.settings-section .settings-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.settings-section .settings-forms {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.settings-section .settings-forms .settings-form-card {
+  background: #f5f7fb;
+  border-radius: 0.7rem;
+  padding: 1.2rem 1.5rem;
+  min-width: 260px;
+  flex: 1 1 260px;
+}
+.settings-section .settings-forms .settings-form-card h3, .settings-section .settings-forms .settings-form-card .h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #4b6bfb;
+}
+.settings-section .settings-forms .settings-form-card .input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e6ed;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #fff;
+}
+.settings-section .settings-forms .settings-form-card .btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.settings-section .settings-forms .settings-form-card .btn.btn-blue {
+  background: #4b6bfb;
+  color: #fff;
+}
+.settings-section .settings-forms .settings-form-card .btn.btn-green {
+  background: #27ae60;
+  color: #fff;
+}
+.settings-section #settingsMessage {
+  font-size: 1rem;
+  color: #27ae60;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .overview-section .overview-cards {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .new-main {
+    padding: 1rem 0.5rem;
+  }
+  .new-chart-section {
+    padding: 1rem 0.5rem 1.5rem 0.5rem;
+  }
+  .new-sidebar {
+    width: 100px;
+  }
+  .new-sidebar .new-item-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.7rem;
+  }
+  .new-sidebar .sidebar-menu li a {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.5rem;
+  }
+}
 .auth-page {
   display: flex;
   justify-content: center;
@@ -12222,6 +12542,27 @@ textarea.form-control-lg {
   min-height: 100vh;
   background: #f5f7fb;
   font-family: Arial, sans-serif;
+}
+
+.register-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.register-sidebar {
+  width: 32vw;
+  min-width: 280px;
+  background: #2563eb;
+  height: 100vh;
+}
+
+.register-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .auth-card {

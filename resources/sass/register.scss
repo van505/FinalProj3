@@ -7,6 +7,27 @@
   font-family: Arial, sans-serif;
 }
 
+.register-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+.register-sidebar {
+  width: 32vw;
+  min-width: 280px;
+  background: #2563eb; // solid blue
+  height: 100vh;
+}
+
+.register-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .auth-card {
   background: #fff;
   padding: 2rem;

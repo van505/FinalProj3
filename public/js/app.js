@@ -42331,12 +42331,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   loadDashboard: () => (/* binding */ loadDashboard)
 /* harmony export */ });
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.js");
+/* harmony import */ var _SystemSettings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemSettings */ "./resources/js/components/SystemSettings.js");
+
 
 
 // ✅ Export function so app.js can call it
 function loadDashboard(app) {
-  var sidebar = "\n        <div class=\"sidebar\">\n            <h2>Home</h2>\n            <ul>\n                <li><a href=\"#\">Overview</a></li>\n                <li><a href=\"#\">Students</a></li>\n                <li><a href=\"#\">Faculty</a></li>\n                <li><a href=\"#\">Archive</a></li>\n                <li><a href=\"#\">Report</a></li>\n                <li><a href=\"#\">Profile</a></li>\n            </ul>\n        </div>\n    ";
-  var dashboardContent = "\n        <div class=\"main\">\n            <div class=\"topbar\">\n                <h1>Dashboard</h1>\n                <div class=\"search\">\n                    <input type=\"text\" placeholder=\"Search\">\n                </div>\n                <div class=\"user\">\uD83D\uDC64 Balbuena Ivan</div>\n                <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n            </div>\n\n            <div class=\"overview\">\n                <div class=\"card\">\n                    <h3>Total Students</h3>\n                    <p>12,437</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Courses</h3>\n                    <p>136</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Departments</h3>\n                    <p>9</p>\n                </div>\n                <div class=\"card\">\n                    <h3>Academic Year</h3>\n                    <p>2024 - 2025</p>\n                </div>\n            </div>\n\n            <div class=\"chart-section\">\n                <h2>Total Number of Students per Course</h2>\n                <canvas id=\"barChart\"></canvas>\n            </div>\n        </div>\n    ";
+  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
+  var dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC65</div>\n                        <div>\n                            <div class=\"card-label\">Student at service</div>\n                            <div class=\"card-value\">12,437</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCDA</div>\n                        <div>\n                            <div class=\"card-label\">Course</div>\n                            <div class=\"card-value\">136</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83C\uDFE2</div>\n                        <div>\n                            <div class=\"card-label\">Department</div>\n                            <div class=\"card-value\">9</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCC5</div>\n                        <div>\n                            <div class=\"card-label\">Academic Year</div>\n                            <div class=\"card-value\">2024 - 2025</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Total numbers of students per course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"barChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
 
   // ✅ Render layout
   app.innerHTML = sidebar + dashboardContent;
@@ -42367,6 +42369,16 @@ function loadDashboard(app) {
       }
     }
   });
+  document.querySelectorAll('.sidebar-menu a').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var page = this.getAttribute('data-page');
+      if (page === 'settings') {
+        (0,_SystemSettings__WEBPACK_IMPORTED_MODULE_1__.loadSystemSettings)(app);
+      }
+      // Add more if-else for other pages if needed
+    });
+  });
 
   // ✅ Logout
   document.getElementById("logoutBtn").addEventListener("click", function () {
@@ -42396,7 +42408,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 function loadLogin(app, goRegister) {
-  app.innerHTML = "\n      <div class=\"form-container\">\n        <h2>Login</h2>\n        <form id=\"loginForm\">\n          <input type=\"email\" id=\"email\" placeholder=\"Email\" required>\n          <input type=\"password\" id=\"password\" placeholder=\"Password\" required>\n          <button type=\"submit\">Login</button>\n        </form>\n        <p>No account? <a href=\"#\" id=\"goRegister\">Register</a></p>\n      </div>\n    ";
+  app.innerHTML = "\n      <div class=\"login-page\">\n        <div class=\"login-box\">\n          <h1>Login</h1>\n          <p>Manage students, faculty, and more</p>\n          <form id=\"loginForm\">\n            <div class=\"form-group\">\n              <label for=\"email\">E-Mail</label>\n              <input type=\"email\" id=\"email\" placeholder=\"Placeholder content\" required>\n            </div>\n            <div class=\"form-group\">\n              <label for=\"password\">Password</label>\n              <input type=\"password\" id=\"password\" placeholder=\"Placeholder content\" required>\n            </div>\n            <div class=\"options\">\n              <span></span>\n              <a href=\"#\" id=\"forgotPassword\">Forgot password?</a>\n            </div>\n            <button type=\"submit\" class=\"btn\">Login</button>\n            <div class=\"divider\">or</div>\n            <button type=\"button\" class=\"btn register-link\" id=\"goRegister\">Register now</button>\n          </form>\n        </div>\n      </div>\n    ";
   document.getElementById("loginForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
       var email, password, response, _err$response, _err$response2, _t;
@@ -42463,10 +42475,9 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
- // make sure you have this
 
 function loadRegister(app, goLogin) {
-  app.innerHTML = "\n      <div class=\"form-container\">\n        <h2>Register</h2>\n        <form id=\"registerForm\">\n          <input type=\"text\" id=\"name\" placeholder=\"Name\" required>\n          <input type=\"email\" id=\"email\" placeholder=\"Email\" required>\n          <input type=\"password\" id=\"password\" placeholder=\"Password\" required>\n          <input type=\"password\" id=\"password_confirmation\" placeholder=\"Confirm Password\" required>\n          <label>\n            <input type=\"checkbox\" id=\"is_admin\"> Register as Admin\n          </label>\n          <button type=\"submit\">Register</button>\n        </form>\n        <p>Already have an account? <a href=\"#\" id=\"goLogin\">Login</a></p>\n      </div>\n    ";
+  app.innerHTML = "\n      <div class=\"register-page\">\n        <div class=\"register-sidebar\"></div>\n        <div class=\"register-content\">\n          <div class=\"auth-card\">\n            <div class=\"auth-header\">\n              <h1>Sign up now</h1>\n              <p>Be a User</p>\n            </div>\n            <form id=\"registerForm\" class=\"auth-form\">\n              <div class=\"form-group\">\n                <input type=\"text\" id=\"name\" placeholder=\"Name\" required>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"email\" id=\"email\" placeholder=\"Email\" required>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" id=\"password\" placeholder=\"Password\" required>\n              </div>\n              <div class=\"form-group\">\n                <input type=\"password\" id=\"password_confirmation\" placeholder=\"Confirm Password\" required>\n              </div>\n              <div class=\"form-group check\">\n                <label>\n                  <input type=\"checkbox\" id=\"is_admin\"> Register as Admin\n                </label>\n              </div>\n              <button type=\"submit\" class=\"btn\">Register</button>\n            </form>\n            <div class=\"switch-text\">\n              Already have an account? <a href=\"#\" id=\"goLogin\">Log In</a>\n            </div>\n            <div style=\"margin-top:10px;font-size:12px;color:#888;\">\n              By Creating an Account, it means you agree to our <a href=\"#\">Privacy Policy</a> and <a href=\"#\">Terms of Service</a>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
   document.getElementById("registerForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
       var name, email, password, password_confirmation, is_admin, response, _err$response, _t;
@@ -42490,13 +42501,10 @@ function loadRegister(app, goLogin) {
             });
           case 2:
             response = _context.v;
-            // Save token
             localStorage.setItem("token", response.data.token);
             (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
-
-            // Instead of auto-login, go back to login form
             alert("Registration successful! Please log in.");
-            goLogin(app, loadRegister); // 🔥 this loads the login page
+            goLogin(app, loadRegister);
             _context.n = 4;
             break;
           case 3:
@@ -42516,6 +42524,203 @@ function loadRegister(app, goLogin) {
     e.preventDefault();
     goLogin(app, loadRegister);
   });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/SystemSettings.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/SystemSettings.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loadSystemSettings: () => (/* binding */ loadSystemSettings)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function loadSystemSettings(app) {
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-forms\">\n                    <div class=\"settings-form-card\">\n                        <h3>Add Course</h3>\n                        <form id=\"addCourseForm\">\n                            <input type=\"text\" name=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-blue\">Add Course</button>\n                        </form>\n                        <div id=\"coursesList\" style=\"margin-top:1rem;\"></div>\n                    </div>\n                    <div class=\"settings-form-card\">\n                        <h3>Add Department</h3>\n                        <form id=\"addDepartmentForm\">\n                            <input type=\"text\" name=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                            <input type=\"text\" name=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-green\">Add Department</button>\n                        </form>\n                        <div id=\"departmentsList\" style=\"margin-top:1rem;\"></div>\n                    </div>\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
+
+  // Fetch and render courses
+  function fetchCourses() {
+    return _fetchCourses.apply(this, arguments);
+  } // Fetch and render departments
+  function _fetchCourses() {
+    _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var res, list, data;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.n) {
+          case 0:
+            _context3.n = 1;
+            return fetch('/api/courses');
+          case 1:
+            res = _context3.v;
+            list = document.getElementById('coursesList');
+            if (!res.ok) {
+              _context3.n = 3;
+              break;
+            }
+            _context3.n = 2;
+            return res.json();
+          case 2:
+            data = _context3.v;
+            list.innerHTML = "<ul>".concat(data.map(function (c) {
+              return "<li>".concat(c.name, "</li>");
+            }).join(''), "</ul>");
+            _context3.n = 4;
+            break;
+          case 3:
+            list.innerHTML = '<span style="color:red;">Failed to load courses.</span>';
+          case 4:
+            return _context3.a(2);
+        }
+      }, _callee3);
+    }));
+    return _fetchCourses.apply(this, arguments);
+  }
+  function fetchDepartments() {
+    return _fetchDepartments.apply(this, arguments);
+  } // Initial fetch
+  function _fetchDepartments() {
+    _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var res, list, data;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.n) {
+          case 0:
+            _context4.n = 1;
+            return fetch('/api/departments');
+          case 1:
+            res = _context4.v;
+            list = document.getElementById('departmentsList');
+            if (!res.ok) {
+              _context4.n = 3;
+              break;
+            }
+            _context4.n = 2;
+            return res.json();
+          case 2:
+            data = _context4.v;
+            list.innerHTML = "<ul>".concat(data.map(function (d) {
+              return "<li>".concat(d.name, " (").concat(d.head, ")</li>");
+            }).join(''), "</ul>");
+            _context4.n = 4;
+            break;
+          case 3:
+            list.innerHTML = '<span style="color:red;">Failed to load departments.</span>';
+          case 4:
+            return _context4.a(2);
+        }
+      }, _callee4);
+    }));
+    return _fetchDepartments.apply(this, arguments);
+  }
+  fetchCourses();
+  fetchDepartments();
+
+  // Navigation for sidebar (reuse your Dashboard logic if needed)
+  document.querySelectorAll('.sidebar-menu a').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var page = this.getAttribute('data-page');
+      if (page === 'overview') window.location.reload(); // Or call your loadDashboard
+      // Add more navigation as needed
+    });
+  });
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  });
+
+  // Add Course
+  document.getElementById('addCourseForm').addEventListener('submit', /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+      var courseName, res, msg;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            e.preventDefault();
+            courseName = this.course_name.value;
+            _context.n = 1;
+            return fetch('/api/courses', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              body: JSON.stringify({
+                name: courseName
+              })
+            });
+          case 1:
+            res = _context.v;
+            msg = document.getElementById('settingsMessage');
+            if (res.ok) {
+              msg.textContent = "Course added!";
+              this.reset();
+              fetchCourses(); // Refresh list
+            } else {
+              msg.textContent = "Failed to add course.";
+            }
+          case 2:
+            return _context.a(2);
+        }
+      }, _callee, this);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+
+  // Add Department
+  document.getElementById('addDepartmentForm').addEventListener('submit', /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
+      var departmentName, departmentHead, res, msg;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            e.preventDefault();
+            departmentName = this.department_name.value;
+            departmentHead = this.department_head.value;
+            _context2.n = 1;
+            return fetch('/api/departments', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              credentials: 'include',
+              body: JSON.stringify({
+                name: departmentName,
+                head: departmentHead
+              })
+            });
+          case 1:
+            res = _context2.v;
+            msg = document.getElementById('settingsMessage');
+            if (res.ok) {
+              msg.textContent = "Department added!";
+              this.reset();
+              fetchDepartments(); // Refresh list
+            } else {
+              msg.textContent = "Failed to add department.";
+            }
+          case 2:
+            return _context2.a(2);
+        }
+      }, _callee2, this);
+    }));
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
 }
 
 /***/ }),

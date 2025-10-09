@@ -1,0 +1,85 @@
+.settings-section {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(22, 61, 125, 0.06);
+  padding: 2rem;
+  margin-bottom: 2rem;
+
+  .settings-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .settings-forms {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    .settings-form-card {
+      background: #f5f7fb;
+      border-radius: 0.7rem;
+      padding: 1.2rem 1.5rem;
+      min-width: 260px;
+      flex: 1 1 260px;
+      h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: #4b6bfb;
+      }
+      .input {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e0e6ed;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        background: #fff;
+      }
+      .btn {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        &.btn-blue { background: #4b6bfb; color: #fff; }
+        &.btn-green { background: #27ae60; color: #fff; }
+      }
+    }
+  }
+  #settingsMessage {
+    font-size: 1rem;
+    color: #27ae60;
+    margin-top: 0.5rem;
+  }
+}
+
+.settings-table-section {
+  margin-top: 2rem;
+  h3 {
+    margin-top: 1.5rem;
+    color: #4b6bfb;
+  }
+  .settings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    th, td {
+      border: 1px solid #e0e6ed;
+      padding: 0.7rem 1rem;
+      text-align: left;
+    }
+    th {
+      background: #f5f7fb;
+      color: #222;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background: #fafbfc;
+    }
+  }
+}

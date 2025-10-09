@@ -3,14 +3,28 @@ import axios from "axios";
 
 export function loadLogin(app, goRegister) {
     app.innerHTML = `
-      <div class="form-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-          <input type="email" id="email" placeholder="Email" required>
-          <input type="password" id="password" placeholder="Password" required>
-          <button type="submit">Login</button>
-        </form>
-        <p>No account? <a href="#" id="goRegister">Register</a></p>
+      <div class="login-page">
+        <div class="login-box">
+          <h1>Login</h1>
+          <p>Manage students, faculty, and more</p>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" placeholder="Placeholder content" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Placeholder content" required>
+            </div>
+            <div class="options">
+              <span></span>
+              <a href="#" id="forgotPassword">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="divider">or</div>
+            <button type="button" class="btn register-link" id="goRegister">Register now</button>
+          </form>
+        </div>
       </div>
     `;
 
