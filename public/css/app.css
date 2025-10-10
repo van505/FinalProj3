@@ -12632,3 +12632,49 @@ body {
   color: #4f46e5;
   text-decoration: none;
 }
+
+.profile-section {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.profile-section .profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+.profile-section .profile-card .profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+.profile-section .profile-card input {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.profile-section .profile-card button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+.profile-section .profile-card button.btn-blue {
+  background: #3b82f6;
+}
+.profile-section .profile-card button.btn-green {
+  background: #10b981;
+}
+.profile-section .profile-card #message {
+  margin-top: 1rem;
+  font-weight: 500;
+}

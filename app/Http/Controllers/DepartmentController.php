@@ -35,4 +35,12 @@ class DepartmentController extends Controller
             'data' => $department
         ]);
     }
+
+    // Destroy a department
+    public function destroy($id)
+    {
+        $department = Department::findOrFail($id);
+        $department->delete(); // Soft delete
+        return response()->json(['message' => 'Department deleted']);
+    }
 }

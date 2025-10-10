@@ -1,5 +1,7 @@
 import Chart from "chart.js/auto";
 import { loadSystemSettings } from './SystemSettings';
+import { loadProfile } from "./Profile.js";
+import { loadStudents } from "./Students";
 
 // ✅ Export function so app.js can call it
 export function loadDashboard(app) {
@@ -8,11 +10,11 @@ export function loadDashboard(app) {
             <button class="new-item-btn">+ New Item</button>
             <ul class="sidebar-menu">
                 <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
-                <li><a href="#" data-page="students"><span>Students</span></a></li>
+                <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
                 <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
                 <li><a href="#" data-page="archive"><span>Archive</span></a></li>
                 <li><a href="#" data-page="report"><span>Report</span></a></li>
-                <li><a href="#" data-page="profile"><span>Profile</span></a></li>
+                <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
                 <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
             </ul>
         </nav>
@@ -122,7 +124,6 @@ export function loadDashboard(app) {
             if (page === 'settings') {
                 loadSystemSettings(app);
             }
-            // Add more if-else for other pages if needed
         });
     });
 
@@ -131,4 +132,25 @@ export function loadDashboard(app) {
         localStorage.removeItem("token");
         window.location.href = "/";
     });
+
+    // Add event listener for Profile menu
+    const menuProfile = document.getElementById("menuProfile");
+    if (menuProfile) {
+        menuProfile.addEventListener("click", (e) => {
+            e.preventDefault();
+            const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+            const userId = localStorage.getItem("user_id");
+            loadProfile(mainContent, userId);
+        });
+    }
+
+    // Add event listener for Students menu
+    const menuStudents = document.getElementById("menuStudents");
+    if (menuStudents) {
+        menuStudents.addEventListener("click", (e) => {
+            e.preventDefault();
+            const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+            loadStudents(mainContent);
+        });
+    }
 }

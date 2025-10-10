@@ -9,6 +9,10 @@ import { loadLogin } from "./components/Login";
 import { loadRegister } from "./components/Register";
 import { loadDashboard } from "./components/Dashboard";
 
+// ✅ Import new components
+import { loadSystemSettings } from "./components/SystemSettings";
+import { loadProfile } from "./components/Profile"; // 👈 newly added
+
 // Mount app
 const app = document.getElementById("app");
 
@@ -17,15 +21,52 @@ if (app) {
     const path = window.location.pathname;
 
     if (token) {
-        // ✅ If token exists, stay or go to dashboard
+        // ✅ Add token to every axios request
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        if (path !== "/dashboard") {
-            window.location.href = "/dashboard";
-        } else {
+
+        // ✅ Determine which page to load
+        if (path === "/dashboard") {
             loadDashboard(app);
+        } 
+        else if (path === "/settings") {
+            loadSystemSettings(app); // 👈 Load System Settings page
         }
+        else if (path === "/profile") {
+            loadProfile(app); // 👈 Load Profile page
+        }
+        else {
+            // ✅ Default to dashboard if no path matches
+            window.location.href = "/dashboard";
+        }
+
+        // ✅ Listen to in-app navigation (sidebar links)
+        document.addEventListener("click", (e) => {
+            const link = e.target.closest("a[data-page]");
+            if (!link) return;
+            e.preventDefault();
+
+            const page = link.dataset.page;
+            // Remove active class
+            document.querySelectorAll(".sidebar-menu a").forEach(a => a.classList.remove("active"));
+            link.classList.add("active");
+
+            // Load appropriate component
+            if (page === "overview") {
+                loadDashboard(app);
+                window.history.pushState({}, "", "/dashboard");
+            } 
+            else if (page === "settings") {
+                loadSystemSettings(app);
+                window.history.pushState({}, "", "/settings");
+            } 
+            else if (page === "profile") {
+                loadProfile(app);
+                window.history.pushState({}, "", "/profile");
+            }
+        });
+
     } else {
-        // 🚪 No token = always show login/register
+        // 🚪 No token = show login/register
         if (path !== "/") {
             window.history.pushState({}, "", "/");
         }

@@ -6,6 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FacultyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +32,25 @@ Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/departments', [DepartmentController::class, 'index']);
 Route::post('/departments', [DepartmentController::class, 'store']);
+Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile/{id}', [ProfileController::class, 'show']);
+    Route::put('/profile/{id}', [ProfileController::class, 'update']);
+    Route::put('/profile/{id}/password', [ProfileController::class, 'updatePassword']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/students', [StudentController::class, 'index']);
+    Route::post('/students', [StudentController::class, 'store']);
+    Route::put('/students/{id}', [StudentController::class, 'update']);
+    Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+});
+
+// Faculty routes
+Route::get('/faculty', [FacultyController::class, 'index']);
+Route::post('/faculty', [FacultyController::class, 'store']);
+Route::get('/faculty/{id}', [FacultyController::class, 'show']);
+Route::put('/faculty/{id}', [FacultyController::class, 'update']);
+Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);

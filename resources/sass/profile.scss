@@ -1,0 +1,47 @@
+.profile-section {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 400px;
+    text-align: center;
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+
+      &.btn-blue { background: #3b82f6; }
+      &.btn-green { background: #10b981; }
+    }
+
+    #message {
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+  }
+}

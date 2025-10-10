@@ -42246,6 +42246,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.js");
 /* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.js");
 /* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.js");
+/* harmony import */ var _components_SystemSettings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/SystemSettings */ "./resources/js/components/SystemSettings.js");
+/* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.js");
 
 (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Accept"] = "application/json";
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -42256,21 +42258,57 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+// ✅ Import new components
+
+ // 👈 newly added
+
 // Mount app
 var app = document.getElementById("app");
 if (app) {
   var token = localStorage.getItem("token");
   var path = window.location.pathname;
   if (token) {
-    // ✅ If token exists, stay or go to dashboard
+    // ✅ Add token to every axios request
     (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Authorization"] = "Bearer ".concat(token);
-    if (path !== "/dashboard") {
-      window.location.href = "/dashboard";
-    } else {
+
+    // ✅ Determine which page to load
+    if (path === "/dashboard") {
       (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_4__.loadDashboard)(app);
+    } else if (path === "/settings") {
+      (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_5__.loadSystemSettings)(app); // 👈 Load System Settings page
+    } else if (path === "/profile") {
+      (0,_components_Profile__WEBPACK_IMPORTED_MODULE_6__.loadProfile)(app); // 👈 Load Profile page
+    } else {
+      // ✅ Default to dashboard if no path matches
+      window.location.href = "/dashboard";
     }
+
+    // ✅ Listen to in-app navigation (sidebar links)
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest("a[data-page]");
+      if (!link) return;
+      e.preventDefault();
+      var page = link.dataset.page;
+      // Remove active class
+      document.querySelectorAll(".sidebar-menu a").forEach(function (a) {
+        return a.classList.remove("active");
+      });
+      link.classList.add("active");
+
+      // Load appropriate component
+      if (page === "overview") {
+        (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_4__.loadDashboard)(app);
+        window.history.pushState({}, "", "/dashboard");
+      } else if (page === "settings") {
+        (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_5__.loadSystemSettings)(app);
+        window.history.pushState({}, "", "/settings");
+      } else if (page === "profile") {
+        (0,_components_Profile__WEBPACK_IMPORTED_MODULE_6__.loadProfile)(app);
+        window.history.pushState({}, "", "/profile");
+      }
+    });
   } else {
-    // 🚪 No token = always show login/register
+    // 🚪 No token = show login/register
     if (path !== "/") {
       window.history.pushState({}, "", "/");
     }
@@ -42332,12 +42370,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.js");
 /* harmony import */ var _SystemSettings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemSettings */ "./resources/js/components/SystemSettings.js");
+/* harmony import */ var _Profile_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile.js */ "./resources/js/components/Profile.js");
+/* harmony import */ var _Students__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Students */ "./resources/js/components/Students.js");
+
+
 
 
 
 // ✅ Export function so app.js can call it
 function loadDashboard(app) {
-  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
+  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
   var dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC65</div>\n                        <div>\n                            <div class=\"card-label\">Student at service</div>\n                            <div class=\"card-value\">12,437</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCDA</div>\n                        <div>\n                            <div class=\"card-label\">Course</div>\n                            <div class=\"card-value\">136</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83C\uDFE2</div>\n                        <div>\n                            <div class=\"card-label\">Department</div>\n                            <div class=\"card-value\">9</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCC5</div>\n                        <div>\n                            <div class=\"card-label\">Academic Year</div>\n                            <div class=\"card-value\">2024 - 2025</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Total numbers of students per course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"barChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
 
   // ✅ Render layout
@@ -42376,7 +42418,6 @@ function loadDashboard(app) {
       if (page === 'settings') {
         (0,_SystemSettings__WEBPACK_IMPORTED_MODULE_1__.loadSystemSettings)(app);
       }
-      // Add more if-else for other pages if needed
     });
   });
 
@@ -42385,6 +42426,27 @@ function loadDashboard(app) {
     localStorage.removeItem("token");
     window.location.href = "/";
   });
+
+  // Add event listener for Profile menu
+  var menuProfile = document.getElementById("menuProfile");
+  if (menuProfile) {
+    menuProfile.addEventListener("click", function (e) {
+      e.preventDefault();
+      var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+      var userId = localStorage.getItem("user_id");
+      (0,_Profile_js__WEBPACK_IMPORTED_MODULE_2__.loadProfile)(mainContent, userId);
+    });
+  }
+
+  // Add event listener for Students menu
+  var menuStudents = document.getElementById("menuStudents");
+  if (menuStudents) {
+    menuStudents.addEventListener("click", function (e) {
+      e.preventDefault();
+      var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+      (0,_Students__WEBPACK_IMPORTED_MODULE_3__.loadStudents)(mainContent);
+    });
+  }
 }
 
 /***/ }),
@@ -42451,6 +42513,117 @@ function loadLogin(app, goRegister) {
   document.getElementById("goRegister").addEventListener("click", function (e) {
     e.preventDefault();
     goRegister(app, loadLogin);
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Profile.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Profile.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loadProfile: () => (/* binding */ loadProfile)
+/* harmony export */ });
+/* harmony import */ var _SystemSettings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SystemSettings */ "./resources/js/components/SystemSettings.js");
+/* harmony import */ var _Students__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Students */ "./resources/js/components/Students.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+
+function loadProfile(app) {
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" id=\"menuSettings\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">Profile</span>\n                </div>\n                <div class=\"topbar-right\">\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n\n            <section style=\"display:flex;justify-content:center;align-items:center;min-height:60vh;\">\n                <div style=\"background:#fff;padding:2rem 2.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);width:100%;max-width:400px;\">\n                    <h2 style=\"text-align:center;margin-bottom:1.5rem;\">Profile</h2>\n                    <form id=\"updateProfileForm\" style=\"display:flex;flex-direction:column;gap:1rem;\">\n                        <input type=\"text\" id=\"name\" placeholder=\"Full Name\" required />\n                        <input type=\"email\" id=\"email\" placeholder=\"Email\" required />\n                        <button type=\"submit\" class=\"btn btn-blue\" style=\"margin-top:1rem;\">Update Profile</button>\n                    </form>\n                    <p id=\"message\" style=\"margin-top:1rem;text-align:center;\"></p>\n                </div>\n            </section>\n        </div>\n    ";
+
+  // Sidebar menu click handlers
+  document.getElementById("menuSettings").addEventListener("click", function (e) {
+    e.preventDefault();
+    (0,_SystemSettings__WEBPACK_IMPORTED_MODULE_0__.loadSystemSettings)(app);
+  });
+  document.getElementById("menuStudents").addEventListener("click", function (e) {
+    e.preventDefault();
+    (0,_Students__WEBPACK_IMPORTED_MODULE_1__.loadStudents)(app);
+  });
+
+  // Load user info
+  var userId = localStorage.getItem("user_id") || 1;
+  function loadProfileData() {
+    return _loadProfileData.apply(this, arguments);
+  }
+  function _loadProfileData() {
+    _loadProfileData = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var res, user;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            _context2.n = 1;
+            return fetch("/api/profile/".concat(userId));
+          case 1:
+            res = _context2.v;
+            if (!res.ok) {
+              _context2.n = 3;
+              break;
+            }
+            _context2.n = 2;
+            return res.json();
+          case 2:
+            user = _context2.v;
+            document.getElementById("name").value = user.name || "";
+            document.getElementById("email").value = user.email || "";
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2);
+    }));
+    return _loadProfileData.apply(this, arguments);
+  }
+  loadProfileData();
+
+  // Update Profile
+  document.getElementById("updateProfileForm").addEventListener("submit", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+      var name, email, res, msg;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            e.preventDefault();
+            name = document.getElementById("name").value;
+            email = document.getElementById("email").value;
+            _context.n = 1;
+            return fetch("/api/profile/".concat(userId), {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                name: name,
+                email: email
+              })
+            });
+          case 1:
+            res = _context.v;
+            msg = document.getElementById("message");
+            msg.textContent = res.ok ? "Profile updated!" : "Failed to update profile.";
+            if (res.ok) loadProfileData();
+          case 2:
+            return _context.a(2);
+        }
+      }, _callee);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   });
 }
 
@@ -42528,6 +42701,165 @@ function loadRegister(app, goLogin) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Students.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Students.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loadStudents: () => (/* binding */ loadStudents)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+function loadStudents(app) {
+  app.innerHTML = "\n      <div class=\"students-container p-4\">\n        <h2 class=\"text-2xl font-bold mb-4\">Students</h2>\n\n        <!-- Student List -->\n        <table class=\"w-full border-collapse border text-sm mb-8\">\n          <thead class=\"bg-gray-100\">\n            <tr>\n              <th class=\"border p-2\">ID</th>\n              <th class=\"border p-2\">Name</th>\n              <th class=\"border p-2\">Course</th>\n              <th class=\"border p-2\">Department</th>\n              <th class=\"border p-2\">Actions</th>\n            </tr>\n          </thead>\n          <tbody id=\"studentList\"></tbody>\n        </table>\n\n        <!-- Add Student Form -->\n        <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n          <input type=\"text\" name=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n          <input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"date_of_birth\" class=\"border p-2 rounded\">\n          <select name=\"sex\" class=\"border p-2 rounded\">\n            <option value=\"\">Select Sex</option>\n            <option value=\"Male\">Male</option>\n            <option value=\"Female\">Female</option>\n          </select>\n          <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Department</option>\n          </select>\n          <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Course</option>\n          </select>\n          <input type=\"text\" name=\"yearstatus\" placeholder=\"Year Status (e.g. 3rd Year)\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"enrollment_date\" class=\"border p-2 rounded\">\n          <button type=\"submit\" class=\"col-span-2 bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n            Add Student\n          </button>\n        </form>\n      </div>\n    ";
+
+  // Load departments and courses for select options
+  function loadSelectOptions() {
+    return _loadSelectOptions.apply(this, arguments);
+  } // Load students when page opens
+  function _loadSelectOptions() {
+    _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, departments, courses, departmentSelect, courseSelect, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/courses")]);
+          case 1:
+            _yield$Promise$all = _context2.v;
+            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+            departmentsRes = _yield$Promise$all2[0];
+            coursesRes = _yield$Promise$all2[1];
+            departments = departmentsRes.data;
+            courses = coursesRes.data;
+            departmentSelect = document.getElementById("departmentSelect");
+            departmentSelect.innerHTML = "<option value=\"\">Select Department</option>" + departments.map(function (d) {
+              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+            }).join("");
+            courseSelect = document.getElementById("courseSelect");
+            courseSelect.innerHTML = "<option value=\"\">Select Course</option>" + courses.map(function (c) {
+              return "<option value=\"".concat(c.id, "\">").concat(c.name, "</option>");
+            }).join("");
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            alert("Failed to load departments or courses.");
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2]]);
+    }));
+    return _loadSelectOptions.apply(this, arguments);
+  }
+  fetchStudents();
+  loadSelectOptions();
+  function fetchStudents() {
+    return _fetchStudents.apply(this, arguments);
+  } // Add student
+  function _fetchStudents() {
+    _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var res, students, tbody, _t3;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            _context4.p = 0;
+            _context4.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students");
+          case 1:
+            res = _context4.v;
+            students = res.data;
+            tbody = document.getElementById("studentList");
+            tbody.innerHTML = students.map(function (s) {
+              var _s$course, _s$department;
+              return "\n              <tr>\n                <td class=\"border p-2\">".concat(s.studID, "</td>\n                <td class=\"border p-2\">").concat(s.firstname, " ").concat(s.lastname, "</td>\n                <td class=\"border p-2\">").concat(((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.name) || "", "</td>\n                <td class=\"border p-2\">").concat(((_s$department = s.department) === null || _s$department === void 0 ? void 0 : _s$department.name) || "", "</td>\n                <td class=\"border p-2\">\n                  <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
+            }).join("");
+            document.querySelectorAll(".delete-btn").forEach(function (btn) {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+                var id;
+                return _regenerator().w(function (_context3) {
+                  while (1) switch (_context3.n) {
+                    case 0:
+                      id = btn.dataset.id;
+                      if (!confirm("Delete this student?")) {
+                        _context3.n = 2;
+                        break;
+                      }
+                      _context3.n = 1;
+                      return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
+                    case 1:
+                      fetchStudents();
+                    case 2:
+                      return _context3.a(2);
+                  }
+                }, _callee3);
+              })));
+            });
+            _context4.n = 3;
+            break;
+          case 2:
+            _context4.p = 2;
+            _t3 = _context4.v;
+            console.error("Error fetching students:", _t3);
+          case 3:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[0, 2]]);
+    }));
+    return _fetchStudents.apply(this, arguments);
+  }
+  var form = document.getElementById("studentForm");
+  form.addEventListener("submit", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+      var formData, _error$response, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            e.preventDefault();
+            formData = Object.fromEntries(new FormData(form));
+            _context.p = 1;
+            _context.n = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
+          case 2:
+            form.reset();
+            fetchStudents();
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
+            _t = _context.v;
+            console.error("Error adding student:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
+            alert("Failed to add student. Check console for details.");
+          case 4:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 3]]);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/SystemSettings.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/SystemSettings.js ***!
@@ -42544,59 +42876,23 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadSystemSettings(app) {
-  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-forms\">\n                    <div class=\"settings-form-card\">\n                        <h3>Add Course</h3>\n                        <form id=\"addCourseForm\">\n                            <input type=\"text\" name=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-blue\">Add Course</button>\n                        </form>\n                        <div id=\"coursesList\" style=\"margin-top:1rem;\"></div>\n                    </div>\n                    <div class=\"settings-form-card\">\n                        <h3>Add Department</h3>\n                        <form id=\"addDepartmentForm\">\n                            <input type=\"text\" name=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                            <input type=\"text\" name=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-green\">Add Department</button>\n                        </form>\n                        <div id=\"departmentsList\" style=\"margin-top:1rem;\"></div>\n                    </div>\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-forms\" style=\"display:flex;gap:2rem;flex-wrap:wrap;\">\n                    <div class=\"settings-form-card\" style=\"flex:1;\">\n                        <h3>Add Course</h3>\n                        <form id=\"addCourseForm\">\n                            <input type=\"text\" name=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-blue\">Add Course</button>\n                        </form>\n                        <div style=\"margin-top:2rem;\">\n                            <h4>Courses List</h4>\n                            <table style=\"width:100%;border-collapse:collapse;margin-top:0.5rem;\">\n                                <thead>\n                                    <tr style=\"background:#f3f4f6;\">\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Course Name</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                                    </tr>\n                                </thead>\n                                <tbody id=\"coursesTable\"></tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <div class=\"settings-form-card\" style=\"flex:1;\">\n                        <h3>Add Department</h3>\n                        <form id=\"addDepartmentForm\">\n                            <input type=\"text\" name=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                            <input type=\"text\" name=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-green\">Add Department</button>\n                        </form>\n                        <div style=\"margin-top:2rem;\">\n                            <h4>Departments List</h4>\n                            <table style=\"width:100%;border-collapse:collapse;margin-top:0.5rem;\">\n                                <thead>\n                                    <tr style=\"background:#f3f4f6;\">\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Department Name</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Head</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                                    </tr>\n                                </thead>\n                                <tbody id=\"departmentsTable\"></tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
 
   // Fetch and render courses
   function fetchCourses() {
     return _fetchCourses.apply(this, arguments);
   } // Fetch and render departments
   function _fetchCourses() {
-    _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var res, list, data;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.n) {
-          case 0:
-            _context3.n = 1;
-            return fetch('/api/courses');
-          case 1:
-            res = _context3.v;
-            list = document.getElementById('coursesList');
-            if (!res.ok) {
-              _context3.n = 3;
-              break;
-            }
-            _context3.n = 2;
-            return res.json();
-          case 2:
-            data = _context3.v;
-            list.innerHTML = "<ul>".concat(data.map(function (c) {
-              return "<li>".concat(c.name, "</li>");
-            }).join(''), "</ul>");
-            _context3.n = 4;
-            break;
-          case 3:
-            list.innerHTML = '<span style="color:red;">Failed to load courses.</span>';
-          case 4:
-            return _context3.a(2);
-        }
-      }, _callee3);
-    }));
-    return _fetchCourses.apply(this, arguments);
-  }
-  function fetchDepartments() {
-    return _fetchDepartments.apply(this, arguments);
-  } // Initial fetch
-  function _fetchDepartments() {
-    _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var res, list, data;
+    _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var res, table, data;
       return _regenerator().w(function (_context4) {
         while (1) switch (_context4.n) {
           case 0:
             _context4.n = 1;
-            return fetch('/api/departments');
+            return fetch('/api/courses');
           case 1:
             res = _context4.v;
-            list = document.getElementById('departmentsList');
+            table = document.getElementById('coursesTable');
             if (!res.ok) {
               _context4.n = 3;
               break;
@@ -42605,17 +42901,97 @@ function loadSystemSettings(app) {
             return res.json();
           case 2:
             data = _context4.v;
-            list.innerHTML = "<ul>".concat(data.map(function (d) {
-              return "<li>".concat(d.name, " (").concat(d.head, ")</li>");
-            }).join(''), "</ul>");
+            table.innerHTML = data.length ? data.map(function (c, i) {
+              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(c.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"delete-course-btn\" data-id=\"").concat(c.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
+            }).join('') : "<tr><td colspan=\"3\" style=\"text-align:center;padding:8px;\">No courses found.</td></tr>";
+            // Add delete event listeners
+            document.querySelectorAll('.delete-course-btn').forEach(function (btn) {
+              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+                return _regenerator().w(function (_context3) {
+                  while (1) switch (_context3.n) {
+                    case 0:
+                      if (!confirm('Are you sure you want to delete this course?')) {
+                        _context3.n = 2;
+                        break;
+                      }
+                      _context3.n = 1;
+                      return fetch("/api/courses/".concat(btn.dataset.id), {
+                        method: 'DELETE'
+                      });
+                    case 1:
+                      fetchCourses();
+                    case 2:
+                      return _context3.a(2);
+                  }
+                }, _callee3);
+              })));
+            });
             _context4.n = 4;
             break;
           case 3:
-            list.innerHTML = '<span style="color:red;">Failed to load departments.</span>';
+            table.innerHTML = "<tr><td colspan=\"3\" style=\"color:red;text-align:center;\">Failed to load courses.</td></tr>";
           case 4:
             return _context4.a(2);
         }
       }, _callee4);
+    }));
+    return _fetchCourses.apply(this, arguments);
+  }
+  function fetchDepartments() {
+    return _fetchDepartments.apply(this, arguments);
+  } // Initial fetch
+  function _fetchDepartments() {
+    _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var res, table, data;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.n) {
+          case 0:
+            _context6.n = 1;
+            return fetch('/api/departments');
+          case 1:
+            res = _context6.v;
+            table = document.getElementById('departmentsTable');
+            if (!res.ok) {
+              _context6.n = 3;
+              break;
+            }
+            _context6.n = 2;
+            return res.json();
+          case 2:
+            data = _context6.v;
+            table.innerHTML = data.length ? data.map(function (d, i) {
+              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.head, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"delete-dept-btn\" data-id=\"").concat(d.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
+            }).join('') : "<tr><td colspan=\"4\" style=\"text-align:center;padding:8px;\">No departments found.</td></tr>";
+            // Add delete event listeners
+            document.querySelectorAll('.delete-dept-btn').forEach(function (btn) {
+              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+                return _regenerator().w(function (_context5) {
+                  while (1) switch (_context5.n) {
+                    case 0:
+                      if (!confirm('Are you sure you want to delete this department?')) {
+                        _context5.n = 2;
+                        break;
+                      }
+                      _context5.n = 1;
+                      return fetch("/api/departments/".concat(btn.dataset.id), {
+                        method: 'DELETE'
+                      });
+                    case 1:
+                      fetchDepartments();
+                    case 2:
+                      return _context5.a(2);
+                  }
+                }, _callee5);
+              })));
+            });
+            _context6.n = 4;
+            break;
+          case 3:
+            table.innerHTML = "<tr><td colspan=\"4\" style=\"color:red;text-align:center;\">Failed to load departments.</td></tr>";
+          case 4:
+            return _context6.a(2);
+        }
+      }, _callee6);
     }));
     return _fetchDepartments.apply(this, arguments);
   }
@@ -42665,7 +43041,7 @@ function loadSystemSettings(app) {
             if (res.ok) {
               msg.textContent = "Course added!";
               this.reset();
-              fetchCourses(); // Refresh list
+              fetchCourses(); // Refresh table
             } else {
               msg.textContent = "Failed to add course.";
             }
@@ -42708,7 +43084,7 @@ function loadSystemSettings(app) {
             if (res.ok) {
               msg.textContent = "Department added!";
               this.reset();
-              fetchDepartments(); // Refresh list
+              fetchDepartments(); // Refresh table
             } else {
               msg.textContent = "Failed to add department.";
             }

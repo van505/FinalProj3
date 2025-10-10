@@ -23,4 +23,11 @@ class CourseController extends Controller
 
         return response()->json($course, 201);
     }
+
+    public function destroy($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->delete(); // Soft delete
+        return response()->json(['message' => 'Course deleted']);
+    }
 }

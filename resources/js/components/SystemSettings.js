@@ -28,23 +28,48 @@ export function loadSystemSettings(app) {
             </header>
             <section class="settings-section">
                 <h2 class="settings-title"><span style="font-size:2rem;">⚙️</span> System Settings</h2>
-                <div class="settings-forms">
-                    <div class="settings-form-card">
+                <div class="settings-forms" style="display:flex;gap:2rem;flex-wrap:wrap;">
+                    <div class="settings-form-card" style="flex:1;">
                         <h3>Add Course</h3>
                         <form id="addCourseForm">
                             <input type="text" name="course_name" placeholder="Course Name" required class="input" />
                             <button type="submit" class="btn btn-blue">Add Course</button>
                         </form>
-                        <div id="coursesList" style="margin-top:1rem;"></div>
+                        <div style="margin-top:2rem;">
+                            <h4>Courses List</h4>
+                            <table style="width:100%;border-collapse:collapse;margin-top:0.5rem;">
+                                <thead>
+                                    <tr style="background:#f3f4f6;">
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">Course Name</th>
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coursesTable"></tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="settings-form-card">
+                    <div class="settings-form-card" style="flex:1;">
                         <h3>Add Department</h3>
                         <form id="addDepartmentForm">
                             <input type="text" name="department_name" placeholder="Department Name" required class="input" />
                             <input type="text" name="department_head" placeholder="Department Head" required class="input" />
                             <button type="submit" class="btn btn-green">Add Department</button>
                         </form>
-                        <div id="departmentsList" style="margin-top:1rem;"></div>
+                        <div style="margin-top:2rem;">
+                            <h4>Departments List</h4>
+                            <table style="width:100%;border-collapse:collapse;margin-top:0.5rem;">
+                                <thead>
+                                    <tr style="background:#f3f4f6;">
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">Department Name</th>
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">Head</th>
+                                        <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="departmentsTable"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div id="settingsMessage"></div>
@@ -55,24 +80,59 @@ export function loadSystemSettings(app) {
     // Fetch and render courses
     async function fetchCourses() {
         const res = await fetch('/api/courses');
-        const list = document.getElementById('coursesList');
+        const table = document.getElementById('coursesTable');
         if (res.ok) {
             const data = await res.json();
-            list.innerHTML = `<ul>${data.map(c => `<li>${c.name}</li>`).join('')}</ul>`;
+            table.innerHTML = data.length
+                ? data.map((c, i) => `<tr>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${c.name}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">
+                        <button class="delete-course-btn" data-id="${c.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Delete</button>
+                    </td>
+                </tr>`).join('')
+                : `<tr><td colspan="3" style="text-align:center;padding:8px;">No courses found.</td></tr>`;
+            // Add delete event listeners
+            document.querySelectorAll('.delete-course-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    if (confirm('Are you sure you want to delete this course?')) {
+                        await fetch(`/api/courses/${btn.dataset.id}`, { method: 'DELETE' });
+                        fetchCourses();
+                    }
+                });
+            });
         } else {
-            list.innerHTML = '<span style="color:red;">Failed to load courses.</span>';
+            table.innerHTML = `<tr><td colspan="3" style="color:red;text-align:center;">Failed to load courses.</td></tr>`;
         }
     }
 
     // Fetch and render departments
     async function fetchDepartments() {
         const res = await fetch('/api/departments');
-        const list = document.getElementById('departmentsList');
+        const table = document.getElementById('departmentsTable');
         if (res.ok) {
             const data = await res.json();
-            list.innerHTML = `<ul>${data.map(d => `<li>${d.name} (${d.head})</li>`).join('')}</ul>`;
+            table.innerHTML = data.length
+                ? data.map((d, i) => `<tr>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${d.name}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${d.head}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">
+                        <button class="delete-dept-btn" data-id="${d.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Delete</button>
+                    </td>
+                </tr>`).join('')
+                : `<tr><td colspan="4" style="text-align:center;padding:8px;">No departments found.</td></tr>`;
+            // Add delete event listeners
+            document.querySelectorAll('.delete-dept-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    if (confirm('Are you sure you want to delete this department?')) {
+                        await fetch(`/api/departments/${btn.dataset.id}`, { method: 'DELETE' });
+                        fetchDepartments();
+                    }
+                });
+            });
         } else {
-            list.innerHTML = '<span style="color:red;">Failed to load departments.</span>';
+            table.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Failed to load departments.</td></tr>`;
         }
     }
 
@@ -113,7 +173,7 @@ export function loadSystemSettings(app) {
         if (res.ok) {
             msg.textContent = "Course added!";
             this.reset();
-            fetchCourses(); // Refresh list
+            fetchCourses(); // Refresh table
         } else {
             msg.textContent = "Failed to add course.";
         }
@@ -137,7 +197,7 @@ export function loadSystemSettings(app) {
         if (res.ok) {
             msg.textContent = "Department added!";
             this.reset();
-            fetchDepartments(); // Refresh list
+            fetchDepartments(); // Refresh table
         } else {
             msg.textContent = "Failed to add department.";
         }
