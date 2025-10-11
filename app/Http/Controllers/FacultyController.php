@@ -1,5 +1,4 @@
 <?php
-<?php
 
 namespace App\Http\Controllers;
 
@@ -70,6 +69,6 @@ class FacultyController extends Controller
     {
         $faculty = Faculty::findOrFail($id);
         $faculty->delete();
-        return response()->json(['message' => 'Faculty deleted']);
+        return response()->json(['message' => 'Faculty deleted successfully!']);
     }
 }

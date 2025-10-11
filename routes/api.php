@@ -28,22 +28,30 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 // Protected routes
+//Course routes
 Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/courses', [CourseController::class, 'store']);
+Route::put('/courses/{id}', [CourseController::class, 'update']);
+Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+
+// Department routes
 Route::get('/departments', [DepartmentController::class, 'index']);
 Route::post('/departments', [DepartmentController::class, 'store']);
-Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+Route::put('/departments/{id}', [DepartmentController::class, 'update']);
 Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
 
+// Profile routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'show']);
     Route::put('/profile/{id}', [ProfileController::class, 'update']);
     Route::put('/profile/{id}/password', [ProfileController::class, 'updatePassword']);
 });
 
+// Student routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/students', [StudentController::class, 'index']);
     Route::post('/students', [StudentController::class, 'store']);
+    Route::get('/students/{id}', [StudentController::class, 'show']);
     Route::put('/students/{id}', [StudentController::class, 'update']);
     Route::delete('/students/{id}', [StudentController::class, 'destroy']);
 });
@@ -54,3 +62,4 @@ Route::post('/faculty', [FacultyController::class, 'store']);
 Route::get('/faculty/{id}', [FacultyController::class, 'show']);
 Route::put('/faculty/{id}', [FacultyController::class, 'update']);
 Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);
+

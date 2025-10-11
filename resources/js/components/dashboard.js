@@ -1,7 +1,8 @@
 import Chart from "chart.js/auto";
-import { loadSystemSettings } from './SystemSettings';
+import { loadSystemSettings } from "./SystemSettings";
 import { loadProfile } from "./Profile.js";
-import { loadStudents } from "./Students";
+import { loadStudents } from "./Students.js";
+import { loadFaculty } from "./Faculty.js"; // ✅ Added import
 
 // ✅ Export function so app.js can call it
 export function loadDashboard(app) {
@@ -11,7 +12,7 @@ export function loadDashboard(app) {
             <ul class="sidebar-menu">
                 <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
                 <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
-                <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
+                <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li> <!-- ✅ Added ID -->
                 <li><a href="#" data-page="archive"><span>Archive</span></a></li>
                 <li><a href="#" data-page="report"><span>Report</span></a></li>
                 <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
@@ -117,6 +118,7 @@ export function loadDashboard(app) {
         },
     });
 
+    // ✅ System Settings
     document.querySelectorAll('.sidebar-menu a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -133,7 +135,7 @@ export function loadDashboard(app) {
         window.location.href = "/";
     });
 
-    // Add event listener for Profile menu
+    // ✅ Profile
     const menuProfile = document.getElementById("menuProfile");
     if (menuProfile) {
         menuProfile.addEventListener("click", (e) => {
@@ -144,13 +146,23 @@ export function loadDashboard(app) {
         });
     }
 
-    // Add event listener for Students menu
+    // ✅ Students
     const menuStudents = document.getElementById("menuStudents");
     if (menuStudents) {
         menuStudents.addEventListener("click", (e) => {
             e.preventDefault();
             const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
             loadStudents(mainContent);
+        });
+    }
+
+    // ✅ Faculty
+    const menuFaculty = document.getElementById("menuFaculty");
+    if (menuFaculty) {
+        menuFaculty.addEventListener("click", (e) => {
+            e.preventDefault();
+            const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+            loadFaculty(mainContent);
         });
     }
 }

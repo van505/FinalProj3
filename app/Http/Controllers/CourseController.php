@@ -30,4 +30,21 @@ class CourseController extends Controller
         $course->delete(); // Soft delete
         return response()->json(['message' => 'Course deleted']);
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $course = Course::findOrFail($id);
+        $course->name = $request->name;
+        $course->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Course updated successfully',
+            'data' => $course
+        ]);
+    }
 }

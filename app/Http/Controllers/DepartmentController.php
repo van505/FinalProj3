@@ -43,4 +43,24 @@ class DepartmentController extends Controller
         $department->delete(); // Soft delete
         return response()->json(['message' => 'Department deleted']);
     }
+
+    // Update a department
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'head' => 'nullable|string|max:255',
+        ]);
+
+        $department = Department::findOrFail($id);
+        $department->name = $request->name;
+        $department->head = $request->head;
+        $department->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Department updated successfully',
+            'data' => $department
+        ]);
+    }
 }

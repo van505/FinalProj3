@@ -42371,15 +42371,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var chart_js_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js/auto */ "./node_modules/chart.js/auto/auto.js");
 /* harmony import */ var _SystemSettings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemSettings */ "./resources/js/components/SystemSettings.js");
 /* harmony import */ var _Profile_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile.js */ "./resources/js/components/Profile.js");
-/* harmony import */ var _Students__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Students */ "./resources/js/components/Students.js");
+/* harmony import */ var _Students_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Students.js */ "./resources/js/components/Students.js");
+/* harmony import */ var _Faculty_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Faculty.js */ "./resources/js/components/Faculty.js");
 
 
 
 
+ // ✅ Added import
 
 // ✅ Export function so app.js can call it
 function loadDashboard(app) {
-  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
+  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li> <!-- \u2705 Added ID -->\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
   var dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC65</div>\n                        <div>\n                            <div class=\"card-label\">Student at service</div>\n                            <div class=\"card-value\">12,437</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCDA</div>\n                        <div>\n                            <div class=\"card-label\">Course</div>\n                            <div class=\"card-value\">136</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83C\uDFE2</div>\n                        <div>\n                            <div class=\"card-label\">Department</div>\n                            <div class=\"card-value\">9</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCC5</div>\n                        <div>\n                            <div class=\"card-label\">Academic Year</div>\n                            <div class=\"card-value\">2024 - 2025</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Total numbers of students per course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"barChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
 
   // ✅ Render layout
@@ -42411,6 +42413,8 @@ function loadDashboard(app) {
       }
     }
   });
+
+  // ✅ System Settings
   document.querySelectorAll('.sidebar-menu a').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
@@ -42427,7 +42431,7 @@ function loadDashboard(app) {
     window.location.href = "/";
   });
 
-  // Add event listener for Profile menu
+  // ✅ Profile
   var menuProfile = document.getElementById("menuProfile");
   if (menuProfile) {
     menuProfile.addEventListener("click", function (e) {
@@ -42438,15 +42442,240 @@ function loadDashboard(app) {
     });
   }
 
-  // Add event listener for Students menu
+  // ✅ Students
   var menuStudents = document.getElementById("menuStudents");
   if (menuStudents) {
     menuStudents.addEventListener("click", function (e) {
       e.preventDefault();
       var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
-      (0,_Students__WEBPACK_IMPORTED_MODULE_3__.loadStudents)(mainContent);
+      (0,_Students_js__WEBPACK_IMPORTED_MODULE_3__.loadStudents)(mainContent);
     });
   }
+
+  // ✅ Faculty
+  var menuFaculty = document.getElementById("menuFaculty");
+  if (menuFaculty) {
+    menuFaculty.addEventListener("click", function (e) {
+      e.preventDefault();
+      var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+      (0,_Faculty_js__WEBPACK_IMPORTED_MODULE_4__.loadFaculty)(mainContent);
+    });
+  }
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Faculty.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Faculty.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loadFaculty: () => (/* binding */ loadFaculty)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+function loadFaculty(app) {
+  app.innerHTML = "\n      <div class=\"faculty-container p-4\">\n        <h2 class=\"text-2xl font-bold mb-4\">Faculty</h2>\n\n        <!-- Faculty List -->\n        <table class=\"w-full border-collapse border text-sm mb-8\">\n          <thead class=\"bg-gray-100\">\n            <tr>\n              <th class=\"border p-2\">ID</th>\n              <th class=\"border p-2\">Faculty ID</th>\n              <th class=\"border p-2\">Name</th>\n              <th class=\"border p-2\">Email</th>\n              <th class=\"border p-2\">Department</th>\n              <th class=\"border p-2\">Position</th>\n              <th class=\"border p-2\">Status</th>\n              <th class=\"border p-2\">Actions</th>\n            </tr>\n          </thead>\n          <tbody id=\"facultyList\"></tbody>\n        </table>\n\n        <!-- Add/Edit Faculty Form -->\n        <form id=\"facultyForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n          <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n          <input type=\"text\" name=\"faculty_id\" id=\"faculty_id\" placeholder=\"Faculty ID (e.g. F001)\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"first_name\" id=\"first_name\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"middle_name\" id=\"middle_name\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"last_name\" id=\"last_name\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n          <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"address\" id=\"address\" placeholder=\"Address\" class=\"border p-2 rounded\">\n          <select name=\"department\" id=\"department\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Department</option>\n          </select>\n          <input type=\"text\" name=\"position\" id=\"position\" placeholder=\"Position\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"date_hired\" id=\"date_hired\" class=\"border p-2 rounded\">\n          <select name=\"status\" id=\"status\" class=\"border p-2 rounded\" required>\n            <option value=\"active\">Active</option>\n            <option value=\"inactive\">Inactive</option>\n          </select>\n          <div class=\"col-span-2 flex gap-2\">\n            <button type=\"submit\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\" id=\"submitBtn\">\n              Add Faculty\n            </button>\n            <button type=\"button\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" id=\"cancelBtn\" style=\"display:none;\">\n              Cancel\n            </button>\n          </div>\n        </form>\n      </div>\n    ";
+  var isEditing = false;
+
+  // Load department options from system settings
+  function loadDepartments() {
+    return _loadDepartments.apply(this, arguments);
+  }
+  function _loadDepartments() {
+    _loadDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var res, departments, departmentSelect, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            _context2.p = 0;
+            _context2.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments");
+          case 1:
+            res = _context2.v;
+            departments = res.data;
+            departmentSelect = document.getElementById("department");
+            departmentSelect.innerHTML = "<option value=\"\">Select Department</option>" + departments.map(function (d) {
+              return "<option value=\"".concat(d.name, "\">").concat(d.name, "</option>");
+            }).join("");
+            _context2.n = 3;
+            break;
+          case 2:
+            _context2.p = 2;
+            _t2 = _context2.v;
+            alert("Failed to load departments.");
+          case 3:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[0, 2]]);
+    }));
+    return _loadDepartments.apply(this, arguments);
+  }
+  loadDepartments();
+
+  // Load faculty when page opens
+  fetchFaculty();
+  function fetchFaculty() {
+    return _fetchFaculty.apply(this, arguments);
+  }
+  function _fetchFaculty() {
+    _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var res, faculty, tbody, _t4;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            _context5.p = 0;
+            _context5.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty");
+          case 1:
+            res = _context5.v;
+            faculty = res.data;
+            tbody = document.getElementById("facultyList");
+            tbody.innerHTML = faculty.map(function (f) {
+              return "\n              <tr>\n                <td class=\"border p-2\">".concat(f.id, "</td>\n                <td class=\"border p-2\">").concat(f.faculty_id, "</td>\n                <td class=\"border p-2\">").concat(f.first_name, " ").concat(f.middle_name ? f.middle_name + ' ' : '').concat(f.last_name, "</td>\n                <td class=\"border p-2\">").concat(f.email, "</td>\n                <td class=\"border p-2\">").concat(f.department || "", "</td>\n                <td class=\"border p-2\">").concat(f.position || "", "</td>\n                <td class=\"border p-2\">").concat(f.status, "</td>\n                <td class=\"border p-2\">\n                  <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(f.id, "\">Edit</button>\n                  <button class=\"text-red-600 delete-btn\" data-id=\"").concat(f.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
+            }).join("");
+            document.querySelectorAll(".delete-btn").forEach(function (btn) {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+                var id;
+                return _regenerator().w(function (_context3) {
+                  while (1) switch (_context3.n) {
+                    case 0:
+                      id = btn.dataset.id;
+                      if (!confirm("Delete this faculty member?")) {
+                        _context3.n = 2;
+                        break;
+                      }
+                      _context3.n = 1;
+                      return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/faculty/".concat(id));
+                    case 1:
+                      fetchFaculty();
+                      resetForm();
+                    case 2:
+                      return _context3.a(2);
+                  }
+                }, _callee3);
+              })));
+            });
+            document.querySelectorAll(".edit-btn").forEach(function (btn) {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+                var id, _res, f, _t3;
+                return _regenerator().w(function (_context4) {
+                  while (1) switch (_context4.p = _context4.n) {
+                    case 0:
+                      id = btn.dataset.id;
+                      _context4.p = 1;
+                      _context4.n = 2;
+                      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
+                    case 2:
+                      _res = _context4.v;
+                      f = _res.data;
+                      document.getElementById("edit_id").value = f.id;
+                      document.getElementById("faculty_id").value = f.faculty_id;
+                      document.getElementById("first_name").value = f.first_name;
+                      document.getElementById("middle_name").value = f.middle_name || "";
+                      document.getElementById("last_name").value = f.last_name;
+                      document.getElementById("email").value = f.email;
+                      document.getElementById("phone").value = f.phone || "";
+                      document.getElementById("address").value = f.address || "";
+                      document.getElementById("department").value = f.department || "";
+                      document.getElementById("position").value = f.position || "";
+                      document.getElementById("date_hired").value = f.date_hired || "";
+                      document.getElementById("status").value = f.status;
+                      document.getElementById("submitBtn").textContent = "Update Faculty";
+                      document.getElementById("cancelBtn").style.display = "inline-block";
+                      isEditing = true;
+                      _context4.n = 4;
+                      break;
+                    case 3:
+                      _context4.p = 3;
+                      _t3 = _context4.v;
+                      alert("Failed to fetch faculty data.");
+                    case 4:
+                      return _context4.a(2);
+                  }
+                }, _callee4, null, [[1, 3]]);
+              })));
+            });
+            _context5.n = 3;
+            break;
+          case 2:
+            _context5.p = 2;
+            _t4 = _context5.v;
+            console.error("Error fetching faculty:", _t4);
+          case 3:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[0, 2]]);
+    }));
+    return _fetchFaculty.apply(this, arguments);
+  }
+  var submitBtn = document.getElementById("submitBtn");
+  var cancelBtn = document.getElementById("cancelBtn");
+
+  // Add/Edit faculty
+  var form = document.getElementById("facultyForm");
+  form.addEventListener("submit", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+      var formData, id, _error$response, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            e.preventDefault();
+            formData = Object.fromEntries(new FormData(form));
+            id = formData.edit_id;
+            delete formData.edit_id; // Remove edit_id before sending to API
+            _context.p = 1;
+            if (!(isEditing && id)) {
+              _context.n = 3;
+              break;
+            }
+            _context.n = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/faculty/".concat(id), formData);
+          case 2:
+            _context.n = 4;
+            break;
+          case 3:
+            _context.n = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/faculty", formData);
+          case 4:
+            form.reset();
+            submitBtn.textContent = "Add Faculty";
+            cancelBtn.style.display = "none";
+            isEditing = false;
+            fetchFaculty();
+            _context.n = 6;
+            break;
+          case 5:
+            _context.p = 5;
+            _t = _context.v;
+            console.error("Error saving faculty:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
+            alert("Failed to save faculty. Check console for details.");
+          case 6:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 5]]);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+
+  // Cancel button logic
+  cancelBtn.addEventListener("click", function () {
+    form.reset();
+    submitBtn.textContent = "Add Faculty";
+    cancelBtn.style.display = "none";
+    isEditing = false;
+  });
 }
 
 /***/ }),
@@ -42726,12 +42955,13 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 function loadStudents(app) {
-  app.innerHTML = "\n      <div class=\"students-container p-4\">\n        <h2 class=\"text-2xl font-bold mb-4\">Students</h2>\n\n        <!-- Student List -->\n        <table class=\"w-full border-collapse border text-sm mb-8\">\n          <thead class=\"bg-gray-100\">\n            <tr>\n              <th class=\"border p-2\">ID</th>\n              <th class=\"border p-2\">Name</th>\n              <th class=\"border p-2\">Course</th>\n              <th class=\"border p-2\">Department</th>\n              <th class=\"border p-2\">Actions</th>\n            </tr>\n          </thead>\n          <tbody id=\"studentList\"></tbody>\n        </table>\n\n        <!-- Add Student Form -->\n        <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n          <input type=\"text\" name=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n          <input type=\"email\" name=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"date_of_birth\" class=\"border p-2 rounded\">\n          <select name=\"sex\" class=\"border p-2 rounded\">\n            <option value=\"\">Select Sex</option>\n            <option value=\"Male\">Male</option>\n            <option value=\"Female\">Female</option>\n          </select>\n          <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Department</option>\n          </select>\n          <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Course</option>\n          </select>\n          <input type=\"text\" name=\"yearstatus\" placeholder=\"Year Status (e.g. 3rd Year)\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"enrollment_date\" class=\"border p-2 rounded\">\n          <button type=\"submit\" class=\"col-span-2 bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n            Add Student\n          </button>\n        </form>\n      </div>\n    ";
+  app.innerHTML = "\n    <div class=\"students-container p-4\">\n      <h2 class=\"text-2xl font-bold mb-4\">Students</h2>\n\n      <!-- Student List -->\n      <table class=\"w-full border-collapse border text-sm mb-8\">\n        <thead class=\"bg-gray-100\">\n          <tr>\n            <th class=\"border p-2\">ID</th>\n            <th class=\"border p-2\">Student ID</th>\n            <th class=\"border p-2\">Name</th>\n            <th class=\"border p-2\">Course</th>\n            <th class=\"border p-2\">Department</th>\n            <th class=\"border p-2\">Year</th>\n            <th class=\"border p-2\">Status</th>\n            <th class=\"border p-2\">Actions</th>\n          </tr>\n        </thead>\n        <tbody id=\"studentList\"></tbody>\n      </table>\n\n      <!-- Add/Edit Student Form -->\n      <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n        <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n\n        <input type=\"text\" name=\"studID\" id=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"firstname\" id=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"middlename\" id=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n        <input type=\"text\" name=\"lastname\" id=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"suffix\" id=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n        <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n        <input type=\"date\" name=\"date_of_birth\" id=\"date_of_birth\" class=\"border p-2 rounded\">\n\n        <select name=\"sex\" id=\"sex\" class=\"border p-2 rounded\">\n          <option value=\"\">Select Sex</option>\n          <option value=\"Male\">Male</option>\n          <option value=\"Female\">Female</option>\n        </select>\n\n        <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Department</option>\n        </select>\n\n        <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Course</option>\n        </select>\n\n        <input type=\"text\" name=\"yearstatus\" id=\"yearstatus\" placeholder=\"Year Status (e.g. 3rd Year)\" class=\"border p-2 rounded\">\n        <input type=\"date\" name=\"enrollment_date\" id=\"enrollment_date\" class=\"border p-2 rounded\">\n\n        <select name=\"status\" id=\"status\" class=\"border p-2 rounded\" required>\n          <option value=\"active\">Active</option>\n          <option value=\"inactive\">Inactive</option>\n        </select>\n\n        <div class=\"col-span-2 flex gap-2\">\n          <button type=\"submit\" id=\"submitBtn\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n            Add Student\n          </button>\n          <button type=\"button\" id=\"cancelBtn\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" style=\"display:none;\">\n            Cancel\n          </button>\n        </div>\n      </form>\n    </div>\n  ";
+  var isEditing = false;
 
-  // Load departments and courses for select options
+  // Load departments and courses
   function loadSelectOptions() {
     return _loadSelectOptions.apply(this, arguments);
-  } // Load students when page opens
+  } // Fetch students
   function _loadSelectOptions() {
     _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
       var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, departments, courses, departmentSelect, courseSelect, _t2;
@@ -42769,28 +42999,28 @@ function loadStudents(app) {
     }));
     return _loadSelectOptions.apply(this, arguments);
   }
-  fetchStudents();
-  loadSelectOptions();
   function fetchStudents() {
     return _fetchStudents.apply(this, arguments);
-  } // Add student
+  } // Submit (Add/Edit)
   function _fetchStudents() {
-    _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var res, students, tbody, _t3;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.p = _context4.n) {
+    _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var res, students, tbody, _t4;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
           case 0:
-            _context4.p = 0;
-            _context4.n = 1;
+            _context5.p = 0;
+            _context5.n = 1;
             return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students");
           case 1:
-            res = _context4.v;
+            res = _context5.v;
             students = res.data;
             tbody = document.getElementById("studentList");
             tbody.innerHTML = students.map(function (s) {
               var _s$course, _s$department;
-              return "\n              <tr>\n                <td class=\"border p-2\">".concat(s.studID, "</td>\n                <td class=\"border p-2\">").concat(s.firstname, " ").concat(s.lastname, "</td>\n                <td class=\"border p-2\">").concat(((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.name) || "", "</td>\n                <td class=\"border p-2\">").concat(((_s$department = s.department) === null || _s$department === void 0 ? void 0 : _s$department.name) || "", "</td>\n                <td class=\"border p-2\">\n                  <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
+              return "\n          <tr>\n            <td class=\"border p-2\">".concat(s.id, "</td>\n            <td class=\"border p-2\">").concat(s.studID, "</td>\n            <td class=\"border p-2\">").concat(s.firstname, " ").concat(s.middlename ? s.middlename + ' ' : '').concat(s.lastname, "</td>\n            <td class=\"border p-2\">").concat(((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.name) || "", "</td>\n            <td class=\"border p-2\">").concat(((_s$department = s.department) === null || _s$department === void 0 ? void 0 : _s$department.name) || "", "</td>\n            <td class=\"border p-2\">").concat(s.yearstatus || "", "</td>\n            <td class=\"border p-2\">").concat(s.status || "active", "</td>\n            <td class=\"border p-2\">\n              <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(s.id, "\">Edit</button>\n              <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\">Delete</button>\n            </td>\n          </tr>\n        ");
             }).join("");
+
+            // Delete logic
             document.querySelectorAll(".delete-btn").forEach(function (btn) {
               btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
                 var id;
@@ -42806,56 +43036,137 @@ function loadStudents(app) {
                       return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
                     case 1:
                       fetchStudents();
+                      resetForm();
                     case 2:
                       return _context3.a(2);
                   }
                 }, _callee3);
               })));
             });
-            _context4.n = 3;
+
+            // Edit logic
+            document.querySelectorAll(".edit-btn").forEach(function (btn) {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+                var id, _res, s, _t3;
+                return _regenerator().w(function (_context4) {
+                  while (1) switch (_context4.p = _context4.n) {
+                    case 0:
+                      id = btn.dataset.id;
+                      _context4.p = 1;
+                      _context4.n = 2;
+                      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students/".concat(id));
+                    case 2:
+                      _res = _context4.v;
+                      s = _res.data;
+                      document.getElementById("edit_id").value = s.id;
+                      document.getElementById("studID").value = s.studID;
+                      document.getElementById("firstname").value = s.firstname;
+                      document.getElementById("middlename").value = s.middlename || "";
+                      document.getElementById("lastname").value = s.lastname;
+                      document.getElementById("suffix").value = s.suffix || "";
+                      document.getElementById("email").value = s.email;
+                      document.getElementById("phone").value = s.phone || "";
+                      document.getElementById("date_of_birth").value = s.date_of_birth || "";
+                      document.getElementById("sex").value = s.sex || "";
+                      document.getElementById("departmentSelect").value = s.department_id || "";
+                      document.getElementById("courseSelect").value = s.course_id || "";
+                      document.getElementById("yearstatus").value = s.yearstatus || "";
+                      document.getElementById("enrollment_date").value = s.enrollment_date || "";
+                      document.getElementById("status").value = s.status || "active";
+                      document.getElementById("submitBtn").textContent = "Update Student";
+                      document.getElementById("cancelBtn").style.display = "inline-block";
+                      isEditing = true;
+                      _context4.n = 4;
+                      break;
+                    case 3:
+                      _context4.p = 3;
+                      _t3 = _context4.v;
+                      alert("Failed to fetch student data.");
+                    case 4:
+                      return _context4.a(2);
+                  }
+                }, _callee4, null, [[1, 3]]);
+              })));
+            });
+            _context5.n = 3;
             break;
           case 2:
-            _context4.p = 2;
-            _t3 = _context4.v;
-            console.error("Error fetching students:", _t3);
+            _context5.p = 2;
+            _t4 = _context5.v;
+            console.error("Error fetching students:", _t4);
           case 3:
-            return _context4.a(2);
+            return _context5.a(2);
         }
-      }, _callee4, null, [[0, 2]]);
+      }, _callee5, null, [[0, 2]]);
     }));
     return _fetchStudents.apply(this, arguments);
   }
   var form = document.getElementById("studentForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var cancelBtn = document.getElementById("cancelBtn");
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var formData, _error$response, _t;
+      var formData, id, _error$response, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
             e.preventDefault();
             formData = Object.fromEntries(new FormData(form));
+            id = formData.edit_id;
+            delete formData.edit_id;
             _context.p = 1;
+            if (!(isEditing && id)) {
+              _context.n = 3;
+              break;
+            }
             _context.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/students/".concat(id), formData);
           case 2:
-            form.reset();
-            fetchStudents();
             _context.n = 4;
             break;
           case 3:
-            _context.p = 3;
-            _t = _context.v;
-            console.error("Error adding student:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
-            alert("Failed to add student. Check console for details.");
+            _context.n = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
           case 4:
+            form.reset();
+            submitBtn.textContent = "Add Student";
+            cancelBtn.style.display = "none";
+            isEditing = false;
+            fetchStudents();
+            _context.n = 6;
+            break;
+          case 5:
+            _context.p = 5;
+            _t = _context.v;
+            console.error("Error saving student:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
+            alert("Failed to save student. Check console for details.");
+          case 6:
             return _context.a(2);
         }
-      }, _callee, null, [[1, 3]]);
+      }, _callee, null, [[1, 5]]);
     }));
     return function (_x) {
       return _ref.apply(this, arguments);
     };
   }());
+
+  // Cancel button
+  cancelBtn.addEventListener("click", function () {
+    form.reset();
+    submitBtn.textContent = "Add Student";
+    cancelBtn.style.display = "none";
+    isEditing = false;
+  });
+  function resetForm() {
+    form.reset();
+    submitBtn.textContent = "Add Student";
+    cancelBtn.style.display = "none";
+    isEditing = false;
+  }
+
+  // Initialize
+  fetchStudents();
+  loadSelectOptions();
 }
 
 /***/ }),
@@ -42876,12 +43187,54 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadSystemSettings(app) {
-  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-forms\" style=\"display:flex;gap:2rem;flex-wrap:wrap;\">\n                    <div class=\"settings-form-card\" style=\"flex:1;\">\n                        <h3>Add Course</h3>\n                        <form id=\"addCourseForm\">\n                            <input type=\"text\" name=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-blue\">Add Course</button>\n                        </form>\n                        <div style=\"margin-top:2rem;\">\n                            <h4>Courses List</h4>\n                            <table style=\"width:100%;border-collapse:collapse;margin-top:0.5rem;\">\n                                <thead>\n                                    <tr style=\"background:#f3f4f6;\">\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Course Name</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                                    </tr>\n                                </thead>\n                                <tbody id=\"coursesTable\"></tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <div class=\"settings-form-card\" style=\"flex:1;\">\n                        <h3>Add Department</h3>\n                        <form id=\"addDepartmentForm\">\n                            <input type=\"text\" name=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                            <input type=\"text\" name=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                            <button type=\"submit\" class=\"btn btn-green\">Add Department</button>\n                        </form>\n                        <div style=\"margin-top:2rem;\">\n                            <h4>Departments List</h4>\n                            <table style=\"width:100%;border-collapse:collapse;margin-top:0.5rem;\">\n                                <thead>\n                                    <tr style=\"background:#f3f4f6;\">\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Department Name</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Head</th>\n                                        <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                                    </tr>\n                                </thead>\n                                <tbody id=\"departmentsTable\"></tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-tabs\" style=\"margin-bottom:2rem;\">\n                    <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n                    <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n                    <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n                    <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n                </div>\n                <div id=\"tabContent\">\n                    <!-- Courses tab content will be loaded here by default -->\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
 
-  // Fetch and render courses
+  // --- Tab Content Templates ---
+  function getCoursesContent() {
+    return "\n            <div>\n                <h4>Courses List</h4>\n                <table style=\"width:100%;border-collapse:collapse;margin-bottom:1rem;\">\n                    <thead>\n                        <tr style=\"background:#f3f4f6;\">\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Course Name</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                        </tr>\n                    </thead>\n                    <tbody id=\"coursesTable\"></tbody>\n                </table>\n                <h3>Add / Edit Course</h3>\n                <form id=\"addCourseForm\">\n                    <input type=\"hidden\" name=\"edit_course_id\" id=\"edit_course_id\" />\n                    <input type=\"text\" name=\"course_name\" id=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                    <button type=\"submit\" class=\"btn btn-blue\" id=\"courseSubmitBtn\">Add Course</button>\n                    <button type=\"button\" class=\"btn btn-gray\" id=\"cancelCourseEditBtn\" style=\"display:none;\">Cancel</button>\n                </form>\n            </div>\n        ";
+  }
+  function getDepartmentsContent() {
+    return "\n            <div>\n                <h4>Departments List</h4>\n                <table style=\"width:100%;border-collapse:collapse;margin-bottom:1rem;\">\n                    <thead>\n                        <tr style=\"background:#f3f4f6;\">\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Department Name</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Head</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                        </tr>\n                    </thead>\n                    <tbody id=\"departmentsTable\"></tbody>\n                </table>\n                <h3>Add / Edit Department</h3>\n                <form id=\"addDepartmentForm\">\n                    <input type=\"hidden\" name=\"edit_department_id\" id=\"edit_department_id\" />\n                    <input type=\"text\" name=\"department_name\" id=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                    <input type=\"text\" name=\"department_head\" id=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                    <button type=\"submit\" class=\"btn btn-green\" id=\"departmentSubmitBtn\">Add Department</button>\n                    <button type=\"button\" class=\"btn btn-gray\" id=\"cancelDepartmentEditBtn\" style=\"display:none;\">Cancel</button>\n                </form>\n            </div>\n        ";
+  }
+  function getAcademicContent() {
+    return "\n            <div>\n                <h4>Academic Years</h4>\n                <p style=\"color:#888;\">(You can implement academic year management here.)</p>\n            </div>\n        ";
+  }
+  function getArchivesContent() {
+    return "\n            <div>\n                <h4>Archives</h4>\n                <p style=\"color:#888;\">(You can implement archive management here.)</p>\n            </div>\n        ";
+  }
+
+  // --- Tab Switching Logic ---
+  var tabContent = document.getElementById("tabContent");
+  function showTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      return btn.classList.remove('active');
+    });
+    document.querySelector(".tab-btn[data-tab=\"".concat(tab, "\"]")).classList.add('active');
+    if (tab === "courses") {
+      tabContent.innerHTML = getCoursesContent();
+      fetchCourses();
+      setupCourseForm();
+    } else if (tab === "departments") {
+      tabContent.innerHTML = getDepartmentsContent();
+      fetchDepartments();
+      setupDepartmentForm();
+    } else if (tab === "academic") {
+      tabContent.innerHTML = getAcademicContent();
+    } else if (tab === "archives") {
+      tabContent.innerHTML = getArchivesContent();
+    }
+  }
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      return showTab(btn.dataset.tab);
+    });
+  });
+
+  // --- Courses Logic ---
+  var editingCourseId = null;
   function fetchCourses() {
     return _fetchCourses.apply(this, arguments);
-  } // Fetch and render departments
+  }
   function _fetchCourses() {
     _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
       var res, table, data;
@@ -42902,9 +43255,8 @@ function loadSystemSettings(app) {
           case 2:
             data = _context4.v;
             table.innerHTML = data.length ? data.map(function (c, i) {
-              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(c.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"delete-course-btn\" data-id=\"").concat(c.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
+              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(c.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-course-btn\" data-id=\"").concat(c.id, "\" data-name=\"").concat(c.name, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-course-btn\" data-id=\"").concat(c.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
             }).join('') : "<tr><td colspan=\"3\" style=\"text-align:center;padding:8px;\">No courses found.</td></tr>";
-            // Add delete event listeners
             document.querySelectorAll('.delete-course-btn').forEach(function (btn) {
               btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
                 return _regenerator().w(function (_context3) {
@@ -42920,11 +43272,21 @@ function loadSystemSettings(app) {
                       });
                     case 1:
                       fetchCourses();
+                      resetCourseForm();
                     case 2:
                       return _context3.a(2);
                   }
                 }, _callee3);
               })));
+            });
+            document.querySelectorAll('.edit-course-btn').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                editingCourseId = btn.dataset.id;
+                document.getElementById('edit_course_id').value = editingCourseId;
+                document.getElementById('course_name').value = btn.dataset.name;
+                document.getElementById('courseSubmitBtn').textContent = "Update Course";
+                document.getElementById('cancelCourseEditBtn').style.display = "inline-block";
+              });
             });
             _context4.n = 4;
             break;
@@ -42937,9 +43299,84 @@ function loadSystemSettings(app) {
     }));
     return _fetchCourses.apply(this, arguments);
   }
+  function setupCourseForm() {
+    document.getElementById('addCourseForm').addEventListener('submit', /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+        var courseName, editId, msg, res;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              e.preventDefault();
+              courseName = document.getElementById('course_name').value;
+              editId = document.getElementById('edit_course_id').value;
+              msg = document.getElementById('settingsMessage');
+              if (!editId) {
+                _context.n = 2;
+                break;
+              }
+              _context.n = 1;
+              return fetch("/api/courses/".concat(editId), {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                  name: courseName
+                })
+              });
+            case 1:
+              res = _context.v;
+              _context.n = 4;
+              break;
+            case 2:
+              _context.n = 3;
+              return fetch('/api/courses', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                  name: courseName
+                })
+              });
+            case 3:
+              res = _context.v;
+            case 4:
+              if (res.ok) {
+                msg.textContent = editId ? "Course updated!" : "Course added!";
+                fetchCourses();
+                resetCourseForm();
+              } else {
+                msg.textContent = "Failed to save course.";
+              }
+            case 5:
+              return _context.a(2);
+          }
+        }, _callee);
+      }));
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+    document.getElementById('cancelCourseEditBtn').addEventListener('click', resetCourseForm);
+  }
+  function resetCourseForm() {
+    document.getElementById('addCourseForm').reset();
+    document.getElementById('edit_course_id').value = "";
+    document.getElementById('courseSubmitBtn').textContent = "Add Course";
+    document.getElementById('cancelCourseEditBtn').style.display = "none";
+    editingCourseId = null;
+  }
+
+  // --- Departments Logic ---
+  var editingDepartmentId = null;
   function fetchDepartments() {
     return _fetchDepartments.apply(this, arguments);
-  } // Initial fetch
+  }
   function _fetchDepartments() {
     _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
       var res, table, data;
@@ -42960,9 +43397,8 @@ function loadSystemSettings(app) {
           case 2:
             data = _context6.v;
             table.innerHTML = data.length ? data.map(function (d, i) {
-              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.head, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"delete-dept-btn\" data-id=\"").concat(d.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
+              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.head, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-dept-btn\" data-id=\"").concat(d.id, "\" data-name=\"").concat(d.name, "\" data-head=\"").concat(d.head, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-dept-btn\" data-id=\"").concat(d.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
             }).join('') : "<tr><td colspan=\"4\" style=\"text-align:center;padding:8px;\">No departments found.</td></tr>";
-            // Add delete event listeners
             document.querySelectorAll('.delete-dept-btn').forEach(function (btn) {
               btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
                 return _regenerator().w(function (_context5) {
@@ -42978,11 +43414,22 @@ function loadSystemSettings(app) {
                       });
                     case 1:
                       fetchDepartments();
+                      resetDepartmentForm();
                     case 2:
                       return _context5.a(2);
                   }
                 }, _callee5);
               })));
+            });
+            document.querySelectorAll('.edit-dept-btn').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                editingDepartmentId = btn.dataset.id;
+                document.getElementById('edit_department_id').value = editingDepartmentId;
+                document.getElementById('department_name').value = btn.dataset.name;
+                document.getElementById('department_head').value = btn.dataset.head;
+                document.getElementById('departmentSubmitBtn').textContent = "Update Department";
+                document.getElementById('cancelDepartmentEditBtn').style.display = "inline-block";
+              });
             });
             _context6.n = 4;
             break;
@@ -42995,8 +43442,84 @@ function loadSystemSettings(app) {
     }));
     return _fetchDepartments.apply(this, arguments);
   }
-  fetchCourses();
-  fetchDepartments();
+  function setupDepartmentForm() {
+    document.getElementById('addDepartmentForm').addEventListener('submit', /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
+        var departmentName, departmentHead, editId, msg, res;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              e.preventDefault();
+              departmentName = document.getElementById('department_name').value;
+              departmentHead = document.getElementById('department_head').value;
+              editId = document.getElementById('edit_department_id').value;
+              msg = document.getElementById('settingsMessage');
+              if (!editId) {
+                _context2.n = 2;
+                break;
+              }
+              _context2.n = 1;
+              return fetch("/api/departments/".concat(editId), {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                  name: departmentName,
+                  head: departmentHead
+                })
+              });
+            case 1:
+              res = _context2.v;
+              _context2.n = 4;
+              break;
+            case 2:
+              _context2.n = 3;
+              return fetch('/api/departments', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                  name: departmentName,
+                  head: departmentHead
+                })
+              });
+            case 3:
+              res = _context2.v;
+            case 4:
+              if (res.ok) {
+                msg.textContent = editId ? "Department updated!" : "Department added!";
+                fetchDepartments();
+                resetDepartmentForm();
+              } else {
+                msg.textContent = "Failed to save department.";
+              }
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }));
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+    document.getElementById('cancelDepartmentEditBtn').addEventListener('click', resetDepartmentForm);
+  }
+  function resetDepartmentForm() {
+    document.getElementById('addDepartmentForm').reset();
+    document.getElementById('edit_department_id').value = "";
+    document.getElementById('departmentSubmitBtn').textContent = "Add Department";
+    document.getElementById('cancelDepartmentEditBtn').style.display = "none";
+    editingDepartmentId = null;
+  }
+
+  // --- Initial Tab ---
+  showTab("courses");
 
   // Navigation for sidebar (reuse your Dashboard logic if needed)
   document.querySelectorAll('.sidebar-menu a').forEach(function (link) {
@@ -43013,90 +43536,6 @@ function loadSystemSettings(app) {
     localStorage.removeItem("token");
     window.location.href = "/";
   });
-
-  // Add Course
-  document.getElementById('addCourseForm').addEventListener('submit', /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var courseName, res, msg;
-      return _regenerator().w(function (_context) {
-        while (1) switch (_context.n) {
-          case 0:
-            e.preventDefault();
-            courseName = this.course_name.value;
-            _context.n = 1;
-            return fetch('/api/courses', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              credentials: 'include',
-              body: JSON.stringify({
-                name: courseName
-              })
-            });
-          case 1:
-            res = _context.v;
-            msg = document.getElementById('settingsMessage');
-            if (res.ok) {
-              msg.textContent = "Course added!";
-              this.reset();
-              fetchCourses(); // Refresh table
-            } else {
-              msg.textContent = "Failed to add course.";
-            }
-          case 2:
-            return _context.a(2);
-        }
-      }, _callee, this);
-    }));
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-
-  // Add Department
-  document.getElementById('addDepartmentForm').addEventListener('submit', /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var departmentName, departmentHead, res, msg;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.n) {
-          case 0:
-            e.preventDefault();
-            departmentName = this.department_name.value;
-            departmentHead = this.department_head.value;
-            _context2.n = 1;
-            return fetch('/api/departments', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              credentials: 'include',
-              body: JSON.stringify({
-                name: departmentName,
-                head: departmentHead
-              })
-            });
-          case 1:
-            res = _context2.v;
-            msg = document.getElementById('settingsMessage');
-            if (res.ok) {
-              msg.textContent = "Department added!";
-              this.reset();
-              fetchDepartments(); // Refresh table
-            } else {
-              msg.textContent = "Failed to add department.";
-            }
-          case 2:
-            return _context2.a(2);
-        }
-      }, _callee2, this);
-    }));
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }());
 }
 
 /***/ }),

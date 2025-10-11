@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-
-            // 🧍 Basic info
             $table->string('studID')->unique();
             $table->string('firstname');
             $table->string('middlename')->nullable();
@@ -21,24 +19,16 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->enum('sex', ['Male', 'Female', 'Other'])->nullable();
-
-            // 🎓 Relationships
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
-
-            // 📚 Academic details
             $table->string('yearstatus')->nullable();
             $table->date('enrollment_date')->nullable();
-
-            // 👤 User tracking
             $table->foreignId('userID')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
-
-            // 🕒 Timestamps
             $table->timestamps();
-            $table->softDeletes(); // adds deleted_at column
+            $table->softDeletes(); 
         });
     }
 
