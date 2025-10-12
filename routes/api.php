@@ -9,7 +9,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FacultyController;
-
+use App\Http\Controllers\AcademicYearController;
+use App\Http\Controllers\ArchiveController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -63,3 +64,15 @@ Route::get('/faculty/{id}', [FacultyController::class, 'show']);
 Route::put('/faculty/{id}', [FacultyController::class, 'update']);
 Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);
 
+Route::get('/academic-years', [AcademicYearController::class, 'index']);
+Route::post('/academic-years', [AcademicYearController::class, 'store']);
+Route::put('/academic-years/{id}', [AcademicYearController::class, 'update']);
+Route::delete('/academic-years/{id}', [AcademicYearController::class, 'destroy']);
+Route::put('/academic-years/{id}/activate', [AcademicYearController::class, 'activate']);
+
+
+// Get all archived data
+Route::get('/archives', [ArchiveController::class, 'index']);
+
+// Restore item by type and ID
+Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
