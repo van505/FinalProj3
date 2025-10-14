@@ -7,37 +7,39 @@ use App\Models\Faculty;
 
 class FacultyController extends Controller
 {
-    // List all faculty (excluding soft deleted)
+    // List all faculty with relationships
     public function index()
     {
-        return response()->json(Faculty::all());
+        $faculties = Faculty::with(['department', 'academicYear'])->get();
+        return response()->json($faculties);
     }
 
     // Store a new faculty
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'faculty_id' => 'required|unique:faculty,faculty_id',
+            'faculty_id' => 'required|string|max:255|unique:faculty,faculty_id',
             'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:faculty,email',
-            'middle_name' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
-            'department' => 'nullable|string|max:255',
+            'department_id' => 'required|exists:departments,id',
+            'academic_year_id' => 'required|exists:academic_years,id',
+            'yearstatus' => 'required|string|in:active,inactive,retired',
             'position' => 'nullable|string|max:255',
             'date_hired' => 'nullable|date',
-            'status' => 'in:active,inactive',
         ]);
 
         $faculty = Faculty::create($validated);
         return response()->json($faculty, 201);
     }
 
-    // Show a single faculty
+    // Show a single faculty with relationships
     public function show($id)
     {
-        $faculty = Faculty::findOrFail($id);
+        $faculty = Faculty::with(['department', 'academicYear'])->findOrFail($id);
         return response()->json($faculty);
     }
 
@@ -54,10 +56,11 @@ class FacultyController extends Controller
             'middle_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'department' => 'nullable|string|max:255',
+            'department_id' => 'nullable|exists:departments,id',
+            'academic_year_id' => 'nullable|exists:academic_years,id',
             'position' => 'nullable|string|max:255',
             'date_hired' => 'nullable|date',
-            'status' => 'in:active,inactive',
+            'yearstatus' => 'in:active,inactive',
         ]);
 
         $faculty->update($validated);
@@ -69,6 +72,7 @@ class FacultyController extends Controller
     {
         $faculty = Faculty::findOrFail($id);
         $faculty->delete();
+
         return response()->json(['message' => 'Faculty deleted successfully!']);
     }
 }

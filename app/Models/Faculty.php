@@ -11,20 +11,30 @@ class Faculty extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'faculty'; // ✅ confirm this matches your table name
-
     protected $fillable = [
         'faculty_id',
         'first_name',
+        'middle_name',
         'last_name',
         'email',
-        'middle_name',
         'phone',
         'address',
-        'department',
+        'department_id',
+        'academic_year_id',
+        'yearstatus',
         'position',
         'date_hired',
-        'status',
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function academicYear()
+    {
+        return $this->belongsTo(AcademicYear::class);
+    }
 
     protected $dates = ['deleted_at'];
 }

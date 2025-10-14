@@ -42484,106 +42484,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
-function loadFaculty(app) {
-  app.innerHTML = "\n      <div class=\"faculty-container p-4\">\n        <h2 class=\"text-2xl font-bold mb-4\">Faculty</h2>\n\n        <!-- Faculty List -->\n        <table class=\"w-full border-collapse border text-sm mb-8\">\n          <thead class=\"bg-gray-100\">\n            <tr>\n              <th class=\"border p-2\">ID</th>\n              <th class=\"border p-2\">Faculty ID</th>\n              <th class=\"border p-2\">Name</th>\n              <th class=\"border p-2\">Email</th>\n              <th class=\"border p-2\">Department</th>\n              <th class=\"border p-2\">Position</th>\n              <th class=\"border p-2\">Status</th>\n              <th class=\"border p-2\">Actions</th>\n            </tr>\n          </thead>\n          <tbody id=\"facultyList\"></tbody>\n        </table>\n\n        <!-- Add/Edit Faculty Form -->\n        <form id=\"facultyForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n          <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n          <input type=\"text\" name=\"faculty_id\" id=\"faculty_id\" placeholder=\"Faculty ID (e.g. F001)\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"first_name\" id=\"first_name\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"middle_name\" id=\"middle_name\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"last_name\" id=\"last_name\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n          <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"address\" id=\"address\" placeholder=\"Address\" class=\"border p-2 rounded\">\n          <select name=\"department\" id=\"department\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Department</option>\n          </select>\n          <input type=\"text\" name=\"position\" id=\"position\" placeholder=\"Position\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"date_hired\" id=\"date_hired\" class=\"border p-2 rounded\">\n          <select name=\"status\" id=\"status\" class=\"border p-2 rounded\" required>\n            <option value=\"active\">Active</option>\n            <option value=\"inactive\">Inactive</option>\n          </select>\n          <div class=\"col-span-2 flex gap-2\">\n            <button type=\"submit\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\" id=\"submitBtn\">\n              Add Faculty\n            </button>\n            <button type=\"button\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" id=\"cancelBtn\" style=\"display:none;\">\n              Cancel\n            </button>\n          </div>\n        </form>\n      </div>\n    ";
-  var isEditing = false;
+function loadFaculty(_x) {
+  return _loadFaculty.apply(this, arguments);
+}
+function _loadFaculty() {
+  _loadFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(app) {
+    var isEditing, allDepartments, allAcademicYears, allFaculty, loadSelectOptions, _loadSelectOptions, fetchFaculty, _fetchFaculty, renderFaculty, form, submitBtn, cancelBtn, resetForm;
+    return _regenerator().w(function (_context6) {
+      while (1) switch (_context6.n) {
+        case 0:
+          resetForm = function _resetForm() {
+            form.reset();
+            submitBtn.textContent = "Add Faculty";
+            cancelBtn.style.display = "none";
+            isEditing = false;
+          };
+          renderFaculty = function _renderFaculty() {
+            var search = document.getElementById("searchInput").value.toLowerCase();
+            var department = document.getElementById("departmentFilter").value;
+            var academicYear = document.getElementById("academicYearFilter").value;
+            var yearstatus = document.getElementById("yearstatusFilter").value;
+            var tbody = document.getElementById("facultyList");
+            var filtered = allFaculty.filter(function (f) {
+              var match = true;
+              if (search) {
+                match = f.faculty_id && f.faculty_id.toLowerCase().includes(search) || f.first_name && f.first_name.toLowerCase().includes(search) || f.last_name && f.last_name.toLowerCase().includes(search) || f.email && f.email.toLowerCase().includes(search);
+              }
+              if (match && department) match = f.department_id == department;
+              if (match && academicYear) match = f.academic_year_id == academicYear;
+              if (match && yearstatus) match = f.yearstatus == yearstatus;
+              return match;
+            });
+            tbody.innerHTML = filtered.length ? filtered.map(function (f) {
+              var _allDepartments$find, _allDepartments$find2, _allAcademicYears$fin, _allAcademicYears$fin2;
+              return "\n                <tr>\n                  <td class=\"border p-2\">".concat(f.id, "</td>\n                  <td class=\"border p-2\">").concat(f.faculty_id, "</td>\n                  <td class=\"border p-2\">").concat(f.first_name, " ").concat(f.middle_name ? f.middle_name + ' ' : '').concat(f.last_name, "</td>\n                  <td class=\"border p-2\">").concat(f.email, "</td>\n                  <td class=\"border p-2\">").concat(((_allDepartments$find = allDepartments.find(function (d) {
+                return d.id == f.department_id;
+              })) === null || _allDepartments$find === void 0 ? void 0 : _allDepartments$find.name) || ((_allDepartments$find2 = allDepartments.find(function (d) {
+                return d.id == f.department_id;
+              })) === null || _allDepartments$find2 === void 0 ? void 0 : _allDepartments$find2.department_name) || "", "</td>\n                  <td class=\"border p-2\">").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
+                return y.id == f.academic_year_id;
+              })) === null || _allAcademicYears$fin === void 0 ? void 0 : _allAcademicYears$fin.year) || ((_allAcademicYears$fin2 = allAcademicYears.find(function (y) {
+                return y.id == f.academic_year_id;
+              })) === null || _allAcademicYears$fin2 === void 0 ? void 0 : _allAcademicYears$fin2.academic_year) || "", "</td>\n                  <td class=\"border p-2\">").concat(f.yearstatus || "", "</td>\n                  <td class=\"border p-2\">").concat(f.position || "", "</td>\n                  <td class=\"border p-2\">\n                    <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(f.id, "\">Edit</button>\n                    <button class=\"text-red-600 delete-btn\" data-id=\"").concat(f.id, "\">Delete</button>\n                  </td>\n                </tr>\n            ");
+            }).join("") : "<tr><td colspan=\"9\" class=\"text-center p-4\">No faculty found.</td></tr>";
 
-  // Load department options from system settings
-  function loadDepartments() {
-    return _loadDepartments.apply(this, arguments);
-  }
-  function _loadDepartments() {
-    _loadDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var res, departments, departmentSelect, _t2;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
-          case 0:
-            _context2.p = 0;
-            _context2.n = 1;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments");
-          case 1:
-            res = _context2.v;
-            departments = res.data;
-            departmentSelect = document.getElementById("department");
-            departmentSelect.innerHTML = "<option value=\"\">Select Department</option>" + departments.map(function (d) {
-              return "<option value=\"".concat(d.name, "\">").concat(d.name, "</option>");
-            }).join("");
-            _context2.n = 3;
-            break;
-          case 2:
-            _context2.p = 2;
-            _t2 = _context2.v;
-            alert("Failed to load departments.");
-          case 3:
-            return _context2.a(2);
-        }
-      }, _callee2, null, [[0, 2]]);
-    }));
-    return _loadDepartments.apply(this, arguments);
-  }
-  loadDepartments();
-
-  // Load faculty when page opens
-  fetchFaculty();
-  function fetchFaculty() {
-    return _fetchFaculty.apply(this, arguments);
-  }
-  function _fetchFaculty() {
-    _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var res, faculty, tbody, _t4;
-      return _regenerator().w(function (_context5) {
-        while (1) switch (_context5.p = _context5.n) {
-          case 0:
-            _context5.p = 0;
-            _context5.n = 1;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty");
-          case 1:
-            res = _context5.v;
-            faculty = res.data;
-            tbody = document.getElementById("facultyList");
-            tbody.innerHTML = faculty.map(function (f) {
-              return "\n              <tr>\n                <td class=\"border p-2\">".concat(f.id, "</td>\n                <td class=\"border p-2\">").concat(f.faculty_id, "</td>\n                <td class=\"border p-2\">").concat(f.first_name, " ").concat(f.middle_name ? f.middle_name + ' ' : '').concat(f.last_name, "</td>\n                <td class=\"border p-2\">").concat(f.email, "</td>\n                <td class=\"border p-2\">").concat(f.department || "", "</td>\n                <td class=\"border p-2\">").concat(f.position || "", "</td>\n                <td class=\"border p-2\">").concat(f.status, "</td>\n                <td class=\"border p-2\">\n                  <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(f.id, "\">Edit</button>\n                  <button class=\"text-red-600 delete-btn\" data-id=\"").concat(f.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
-            }).join("");
+            // Delete logic
             document.querySelectorAll(".delete-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
                 var id;
-                return _regenerator().w(function (_context3) {
-                  while (1) switch (_context3.n) {
+                return _regenerator().w(function (_context) {
+                  while (1) switch (_context.n) {
                     case 0:
                       id = btn.dataset.id;
                       if (!confirm("Delete this faculty member?")) {
-                        _context3.n = 2;
+                        _context.n = 2;
                         break;
                       }
-                      _context3.n = 1;
+                      _context.n = 1;
                       return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/faculty/".concat(id));
                     case 1:
                       fetchFaculty();
                       resetForm();
                     case 2:
-                      return _context3.a(2);
+                      return _context.a(2);
                   }
-                }, _callee3);
+                }, _callee);
               })));
             });
+
+            // Edit logic
             document.querySelectorAll(".edit-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-                var id, _res, f, _t3;
-                return _regenerator().w(function (_context4) {
-                  while (1) switch (_context4.p = _context4.n) {
+              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+                var id, res, f, _t;
+                return _regenerator().w(function (_context2) {
+                  while (1) switch (_context2.p = _context2.n) {
                     case 0:
                       id = btn.dataset.id;
-                      _context4.p = 1;
-                      _context4.n = 2;
+                      _context2.p = 1;
+                      _context2.n = 2;
                       return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
                     case 2:
-                      _res = _context4.v;
-                      f = _res.data;
+                      res = _context2.v;
+                      f = res.data;
                       document.getElementById("edit_id").value = f.id;
                       document.getElementById("faculty_id").value = f.faculty_id;
                       document.getElementById("first_name").value = f.first_name;
@@ -42592,96 +42585,191 @@ function loadFaculty(app) {
                       document.getElementById("email").value = f.email;
                       document.getElementById("phone").value = f.phone || "";
                       document.getElementById("address").value = f.address || "";
-                      document.getElementById("department").value = f.department || "";
+                      document.getElementById("departmentSelect").value = f.department_id || "";
+                      document.getElementById("academicYearSelectForm").value = f.academic_year_id || "";
+                      document.getElementById("yearstatus").value = f.yearstatus || "active";
                       document.getElementById("position").value = f.position || "";
                       document.getElementById("date_hired").value = f.date_hired || "";
-                      document.getElementById("status").value = f.status;
                       document.getElementById("submitBtn").textContent = "Update Faculty";
                       document.getElementById("cancelBtn").style.display = "inline-block";
                       isEditing = true;
-                      _context4.n = 4;
+                      _context2.n = 4;
                       break;
                     case 3:
-                      _context4.p = 3;
-                      _t3 = _context4.v;
+                      _context2.p = 3;
+                      _t = _context2.v;
                       alert("Failed to fetch faculty data.");
                     case 4:
-                      return _context4.a(2);
+                      return _context2.a(2);
                   }
-                }, _callee4, null, [[1, 3]]);
+                }, _callee2, null, [[1, 3]]);
               })));
             });
-            _context5.n = 3;
-            break;
-          case 2:
-            _context5.p = 2;
-            _t4 = _context5.v;
-            console.error("Error fetching faculty:", _t4);
-          case 3:
-            return _context5.a(2);
-        }
-      }, _callee5, null, [[0, 2]]);
-    }));
-    return _fetchFaculty.apply(this, arguments);
-  }
-  var submitBtn = document.getElementById("submitBtn");
-  var cancelBtn = document.getElementById("cancelBtn");
+          };
+          _fetchFaculty = function _fetchFaculty3() {
+            _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+              var res, _t4;
+              return _regenerator().w(function (_context5) {
+                while (1) switch (_context5.p = _context5.n) {
+                  case 0:
+                    _context5.p = 0;
+                    _context5.n = 1;
+                    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty");
+                  case 1:
+                    res = _context5.v;
+                    allFaculty = res.data;
+                    renderFaculty();
+                    _context5.n = 3;
+                    break;
+                  case 2:
+                    _context5.p = 2;
+                    _t4 = _context5.v;
+                    console.error("Error fetching faculty:", _t4);
+                  case 3:
+                    return _context5.a(2);
+                }
+              }, _callee5, null, [[0, 2]]);
+            }));
+            return _fetchFaculty.apply(this, arguments);
+          };
+          fetchFaculty = function _fetchFaculty2() {
+            return _fetchFaculty.apply(this, arguments);
+          };
+          _loadSelectOptions = function _loadSelectOptions3() {
+            _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+              var _yield$Promise$all, _yield$Promise$all2, departmentsRes, yearsRes, _t3;
+              return _regenerator().w(function (_context4) {
+                while (1) switch (_context4.p = _context4.n) {
+                  case 0:
+                    _context4.p = 0;
+                    _context4.n = 1;
+                    return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
+                  case 1:
+                    _yield$Promise$all = _context4.v;
+                    _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+                    departmentsRes = _yield$Promise$all2[0];
+                    yearsRes = _yield$Promise$all2[1];
+                    allDepartments = departmentsRes.data;
+                    allAcademicYears = yearsRes.data;
 
-  // Add/Edit faculty
-  var form = document.getElementById("facultyForm");
-  form.addEventListener("submit", /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var formData, id, _error$response, _t;
-      return _regenerator().w(function (_context) {
-        while (1) switch (_context.p = _context.n) {
-          case 0:
-            e.preventDefault();
-            formData = Object.fromEntries(new FormData(form));
-            id = formData.edit_id;
-            delete formData.edit_id; // Remove edit_id before sending to API
-            _context.p = 1;
-            if (!(isEditing && id)) {
-              _context.n = 3;
-              break;
-            }
-            _context.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/faculty/".concat(id), formData);
-          case 2:
-            _context.n = 4;
-            break;
-          case 3:
-            _context.n = 4;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/faculty", formData);
-          case 4:
+                    // Filters
+                    document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
+                      return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+                    }).join("");
+                    document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
+                      return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+                    }).join("");
+
+                    // Form
+                    document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
+                      return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+                    }).join("");
+                    document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
+                      return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+                    }).join("");
+                    _context4.n = 3;
+                    break;
+                  case 2:
+                    _context4.p = 2;
+                    _t3 = _context4.v;
+                    alert("Failed to load departments or academic years.");
+                  case 3:
+                    return _context4.a(2);
+                }
+              }, _callee4, null, [[0, 2]]);
+            }));
+            return _loadSelectOptions.apply(this, arguments);
+          };
+          loadSelectOptions = function _loadSelectOptions2() {
+            return _loadSelectOptions.apply(this, arguments);
+          };
+          app.innerHTML = "\n      <div class=\"faculty-container p-4\">\n        <h2 class=\"text-2xl font-bold mb-4\">Faculty Management</h2>\n        <div class=\"flex flex-wrap gap-2 mb-4 items-center\">\n          <input type=\"text\" id=\"searchInput\" placeholder=\"Search faculty...\" class=\"border p-2 rounded flex-1 min-w-[200px]\"/>\n          <select id=\"departmentFilter\" class=\"border p-2 rounded\">\n            <option value=\"\">All Departments</option>\n          </select>\n          <select id=\"academicYearFilter\" class=\"border p-2 rounded\">\n            <option value=\"\">All Academic Years</option>\n          </select>\n          <select id=\"yearstatusFilter\" class=\"border p-2 rounded\">\n            <option value=\"\">All YearStatus</option>\n            <option value=\"active\">Active</option>\n            <option value=\"inactive\">Inactive</option>\n            <option value=\"retired\">Retired</option>\n          </select>\n          <button id=\"clearFilters\" class=\"border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300\">Clear</button>\n        </div>\n        <table class=\"w-full border-collapse border text-sm mb-8 bg-white shadow rounded\">\n          <thead class=\"bg-gray-100\">\n            <tr>\n              <th class=\"border p-2\">ID</th>\n              <th class=\"border p-2\">Faculty ID</th>\n              <th class=\"border p-2\">Name</th>\n              <th class=\"border p-2\">Email</th>\n              <th class=\"border p-2\">Department</th>\n              <th class=\"border p-2\">Academic Year</th>\n              <th class=\"border p-2\">YearStatus</th>\n              <th class=\"border p-2\">Position</th>\n              <th class=\"border p-2\">Actions</th>\n            </tr>\n          </thead>\n          <tbody id=\"facultyList\"></tbody>\n        </table>\n\n        <!-- Add/Edit Faculty Form -->\n        <form id=\"facultyForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n          <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n          <input type=\"text\" name=\"faculty_id\" id=\"faculty_id\" placeholder=\"Faculty ID (e.g. F001)\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"first_name\" id=\"first_name\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"middle_name\" id=\"middle_name\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"last_name\" id=\"last_name\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n          <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n          <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n          <input type=\"text\" name=\"address\" id=\"address\" placeholder=\"Address\" class=\"border p-2 rounded\">\n          <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Department</option>\n          </select>\n          <select name=\"academic_year_id\" id=\"academicYearSelectForm\" class=\"border p-2 rounded\" required>\n            <option value=\"\">Select Academic Year</option>\n          </select>\n          <select name=\"yearstatus\" id=\"yearstatus\" class=\"border p-2 rounded\" required>\n            <option value=\"active\">Active</option>\n            <option value=\"inactive\">Inactive</option>\n            <option value=\"retired\">Retired</option>\n          </select>\n          <input type=\"text\" name=\"position\" id=\"position\" placeholder=\"Position\" class=\"border p-2 rounded\">\n          <input type=\"date\" name=\"date_hired\" id=\"date_hired\" class=\"border p-2 rounded\">\n          <div class=\"col-span-2 flex gap-2\">\n            <button type=\"submit\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\" id=\"submitBtn\">\n              Add Faculty\n            </button>\n            <button type=\"button\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" id=\"cancelBtn\" style=\"display:none;\">\n              Cancel\n            </button>\n          </div>\n        </form>\n      </div>\n    ";
+          isEditing = false;
+          allDepartments = [];
+          allAcademicYears = [];
+          allFaculty = []; // Load department and academic year options
+          _context6.n = 1;
+          return loadSelectOptions();
+        case 1:
+          _context6.n = 2;
+          return fetchFaculty();
+        case 2:
+          // Submit (Add/Edit)
+          form = document.getElementById("facultyForm");
+          submitBtn = document.getElementById("submitBtn");
+          cancelBtn = document.getElementById("cancelBtn");
+          form.addEventListener("submit", /*#__PURE__*/function () {
+            var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
+              var formData, id, _error$response, _t2;
+              return _regenerator().w(function (_context3) {
+                while (1) switch (_context3.p = _context3.n) {
+                  case 0:
+                    e.preventDefault();
+                    formData = Object.fromEntries(new FormData(form));
+                    id = formData.edit_id;
+                    delete formData.edit_id;
+                    _context3.p = 1;
+                    if (!(isEditing && id)) {
+                      _context3.n = 3;
+                      break;
+                    }
+                    _context3.n = 2;
+                    return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/faculty/".concat(id), formData);
+                  case 2:
+                    _context3.n = 4;
+                    break;
+                  case 3:
+                    _context3.n = 4;
+                    return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/faculty", formData);
+                  case 4:
+                    form.reset();
+                    submitBtn.textContent = "Add Faculty";
+                    cancelBtn.style.display = "none";
+                    isEditing = false;
+                    fetchFaculty();
+                    _context3.n = 6;
+                    break;
+                  case 5:
+                    _context3.p = 5;
+                    _t2 = _context3.v;
+                    console.error("Error saving faculty:", ((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t2);
+                    alert("Failed to save faculty. Check console for details.");
+                  case 6:
+                    return _context3.a(2);
+                }
+              }, _callee3, null, [[1, 5]]);
+            }));
+            return function (_x2) {
+              return _ref3.apply(this, arguments);
+            };
+          }());
+
+          // Cancel button logic
+          cancelBtn.addEventListener("click", function () {
             form.reset();
             submitBtn.textContent = "Add Faculty";
             cancelBtn.style.display = "none";
             isEditing = false;
-            fetchFaculty();
-            _context.n = 6;
-            break;
-          case 5:
-            _context.p = 5;
-            _t = _context.v;
-            console.error("Error saving faculty:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
-            alert("Failed to save faculty. Check console for details.");
-          case 6:
-            return _context.a(2);
-        }
-      }, _callee, null, [[1, 5]]);
-    }));
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
+          });
 
-  // Cancel button logic
-  cancelBtn.addEventListener("click", function () {
-    form.reset();
-    submitBtn.textContent = "Add Faculty";
-    cancelBtn.style.display = "none";
-    isEditing = false;
-  });
+          // Filters & search
+          document.getElementById("searchInput").addEventListener("input", renderFaculty);
+          document.getElementById("departmentFilter").addEventListener("change", renderFaculty);
+          document.getElementById("academicYearFilter").addEventListener("change", renderFaculty);
+          document.getElementById("yearstatusFilter").addEventListener("change", renderFaculty);
+          document.getElementById("clearFilters").addEventListener("click", function () {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("departmentFilter").value = "";
+            document.getElementById("academicYearFilter").value = "";
+            document.getElementById("yearstatusFilter").value = "";
+            renderFaculty();
+          });
+        case 3:
+          return _context6.a(2);
+      }
+    }, _callee6);
+  }));
+  return _loadFaculty.apply(this, arguments);
 }
 
 /***/ }),
