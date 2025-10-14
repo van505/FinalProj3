@@ -11,6 +11,7 @@ class StudentController extends Controller
     public function index()
     {
         return response()->json(Student::with(['course', 'department', 'academicYear'])->get());
+        
     }
 
     // Store a new student
@@ -81,4 +82,5 @@ class StudentController extends Controller
         $student->delete();
         return response()->json(['message' => 'Student deleted successfully!']);
     }
+
 }

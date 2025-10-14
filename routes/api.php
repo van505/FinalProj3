@@ -12,6 +12,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,9 +45,9 @@ Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
 
 // Profile routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile/{id}', [ProfileController::class, 'show']);
-    Route::put('/profile/{id}', [ProfileController::class, 'update']);
-    Route::put('/profile/{id}/password', [ProfileController::class, 'updatePassword']);
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::put('/profile/update', [ProfileController::class, 'updateProfile']);
+    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
 });
 
 // Student routes
@@ -78,5 +79,14 @@ Route::get('/archives', [ArchiveController::class, 'index']);
 // Restore item by type and ID
 Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
 
-Route::get('/reports/students', [ReportController::class, 'studentReport']);
-Route::get('/reports/faculty', [ReportController::class, 'facultyReport']);
+// Report routes
+
+Route::get('/reports', [ReportController::class, 'index']);
+Route::post('/reports', [ReportController::class, 'store']);
+Route::get('/reports/{id}', [ReportController::class, 'show']);
+Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
+
+// Dashboard route
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/students', [StudentController::class, 'index']);
+Route::get('/faculty', [FacultyController::class, 'index']);

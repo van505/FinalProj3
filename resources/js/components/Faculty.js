@@ -2,74 +2,93 @@ import axios from "axios";
 
 export async function loadFaculty(app) {
     app.innerHTML = `
-      <div class="faculty-container p-4">
-        <h2 class="text-2xl font-bold mb-4">Faculty Management</h2>
-        <div class="flex flex-wrap gap-2 mb-4 items-center">
-          <input type="text" id="searchInput" placeholder="Search faculty..." class="border p-2 rounded flex-1 min-w-[200px]"/>
-          <select id="departmentFilter" class="border p-2 rounded">
-            <option value="">All Departments</option>
-          </select>
-          <select id="academicYearFilter" class="border p-2 rounded">
-            <option value="">All Academic Years</option>
-          </select>
-          <select id="yearstatusFilter" class="border p-2 rounded">
-            <option value="">All YearStatus</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="retired">Retired</option>
-          </select>
-          <button id="clearFilters" class="border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300">Clear</button>
-        </div>
-        <table class="w-full border-collapse border text-sm mb-8 bg-white shadow rounded">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border p-2">ID</th>
-              <th class="border p-2">Faculty ID</th>
-              <th class="border p-2">Name</th>
-              <th class="border p-2">Email</th>
-              <th class="border p-2">Department</th>
-              <th class="border p-2">Academic Year</th>
-              <th class="border p-2">YearStatus</th>
-              <th class="border p-2">Position</th>
-              <th class="border p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="facultyList"></tbody>
-        </table>
-
-        <!-- Add/Edit Faculty Form -->
-        <form id="facultyForm" class="grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow">
-          <input type="hidden" name="edit_id" id="edit_id">
-          <input type="text" name="faculty_id" id="faculty_id" placeholder="Faculty ID (e.g. F001)" class="border p-2 rounded" required>
-          <input type="text" name="first_name" id="first_name" placeholder="First Name" class="border p-2 rounded" required>
-          <input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" class="border p-2 rounded">
-          <input type="text" name="last_name" id="last_name" placeholder="Last Name" class="border p-2 rounded" required>
-          <input type="email" name="email" id="email" placeholder="Email" class="border p-2 rounded" required>
-          <input type="text" name="phone" id="phone" placeholder="Phone" class="border p-2 rounded">
-          <input type="text" name="address" id="address" placeholder="Address" class="border p-2 rounded">
-          <select name="department_id" id="departmentSelect" class="border p-2 rounded" required>
-            <option value="">Select Department</option>
-          </select>
-          <select name="academic_year_id" id="academicYearSelectForm" class="border p-2 rounded" required>
-            <option value="">Select Academic Year</option>
-          </select>
-          <select name="yearstatus" id="yearstatus" class="border p-2 rounded" required>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="retired">Retired</option>
-          </select>
-          <input type="text" name="position" id="position" placeholder="Position" class="border p-2 rounded">
-          <input type="date" name="date_hired" id="date_hired" class="border p-2 rounded">
-          <div class="col-span-2 flex gap-2">
-            <button type="submit" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" id="submitBtn">
-              Add Faculty
-            </button>
-            <button type="button" class="bg-gray-400 text-white p-2 rounded hover:bg-gray-500" id="cancelBtn" style="display:none;">
-              Cancel
-            </button>
+    <nav class="sidebar new-sidebar">
+        <button class="new-item-btn">+ New Item</button>
+        <ul class="sidebar-menu">
+            <li><a href="#" data-page="overview"><span>Overview</span></a></li>
+            <li><a href="#" data-page="students"><span>Students</span></a></li>
+            <li><a href="#" class="active" data-page="faculty"><span>Faculty</span></a></li>
+            <li><a href="#" data-page="archive"><span>Archive</span></a></li>
+            <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
+            <li><a href="#" data-page="profile"><span>Profile</span></a></li>
+            <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
+        </ul>
+    </nav>
+    <div class="main new-main">
+        <header class="topbar new-topbar">
+            <div class="topbar-left">
+                <h1 class="dashboard-title">Faculty Management</h1>
+            </div>
+        </header>
+        <div class="faculty-container p-4">
+          <h2 class="text-2xl font-bold mb-4">Faculty Management</h2>
+          <div class="flex flex-wrap gap-2 mb-4 items-center">
+            <input type="text" id="searchInput" placeholder="Search faculty..." class="border p-2 rounded flex-1 min-w-[200px]"/>
+            <select id="departmentFilter" class="border p-2 rounded">
+              <option value="">All Departments</option>
+            </select>
+            <select id="academicYearFilter" class="border p-2 rounded">
+              <option value="">All Academic Years</option>
+            </select>
+            <select id="yearstatusFilter" class="border p-2 rounded">
+              <option value="">All YearStatus</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="retired">Retired</option>
+            </select>
+            <button id="clearFilters" class="border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300">Clear</button>
           </div>
-        </form>
-      </div>
+          <table class="w-full border-collapse border text-sm mb-8 bg-white shadow rounded">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="border p-2">ID</th>
+                <th class="border p-2">Faculty ID</th>
+                <th class="border p-2">Name</th>
+                <th class="border p-2">Email</th>
+                <th class="border p-2">Department</th>
+                <th class="border p-2">Academic Year</th>
+                <th class="border p-2">YearStatus</th>
+                <th class="border p-2">Position</th>
+                <th class="border p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="facultyList"></tbody>
+          </table>
+
+          <!-- Add/Edit Faculty Form -->
+          <form id="facultyForm" class="grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow">
+            <input type="hidden" name="edit_id" id="edit_id">
+            <input type="text" name="faculty_id" id="faculty_id" placeholder="Faculty ID (e.g. F001)" class="border p-2 rounded" required>
+            <input type="text" name="first_name" id="first_name" placeholder="First Name" class="border p-2 rounded" required>
+            <input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" class="border p-2 rounded">
+            <input type="text" name="last_name" id="last_name" placeholder="Last Name" class="border p-2 rounded" required>
+            <input type="email" name="email" id="email" placeholder="Email" class="border p-2 rounded" required>
+            <input type="text" name="phone" id="phone" placeholder="Phone" class="border p-2 rounded">
+            <input type="text" name="address" id="address" placeholder="Address" class="border p-2 rounded">
+            <select name="department_id" id="departmentSelect" class="border p-2 rounded" required>
+              <option value="">Select Department</option>
+            </select>
+            <select name="academic_year_id" id="academicYearSelectForm" class="border p-2 rounded" required>
+              <option value="">Select Academic Year</option>
+            </select>
+            <select name="yearstatus" id="yearstatus" class="border p-2 rounded" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="retired">Retired</option>
+            </select>
+            <input type="text" name="position" id="position" placeholder="Position" class="border p-2 rounded">
+            <input type="date" name="date_hired" id="date_hired" class="border p-2 rounded">
+            <div class="col-span-2 flex gap-2">
+              <button type="submit" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700" id="submitBtn">
+                Add Faculty
+              </button>
+              <button type="button" class="bg-gray-400 text-white p-2 rounded hover:bg-gray-500" id="cancelBtn" style="display:none;">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
     `;
 
     let isEditing = false;

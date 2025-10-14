@@ -13,17 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a default admin user
+        // ✅ Create a default admin user
         User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin User',
-                'password' => Hash::make('admin123'), // change this if you want
+                'password' => Hash::make('admin123'),
                 'is_admin' => true,
             ]
         );
 
-        // You can also create a sample regular user if you want
+        // ✅ Create a sample regular user
         User::updateOrCreate(
             ['email' => 'user@gmail.com'],
             [
@@ -32,5 +32,10 @@ class DatabaseSeeder extends Seeder
                 'is_admin' => false,
             ]
         );
+
+        // ✅ Call the ReportSeeder (this will seed sample reports)
+        $this->call([
+            ReportSeeder::class,
+        ]);
     }
 }

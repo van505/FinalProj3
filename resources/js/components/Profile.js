@@ -1,5 +1,6 @@
 import { loadSystemSettings } from "./SystemSettings";
 import { loadStudents } from "./Students";
+import axios from "axios";
 
 export function loadProfile(app) {
     app.innerHTML = `
@@ -40,15 +41,15 @@ export function loadProfile(app) {
                     <form id="passwordForm" style="display:flex;gap:1rem;flex-wrap:wrap;">
                         <div style="flex:1;min-width:180px;">
                             <label>Current Password</label>
-                            <input type="password" id="current_password" class="input" placeholder="Leave blank to keep current password" style="width:100%;">
+                            <input type="password" id="current_password" class="input" style="width:100%;">
                         </div>
                         <div style="flex:1;min-width:180px;">
                             <label>New Password</label>
-                            <input type="password" id="new_password" class="input" placeholder="Enter new password" style="width:100%;">
+                            <input type="password" id="new_password" class="input" style="width:100%;">
                         </div>
                         <div style="flex:1;min-width:180px;">
                             <label>Confirm New Password</label>
-                            <input type="password" id="confirm_password" class="input" placeholder="Confirm new password" style="width:100%;">
+                            <input type="password" id="confirm_password" class="input" style="width:100%;">
                         </div>
                         <button type="submit" class="btn btn-blue" style="height:40px;align-self:flex-end;">Update Password</button>
                     </form>
@@ -81,7 +82,7 @@ export function loadProfile(app) {
         </div>
     `;
 
-    // Sidebar menu click handlers
+    // Navigation
     document.getElementById("menuSettings").addEventListener("click", (e) => {
         e.preventDefault();
         loadSystemSettings(app);
@@ -93,46 +94,79 @@ export function loadProfile(app) {
         });
     });
 
-    // Load user info (simulate admin)
+    // Token for auth requests
+    const token = localStorage.getItem("token");
+    const api = axios.create({
+        baseURL: "http://127.0.0.1:8000/api",
+        headers: { Authorization: `Bearer ${token}` }
+    });
+
+    // Load user data
     async function loadProfileData() {
-        // Replace with your real API call
-        const user = {
-            name: "Admin User",
-            email: "admin@mencis.edu"
-        };
-        document.getElementById("name").value = user.name;
-        document.getElementById("email").value = user.email;
-        document.getElementById("summaryName").textContent = user.name;
-        document.getElementById("summaryEmail").textContent = user.email;
+        try {
+            const res = await api.get("/profile");
+            const user = res.data;
+            document.getElementById("name").value = user.name;
+            document.getElementById("email").value = user.email;
+            document.getElementById("summaryName").textContent = user.name;
+            document.getElementById("summaryEmail").textContent = user.email;
+        } catch (err) {
+            console.error(err);
+            document.getElementById("profileMsg").textContent = "Failed to load profile.";
+        }
     }
     loadProfileData();
 
     // Update Profile
     document.getElementById("profileForm").addEventListener("submit", async (e) => {
         e.preventDefault();
-        // Replace with your real API call
-        document.getElementById("profileMsg").textContent = "Profile updated!";
-        loadProfileData();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const msg = document.getElementById("profileMsg");
+        try {
+            const res = await api.put("/profile/update", { name, email });
+            msg.textContent = res.data.message;
+            loadProfileData();
+        } catch (err) {
+            msg.textContent = "Error updating profile.";
+            console.error(err);
+        }
     });
 
     // Change Password
     document.getElementById("passwordForm").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const current = document.getElementById("current_password").value;
-        const newPass = document.getElementById("new_password").value;
-        const confirm = document.getElementById("confirm_password").value;
+        const current_password = document.getElementById("current_password").value;
+        const new_password = document.getElementById("new_password").value;
+        const confirm_password = document.getElementById("confirm_password").value;
         const msg = document.getElementById("profileMsg");
-        if (newPass !== confirm) {
+
+        if (new_password !== confirm_password) {
             msg.textContent = "New passwords do not match.";
             return;
         }
-        // Replace with your real API call
-        msg.textContent = "Password updated!";
-        document.getElementById("passwordForm").reset();
+
+        try {
+            const res = await api.put("/profile/password", {
+                current_password,
+                new_password,
+                new_password_confirmation: confirm_password
+            });
+            msg.textContent = res.data.message;
+            document.getElementById("passwordForm").reset();
+        } catch (err) {
+            msg.textContent = "Error updating password. Check your current password.";
+            console.error(err);
+        }
     });
 
-    // Logout (only visible in profile)
-    document.getElementById("logoutBtn").addEventListener("click", () => {
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+        try {
+            await api.post("/auth/logout");
+        } catch (err) {
+            console.warn("Logout request failed, clearing token anyway.");
+        }
         localStorage.removeItem("token");
         window.location.href = "/";
     });

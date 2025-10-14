@@ -2,45 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\Faculty;
 
 class ReportController extends Controller
 {
-    // Generate student reports
-    public function studentReport(Request $request)
+    // ✅ Fetch reports with optional filters
+    public function index(Request $request)
     {
-        $query = Student::query();
+        $query = Report::with(['user', 'course', 'department']);
 
-        if ($request->has('course_id')) {
+        // Filters
+        if ($request->has('subject') && in_array($request->subject, ['faculty', 'student'])) {
+            $query->where('subject', $request->subject);
+        }
+
+        if ($request->has('course_id') && $request->course_id) {
             $query->where('course_id', $request->course_id);
         }
 
-        if ($request->has('academic_year_id')) {
-            $query->where('academic_year_id', $request->academic_year_id);
-        }
-
-        $students = $query->get();
-
-        return response()->json($students);
-    }
-
-    // Generate faculty reports
-    public function facultyReport(Request $request)
-    {
-        $query = Faculty::query();
-
-        if ($request->has('department_id')) {
+        if ($request->has('department_id') && $request->department_id) {
             $query->where('department_id', $request->department_id);
         }
 
-        if ($request->has('academic_year_id')) {
-            $query->where('academic_year_id', $request->academic_year_id);
-        }
+        $reports = $query->latest()->get();
 
-        $faculty = $query->get();
+        return response()->json($reports);
+    }
 
-        return response()->json($faculty);
+    // ✅ Store a new report
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'subject' => 'required|in:faculty,student',
+            'content' => 'required|string',
+            'course_id' => 'nullable|exists:courses,id',
+            'department_id' => 'nullable|exists:departments,id',
+        ]);
+
+        $validated['user_id'] = auth()->id(); // if not using auth, you can remove this
+
+        $report = Report::create($validated);
+
+        return response()->json($report, 201);
+    }
+
+    // ✅ Show one report
+    public function show($id)
+    {
+        $report = Report::with(['user', 'course', 'department'])->findOrFail($id);
+        return response()->json($report);
+    }
+
+    // ✅ Delete a report
+    public function destroy($id)
+    {
+        $report = Report::findOrFail($id);
+        $report->delete();
+
+        return response()->json(['message' => 'Report deleted successfully']);
     }
 }
