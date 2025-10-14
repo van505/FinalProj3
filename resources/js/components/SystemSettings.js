@@ -7,7 +7,7 @@ export function loadSystemSettings(app) {
                 <li><a href="#" data-page="students"><span>Students</span></a></li>
                 <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
                 <li><a href="#" data-page="archive"><span>Archive</span></a></li>
-                <li><a href="#" data-page="report"><span>Report</span></a></li>
+                <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
                 <li><a href="#" data-page="profile"><span>Profile</span></a></li>
                 <li><a href="#" class="active" data-page="settings"><span>System Settings</span></a></li>
             </ul>
@@ -21,10 +21,7 @@ export function loadSystemSettings(app) {
                 <div class="topbar-center">
                     <input type="text" class="search-input" placeholder="Search">
                 </div>
-                <div class="topbar-right">
-                    <span class="user">👤 Balbuena Ivan</span>
-                    <button id="logoutBtn" class="logout-btn">Logout</button>
-                </div>
+                
             </header>
             <section class="settings-section">
                 <h2 class="settings-title"><span style="font-size:2rem;">⚙️</span> System Settings</h2>
@@ -576,9 +573,6 @@ export function loadSystemSettings(app) {
         }
     }
 
-
-
-
     // --- Initial Tab ---
     showTab("courses");
 
@@ -592,9 +586,5 @@ export function loadSystemSettings(app) {
         });
     });
 
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("token");
-        window.location.href = "/";
-    });
+    
 }

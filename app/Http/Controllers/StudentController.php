@@ -10,7 +10,7 @@ class StudentController extends Controller
     // List all students (excluding soft deleted)
     public function index()
     {
-        return response()->json(Student::with(['course', 'department'])->get());
+        return response()->json(Student::with(['course', 'department', 'academicYear'])->get());
     }
 
     // Store a new student
@@ -28,6 +28,7 @@ class StudentController extends Controller
             'sex' => 'nullable|in:Male,Female',
             'department_id' => 'nullable|integer|exists:departments,id',
             'course_id' => 'nullable|integer|exists:courses,id',
+            'academic_year_id' => 'nullable|integer|exists:academic_years,id',
             'yearstatus' => 'nullable|string|max:255',
             'enrollment_date' => 'nullable|date',
             'status' => 'in:active,inactive',
@@ -41,7 +42,7 @@ class StudentController extends Controller
     // Show a single student
     public function show($id)
     {
-        $student = Student::with(['course', 'department'])->findOrFail($id);
+        $student = Student::with(['course', 'department', 'academicYear'])->findOrFail($id);
         return response()->json($student);
     }
 
@@ -62,6 +63,7 @@ class StudentController extends Controller
             'sex' => 'nullable|in:Male,Female',
             'department_id' => 'nullable|integer|exists:departments,id',
             'course_id' => 'nullable|integer|exists:courses,id',
+            'academic_year_id' => 'nullable|integer|exists:academic_years,id',
             'yearstatus' => 'nullable|string|max:255',
             'enrollment_date' => 'nullable|date',
             'status' => 'in:active,inactive',

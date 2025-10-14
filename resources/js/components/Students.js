@@ -3,10 +3,27 @@ import axios from "axios";
 export function loadStudents(app) {
   app.innerHTML = `
     <div class="students-container p-4">
-      <h2 class="text-2xl font-bold mb-4">Students</h2>
-
-      <!-- Student List -->
-      <table class="w-full border-collapse border text-sm mb-8">
+      <h2 class="text-2xl font-bold mb-4">Students Management</h2>
+      <div class="flex flex-wrap gap-2 mb-4 items-center">
+        <input type="text" id="searchInput" placeholder="Search students..." class="border p-2 rounded flex-1 min-w-[200px]"/>
+        <select id="departmentFilter" class="border p-2 rounded">
+          <option value="">All Departments</option>
+        </select>
+        <select id="courseFilter" class="border p-2 rounded">
+          <option value="">All Courses</option>
+        </select>
+        <select id="academicYearFilter" class="border p-2 rounded">
+          <option value="">All Academic Years</option>
+        </select>
+        <select id="yearstatusFilter" class="border p-2 rounded">
+          <option value="">All YearStatus</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="graduated">Graduated</option>
+        </select>
+        <button id="clearFilters" class="border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300">Clear</button>
+      </div>
+      <table class="w-full border-collapse border text-sm mb-8 bg-white shadow rounded">
         <thead class="bg-gray-100">
           <tr>
             <th class="border p-2">ID</th>
@@ -15,7 +32,8 @@ export function loadStudents(app) {
             <th class="border p-2">Course</th>
             <th class="border p-2">Department</th>
             <th class="border p-2">Year</th>
-            <th class="border p-2">Status</th>
+            <th class="border p-2">Academic Year</th>
+            <th class="border p-2">YearStatus</th>
             <th class="border p-2">Actions</th>
           </tr>
         </thead>
@@ -49,13 +67,16 @@ export function loadStudents(app) {
           <option value="">Select Course</option>
         </select>
 
-        <input type="text" name="yearstatus" id="yearstatus" placeholder="Year Status (e.g. 3rd Year)" class="border p-2 rounded">
-        <input type="date" name="enrollment_date" id="enrollment_date" class="border p-2 rounded">
+        <select name="academic_year_id" id="academicYearSelectForm" class="border p-2 rounded" required>
+          <option value="">Select Academic Year</option>
+        </select>
 
-        <select name="status" id="status" class="border p-2 rounded" required>
+        <select name="yearstatus" id="yearstatus" class="border p-2 rounded" required>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
+          <option value="graduated">Graduated</option>
         </select>
+        <input type="date" name="enrollment_date" id="enrollment_date" class="border p-2 rounded">
 
         <div class="col-span-2 flex gap-2">
           <button type="submit" id="submitBtn" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
@@ -70,29 +91,47 @@ export function loadStudents(app) {
   `;
 
   let isEditing = false;
+  let allStudents = [];
+  let allDepartments = [];
+  let allCourses = [];
+  let allAcademicYears = [];
 
-  // Load departments and courses
+  // Load departments, courses, academic years for filters and form
   async function loadSelectOptions() {
     try {
-      const [departmentsRes, coursesRes] = await Promise.all([
+      const [departmentsRes, coursesRes, yearsRes] = await Promise.all([
         axios.get("/api/departments"),
-        axios.get("/api/courses")
+        axios.get("/api/courses"),
+        axios.get("/api/academic-years")
       ]);
 
-      const departments = departmentsRes.data;
-      const courses = coursesRes.data;
+      allDepartments = departmentsRes.data;
+      allCourses = coursesRes.data;
+      allAcademicYears = yearsRes.data;
 
-      const departmentSelect = document.getElementById("departmentSelect");
-      departmentSelect.innerHTML =
+      // Filters
+      document.getElementById("departmentFilter").innerHTML =
+        `<option value="">All Departments</option>` +
+        allDepartments.map(d => `<option value="${d.id}">${d.name || d.department_name}</option>`).join("");
+      document.getElementById("courseFilter").innerHTML =
+        `<option value="">All Courses</option>` +
+        allCourses.map(c => `<option value="${c.id}">${c.name || c.course_name}</option>`).join("");
+      document.getElementById("academicYearFilter").innerHTML =
+        `<option value="">All Academic Years</option>` +
+        allAcademicYears.map(y => `<option value="${y.id}">${y.year || y.academic_year}</option>`).join("");
+
+      // Form
+      document.getElementById("departmentSelect").innerHTML =
         `<option value="">Select Department</option>` +
-        departments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
-
-      const courseSelect = document.getElementById("courseSelect");
-      courseSelect.innerHTML =
+        allDepartments.map(d => `<option value="${d.id}">${d.name || d.department_name}</option>`).join("");
+      document.getElementById("courseSelect").innerHTML =
         `<option value="">Select Course</option>` +
-        courses.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
+        allCourses.map(c => `<option value="${c.id}">${c.name || c.course_name}</option>`).join("");
+      document.getElementById("academicYearSelectForm").innerHTML =
+        `<option value="">Select Academic Year</option>` +
+        allAcademicYears.map(y => `<option value="${y.id}">${y.year || y.academic_year}</option>`).join("");
     } catch (error) {
-      alert("Failed to load departments or courses.");
+      alert("Failed to load departments, courses, or academic years.");
     }
   }
 
@@ -100,76 +139,110 @@ export function loadStudents(app) {
   async function fetchStudents() {
     try {
       const res = await axios.get("/api/students");
-      const students = res.data;
-      const tbody = document.getElementById("studentList");
-
-      tbody.innerHTML = students
-        .map(
-          (s) => `
-          <tr>
-            <td class="border p-2">${s.id}</td>
-            <td class="border p-2">${s.studID}</td>
-            <td class="border p-2">${s.firstname} ${s.middlename ? s.middlename + ' ' : ''}${s.lastname}</td>
-            <td class="border p-2">${s.course?.name || ""}</td>
-            <td class="border p-2">${s.department?.name || ""}</td>
-            <td class="border p-2">${s.yearstatus || ""}</td>
-            <td class="border p-2">${s.status || "active"}</td>
-            <td class="border p-2">
-              <button class="text-blue-600 edit-btn" data-id="${s.id}">Edit</button>
-              <button class="text-red-600 delete-btn" data-id="${s.id}">Delete</button>
-            </td>
-          </tr>
-        `
-        )
-        .join("");
-
-      // Delete logic
-      document.querySelectorAll(".delete-btn").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const id = btn.dataset.id;
-          if (confirm("Delete this student?")) {
-            await axios.delete(`/api/students/${id}`);
-            fetchStudents();
-            resetForm();
-          }
-        });
-      });
-
-      // Edit logic
-      document.querySelectorAll(".edit-btn").forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const id = btn.dataset.id;
-          try {
-            const res = await axios.get(`/api/students/${id}`);
-            const s = res.data;
-
-            document.getElementById("edit_id").value = s.id;
-            document.getElementById("studID").value = s.studID;
-            document.getElementById("firstname").value = s.firstname;
-            document.getElementById("middlename").value = s.middlename || "";
-            document.getElementById("lastname").value = s.lastname;
-            document.getElementById("suffix").value = s.suffix || "";
-            document.getElementById("email").value = s.email;
-            document.getElementById("phone").value = s.phone || "";
-            document.getElementById("date_of_birth").value = s.date_of_birth || "";
-            document.getElementById("sex").value = s.sex || "";
-            document.getElementById("departmentSelect").value = s.department_id || "";
-            document.getElementById("courseSelect").value = s.course_id || "";
-            document.getElementById("yearstatus").value = s.yearstatus || "";
-            document.getElementById("enrollment_date").value = s.enrollment_date || "";
-            document.getElementById("status").value = s.status || "active";
-
-            document.getElementById("submitBtn").textContent = "Update Student";
-            document.getElementById("cancelBtn").style.display = "inline-block";
-            isEditing = true;
-          } catch (error) {
-            alert("Failed to fetch student data.");
-          }
-        });
-      });
+      allStudents = res.data;
+      renderStudents();
     } catch (error) {
       console.error("Error fetching students:", error);
     }
+  }
+
+  // Render students with filters/search
+  function renderStudents() {
+    const search = document.getElementById("searchInput").value. toLowerCase();
+    const department = document.getElementById("departmentFilter").value;
+    const course = document.getElementById("courseFilter").value;
+    const academicYear = document.getElementById("academicYearFilter").value;
+    const yearstatus = document.getElementById("yearstatusFilter").value;
+
+    const tbody = document.getElementById("studentList");
+    let filtered = allStudents.filter(s => {
+      let match = true;
+      if (search) {
+        match = (
+          (s.studID && s.studID.toLowerCase().includes(search)) ||
+          (s.firstname && s.firstname.toLowerCase().includes(search)) ||
+          (s.lastname && s.lastname.toLowerCase().includes(search)) ||
+          (s.email && s.email.toLowerCase().includes(search))
+        );
+      }
+      if (match && department) match = s.department_id == department;
+      if (match && course) match = s.course_id == course;
+      if (match && academicYear) match = s.academic_year_id == academicYear;
+      if (match && yearstatus) match = s.yearstatus == yearstatus;
+      return match;
+    });
+
+    tbody.innerHTML = filtered.length
+      ? filtered
+          .map(
+            (s) => `
+            <tr>
+              <td class="border p-2">${s.id}</td>
+              <td class="border p-2">${s.studID}</td>
+              <td class="border p-2">${s.firstname} ${s.middlename ? s.middlename + ' ' : ''}${s.lastname}</td>
+              <td class="border p-2">${allCourses.find(c => c.id == s.course_id)?.name || allCourses.find(c => c.id == s.course_id)?.course_name || ""}</td>
+              <td class="border p-2">${allDepartments.find(d => d.id == s.department_id)?.name || allDepartments.find(d => d.id == s.department_id)?.department_name || ""}</td>
+              <td class="border p-2">${s.yearstatus || ""}</td>
+              <td class="border p-2">${allAcademicYears.find(y => y.id == s.academic_year_id)?.year || allAcademicYears.find(y => y.id == s.academic_year_id)?.academic_year || ""}</td>
+              <td class="border p-2">
+                <span class="px-2 py-1 rounded text-xs ${s.yearstatus === 'active' ? 'bg-green-100 text-green-700' : s.yearstatus === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}">
+                  ${s.yearstatus || "active"}
+                </span>
+              </td>
+              <td class="border p-2 flex gap-1">
+                <button class="text-blue-600 edit-btn" data-id="${s.id}" title="Edit"><i class="fas fa-edit"></i>✏️</button>
+                <button class="text-red-600 delete-btn" data-id="${s.id}" title="Delete"><i class="fas fa-trash"></i>🗑️</button>
+              </td>
+            </tr>
+          `
+          )
+          .join("")
+      : `<tr><td colspan="9" class="text-center p-4">No students found.</td></tr>`;
+
+    // Delete logic
+    document.querySelectorAll(".delete-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        if (confirm("Delete this student?")) {
+          await axios.delete(`/api/students/${id}`);
+          fetchStudents();
+          resetForm();
+        }
+      });
+    });
+
+    // Edit logic
+    document.querySelectorAll(".edit-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        try {
+          const res = await axios.get(`/api/students/${id}`);
+          const s = res.data;
+
+          document.getElementById("edit_id").value = s.id;
+          document.getElementById("studID").value = s.studID;
+          document.getElementById("firstname").value = s.firstname;
+          document.getElementById("middlename").value = s.middlename || "";
+          document.getElementById("lastname").value = s.lastname;
+          document.getElementById("suffix").value = s.suffix || "";
+          document.getElementById("email").value = s.email;
+          document.getElementById("phone").value = s.phone || "";
+          document.getElementById("date_of_birth").value = s.date_of_birth || "";
+          document.getElementById("sex").value = s.sex || "";
+          document.getElementById("departmentSelect").value = s.department_id || "";
+          document.getElementById("courseSelect").value = s.course_id || "";
+          document.getElementById("academicYearSelectForm").value = s.academic_year_id || "";
+          document.getElementById("yearstatus").value = s.yearstatus || "active";
+          document.getElementById("enrollment_date").value = s.enrollment_date || "";
+
+          document.getElementById("submitBtn").textContent = "Update Student";
+          document.getElementById("cancelBtn").style.display = "inline-block";
+          isEditing = true;
+        } catch (error) {
+          alert("Failed to fetch student data.");
+        }
+      });
+    });
   }
 
   // Submit (Add/Edit)
@@ -215,7 +288,21 @@ export function loadStudents(app) {
     isEditing = false;
   }
 
+  // Filters & search
+  document.getElementById("searchInput").addEventListener("input", renderStudents);
+  document.getElementById("departmentFilter").addEventListener("change", renderStudents);
+  document.getElementById("courseFilter").addEventListener("change", renderStudents);
+  document.getElementById("academicYearFilter").addEventListener("change", renderStudents);
+  document.getElementById("yearstatusFilter").addEventListener("change", renderStudents);
+  document.getElementById("clearFilters").addEventListener("click", () => {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("departmentFilter").value = "";
+    document.getElementById("courseFilter").value = "";
+    document.getElementById("academicYearFilter").value = "";
+    document.getElementById("yearstatusFilter").value = "";
+    renderStudents();
+  });
+
   // Initialize
-  fetchStudents();
-  loadSelectOptions();
+  loadSelectOptions().then(fetchStudents);
 }

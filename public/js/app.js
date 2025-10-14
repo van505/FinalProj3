@@ -42260,7 +42260,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 // ✅ Import new components
 
- // 👈 newly added
+
 
 // Mount app
 var app = document.getElementById("app");
@@ -42373,16 +42373,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile.js */ "./resources/js/components/Profile.js");
 /* harmony import */ var _Students_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Students.js */ "./resources/js/components/Students.js");
 /* harmony import */ var _Faculty_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Faculty.js */ "./resources/js/components/Faculty.js");
+/* harmony import */ var _Report_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Report.js */ "./resources/js/components/Report.js");
 
 
 
 
- // ✅ Added import
+
+
 
 // ✅ Export function so app.js can call it
 function loadDashboard(app) {
-  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li> <!-- \u2705 Added ID -->\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
-  var dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC65</div>\n                        <div>\n                            <div class=\"card-label\">Student at service</div>\n                            <div class=\"card-value\">12,437</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCDA</div>\n                        <div>\n                            <div class=\"card-label\">Course</div>\n                            <div class=\"card-value\">136</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83C\uDFE2</div>\n                        <div>\n                            <div class=\"card-label\">Department</div>\n                            <div class=\"card-value\">9</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCC5</div>\n                        <div>\n                            <div class=\"card-label\">Academic Year</div>\n                            <div class=\"card-value\">2024 - 2025</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Total numbers of students per course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"barChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
+  var sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li> <!-- \u2705 Added ID -->\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    ";
+  var dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                \n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC65</div>\n                        <div>\n                            <div class=\"card-label\">Student at service</div>\n                            <div class=\"card-value\">12,437</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCDA</div>\n                        <div>\n                            <div class=\"card-label\">Course</div>\n                            <div class=\"card-value\">136</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83C\uDFE2</div>\n                        <div>\n                            <div class=\"card-label\">Department</div>\n                            <div class=\"card-value\">9</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDCC5</div>\n                        <div>\n                            <div class=\"card-label\">Academic Year</div>\n                            <div class=\"card-value\">2024 - 2025</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Total numbers of students per course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"barChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
 
   // ✅ Render layout
   app.innerHTML = sidebar + dashboardContent;
@@ -42425,12 +42427,6 @@ function loadDashboard(app) {
     });
   });
 
-  // ✅ Logout
-  document.getElementById("logoutBtn").addEventListener("click", function () {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  });
-
   // ✅ Profile
   var menuProfile = document.getElementById("menuProfile");
   if (menuProfile) {
@@ -42459,6 +42455,16 @@ function loadDashboard(app) {
       e.preventDefault();
       var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
       (0,_Faculty_js__WEBPACK_IMPORTED_MODULE_4__.loadFaculty)(mainContent);
+    });
+  }
+
+  // ✅ Report
+  var menuReport = document.getElementById("menuReport");
+  if (menuReport) {
+    menuReport.addEventListener("click", function (e) {
+      e.preventDefault();
+      var mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+      (0,_Report_js__WEBPACK_IMPORTED_MODULE_5__.loadReport)(mainContent);
     });
   }
 }
@@ -42767,7 +42773,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 function loadProfile(app) {
-  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" id=\"menuSettings\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\" style=\"background:#f8fafc;min-height:100vh;\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">My Profile</h1>\n                </div>\n            </header>\n            <section style=\"display:flex;gap:2rem;align-items:flex-start;justify-content:flex-start;margin-top:2rem;\">\n                <div style=\"background:#fff;padding:2rem 2.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);flex:2;\">\n                    <h3 style=\"margin-bottom:1.5rem;\">Profile Information</h3>\n                    <form id=\"profileForm\" style=\"display:flex;gap:2rem;flex-wrap:wrap;\">\n                        <div style=\"flex:1;min-width:220px;\">\n                            <label>Full Name *</label>\n                            <input type=\"text\" id=\"name\" class=\"input\" required style=\"width:100%;margin-bottom:1rem;\">\n                        </div>\n                        <div style=\"flex:1;min-width:220px;\">\n                            <label>Email Address *</label>\n                            <input type=\"email\" id=\"email\" class=\"input\" required style=\"width:100%;margin-bottom:1rem;\">\n                        </div>\n                        <button type=\"submit\" class=\"btn btn-blue\" style=\"height:40px;align-self:flex-end;\">Update Profile</button>\n                    </form>\n                    <hr style=\"margin:2rem 0;\">\n                    <h3>Change Password</h3>\n                    <form id=\"passwordForm\" style=\"display:flex;gap:1rem;flex-wrap:wrap;\">\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>Current Password</label>\n                            <input type=\"password\" id=\"current_password\" class=\"input\" placeholder=\"Leave blank to keep current password\" style=\"width:100%;\">\n                        </div>\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>New Password</label>\n                            <input type=\"password\" id=\"new_password\" class=\"input\" placeholder=\"Enter new password\" style=\"width:100%;\">\n                        </div>\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>Confirm New Password</label>\n                            <input type=\"password\" id=\"confirm_password\" class=\"input\" placeholder=\"Confirm new password\" style=\"width:100%;\">\n                        </div>\n                        <button type=\"submit\" class=\"btn btn-blue\" style=\"height:40px;align-self:flex-end;\">Update Password</button>\n                    </form>\n                    <div id=\"profileMsg\" style=\"margin-top:1rem;\"></div>\n                </div>\n                <div style=\"flex:1;min-width:260px;display:flex;flex-direction:column;gap:1.5rem;\">\n                    <div style=\"background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);text-align:center;\">\n                        <div style=\"font-size:3rem;margin-bottom:0.5rem;\"><span style=\"background:#e5e7eb;border-radius:50%;padding:0.5rem 1.2rem;\">\uD83D\uDC64</span></div>\n                        <div style=\"font-weight:600;font-size:1.1rem;\" id=\"summaryName\"></div>\n                        <div style=\"color:#6b7280;\" id=\"summaryEmail\"></div>\n                        <div style=\"margin-top:1rem;display:flex;justify-content:center;gap:1.5rem;\">\n                            <div>\n                                <div style=\"font-size:0.9rem;color:#888;\">Role</div>\n                                <div style=\"font-weight:500;\">Admin</div>\n                            </div>\n                            <div>\n                                <div style=\"font-size:0.9rem;color:#888;\">Status</div>\n                                <div style=\"font-weight:500;color:#22c55e;\">Active</div>\n                            </div>\n                        </div>\n                    </div>\n                    <div style=\"background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);\">\n                        <div style=\"font-weight:600;color:#3b82f6;margin-bottom:0.5rem;\">Quick Actions</div>\n                        <button class=\"btn btn-outline\" style=\"width:100%;margin-bottom:0.5rem;\">Download Data</button>\n                        <button class=\"btn btn-outline\" style=\"width:100%;margin-bottom:0.5rem;\">Activity Log</button>\n                        <button class=\"btn btn-outline\" style=\"width:100%;\" id=\"logoutBtn\">Logout</button>\n                    </div>\n                </div>\n            </section>\n        </div>\n    ";
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" id=\"menuSettings\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\" style=\"background:#f8fafc;min-height:100vh;\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">My Profile</h1>\n                </div>\n            </header>\n            <section style=\"display:flex;gap:2rem;align-items:flex-start;justify-content:flex-start;margin-top:2rem;\">\n                <div style=\"background:#fff;padding:2rem 2.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);flex:2;\">\n                    <h3 style=\"margin-bottom:1.5rem;\">Profile Information</h3>\n                    <form id=\"profileForm\" style=\"display:flex;gap:2rem;flex-wrap:wrap;\">\n                        <div style=\"flex:1;min-width:220px;\">\n                            <label>Full Name *</label>\n                            <input type=\"text\" id=\"name\" class=\"input\" required style=\"width:100%;margin-bottom:1rem;\">\n                        </div>\n                        <div style=\"flex:1;min-width:220px;\">\n                            <label>Email Address *</label>\n                            <input type=\"email\" id=\"email\" class=\"input\" required style=\"width:100%;margin-bottom:1rem;\">\n                        </div>\n                        <button type=\"submit\" class=\"btn btn-blue\" style=\"height:40px;align-self:flex-end;\">Update Profile</button>\n                    </form>\n                    <hr style=\"margin:2rem 0;\">\n                    <h3>Change Password</h3>\n                    <form id=\"passwordForm\" style=\"display:flex;gap:1rem;flex-wrap:wrap;\">\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>Current Password</label>\n                            <input type=\"password\" id=\"current_password\" class=\"input\" placeholder=\"Leave blank to keep current password\" style=\"width:100%;\">\n                        </div>\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>New Password</label>\n                            <input type=\"password\" id=\"new_password\" class=\"input\" placeholder=\"Enter new password\" style=\"width:100%;\">\n                        </div>\n                        <div style=\"flex:1;min-width:180px;\">\n                            <label>Confirm New Password</label>\n                            <input type=\"password\" id=\"confirm_password\" class=\"input\" placeholder=\"Confirm new password\" style=\"width:100%;\">\n                        </div>\n                        <button type=\"submit\" class=\"btn btn-blue\" style=\"height:40px;align-self:flex-end;\">Update Password</button>\n                    </form>\n                    <div id=\"profileMsg\" style=\"margin-top:1rem;\"></div>\n                </div>\n                <div style=\"flex:1;min-width:260px;display:flex;flex-direction:column;gap:1.5rem;\">\n                    <div style=\"background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);text-align:center;\">\n                        <div style=\"font-size:3rem;margin-bottom:0.5rem;\"><span style=\"background:#e5e7eb;border-radius:50%;padding:0.5rem 1.2rem;\">\uD83D\uDC64</span></div>\n                        <div style=\"font-weight:600;font-size:1.1rem;\" id=\"summaryName\"></div>\n                        <div style=\"color:#6b7280;\" id=\"summaryEmail\"></div>\n                        <div style=\"margin-top:1rem;display:flex;justify-content:center;gap:1.5rem;\">\n                            <div>\n                                <div style=\"font-size:0.9rem;color:#888;\">Role</div>\n                                <div style=\"font-weight:500;\">Admin</div>\n                            </div>\n                            <div>\n                                <div style=\"font-size:0.9rem;color:#888;\">Status</div>\n                                <div style=\"font-weight:500;color:#22c55e;\">Active</div>\n                            </div>\n                        </div>\n                    </div>\n                    <div style=\"background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);\">\n                        <div style=\"font-weight:600;color:#3b82f6;margin-bottom:0.5rem;\">Quick Actions</div>\n                        <button class=\"btn btn-outline\" style=\"width:100%;margin-bottom:0.5rem;\">Download Data</button>\n                        <button class=\"btn btn-outline\" style=\"width:100%;margin-bottom:0.5rem;\">Activity Log</button>\n                        <button class=\"btn btn-outline\" style=\"width:100%;\" id=\"logoutBtn\">Logout</button>\n                    </div>\n                </div>\n            </section>\n        </div>\n    ";
 
   // Sidebar menu click handlers
   document.getElementById("menuSettings").addEventListener("click", function (e) {
@@ -42942,6 +42948,145 @@ function loadRegister(app, goLogin) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Report.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Report.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   loadReport: () => (/* binding */ loadReport)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function loadReport(app) {
+  // Render the report page inside the given app/mainContent element
+  app.innerHTML = "\n        <div class=\"report-container\">\n        <h2 class=\"report-title\">\uD83D\uDCCA Report</h2>\n        <div class=\"report-filters\">\n            <select id=\"courseSelect\"><option value=\"\">All Courses</option></select>\n            <select id=\"departmentSelect\"><option value=\"\">All Departments</option></select>\n            <select id=\"academicYearSelect\"><option value=\"\">All Academic Years</option></select>\n            <button id=\"filterBtn\">Filter</button>\n        </div>\n        <table class=\"report-table\">\n            <thead>\n            <tr>\n                <th>Faculty</th>\n                <th>Course</th>\n                <th>Department</th>\n                <th>Table Title</th>\n            </tr>\n            </thead>\n            <tbody id=\"reportTableBody\">\n            <tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>\n            </tbody>\n        </table>\n        <div class=\"make-report\">\n            <h3>\uD83D\uDCDD Make a Report</h3>\n            <input type=\"text\" id=\"reportTitle\" placeholder=\"Title\" />\n            <select id=\"reportSubject\">\n            <option value=\"\">Choose Subject</option>\n            <option value=\"faculty\">Faculty</option>\n            <option value=\"student\">Student</option>\n            </select>\n            <textarea id=\"reportContent\" placeholder=\"Report content...\"></textarea>\n            <button class=\"send-report-btn\">Send Report</button>\n        </div>\n        </div>\n    ";
+
+  // Fetch dropdown data
+  fetchDropdowns();
+  // Fetch default table
+  fetchReport();
+
+  // Button & Select events
+  document.getElementById("filterBtn").addEventListener("click", fetchReport);
+  function fetchDropdowns() {
+    return _fetchDropdowns.apply(this, arguments);
+  }
+  function _fetchDropdowns() {
+    _fetchDropdowns = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var _yield$Promise$all, _yield$Promise$all2, courseRes, deptRes, yearRes, _yield$Promise$all3, _yield$Promise$all4, courses, departments, years, courseSelect, deptSelect, yearSelect, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            _context.p = 0;
+            _context.n = 1;
+            return Promise.all([fetch("/api/courses"), fetch("/api/departments"), fetch("/api/academic-years")]);
+          case 1:
+            _yield$Promise$all = _context.v;
+            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 3);
+            courseRes = _yield$Promise$all2[0];
+            deptRes = _yield$Promise$all2[1];
+            yearRes = _yield$Promise$all2[2];
+            _context.n = 2;
+            return Promise.all([courseRes.json(), deptRes.json(), yearRes.json()]);
+          case 2:
+            _yield$Promise$all3 = _context.v;
+            _yield$Promise$all4 = _slicedToArray(_yield$Promise$all3, 3);
+            courses = _yield$Promise$all4[0];
+            departments = _yield$Promise$all4[1];
+            years = _yield$Promise$all4[2];
+            courseSelect = document.getElementById("courseSelect");
+            deptSelect = document.getElementById("departmentSelect");
+            yearSelect = document.getElementById("academicYearSelect");
+            courses.forEach(function (c) {
+              courseSelect.innerHTML += "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
+            });
+            departments.forEach(function (d) {
+              deptSelect.innerHTML += "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+            });
+            years.forEach(function (y) {
+              yearSelect.innerHTML += "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+            });
+            _context.n = 4;
+            break;
+          case 3:
+            _context.p = 3;
+            _t = _context.v;
+            console.error("Error loading dropdowns:", _t);
+          case 4:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 3]]);
+    }));
+    return _fetchDropdowns.apply(this, arguments);
+  }
+  function fetchReport() {
+    return _fetchReport.apply(this, arguments);
+  }
+  function _fetchReport() {
+    _fetchReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var course, department, year, tbody, params, res, data, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            course = document.getElementById("courseSelect").value;
+            department = document.getElementById("departmentSelect").value;
+            year = document.getElementById("academicYearSelect").value;
+            tbody = document.getElementById("reportTableBody");
+            _context2.p = 1;
+            params = new URLSearchParams({
+              course_id: course,
+              department_id: department,
+              academic_year_id: year
+            });
+            _context2.n = 2;
+            return fetch("/api/reports/faculty?".concat(params));
+          case 2:
+            res = _context2.v;
+            _context2.n = 3;
+            return res.json();
+          case 3:
+            data = _context2.v;
+            if (data.length) {
+              _context2.n = 4;
+              break;
+            }
+            tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">No records found</td></tr>";
+            return _context2.a(2);
+          case 4:
+            tbody.innerHTML = data.map(function (f) {
+              var _f$course, _f$course2, _f$department, _f$department2;
+              return "\n                <tr>\n                    <td>".concat(f.firstname || f.first_name, " ").concat(f.lastname || f.last_name, "</td>\n                    <td>").concat(((_f$course = f.course) === null || _f$course === void 0 ? void 0 : _f$course.name) || ((_f$course2 = f.course) === null || _f$course2 === void 0 ? void 0 : _f$course2.course_name) || "N/A", "</td>\n                    <td>").concat(((_f$department = f.department) === null || _f$department === void 0 ? void 0 : _f$department.name) || ((_f$department2 = f.department) === null || _f$department2 === void 0 ? void 0 : _f$department2.department_name) || "N/A", "</td>\n                    <td><span class=\"status-badge active\">Active</span></td>\n                </tr>\n            ");
+            }).join("");
+            _context2.n = 6;
+            break;
+          case 5:
+            _context2.p = 5;
+            _t2 = _context2.v;
+            console.error("Error fetching report:", _t2);
+            tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">Error loading data</td></tr>";
+          case 6:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 5]]);
+    }));
+    return _fetchReport.apply(this, arguments);
+  }
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/Students.js":
 /*!*********************************************!*\
   !*** ./resources/js/components/Students.js ***!
@@ -42967,56 +43112,76 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 function loadStudents(app) {
-  app.innerHTML = "\n    <div class=\"students-container p-4\">\n      <h2 class=\"text-2xl font-bold mb-4\">Students</h2>\n\n      <!-- Student List -->\n      <table class=\"w-full border-collapse border text-sm mb-8\">\n        <thead class=\"bg-gray-100\">\n          <tr>\n            <th class=\"border p-2\">ID</th>\n            <th class=\"border p-2\">Student ID</th>\n            <th class=\"border p-2\">Name</th>\n            <th class=\"border p-2\">Course</th>\n            <th class=\"border p-2\">Department</th>\n            <th class=\"border p-2\">Year</th>\n            <th class=\"border p-2\">Status</th>\n            <th class=\"border p-2\">Actions</th>\n          </tr>\n        </thead>\n        <tbody id=\"studentList\"></tbody>\n      </table>\n\n      <!-- Add/Edit Student Form -->\n      <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n        <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n\n        <input type=\"text\" name=\"studID\" id=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"firstname\" id=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"middlename\" id=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n        <input type=\"text\" name=\"lastname\" id=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"suffix\" id=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n        <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n        <input type=\"date\" name=\"date_of_birth\" id=\"date_of_birth\" class=\"border p-2 rounded\">\n\n        <select name=\"sex\" id=\"sex\" class=\"border p-2 rounded\">\n          <option value=\"\">Select Sex</option>\n          <option value=\"Male\">Male</option>\n          <option value=\"Female\">Female</option>\n        </select>\n\n        <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Department</option>\n        </select>\n\n        <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Course</option>\n        </select>\n\n        <input type=\"text\" name=\"yearstatus\" id=\"yearstatus\" placeholder=\"Year Status (e.g. 3rd Year)\" class=\"border p-2 rounded\">\n        <input type=\"date\" name=\"enrollment_date\" id=\"enrollment_date\" class=\"border p-2 rounded\">\n\n        <select name=\"status\" id=\"status\" class=\"border p-2 rounded\" required>\n          <option value=\"active\">Active</option>\n          <option value=\"inactive\">Inactive</option>\n        </select>\n\n        <div class=\"col-span-2 flex gap-2\">\n          <button type=\"submit\" id=\"submitBtn\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n            Add Student\n          </button>\n          <button type=\"button\" id=\"cancelBtn\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" style=\"display:none;\">\n            Cancel\n          </button>\n        </div>\n      </form>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"students-container p-4\">\n      <h2 class=\"text-2xl font-bold mb-4\">Students Management</h2>\n      <div class=\"flex flex-wrap gap-2 mb-4 items-center\">\n        <input type=\"text\" id=\"searchInput\" placeholder=\"Search students...\" class=\"border p-2 rounded flex-1 min-w-[200px]\"/>\n        <select id=\"departmentFilter\" class=\"border p-2 rounded\">\n          <option value=\"\">All Departments</option>\n        </select>\n        <select id=\"courseFilter\" class=\"border p-2 rounded\">\n          <option value=\"\">All Courses</option>\n        </select>\n        <select id=\"academicYearFilter\" class=\"border p-2 rounded\">\n          <option value=\"\">All Academic Years</option>\n        </select>\n        <select id=\"yearstatusFilter\" class=\"border p-2 rounded\">\n          <option value=\"\">All YearStatus</option>\n          <option value=\"active\">Active</option>\n          <option value=\"inactive\">Inactive</option>\n          <option value=\"graduated\">Graduated</option>\n        </select>\n        <button id=\"clearFilters\" class=\"border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300\">Clear</button>\n      </div>\n      <table class=\"w-full border-collapse border text-sm mb-8 bg-white shadow rounded\">\n        <thead class=\"bg-gray-100\">\n          <tr>\n            <th class=\"border p-2\">ID</th>\n            <th class=\"border p-2\">Student ID</th>\n            <th class=\"border p-2\">Name</th>\n            <th class=\"border p-2\">Course</th>\n            <th class=\"border p-2\">Department</th>\n            <th class=\"border p-2\">Year</th>\n            <th class=\"border p-2\">Academic Year</th>\n            <th class=\"border p-2\">YearStatus</th>\n            <th class=\"border p-2\">Actions</th>\n          </tr>\n        </thead>\n        <tbody id=\"studentList\"></tbody>\n      </table>\n\n      <!-- Add/Edit Student Form -->\n      <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n        <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n\n        <input type=\"text\" name=\"studID\" id=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"firstname\" id=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"middlename\" id=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n        <input type=\"text\" name=\"lastname\" id=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"suffix\" id=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n        <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n        <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n        <input type=\"date\" name=\"date_of_birth\" id=\"date_of_birth\" class=\"border p-2 rounded\">\n\n        <select name=\"sex\" id=\"sex\" class=\"border p-2 rounded\">\n          <option value=\"\">Select Sex</option>\n          <option value=\"Male\">Male</option>\n          <option value=\"Female\">Female</option>\n        </select>\n\n        <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Department</option>\n        </select>\n\n        <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Course</option>\n        </select>\n\n        <select name=\"academic_year_id\" id=\"academicYearSelectForm\" class=\"border p-2 rounded\" required>\n          <option value=\"\">Select Academic Year</option>\n        </select>\n\n        <select name=\"yearstatus\" id=\"yearstatus\" class=\"border p-2 rounded\" required>\n          <option value=\"active\">Active</option>\n          <option value=\"inactive\">Inactive</option>\n          <option value=\"graduated\">Graduated</option>\n        </select>\n        <input type=\"date\" name=\"enrollment_date\" id=\"enrollment_date\" class=\"border p-2 rounded\">\n\n        <div class=\"col-span-2 flex gap-2\">\n          <button type=\"submit\" id=\"submitBtn\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n            Add Student\n          </button>\n          <button type=\"button\" id=\"cancelBtn\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" style=\"display:none;\">\n            Cancel\n          </button>\n        </div>\n      </form>\n    </div>\n  ";
   var isEditing = false;
+  var allStudents = [];
+  var allDepartments = [];
+  var allCourses = [];
+  var allAcademicYears = [];
 
-  // Load departments and courses
+  // Load departments, courses, academic years for filters and form
   function loadSelectOptions() {
     return _loadSelectOptions.apply(this, arguments);
   } // Fetch students
   function _loadSelectOptions() {
-    _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, departments, courses, departmentSelect, courseSelect, _t2;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
+    _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes, _t3;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
           case 0:
-            _context2.p = 0;
-            _context2.n = 1;
-            return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/courses")]);
+            _context4.p = 0;
+            _context4.n = 1;
+            return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/courses"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
           case 1:
-            _yield$Promise$all = _context2.v;
-            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+            _yield$Promise$all = _context4.v;
+            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 3);
             departmentsRes = _yield$Promise$all2[0];
             coursesRes = _yield$Promise$all2[1];
-            departments = departmentsRes.data;
-            courses = coursesRes.data;
-            departmentSelect = document.getElementById("departmentSelect");
-            departmentSelect.innerHTML = "<option value=\"\">Select Department</option>" + departments.map(function (d) {
-              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+            yearsRes = _yield$Promise$all2[2];
+            allDepartments = departmentsRes.data;
+            allCourses = coursesRes.data;
+            allAcademicYears = yearsRes.data;
+
+            // Filters
+            document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
+              return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
             }).join("");
-            courseSelect = document.getElementById("courseSelect");
-            courseSelect.innerHTML = "<option value=\"\">Select Course</option>" + courses.map(function (c) {
-              return "<option value=\"".concat(c.id, "\">").concat(c.name, "</option>");
+            document.getElementById("courseFilter").innerHTML = "<option value=\"\">All Courses</option>" + allCourses.map(function (c) {
+              return "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
             }).join("");
-            _context2.n = 3;
+            document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
+              return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+            }).join("");
+
+            // Form
+            document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
+              return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+            }).join("");
+            document.getElementById("courseSelect").innerHTML = "<option value=\"\">Select Course</option>" + allCourses.map(function (c) {
+              return "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
+            }).join("");
+            document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
+              return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+            }).join("");
+            _context4.n = 3;
             break;
           case 2:
-            _context2.p = 2;
-            _t2 = _context2.v;
-            alert("Failed to load departments or courses.");
+            _context4.p = 2;
+            _t3 = _context4.v;
+            alert("Failed to load departments, courses, or academic years.");
           case 3:
-            return _context2.a(2);
+            return _context4.a(2);
         }
-      }, _callee2, null, [[0, 2]]);
+      }, _callee4, null, [[0, 2]]);
     }));
     return _loadSelectOptions.apply(this, arguments);
   }
   function fetchStudents() {
     return _fetchStudents.apply(this, arguments);
-  } // Submit (Add/Edit)
+  } // Render students with filters/search
   function _fetchStudents() {
     _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var res, students, tbody, _t4;
+      var res, _t4;
       return _regenerator().w(function (_context5) {
         while (1) switch (_context5.p = _context5.n) {
           case 0:
@@ -43025,81 +43190,8 @@ function loadStudents(app) {
             return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students");
           case 1:
             res = _context5.v;
-            students = res.data;
-            tbody = document.getElementById("studentList");
-            tbody.innerHTML = students.map(function (s) {
-              var _s$course, _s$department;
-              return "\n          <tr>\n            <td class=\"border p-2\">".concat(s.id, "</td>\n            <td class=\"border p-2\">").concat(s.studID, "</td>\n            <td class=\"border p-2\">").concat(s.firstname, " ").concat(s.middlename ? s.middlename + ' ' : '').concat(s.lastname, "</td>\n            <td class=\"border p-2\">").concat(((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.name) || "", "</td>\n            <td class=\"border p-2\">").concat(((_s$department = s.department) === null || _s$department === void 0 ? void 0 : _s$department.name) || "", "</td>\n            <td class=\"border p-2\">").concat(s.yearstatus || "", "</td>\n            <td class=\"border p-2\">").concat(s.status || "active", "</td>\n            <td class=\"border p-2\">\n              <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(s.id, "\">Edit</button>\n              <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\">Delete</button>\n            </td>\n          </tr>\n        ");
-            }).join("");
-
-            // Delete logic
-            document.querySelectorAll(".delete-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-                var id;
-                return _regenerator().w(function (_context3) {
-                  while (1) switch (_context3.n) {
-                    case 0:
-                      id = btn.dataset.id;
-                      if (!confirm("Delete this student?")) {
-                        _context3.n = 2;
-                        break;
-                      }
-                      _context3.n = 1;
-                      return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
-                    case 1:
-                      fetchStudents();
-                      resetForm();
-                    case 2:
-                      return _context3.a(2);
-                  }
-                }, _callee3);
-              })));
-            });
-
-            // Edit logic
-            document.querySelectorAll(".edit-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-                var id, _res, s, _t3;
-                return _regenerator().w(function (_context4) {
-                  while (1) switch (_context4.p = _context4.n) {
-                    case 0:
-                      id = btn.dataset.id;
-                      _context4.p = 1;
-                      _context4.n = 2;
-                      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students/".concat(id));
-                    case 2:
-                      _res = _context4.v;
-                      s = _res.data;
-                      document.getElementById("edit_id").value = s.id;
-                      document.getElementById("studID").value = s.studID;
-                      document.getElementById("firstname").value = s.firstname;
-                      document.getElementById("middlename").value = s.middlename || "";
-                      document.getElementById("lastname").value = s.lastname;
-                      document.getElementById("suffix").value = s.suffix || "";
-                      document.getElementById("email").value = s.email;
-                      document.getElementById("phone").value = s.phone || "";
-                      document.getElementById("date_of_birth").value = s.date_of_birth || "";
-                      document.getElementById("sex").value = s.sex || "";
-                      document.getElementById("departmentSelect").value = s.department_id || "";
-                      document.getElementById("courseSelect").value = s.course_id || "";
-                      document.getElementById("yearstatus").value = s.yearstatus || "";
-                      document.getElementById("enrollment_date").value = s.enrollment_date || "";
-                      document.getElementById("status").value = s.status || "active";
-                      document.getElementById("submitBtn").textContent = "Update Student";
-                      document.getElementById("cancelBtn").style.display = "inline-block";
-                      isEditing = true;
-                      _context4.n = 4;
-                      break;
-                    case 3:
-                      _context4.p = 3;
-                      _t3 = _context4.v;
-                      alert("Failed to fetch student data.");
-                    case 4:
-                      return _context4.a(2);
-                  }
-                }, _callee4, null, [[1, 3]]);
-              })));
-            });
+            allStudents = res.data;
+            renderStudents();
             _context5.n = 3;
             break;
           case 2:
@@ -43113,31 +43205,137 @@ function loadStudents(app) {
     }));
     return _fetchStudents.apply(this, arguments);
   }
+  function renderStudents() {
+    var search = document.getElementById("searchInput").value.toLowerCase();
+    var department = document.getElementById("departmentFilter").value;
+    var course = document.getElementById("courseFilter").value;
+    var academicYear = document.getElementById("academicYearFilter").value;
+    var yearstatus = document.getElementById("yearstatusFilter").value;
+    var tbody = document.getElementById("studentList");
+    var filtered = allStudents.filter(function (s) {
+      var match = true;
+      if (search) {
+        match = s.studID && s.studID.toLowerCase().includes(search) || s.firstname && s.firstname.toLowerCase().includes(search) || s.lastname && s.lastname.toLowerCase().includes(search) || s.email && s.email.toLowerCase().includes(search);
+      }
+      if (match && department) match = s.department_id == department;
+      if (match && course) match = s.course_id == course;
+      if (match && academicYear) match = s.academic_year_id == academicYear;
+      if (match && yearstatus) match = s.yearstatus == yearstatus;
+      return match;
+    });
+    tbody.innerHTML = filtered.length ? filtered.map(function (s) {
+      var _allCourses$find, _allCourses$find2, _allDepartments$find, _allDepartments$find2, _allAcademicYears$fin, _allAcademicYears$fin2;
+      return "\n            <tr>\n              <td class=\"border p-2\">".concat(s.id, "</td>\n              <td class=\"border p-2\">").concat(s.studID, "</td>\n              <td class=\"border p-2\">").concat(s.firstname, " ").concat(s.middlename ? s.middlename + ' ' : '').concat(s.lastname, "</td>\n              <td class=\"border p-2\">").concat(((_allCourses$find = allCourses.find(function (c) {
+        return c.id == s.course_id;
+      })) === null || _allCourses$find === void 0 ? void 0 : _allCourses$find.name) || ((_allCourses$find2 = allCourses.find(function (c) {
+        return c.id == s.course_id;
+      })) === null || _allCourses$find2 === void 0 ? void 0 : _allCourses$find2.course_name) || "", "</td>\n              <td class=\"border p-2\">").concat(((_allDepartments$find = allDepartments.find(function (d) {
+        return d.id == s.department_id;
+      })) === null || _allDepartments$find === void 0 ? void 0 : _allDepartments$find.name) || ((_allDepartments$find2 = allDepartments.find(function (d) {
+        return d.id == s.department_id;
+      })) === null || _allDepartments$find2 === void 0 ? void 0 : _allDepartments$find2.department_name) || "", "</td>\n              <td class=\"border p-2\">").concat(s.yearstatus || "", "</td>\n              <td class=\"border p-2\">").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
+        return y.id == s.academic_year_id;
+      })) === null || _allAcademicYears$fin === void 0 ? void 0 : _allAcademicYears$fin.year) || ((_allAcademicYears$fin2 = allAcademicYears.find(function (y) {
+        return y.id == s.academic_year_id;
+      })) === null || _allAcademicYears$fin2 === void 0 ? void 0 : _allAcademicYears$fin2.academic_year) || "", "</td>\n              <td class=\"border p-2\">\n                <span class=\"px-2 py-1 rounded text-xs ").concat(s.yearstatus === 'active' ? 'bg-green-100 text-green-700' : s.yearstatus === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700', "\">\n                  ").concat(s.yearstatus || "active", "\n                </span>\n              </td>\n              <td class=\"border p-2 flex gap-1\">\n                <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(s.id, "\" title=\"Edit\"><i class=\"fas fa-edit\"></i>\u270F\uFE0F</button>\n                <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\" title=\"Delete\"><i class=\"fas fa-trash\"></i>\uD83D\uDDD1\uFE0F</button>\n              </td>\n            </tr>\n          ");
+    }).join("") : "<tr><td colspan=\"9\" class=\"text-center p-4\">No students found.</td></tr>";
+
+    // Delete logic
+    document.querySelectorAll(".delete-btn").forEach(function (btn) {
+      btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var id;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              id = btn.dataset.id;
+              if (!confirm("Delete this student?")) {
+                _context.n = 2;
+                break;
+              }
+              _context.n = 1;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
+            case 1:
+              fetchStudents();
+              resetForm();
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      })));
+    });
+
+    // Edit logic
+    document.querySelectorAll(".edit-btn").forEach(function (btn) {
+      btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var id, res, s, _t;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              id = btn.dataset.id;
+              _context2.p = 1;
+              _context2.n = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students/".concat(id));
+            case 2:
+              res = _context2.v;
+              s = res.data;
+              document.getElementById("edit_id").value = s.id;
+              document.getElementById("studID").value = s.studID;
+              document.getElementById("firstname").value = s.firstname;
+              document.getElementById("middlename").value = s.middlename || "";
+              document.getElementById("lastname").value = s.lastname;
+              document.getElementById("suffix").value = s.suffix || "";
+              document.getElementById("email").value = s.email;
+              document.getElementById("phone").value = s.phone || "";
+              document.getElementById("date_of_birth").value = s.date_of_birth || "";
+              document.getElementById("sex").value = s.sex || "";
+              document.getElementById("departmentSelect").value = s.department_id || "";
+              document.getElementById("courseSelect").value = s.course_id || "";
+              document.getElementById("academicYearSelectForm").value = s.academic_year_id || "";
+              document.getElementById("yearstatus").value = s.yearstatus || "active";
+              document.getElementById("enrollment_date").value = s.enrollment_date || "";
+              document.getElementById("submitBtn").textContent = "Update Student";
+              document.getElementById("cancelBtn").style.display = "inline-block";
+              isEditing = true;
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t = _context2.v;
+              alert("Failed to fetch student data.");
+            case 4:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3]]);
+      })));
+    });
+  }
+
+  // Submit (Add/Edit)
   var form = document.getElementById("studentForm");
   var submitBtn = document.getElementById("submitBtn");
   var cancelBtn = document.getElementById("cancelBtn");
   form.addEventListener("submit", /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var formData, id, _error$response, _t;
-      return _regenerator().w(function (_context) {
-        while (1) switch (_context.p = _context.n) {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
+      var formData, id, _error$response, _t2;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
           case 0:
             e.preventDefault();
             formData = Object.fromEntries(new FormData(form));
             id = formData.edit_id;
             delete formData.edit_id;
-            _context.p = 1;
+            _context3.p = 1;
             if (!(isEditing && id)) {
-              _context.n = 3;
+              _context3.n = 3;
               break;
             }
-            _context.n = 2;
+            _context3.n = 2;
             return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/students/".concat(id), formData);
           case 2:
-            _context.n = 4;
+            _context3.n = 4;
             break;
           case 3:
-            _context.n = 4;
+            _context3.n = 4;
             return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
           case 4:
             form.reset();
@@ -43145,20 +43343,20 @@ function loadStudents(app) {
             cancelBtn.style.display = "none";
             isEditing = false;
             fetchStudents();
-            _context.n = 6;
+            _context3.n = 6;
             break;
           case 5:
-            _context.p = 5;
-            _t = _context.v;
-            console.error("Error saving student:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
+            _context3.p = 5;
+            _t2 = _context3.v;
+            console.error("Error saving student:", ((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t2);
             alert("Failed to save student. Check console for details.");
           case 6:
-            return _context.a(2);
+            return _context3.a(2);
         }
-      }, _callee, null, [[1, 5]]);
+      }, _callee3, null, [[1, 5]]);
     }));
     return function (_x) {
-      return _ref.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }());
 
@@ -43176,9 +43374,23 @@ function loadStudents(app) {
     isEditing = false;
   }
 
+  // Filters & search
+  document.getElementById("searchInput").addEventListener("input", renderStudents);
+  document.getElementById("departmentFilter").addEventListener("change", renderStudents);
+  document.getElementById("courseFilter").addEventListener("change", renderStudents);
+  document.getElementById("academicYearFilter").addEventListener("change", renderStudents);
+  document.getElementById("yearstatusFilter").addEventListener("change", renderStudents);
+  document.getElementById("clearFilters").addEventListener("click", function () {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("departmentFilter").value = "";
+    document.getElementById("courseFilter").value = "";
+    document.getElementById("academicYearFilter").value = "";
+    document.getElementById("yearstatusFilter").value = "";
+    renderStudents();
+  });
+
   // Initialize
-  fetchStudents();
-  loadSelectOptions();
+  loadSelectOptions().then(fetchStudents);
 }
 
 /***/ }),
@@ -43199,7 +43411,7 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadSystemSettings(app) {
-  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                <div class=\"topbar-right\">\n                    <span class=\"user\">\uD83D\uDC64 Balbuena Ivan</span>\n                    <button id=\"logoutBtn\" class=\"logout-btn\">Logout</button>\n                </div>\n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-tabs\" style=\"margin-bottom:2rem;\">\n                    <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n                    <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n                    <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n                    <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n                </div>\n                <div id=\"tabContent\">\n                    <!-- Courses tab content will be loaded here by default -->\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                \n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-tabs\" style=\"margin-bottom:2rem;\">\n                    <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n                    <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n                    <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n                    <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n                </div>\n                <div id=\"tabContent\">\n                    <!-- Courses tab content will be loaded here by default -->\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
 
   // --- Tab Content Templates ---
   function getCoursesContent() {
@@ -43861,12 +44073,6 @@ function loadSystemSettings(app) {
       if (page === 'overview') window.location.reload(); // Or call your loadDashboard
       // Add more navigation as needed
     });
-  });
-
-  // Logout
-  document.getElementById("logoutBtn").addEventListener("click", function () {
-    localStorage.removeItem("token");
-    window.location.href = "/";
   });
 }
 

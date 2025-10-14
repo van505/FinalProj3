@@ -11,6 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\AcademicYearController;
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -76,3 +77,6 @@ Route::get('/archives', [ArchiveController::class, 'index']);
 
 // Restore item by type and ID
 Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
+
+Route::get('/reports/students', [ReportController::class, 'studentReport']);
+Route::get('/reports/faculty', [ReportController::class, 'facultyReport']);

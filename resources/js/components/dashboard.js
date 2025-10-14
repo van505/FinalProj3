@@ -2,7 +2,8 @@ import Chart from "chart.js/auto";
 import { loadSystemSettings } from "./SystemSettings";
 import { loadProfile } from "./Profile.js";
 import { loadStudents } from "./Students.js";
-import { loadFaculty } from "./Faculty.js"; // ✅ Added import
+import { loadFaculty } from "./Faculty.js"; 
+import { loadReport } from "./Report.js";
 
 // ✅ Export function so app.js can call it
 export function loadDashboard(app) {
@@ -14,7 +15,7 @@ export function loadDashboard(app) {
                 <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
                 <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li> <!-- ✅ Added ID -->
                 <li><a href="#" data-page="archive"><span>Archive</span></a></li>
-                <li><a href="#" data-page="report"><span>Report</span></a></li>
+                <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
                 <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
                 <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
             </ul>
@@ -31,10 +32,7 @@ export function loadDashboard(app) {
                 <div class="topbar-center">
                     <input type="text" class="search-input" placeholder="Search">
                 </div>
-                <div class="topbar-right">
-                    <span class="user">👤 Balbuena Ivan</span>
-                    <button id="logoutBtn" class="logout-btn">Logout</button>
-                </div>
+                
             </header>
 
             <section class="overview-section">
@@ -129,11 +127,6 @@ export function loadDashboard(app) {
         });
     });
 
-    // ✅ Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("token");
-        window.location.href = "/";
-    });
 
     // ✅ Profile
     const menuProfile = document.getElementById("menuProfile");
@@ -163,6 +156,16 @@ export function loadDashboard(app) {
             e.preventDefault();
             const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
             loadFaculty(mainContent);
+        });
+    }
+
+    // ✅ Report
+    const menuReport = document.getElementById("menuReport");
+    if (menuReport) {
+        menuReport.addEventListener("click", (e) => {
+            e.preventDefault();
+            const mainContent = document.querySelector(".main.new-main") || document.querySelector("#mainContent");
+            loadReport(mainContent);
         });
     }
 }

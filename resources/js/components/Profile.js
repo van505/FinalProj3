@@ -10,7 +10,7 @@ export function loadProfile(app) {
                 <li><a href="#" data-page="students"><span>Students</span></a></li>
                 <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
                 <li><a href="#" data-page="archive"><span>Archive</span></a></li>
-                <li><a href="#" data-page="report"><span>Report</span></a></li>
+                <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
                 <li><a href="#" class="active" data-page="profile"><span>Profile</span></a></li>
                 <li><a href="#" id="menuSettings" data-page="settings"><span>System Settings</span></a></li>
             </ul>

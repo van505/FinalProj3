@@ -11,7 +11,7 @@ import { loadDashboard } from "./components/Dashboard";
 
 // ✅ Import new components
 import { loadSystemSettings } from "./components/SystemSettings";
-import { loadProfile } from "./components/Profile"; // 👈 newly added
+import { loadProfile } from "./components/Profile";
 
 // Mount app
 const app = document.getElementById("app");

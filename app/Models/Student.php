@@ -22,6 +22,7 @@ class Student extends Model
         'sex',
         'department_id',
         'course_id',
+        'academic_year_id',
         'yearstatus',
         'enrollment_date',
         'userID',
@@ -41,23 +42,8 @@ class Student extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function user()
+    public function academicYear()
     {
-        return $this->belongsTo(User::class, 'userID');
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
-
-    public function deleter()
-    {
-        return $this->belongsTo(User::class, 'deleted_by');
+        return $this->belongsTo(\App\Models\AcademicYear::class, 'academic_year_id');
     }
 }
