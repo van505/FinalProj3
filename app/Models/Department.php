@@ -11,4 +11,10 @@ class Department extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'head'];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
 }

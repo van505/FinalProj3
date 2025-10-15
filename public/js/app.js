@@ -43418,7 +43418,7 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 function loadStudents(app) {
-  app.innerHTML = "\n    <nav class=\"sidebar new-sidebar\">\n        <button class=\"new-item-btn\">+ New Item</button>\n        <ul class=\"sidebar-menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" class=\"active\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n        </ul>\n    </nav>\n    <div class=\"main new-main\">\n        <header class=\"topbar new-topbar\">\n            <div class=\"topbar-left\">\n                <h1 class=\"dashboard-title\">Students Management</h1>\n            </div>\n        </header>\n        <div class=\"students-container p-4\">\n          <h2 class=\"text-2xl font-bold mb-4\">Students Management</h2>\n          <div class=\"flex flex-wrap gap-2 mb-4 items-center\">\n            <input type=\"text\" id=\"searchInput\" placeholder=\"Search students...\" class=\"border p-2 rounded flex-1 min-w-[200px]\"/>\n            <select id=\"departmentFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Departments</option>\n            </select>\n            <select id=\"courseFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Courses</option>\n            </select>\n            <select id=\"academicYearFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Academic Years</option>\n            </select>\n            <select id=\"yearstatusFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All YearStatus</option>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"graduated\">Graduated</option>\n            </select>\n            <button id=\"clearFilters\" class=\"border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300\">Clear</button>\n          </div>\n          <table class=\"w-full border-collapse border text-sm mb-8 bg-white shadow rounded\">\n            <thead class=\"bg-gray-100\">\n              <tr>\n                <th class=\"border p-2\">ID</th>\n                <th class=\"border p-2\">Student ID</th>\n                <th class=\"border p-2\">Name</th>\n                <th class=\"border p-2\">Course</th>\n                <th class=\"border p-2\">Department</th>\n                <th class=\"border p-2\">Year</th>\n                <th class=\"border p-2\">Academic Year</th>\n                <th class=\"border p-2\">YearStatus</th>\n                <th class=\"border p-2\">Actions</th>\n              </tr>\n            </thead>\n            <tbody id=\"studentList\"></tbody>\n          </table>\n\n          <!-- Add/Edit Student Form -->\n          <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n            <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n\n            <input type=\"text\" name=\"studID\" id=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"firstname\" id=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"middlename\" id=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n            <input type=\"text\" name=\"lastname\" id=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"suffix\" id=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n            <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n            <input type=\"date\" name=\"date_of_birth\" id=\"date_of_birth\" class=\"border p-2 rounded\">\n\n            <select name=\"sex\" id=\"sex\" class=\"border p-2 rounded\">\n              <option value=\"\">Select Sex</option>\n              <option value=\"Male\">Male</option>\n              <option value=\"Female\">Female</option>\n            </select>\n\n            <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n              <option value=\"\">Select Department</option>\n            </select>\n\n            <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n              <option value=\"\">Select Course</option>\n            </select>\n\n            <select name=\"academic_year_id\" id=\"academicYearSelectForm\" class=\"border p-2 rounded\" required>\n              <option value=\"\">Select Academic Year</option>\n            </select>\n\n            <select name=\"yearstatus\" id=\"yearstatus\" class=\"border p-2 rounded\" required>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"graduated\">Graduated</option>\n            </select>\n            <input type=\"date\" name=\"enrollment_date\" id=\"enrollment_date\" class=\"border p-2 rounded\">\n\n            <div class=\"col-span-2 flex gap-2\">\n              <button type=\"submit\" id=\"submitBtn\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">\n                Add Student\n              </button>\n              <button type=\"button\" id=\"cancelBtn\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" style=\"display:none;\">\n                Cancel\n              </button>\n            </div>\n          </form>\n        </div>\n    </div>\n  ";
+  app.innerHTML = "\n    <nav class=\"sidebar new-sidebar\">\n        <button class=\"new-item-btn\" id=\"addStudentBtn\">+ Add Student</button>\n        <ul class=\"sidebar-menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" class=\"active\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n        </ul>\n    </nav>\n    <div class=\"main new-main bg-gray-50 min-h-screen\">\n        <header class=\"topbar new-topbar\">\n            <div class=\"topbar-left\">\n                <h1 class=\"dashboard-title font-bold text-2xl mt-6 mb-2\">Students Management</h1>\n            </div>\n        </header>\n        <div class=\"students-container p-8\">\n          <div class=\"flex flex-wrap gap-2 mb-4 items-center\">\n            <input type=\"text\" id=\"searchInput\" placeholder=\"Search students...\" class=\"border p-2 rounded flex-1 min-w-[200px]\"/>\n            <select id=\"departmentFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Departments</option>\n            </select>\n            <select id=\"courseFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Courses</option>\n            </select>\n            <select id=\"academicYearFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Academic Years</option>\n            </select>\n            <select id=\"yearstatusFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All YearStatus</option>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"graduated\">Graduated</option>\n            </select>\n            <button id=\"clearFilters\" class=\"border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300\">Clear</button>\n            <button id=\"addStudentBtnTop\" class=\"ml-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2\">\n              <span>+ Add Student</span>\n            </button>\n          </div>\n          <div class=\"overflow-x-auto rounded shadow bg-white\">\n            <table class=\"min-w-full border-collapse border text-sm mb-8\">\n              <thead class=\"bg-gray-100\">\n                <tr>\n                  <th class=\"border p-2\">ID</th>\n                  <th class=\"border p-2\">Student ID</th>\n                  <th class=\"border p-2\">Name</th>\n                  <th class=\"border p-2\">Course</th>\n                  <th class=\"border p-2\">Department</th>\n                  <th class=\"border p-2\">Academic Year</th>\n                  <th class=\"border p-2\">YearStatus</th>\n                  <th class=\"border p-2\">Actions</th>\n                </tr>\n              </thead>\n              <tbody id=\"studentList\"></tbody>\n            </table>\n          </div>\n        </div>\n        <!-- Modal for Add/Edit Student -->\n        <div id=\"studentModal\" class=\"fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden\">\n          <div class=\"bg-white rounded shadow-lg w-full max-w-2xl p-6 relative\">\n            <button id=\"closeStudentModal\" class=\"absolute top-2 right-2 text-gray-500 hover:text-black text-xl\">&times;</button>\n            <h3 class=\"text-xl font-bold mb-4\" id=\"studentModalTitle\">Add New Student</h3>\n            <form id=\"studentForm\" class=\"grid grid-cols-2 gap-4\">\n              <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n              <input type=\"text\" name=\"studID\" id=\"studID\" placeholder=\"Student ID\" class=\"border p-2 rounded\" required>\n              <input type=\"text\" name=\"firstname\" id=\"firstname\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n              <input type=\"text\" name=\"middlename\" id=\"middlename\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n              <input type=\"text\" name=\"lastname\" id=\"lastname\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n              <input type=\"text\" name=\"suffix\" id=\"suffix\" placeholder=\"Suffix\" class=\"border p-2 rounded\">\n              <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n              <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n              <input type=\"date\" name=\"date_of_birth\" id=\"date_of_birth\" class=\"border p-2 rounded\">\n              <select name=\"sex\" id=\"sex\" class=\"border p-2 rounded\">\n                <option value=\"\">Select Sex</option>\n                <option value=\"Male\">Male</option>\n                <option value=\"Female\">Female</option>\n              </select>\n              <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n                <option value=\"\">Select Department</option>\n              </select>\n              <select name=\"course_id\" id=\"courseSelect\" class=\"border p-2 rounded\" required>\n                <option value=\"\">Select Course</option>\n              </select>\n              <select name=\"academic_year_id\" id=\"academicYearSelectForm\" class=\"border p-2 rounded\" required>\n                <option value=\"\">Select Academic Year</option>\n              </select>\n              <select name=\"yearstatus\" id=\"yearstatus\" class=\"border p-2 rounded\" required>\n                <option value=\"active\">Active</option>\n                <option value=\"inactive\">Inactive</option>\n                <option value=\"graduated\">Graduated</option>\n              </select>\n              <input type=\"date\" name=\"enrollment_date\" id=\"enrollment_date\" class=\"border p-2 rounded\">\n              <div class=\"col-span-2 flex gap-2 justify-end mt-4\">\n                <button type=\"button\" id=\"cancelBtn\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\">Cancel</button>\n                <button type=\"submit\" id=\"submitBtn\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\">Save Student</button>\n              </div>\n            </form>\n          </div>\n        </div>\n    </div>\n  ";
   var isEditing = false;
   var allStudents = [];
   var allDepartments = [];
@@ -43428,14 +43428,14 @@ function loadStudents(app) {
   // Load departments, courses, academic years for filters and form
   function loadSelectOptions() {
     return _loadSelectOptions.apply(this, arguments);
-  } // Fetch students
+  } // --- FILTER LOGIC ---
+  // When department filter changes, update course filter options
   function _loadSelectOptions() {
     _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes, _t3;
+      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes;
       return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.p = _context4.n) {
+        while (1) switch (_context4.n) {
           case 0:
-            _context4.p = 0;
             _context4.n = 1;
             return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/courses"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
           case 1:
@@ -43448,46 +43448,92 @@ function loadStudents(app) {
             allCourses = coursesRes.data;
             allAcademicYears = yearsRes.data;
 
-            // Filters
+            // Department filter
             document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
-              return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
             }).join("");
-            document.getElementById("courseFilter").innerHTML = "<option value=\"\">All Courses</option>" + allCourses.map(function (c) {
-              return "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
-            }).join("");
+
+            // Course filter (initially all)
+            updateCourseFilter();
+
+            // Academic year filter
             document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
               return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
             }).join("");
 
-            // Form
+            // Department select (form)
             document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
-              return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
+              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
             }).join("");
-            document.getElementById("courseSelect").innerHTML = "<option value=\"\">Select Course</option>" + allCourses.map(function (c) {
-              return "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
-            }).join("");
+
+            // Academic year select (form)
             document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
               return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
             }).join("");
-            _context4.n = 3;
-            break;
+
+            // Course select (form, initially all)
+            updateCourseSelect();
           case 2:
-            _context4.p = 2;
-            _t3 = _context4.v;
-            alert("Failed to load departments, courses, or academic years.");
-          case 3:
             return _context4.a(2);
         }
-      }, _callee4, null, [[0, 2]]);
+      }, _callee4);
     }));
     return _loadSelectOptions.apply(this, arguments);
   }
+  document.addEventListener("change", function (e) {
+    if (e.target && e.target.id === "departmentFilter") {
+      updateCourseFilter();
+      renderStudents();
+    }
+    if (e.target && e.target.id === "courseFilter") {
+      renderStudents();
+    }
+    if (e.target && e.target.id === "academicYearFilter") {
+      renderStudents();
+    }
+    if (e.target && e.target.id === "yearstatusFilter") {
+      renderStudents();
+    }
+  });
+  function updateCourseFilter() {
+    var deptId = document.getElementById("departmentFilter").value;
+    var courseFilter = document.getElementById("courseFilter");
+    var filteredCourses = deptId ? allCourses.filter(function (c) {
+      return c.department_id == deptId;
+    }) : allCourses;
+    courseFilter.innerHTML = "<option value=\"\">All Courses</option>" + filteredCourses.map(function (c) {
+      return "<option value=\"".concat(c.id, "\">").concat(c.name, "</option>");
+    }).join("");
+  }
+
+  // --- FORM LOGIC ---
+
+  // When department select (form) changes, update course select (form)
+  document.addEventListener("change", function (e) {
+    if (e.target && e.target.id === "departmentSelect") {
+      updateCourseSelect();
+    }
+  });
+  function updateCourseSelect() {
+    var deptId = document.getElementById("departmentSelect").value;
+    var courseSelect = document.getElementById("courseSelect");
+    var filteredCourses = deptId ? allCourses.filter(function (c) {
+      return c.department_id == deptId;
+    }) : allCourses;
+    courseSelect.innerHTML = "<option value=\"\">Select Course</option>" + filteredCourses.map(function (c) {
+      return "<option value=\"".concat(c.id, "\">").concat(c.name, "</option>");
+    }).join("");
+  }
+
+  // --- REST OF YOUR LOGIC (fetchStudents, renderStudents, form submit, etc.) ---
+
+  // Fetch students
   function fetchStudents() {
     return _fetchStudents.apply(this, arguments);
   } // Render students with filters/search
   function _fetchStudents() {
     _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var res, _t4;
+      var res, _t3;
       return _regenerator().w(function (_context5) {
         while (1) switch (_context5.p = _context5.n) {
           case 0:
@@ -43502,8 +43548,8 @@ function loadStudents(app) {
             break;
           case 2:
             _context5.p = 2;
-            _t4 = _context5.v;
-            console.error("Error fetching students:", _t4);
+            _t3 = _context5.v;
+            console.error("Error fetching students:", _t3);
           case 3:
             return _context5.a(2);
         }
@@ -43539,12 +43585,12 @@ function loadStudents(app) {
         return d.id == s.department_id;
       })) === null || _allDepartments$find === void 0 ? void 0 : _allDepartments$find.name) || ((_allDepartments$find2 = allDepartments.find(function (d) {
         return d.id == s.department_id;
-      })) === null || _allDepartments$find2 === void 0 ? void 0 : _allDepartments$find2.department_name) || "", "</td>\n              <td class=\"border p-2\">").concat(s.yearstatus || "", "</td>\n              <td class=\"border p-2\">").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
+      })) === null || _allDepartments$find2 === void 0 ? void 0 : _allDepartments$find2.department_name) || "", "</td>\n              <td class=\"border p-2\">").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
         return y.id == s.academic_year_id;
       })) === null || _allAcademicYears$fin === void 0 ? void 0 : _allAcademicYears$fin.year) || ((_allAcademicYears$fin2 = allAcademicYears.find(function (y) {
         return y.id == s.academic_year_id;
       })) === null || _allAcademicYears$fin2 === void 0 ? void 0 : _allAcademicYears$fin2.academic_year) || "", "</td>\n              <td class=\"border p-2\">\n                <span class=\"px-2 py-1 rounded text-xs ").concat(s.yearstatus === 'active' ? 'bg-green-100 text-green-700' : s.yearstatus === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700', "\">\n                  ").concat(s.yearstatus || "active", "\n                </span>\n              </td>\n              <td class=\"border p-2 flex gap-1\">\n                <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(s.id, "\" title=\"Edit\"><i class=\"fas fa-edit\"></i>\u270F\uFE0F</button>\n                <button class=\"text-red-600 delete-btn\" data-id=\"").concat(s.id, "\" title=\"Delete\"><i class=\"fas fa-trash\"></i>\uD83D\uDDD1\uFE0F</button>\n              </td>\n            </tr>\n          ");
-    }).join("") : "<tr><td colspan=\"9\" class=\"text-center p-4\">No students found.</td></tr>";
+    }).join("") : "<tr><td colspan=\"8\" class=\"text-center p-4\">No students found.</td></tr>";
 
     // Delete logic
     document.querySelectorAll(".delete-btn").forEach(function (btn) {
@@ -43595,10 +43641,13 @@ function loadStudents(app) {
               document.getElementById("date_of_birth").value = s.date_of_birth || "";
               document.getElementById("sex").value = s.sex || "";
               document.getElementById("departmentSelect").value = s.department_id || "";
+              updateCourseSelect();
               document.getElementById("courseSelect").value = s.course_id || "";
               document.getElementById("academicYearSelectForm").value = s.academic_year_id || "";
-              document.getElementById("yearstatus").value = s.yearstatus || "active";
+              document.getElementById("yearstatus").value = s.yearstatus || "";
               document.getElementById("enrollment_date").value = s.enrollment_date || "";
+              document.getElementById("studentModal").classList.remove("hidden");
+              document.getElementById("studentModalTitle").textContent = "Edit Student";
               document.getElementById("submitBtn").textContent = "Update Student";
               document.getElementById("cancelBtn").style.display = "inline-block";
               isEditing = true;
@@ -43616,10 +43665,27 @@ function loadStudents(app) {
     });
   }
 
+  // Modal logic
+  function showStudentModal() {
+    document.getElementById("studentModal").classList.remove("hidden");
+    document.getElementById("studentModalTitle").textContent = "Add New Student";
+    document.getElementById("submitBtn").textContent = "Save Student";
+    resetForm();
+  }
+  function hideStudentModal() {
+    document.getElementById("studentModal").classList.add("hidden");
+    resetForm();
+  }
+
+  // Add Student button (sidebar and top)
+  document.getElementById("addStudentBtn").addEventListener("click", showStudentModal);
+  document.getElementById("addStudentBtnTop").addEventListener("click", showStudentModal);
+  document.getElementById("closeStudentModal").addEventListener("click", hideStudentModal);
+  document.getElementById("cancelBtn").addEventListener("click", hideStudentModal);
+
   // Submit (Add/Edit)
   var form = document.getElementById("studentForm");
   var submitBtn = document.getElementById("submitBtn");
-  var cancelBtn = document.getElementById("cancelBtn");
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
       var formData, id, _error$response, _t2;
@@ -43645,9 +43711,8 @@ function loadStudents(app) {
             return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
           case 4:
             form.reset();
-            submitBtn.textContent = "Add Student";
-            cancelBtn.style.display = "none";
             isEditing = false;
+            hideStudentModal();
             fetchStudents();
             _context3.n = 6;
             break;
@@ -43665,30 +43730,18 @@ function loadStudents(app) {
       return _ref3.apply(this, arguments);
     };
   }());
-
-  // Cancel button
-  cancelBtn.addEventListener("click", function () {
-    form.reset();
-    submitBtn.textContent = "Add Student";
-    cancelBtn.style.display = "none";
-    isEditing = false;
-  });
   function resetForm() {
     form.reset();
-    submitBtn.textContent = "Add Student";
-    cancelBtn.style.display = "none";
     isEditing = false;
+    document.getElementById("cancelBtn").style.display = "none";
   }
 
   // Filters & search
   document.getElementById("searchInput").addEventListener("input", renderStudents);
-  document.getElementById("departmentFilter").addEventListener("change", renderStudents);
-  document.getElementById("courseFilter").addEventListener("change", renderStudents);
-  document.getElementById("academicYearFilter").addEventListener("change", renderStudents);
-  document.getElementById("yearstatusFilter").addEventListener("change", renderStudents);
   document.getElementById("clearFilters").addEventListener("click", function () {
     document.getElementById("searchInput").value = "";
     document.getElementById("departmentFilter").value = "";
+    updateCourseFilter();
     document.getElementById("courseFilter").value = "";
     document.getElementById("academicYearFilter").value = "";
     document.getElementById("yearstatusFilter").value = "";
@@ -43717,11 +43770,11 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadSystemSettings(app) {
-  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n                \n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-tabs\" style=\"margin-bottom:2rem;\">\n                    <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n                    <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n                    <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n                    <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n                </div>\n                <div id=\"tabContent\">\n                    <!-- Courses tab content will be loaded here by default -->\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
+  app.innerHTML = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">DashBoard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n            \n            </header>\n            <section class=\"settings-section\">\n                <h2 class=\"settings-title\"><span style=\"font-size:2rem;\">\u2699\uFE0F</span> System Settings</h2>\n                <div class=\"settings-tabs\" style=\"margin-bottom:2rem;\">\n                    <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n                    <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n                    <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n                    <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n                </div>\n                <div id=\"tabContent\">\n                    <!-- Courses tab content will be loaded here by default -->\n                </div>\n                <div id=\"settingsMessage\"></div>\n            </section>\n        </div>\n    ";
 
   // --- Tab Content Templates ---
   function getCoursesContent() {
-    return "\n            <div>\n                <h4>Courses List</h4>\n                <table style=\"width:100%;border-collapse:collapse;margin-bottom:1rem;\">\n                    <thead>\n                        <tr style=\"background:#f3f4f6;\">\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Course Name</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                        </tr>\n                    </thead>\n                    <tbody id=\"coursesTable\"></tbody>\n                </table>\n                <h3>Add / Edit Course</h3>\n                <form id=\"addCourseForm\">\n                    <input type=\"hidden\" name=\"edit_course_id\" id=\"edit_course_id\" />\n                    <input type=\"text\" name=\"course_name\" id=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                    <button type=\"submit\" class=\"btn btn-blue\" id=\"courseSubmitBtn\">Add Course</button>\n                    <button type=\"button\" class=\"btn btn-gray\" id=\"cancelCourseEditBtn\" style=\"display:none;\">Cancel</button>\n                </form>\n            </div>\n        ";
+    return "\n            <div>\n                <h4>Courses List</h4>\n                <table style=\"width:100%;border-collapse:collapse;margin-bottom:1rem;\">\n                    <thead>\n                        <tr style=\"background:#f3f4f6;\">\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Course Name</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Department</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                        </tr>\n                    </thead>\n                    <tbody id=\"coursesTable\"></tbody>\n                </table>\n                <h3>Add / Edit Course</h3>\n                <form id=\"addCourseForm\">\n                    <input type=\"hidden\" name=\"edit_course_id\" id=\"edit_course_id\" />\n                    <input type=\"text\" name=\"course_name\" id=\"course_name\" placeholder=\"Course Name\" required class=\"input\" />\n                    <select name=\"department_id\" id=\"course_department_id\" required class=\"input\">\n                        <option value=\"\">Select Department</option>\n                    </select>\n                    <button type=\"submit\" class=\"btn btn-blue\" id=\"courseSubmitBtn\">Add Course</button>\n                    <button type=\"button\" class=\"btn btn-gray\" id=\"cancelCourseEditBtn\" style=\"display:none;\">Cancel</button>\n                </form>\n            </div>\n        ";
   }
   function getDepartmentsContent() {
     return "\n            <div>\n                <h4>Departments List</h4>\n                <table style=\"width:100%;border-collapse:collapse;margin-bottom:1rem;\">\n                    <thead>\n                        <tr style=\"background:#f3f4f6;\">\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">#</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Department Name</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Head</th>\n                            <th style=\"padding:8px;border:1px solid #e5e7eb;\">Action</th>\n                        </tr>\n                    </thead>\n                    <tbody id=\"departmentsTable\"></tbody>\n                </table>\n                <h3>Add / Edit Department</h3>\n                <form id=\"addDepartmentForm\">\n                    <input type=\"hidden\" name=\"edit_department_id\" id=\"edit_department_id\" />\n                    <input type=\"text\" name=\"department_name\" id=\"department_name\" placeholder=\"Department Name\" required class=\"input\" />\n                    <input type=\"text\" name=\"department_head\" id=\"department_head\" placeholder=\"Department Head\" required class=\"input\" />\n                    <button type=\"submit\" class=\"btn btn-green\" id=\"departmentSubmitBtn\">Add Department</button>\n                    <button type=\"button\" class=\"btn btn-gray\" id=\"cancelDepartmentEditBtn\" style=\"display:none;\">Cancel</button>\n                </form>\n            </div>\n        ";
@@ -43815,27 +43868,49 @@ function loadSystemSettings(app) {
 
   // --- Tab Switching Logic ---
   var tabContent = document.getElementById("tabContent");
-  function showTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(function (btn) {
-      return btn.classList.remove('active');
-    });
-    document.querySelector(".tab-btn[data-tab=\"".concat(tab, "\"]")).classList.add('active');
-    if (tab === "courses") {
-      tabContent.innerHTML = getCoursesContent();
-      fetchCourses();
-      setupCourseForm();
-    } else if (tab === "departments") {
-      tabContent.innerHTML = getDepartmentsContent();
-      fetchDepartments();
-      setupDepartmentForm();
-    } else if (tab === "academic") {
-      tabContent.innerHTML = getAcademicContent();
-      fetchAcademicYears();
-      setupAcademicForm();
-    } else if (tab === "archives") {
-      tabContent.innerHTML = getArchivesContent();
-      fetchArchives();
-    }
+  function showTab(_x3) {
+    return _showTab.apply(this, arguments);
+  }
+  function _showTab() {
+    _showTab = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(tab) {
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.n) {
+          case 0:
+            document.querySelectorAll('.tab-btn').forEach(function (btn) {
+              return btn.classList.remove('active');
+            });
+            document.querySelector(".tab-btn[data-tab=\"".concat(tab, "\"]")).classList.add('active');
+            if (!(tab === "courses")) {
+              _context6.n = 2;
+              break;
+            }
+            tabContent.innerHTML = getCoursesContent();
+            _context6.n = 1;
+            return populateCourseDepartments();
+          case 1:
+            fetchCourses();
+            setupCourseForm();
+            _context6.n = 3;
+            break;
+          case 2:
+            if (tab === "departments") {
+              tabContent.innerHTML = getDepartmentsContent();
+              fetchDepartments();
+              setupDepartmentForm();
+            } else if (tab === "academic") {
+              tabContent.innerHTML = getAcademicContent();
+              fetchAcademicYears();
+              setupAcademicForm();
+            } else if (tab === "archives") {
+              tabContent.innerHTML = getArchivesContent();
+              fetchArchives();
+            }
+          case 3:
+            return _context6.a(2);
+        }
+      }, _callee6);
+    }));
+    return _showTab.apply(this, arguments);
   }
   document.querySelectorAll('.tab-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -43849,37 +43924,38 @@ function loadSystemSettings(app) {
     return _fetchCourses.apply(this, arguments);
   }
   function _fetchCourses() {
-    _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+    _fetchCourses = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
       var res, table, data;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.n) {
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.n) {
           case 0:
-            _context7.n = 1;
+            _context8.n = 1;
             return fetch('/api/courses');
           case 1:
-            res = _context7.v;
+            res = _context8.v;
             table = document.getElementById('coursesTable');
             if (!res.ok) {
-              _context7.n = 3;
+              _context8.n = 3;
               break;
             }
-            _context7.n = 2;
+            _context8.n = 2;
             return res.json();
           case 2:
-            data = _context7.v;
+            data = _context8.v;
             table.innerHTML = data.length ? data.map(function (c, i) {
-              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(c.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-course-btn\" data-id=\"").concat(c.id, "\" data-name=\"").concat(c.name, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-course-btn\" data-id=\"").concat(c.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
-            }).join('') : "<tr><td colspan=\"3\" style=\"text-align:center;padding:8px;\">No courses found.</td></tr>";
+              var _c$department;
+              return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(c.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(((_c$department = c.department) === null || _c$department === void 0 ? void 0 : _c$department.name) || '', "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-course-btn\" data-id=\"").concat(c.id, "\" data-name=\"").concat(c.name, "\" data-department=\"").concat(c.department_id, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-course-btn\" data-id=\"").concat(c.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
+            }).join('') : "<tr><td colspan=\"4\" style=\"text-align:center;padding:8px;\">No courses found.</td></tr>";
             document.querySelectorAll('.delete-course-btn').forEach(function (btn) {
-              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-                return _regenerator().w(function (_context6) {
-                  while (1) switch (_context6.n) {
+              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+                return _regenerator().w(function (_context7) {
+                  while (1) switch (_context7.n) {
                     case 0:
                       if (!confirm('Are you sure you want to delete this course?')) {
-                        _context6.n = 2;
+                        _context7.n = 2;
                         break;
                       }
-                      _context6.n = 1;
+                      _context7.n = 1;
                       return fetch("/api/courses/".concat(btn.dataset.id), {
                         method: 'DELETE'
                       });
@@ -43887,9 +43963,9 @@ function loadSystemSettings(app) {
                       fetchCourses();
                       resetCourseForm();
                     case 2:
-                      return _context6.a(2);
+                      return _context7.a(2);
                   }
-                }, _callee6);
+                }, _callee7);
               })));
             });
             document.querySelectorAll('.edit-course-btn').forEach(function (btn) {
@@ -43897,30 +43973,32 @@ function loadSystemSettings(app) {
                 editingCourseId = btn.dataset.id;
                 document.getElementById('edit_course_id').value = editingCourseId;
                 document.getElementById('course_name').value = btn.dataset.name;
+                document.getElementById('course_department_id').value = btn.dataset.department;
                 document.getElementById('courseSubmitBtn').textContent = "Update Course";
                 document.getElementById('cancelCourseEditBtn').style.display = "inline-block";
               });
             });
-            _context7.n = 4;
+            _context8.n = 4;
             break;
           case 3:
-            table.innerHTML = "<tr><td colspan=\"3\" style=\"color:red;text-align:center;\">Failed to load courses.</td></tr>";
+            table.innerHTML = "<tr><td colspan=\"4\" style=\"color:red;text-align:center;\">Failed to load courses.</td></tr>";
           case 4:
-            return _context7.a(2);
+            return _context8.a(2);
         }
-      }, _callee7);
+      }, _callee8);
     }));
     return _fetchCourses.apply(this, arguments);
   }
   function setupCourseForm() {
     document.getElementById('addCourseForm').addEventListener('submit', /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-        var courseName, editId, msg, res;
+        var courseName, departmentId, editId, msg, res;
         return _regenerator().w(function (_context2) {
           while (1) switch (_context2.n) {
             case 0:
               e.preventDefault();
               courseName = document.getElementById('course_name').value;
+              departmentId = document.getElementById('course_department_id').value;
               editId = document.getElementById('edit_course_id').value;
               msg = document.getElementById('settingsMessage');
               if (!editId) {
@@ -43936,7 +44014,8 @@ function loadSystemSettings(app) {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                  name: courseName
+                  name: courseName,
+                  department_id: departmentId
                 })
               });
             case 1:
@@ -43953,7 +44032,8 @@ function loadSystemSettings(app) {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                  name: courseName
+                  name: courseName,
+                  department_id: departmentId
                 })
               });
             case 3:
@@ -43971,7 +44051,7 @@ function loadSystemSettings(app) {
           }
         }, _callee2);
       }));
-      return function (_x3) {
+      return function (_x4) {
         return _ref2.apply(this, arguments);
       };
     }());
@@ -43991,37 +44071,37 @@ function loadSystemSettings(app) {
     return _fetchDepartments.apply(this, arguments);
   }
   function _fetchDepartments() {
-    _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+    _fetchDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
       var res, table, data;
-      return _regenerator().w(function (_context9) {
-        while (1) switch (_context9.n) {
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.n) {
           case 0:
-            _context9.n = 1;
+            _context0.n = 1;
             return fetch('/api/departments');
           case 1:
-            res = _context9.v;
+            res = _context0.v;
             table = document.getElementById('departmentsTable');
             if (!res.ok) {
-              _context9.n = 3;
+              _context0.n = 3;
               break;
             }
-            _context9.n = 2;
+            _context0.n = 2;
             return res.json();
           case 2:
-            data = _context9.v;
+            data = _context0.v;
             table.innerHTML = data.length ? data.map(function (d, i) {
               return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.name, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(d.head, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-dept-btn\" data-id=\"").concat(d.id, "\" data-name=\"").concat(d.name, "\" data-head=\"").concat(d.head, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-dept-btn\" data-id=\"").concat(d.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Delete</button>\n                    </td>\n                </tr>");
             }).join('') : "<tr><td colspan=\"4\" style=\"text-align:center;padding:8px;\">No departments found.</td></tr>";
             document.querySelectorAll('.delete-dept-btn').forEach(function (btn) {
-              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-                return _regenerator().w(function (_context8) {
-                  while (1) switch (_context8.n) {
+              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+                return _regenerator().w(function (_context9) {
+                  while (1) switch (_context9.n) {
                     case 0:
                       if (!confirm('Are you sure you want to delete this department?')) {
-                        _context8.n = 2;
+                        _context9.n = 2;
                         break;
                       }
-                      _context8.n = 1;
+                      _context9.n = 1;
                       return fetch("/api/departments/".concat(btn.dataset.id), {
                         method: 'DELETE'
                       });
@@ -44029,9 +44109,9 @@ function loadSystemSettings(app) {
                       fetchDepartments();
                       resetDepartmentForm();
                     case 2:
-                      return _context8.a(2);
+                      return _context9.a(2);
                   }
-                }, _callee8);
+                }, _callee9);
               })));
             });
             document.querySelectorAll('.edit-dept-btn').forEach(function (btn) {
@@ -44044,14 +44124,14 @@ function loadSystemSettings(app) {
                 document.getElementById('cancelDepartmentEditBtn').style.display = "inline-block";
               });
             });
-            _context9.n = 4;
+            _context0.n = 4;
             break;
           case 3:
             table.innerHTML = "<tr><td colspan=\"4\" style=\"color:red;text-align:center;\">Failed to load departments.</td></tr>";
           case 4:
-            return _context9.a(2);
+            return _context0.a(2);
         }
-      }, _callee9);
+      }, _callee0);
     }));
     return _fetchDepartments.apply(this, arguments);
   }
@@ -44117,7 +44197,7 @@ function loadSystemSettings(app) {
           }
         }, _callee3);
       }));
-      return function (_x4) {
+      return function (_x5) {
         return _ref3.apply(this, arguments);
       };
     }());
@@ -44137,39 +44217,39 @@ function loadSystemSettings(app) {
     return _fetchAcademicYears.apply(this, arguments);
   }
   function _fetchAcademicYears() {
-    _fetchAcademicYears = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+    _fetchAcademicYears = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
       var res, table, data;
-      return _regenerator().w(function (_context1) {
-        while (1) switch (_context1.n) {
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.n) {
           case 0:
-            _context1.n = 1;
+            _context10.n = 1;
             return fetch('/api/academic-years');
           case 1:
-            res = _context1.v;
+            res = _context10.v;
             table = document.getElementById('academicTable');
             if (!res.ok) {
-              _context1.n = 3;
+              _context10.n = 3;
               break;
             }
-            _context1.n = 2;
+            _context10.n = 2;
             return res.json();
           case 2:
-            data = _context1.v;
+            data = _context10.v;
             table.innerHTML = data.length ? data.map(function (a, i) {
               return "<tr>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">".concat(i + 1, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(a.year, "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">").concat(a.is_active ? 'Active' : 'Inactive', "</td>\n                    <td style=\"padding:8px;border:1px solid #e5e7eb;\">\n                        <button class=\"edit-academic-btn\" data-id=\"").concat(a.id, "\" data-year=\"").concat(a.year, "\" data-active=\"").concat(a.is_active, "\" style=\"color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;\">Edit</button>\n                        <button class=\"delete-academic-btn\" data-id=\"").concat(a.id, "\" style=\"color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;\">Archive</button>\n                    </td>\n                </tr>");
             }).join('') : "<tr><td colspan=\"4\" style=\"text-align:center;padding:8px;\">No academic years found.</td></tr>";
 
             // Delete
             document.querySelectorAll('.delete-academic-btn').forEach(function (btn) {
-              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-                return _regenerator().w(function (_context0) {
-                  while (1) switch (_context0.n) {
+              btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+                return _regenerator().w(function (_context1) {
+                  while (1) switch (_context1.n) {
                     case 0:
                       if (!confirm('Are you sure you want to archive this academic year?')) {
-                        _context0.n = 2;
+                        _context1.n = 2;
                         break;
                       }
-                      _context0.n = 1;
+                      _context1.n = 1;
                       return fetch("/api/academic-years/".concat(btn.dataset.id), {
                         method: 'DELETE'
                       });
@@ -44177,9 +44257,9 @@ function loadSystemSettings(app) {
                       fetchAcademicYears();
                       resetAcademicForm();
                     case 2:
-                      return _context0.a(2);
+                      return _context1.a(2);
                   }
-                }, _callee0);
+                }, _callee1);
               })));
             });
 
@@ -44194,14 +44274,14 @@ function loadSystemSettings(app) {
                 document.getElementById('cancelAcademicEditBtn').style.display = "inline-block";
               });
             });
-            _context1.n = 4;
+            _context10.n = 4;
             break;
           case 3:
             table.innerHTML = "<tr><td colspan=\"4\" style=\"color:red;text-align:center;\">Failed to load academic years.</td></tr>";
           case 4:
-            return _context1.a(2);
+            return _context10.a(2);
         }
-      }, _callee1);
+      }, _callee10);
     }));
     return _fetchAcademicYears.apply(this, arguments);
   }
@@ -44265,7 +44345,7 @@ function loadSystemSettings(app) {
           }
         }, _callee4);
       }));
-      return function (_x5) {
+      return function (_x6) {
         return _ref4.apply(this, arguments);
       };
     }());
@@ -44282,24 +44362,24 @@ function loadSystemSettings(app) {
     return _fetchArchives2.apply(this, arguments);
   }
   function _fetchArchives2() {
-    _fetchArchives2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+    _fetchArchives2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
       var res, table, data, html;
-      return _regenerator().w(function (_context10) {
-        while (1) switch (_context10.n) {
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.n) {
           case 0:
-            _context10.n = 1;
+            _context11.n = 1;
             return fetch('/api/archives');
           case 1:
-            res = _context10.v;
+            res = _context11.v;
             table = document.getElementById('archiveTable');
             if (!res.ok) {
-              _context10.n = 3;
+              _context11.n = 3;
               break;
             }
-            _context10.n = 2;
+            _context11.n = 2;
             return res.json();
           case 2:
-            data = _context10.v;
+            data = _context11.v;
             html = ''; // Courses
             html += '<tr><th colspan="3">Archived Courses</th></tr>';
             html += data.courses.length ? data.courses.map(function (c) {
@@ -44330,32 +44410,32 @@ function loadSystemSettings(app) {
               return "\n                    <tr>\n                        <td>".concat(s.firstname, " ").concat(s.lastname, "</td>\n                        <td>Student</td>\n                        <td><button onclick=\"restoreItem('student', ").concat(s.id, ")\">Restore</button></td>\n                    </tr>");
             }).join('') : '<tr><td colspan="3">No archived students</td></tr>';
             table.innerHTML = html;
-            _context10.n = 4;
+            _context11.n = 4;
             break;
           case 3:
             table.innerHTML = '<tr><td colspan="3" style="color:red;">Failed to load archives</td></tr>';
           case 4:
-            return _context10.a(2);
+            return _context11.a(2);
         }
-      }, _callee10);
+      }, _callee11);
     }));
     return _fetchArchives2.apply(this, arguments);
   }
-  function restoreItem(_x6, _x7) {
+  function restoreItem(_x7, _x8) {
     return _restoreItem.apply(this, arguments);
   } // --- Initial Tab ---
   function _restoreItem() {
-    _restoreItem = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(type, id) {
+    _restoreItem = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12(type, id) {
       var res;
-      return _regenerator().w(function (_context11) {
-        while (1) switch (_context11.n) {
+      return _regenerator().w(function (_context12) {
+        while (1) switch (_context12.n) {
           case 0:
-            _context11.n = 1;
+            _context12.n = 1;
             return fetch("/api/archives/restore/".concat(type, "/").concat(id), {
               method: 'POST'
             });
           case 1:
-            res = _context11.v;
+            res = _context12.v;
             if (res.ok) {
               alert("".concat(type, " restored successfully!"));
               fetchArchives();
@@ -44363,9 +44443,9 @@ function loadSystemSettings(app) {
               alert('Failed to restore');
             }
           case 2:
-            return _context11.a(2);
+            return _context12.a(2);
         }
-      }, _callee11);
+      }, _callee12);
     }));
     return _restoreItem.apply(this, arguments);
   }
@@ -44380,6 +44460,40 @@ function loadSystemSettings(app) {
       // Add more navigation as needed
     });
   });
+  function populateCourseDepartments() {
+    return _populateCourseDepartments.apply(this, arguments);
+  }
+  function _populateCourseDepartments() {
+    _populateCourseDepartments = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
+      var res, departments, select;
+      return _regenerator().w(function (_context13) {
+        while (1) switch (_context13.n) {
+          case 0:
+            _context13.n = 1;
+            return fetch('/api/departments');
+          case 1:
+            res = _context13.v;
+            if (!res.ok) {
+              _context13.n = 3;
+              break;
+            }
+            _context13.n = 2;
+            return res.json();
+          case 2:
+            departments = _context13.v;
+            select = document.getElementById('course_department_id');
+            if (select) {
+              select.innerHTML = "<option value=\"\">Select Department</option>" + departments.map(function (d) {
+                return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+              }).join('');
+            }
+          case 3:
+            return _context13.a(2);
+        }
+      }, _callee13);
+    }));
+    return _populateCourseDepartments.apply(this, arguments);
+  }
 }
 
 /***/ }),

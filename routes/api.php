@@ -32,10 +32,13 @@ Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 // Protected routes
 //Course routes
+
 Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/courses', [CourseController::class, 'store']);
 Route::put('/courses/{id}', [CourseController::class, 'update']);
 Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+Route::get('/courses/archived', [CourseController::class, 'getArchived']);
+Route::post('/courses/restore/{id}', [CourseController::class, 'restore']);
 
 // Department routes
 Route::get('/departments', [DepartmentController::class, 'index']);
@@ -75,6 +78,7 @@ Route::put('/academic-years/{id}/activate', [AcademicYearController::class, 'act
 
 // Get all archived data
 Route::get('/archives', [ArchiveController::class, 'index']);
+Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
 
 // Restore item by type and ID
 Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);

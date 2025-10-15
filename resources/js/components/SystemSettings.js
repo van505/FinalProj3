@@ -21,7 +21,7 @@ export function loadSystemSettings(app) {
                 <div class="topbar-center">
                     <input type="text" class="search-input" placeholder="Search">
                 </div>
-                
+            
             </header>
             <section class="settings-section">
                 <h2 class="settings-title"><span style="font-size:2rem;">⚙️</span> System Settings</h2>
@@ -49,6 +49,7 @@ export function loadSystemSettings(app) {
                         <tr style="background:#f3f4f6;">
                             <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
                             <th style="padding:8px;border:1px solid #e5e7eb;">Course Name</th>
+                            <th style="padding:8px;border:1px solid #e5e7eb;">Department</th>
                             <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
                         </tr>
                     </thead>
@@ -58,6 +59,9 @@ export function loadSystemSettings(app) {
                 <form id="addCourseForm">
                     <input type="hidden" name="edit_course_id" id="edit_course_id" />
                     <input type="text" name="course_name" id="course_name" placeholder="Course Name" required class="input" />
+                    <select name="department_id" id="course_department_id" required class="input">
+                        <option value="">Select Department</option>
+                    </select>
                     <button type="submit" class="btn btn-blue" id="courseSubmitBtn">Add Course</button>
                     <button type="button" class="btn btn-gray" id="cancelCourseEditBtn" style="display:none;">Cancel</button>
                 </form>
@@ -202,11 +206,12 @@ export function loadSystemSettings(app) {
 
     // --- Tab Switching Logic ---
     const tabContent = document.getElementById("tabContent");
-    function showTab(tab) {
+    async function showTab(tab) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
         if (tab === "courses") {
             tabContent.innerHTML = getCoursesContent();
+            await populateCourseDepartments();
             fetchCourses();
             setupCourseForm();
         } else if (tab === "departments") {
@@ -237,12 +242,13 @@ export function loadSystemSettings(app) {
                 ? data.map((c, i) => `<tr>
                     <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
                     <td style="padding:8px;border:1px solid #e5e7eb;">${c.name}</td>
+                    <td style="padding:8px;border:1px solid #e5e7eb;">${c.department?.name || ''}</td>
                     <td style="padding:8px;border:1px solid #e5e7eb;">
-                        <button class="edit-course-btn" data-id="${c.id}" data-name="${c.name}" style="color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;">Edit</button>
+                        <button class="edit-course-btn" data-id="${c.id}" data-name="${c.name}" data-department="${c.department_id}" style="color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;">Edit</button>
                         <button class="delete-course-btn" data-id="${c.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Delete</button>
                     </td>
                 </tr>`).join('')
-                : `<tr><td colspan="3" style="text-align:center;padding:8px;">No courses found.</td></tr>`;
+                : `<tr><td colspan="4" style="text-align:center;padding:8px;">No courses found.</td></tr>`;
             document.querySelectorAll('.delete-course-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     if (confirm('Are you sure you want to delete this course?')) {
@@ -257,18 +263,20 @@ export function loadSystemSettings(app) {
                     editingCourseId = btn.dataset.id;
                     document.getElementById('edit_course_id').value = editingCourseId;
                     document.getElementById('course_name').value = btn.dataset.name;
+                    document.getElementById('course_department_id').value = btn.dataset.department;
                     document.getElementById('courseSubmitBtn').textContent = "Update Course";
                     document.getElementById('cancelCourseEditBtn').style.display = "inline-block";
                 });
             });
         } else {
-            table.innerHTML = `<tr><td colspan="3" style="color:red;text-align:center;">Failed to load courses.</td></tr>`;
+            table.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Failed to load courses.</td></tr>`;
         }
     }
     function setupCourseForm() {
         document.getElementById('addCourseForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const courseName = document.getElementById('course_name').value;
+            const departmentId = document.getElementById('course_department_id').value;
             const editId = document.getElementById('edit_course_id').value;
             const msg = document.getElementById('settingsMessage');
             let res;
@@ -280,7 +288,7 @@ export function loadSystemSettings(app) {
                         'Accept': 'application/json',
                     },
                     credentials: 'include',
-                    body: JSON.stringify({ name: courseName })
+                    body: JSON.stringify({ name: courseName, department_id: departmentId })
                 });
             } else {
                 res = await fetch('/api/courses', {
@@ -290,7 +298,7 @@ export function loadSystemSettings(app) {
                         'Accept': 'application/json',
                     },
                     credentials: 'include',
-                    body: JSON.stringify({ name: courseName })
+                    body: JSON.stringify({ name: courseName, department_id: departmentId })
                 });
             }
             if (res.ok) {
@@ -586,5 +594,15 @@ export function loadSystemSettings(app) {
         });
     });
 
-    
+    async function populateCourseDepartments() {
+        const res = await fetch('/api/departments');
+        if (res.ok) {
+            const departments = await res.json();
+            const select = document.getElementById('course_department_id');
+            if (select) {
+                select.innerHTML = `<option value="">Select Department</option>` +
+                    departments.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+            }
+        }
+    }
 }
