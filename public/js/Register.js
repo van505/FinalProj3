@@ -17554,6 +17554,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Report_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Report.js */ "./resources/js/components/Report.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -17572,51 +17576,56 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 function loadDashboard(_x) {
   return _loadDashboard.apply(this, arguments);
 }
-
-// ✅ Helper to draw chart
 function _loadDashboard() {
   _loadDashboard = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(app) {
-    var sidebar, dashboardContent, _yield$Promise$all, _yield$Promise$all2, studentsRes, facultyRes, students, faculty, courseCounts, deptCounts, _t;
+    var _yield$Promise$all, _yield$Promise$all2, studentsRes, facultyRes, coursesRes, departmentsRes, students, faculty, courses, departments, courseCounts, deptCounts, recentActivity, list, _t;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.p = _context.n) {
         case 0:
-          sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    "; // Dashboard Layout
-          dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">Dashboard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC68\u200D\uD83C\uDF93</div>\n                        <div>\n                            <div class=\"card-label\">Total Students</div>\n                            <div class=\"card-value\" id=\"studentCount\">0</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC69\u200D\uD83C\uDFEB</div>\n                        <div>\n                            <div class=\"card-label\">Total Faculty</div>\n                            <div class=\"card-value\" id=\"facultyCount\">0</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Students per Course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"studentsChart\"></canvas>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Faculty per Department</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"facultyChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
-          app.innerHTML = sidebar + dashboardContent;
-
-          // ✅ Fetch data from backend
+          app.innerHTML = "\n        <div class=\"dashboard-container\">\n            <nav class=\"sidebar new-sidebar\">\n                <button class=\"new-item-btn\">+ New Item</button>\n                <ul class=\"sidebar-menu\">\n                    <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                    <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                    <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                    <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                    <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                    <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                    <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n                </ul>\n            </nav>\n\n            <div class=\"main new-main\">\n                <header class=\"topbar new-topbar\">\n                    <div class=\"topbar-left\">\n                        <h1 class=\"dashboard-title\">Dashboard Overview</h1>\n                        <span class=\"system-settings\">\u2699\uFE0F Manage your system</span>\n                    </div>\n                    <div class=\"topbar-center\">\n                        <input type=\"text\" class=\"search-input\" placeholder=\"Search...\">\n                    </div>\n                </header>\n\n                <section class=\"overview-section\">\n                    <h2 class=\"overview-title\">Key Metrics</h2>\n                    <p class=\"overview-desc\">A quick look at your institution's data</p>\n                    <div class=\"overview-cards\">\n                        <div class=\"overview-card student-card\">\n                            <div class=\"card-icon\">\uD83D\uDC68\u200D\uD83C\uDF93</div>\n                            <div>\n                                <div class=\"card-label\">Total Students</div>\n                                <div class=\"card-value\" id=\"studentCount\">0</div>\n                            </div>\n                        </div>\n                        <div class=\"overview-card faculty-card\">\n                            <div class=\"card-icon\">\uD83D\uDC69\u200D\uD83C\uDFEB</div>\n                            <div>\n                                <div class=\"card-label\">Total Faculty</div>\n                                <div class=\"card-value\" id=\"facultyCount\">0</div>\n                            </div>\n                        </div>\n                        <div class=\"overview-card course-card\">\n                            <div class=\"card-icon\">\uD83D\uDCD8</div>\n                            <div>\n                                <div class=\"card-label\">Total Courses</div>\n                                <div class=\"card-value\" id=\"courseCount\">0</div>\n                            </div>\n                        </div>\n                        <div class=\"overview-card department-card\">\n                            <div class=\"card-icon\">\uD83C\uDFDB\uFE0F</div>\n                            <div>\n                                <div class=\"card-label\">Total Departments</div>\n                                <div class=\"card-value\" id=\"departmentCount\">0</div>\n                            </div>\n                        </div>\n                    </div>\n                </section>\n\n                <section class=\"chart-section new-chart-section\">\n                    <div class=\"chart-header\">\n                        <span class=\"chart-title\">Students per Course</span>\n                    </div>\n                    <div class=\"chart-container\">\n                        <canvas id=\"studentsChart\"></canvas>\n                    </div>\n                </section>\n\n                <section class=\"chart-section new-chart-section\">\n                    <div class=\"chart-header\">\n                        <span class=\"chart-title\">Faculty per Department</span>\n                    </div>\n                    <div class=\"chart-container\">\n                        <canvas id=\"facultyChart\"></canvas>\n                    </div>\n                </section>\n\n                <section class=\"recent-activity-section\">\n                    <h2>Recent Activity</h2>\n                    <ul class=\"activity-list\" id=\"recentActivity\"></ul>\n                </section>\n            </div>\n        </div>\n    ";
           _context.p = 1;
           _context.n = 2;
-          return Promise.all([axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/students"), axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/faculty")]);
+          return Promise.all([axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/students"), axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/faculty"), axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/courses"), axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://127.0.0.1:8000/api/departments")]);
         case 2:
           _yield$Promise$all = _context.v;
-          _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+          _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 4);
           studentsRes = _yield$Promise$all2[0];
           facultyRes = _yield$Promise$all2[1];
+          coursesRes = _yield$Promise$all2[2];
+          departmentsRes = _yield$Promise$all2[3];
           students = studentsRes.data;
-          faculty = facultyRes.data; // Update total counts
+          faculty = facultyRes.data;
+          courses = coursesRes.data;
+          departments = departmentsRes.data;
           document.getElementById("studentCount").textContent = students.length;
           document.getElementById("facultyCount").textContent = faculty.length;
-
-          // ✅ Students per course
+          document.getElementById("courseCount").textContent = courses.length;
+          document.getElementById("departmentCount").textContent = departments.length;
           courseCounts = {};
           students.forEach(function (s) {
             var _s$course;
             var course = ((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.course_name) || "Unassigned";
             courseCounts[course] = (courseCounts[course] || 0) + 1;
           });
-
-          // ✅ Faculty per department
           deptCounts = {};
           faculty.forEach(function (f) {
             var _f$department;
             var dept = ((_f$department = f.department) === null || _f$department === void 0 ? void 0 : _f$department.department_name) || "Unassigned";
             deptCounts[dept] = (deptCounts[dept] || 0) + 1;
           });
-
-          // Render Charts
           renderChart("studentsChart", "Students per Course", courseCounts);
           renderChart("facultyChart", "Faculty per Department", deptCounts);
+
+          // 🕒 Recent activity (latest 5 students and faculty)
+          recentActivity = [].concat(_toConsumableArray(students.slice(-3).map(function (s) {
+            return "\uD83D\uDC68\u200D\uD83C\uDF93 New student added: ".concat(s.name);
+          })), _toConsumableArray(faculty.slice(-3).map(function (f) {
+            return "\uD83D\uDC69\u200D\uD83C\uDFEB New faculty joined: ".concat(f.name);
+          }))).reverse();
+          list = document.getElementById("recentActivity");
+          list.innerHTML = recentActivity.map(function (item) {
+            return "<li>".concat(item, "</li>");
+          }).join("");
           _context.n = 4;
           break;
         case 3:
@@ -17624,7 +17633,6 @@ function _loadDashboard() {
           _t = _context.v;
           console.error("Error loading dashboard data:", _t);
         case 4:
-          // ✅ Sidebar Navigation
           setupMenuListeners(app);
         case 5:
           return _context.a(2);
@@ -17642,7 +17650,8 @@ function renderChart(canvasId, label, dataObj) {
       datasets: [{
         label: label,
         data: Object.values(dataObj),
-        backgroundColor: "#4B6BFB"
+        backgroundColor: "#4B6BFB",
+        borderRadius: 8
       }]
     },
     options: {
@@ -17660,8 +17669,6 @@ function renderChart(canvasId, label, dataObj) {
     }
   });
 }
-
-// ✅ Sidebar link handling
 function setupMenuListeners(app) {
   var _document$getElementB, _document$getElementB2, _document$getElementB3, _document$getElementB4;
   document.querySelectorAll('.sidebar-menu a').forEach(function (link) {
@@ -17671,27 +17678,19 @@ function setupMenuListeners(app) {
       if (page === 'settings') (0,_SystemSettings__WEBPACK_IMPORTED_MODULE_2__.loadSystemSettings)(app);
     });
   });
-
-  // Profile
   (_document$getElementB = document.getElementById("menuProfile")) === null || _document$getElementB === void 0 || _document$getElementB.addEventListener("click", function (e) {
     e.preventDefault();
     var userId = localStorage.getItem("user_id");
     (0,_Profile_js__WEBPACK_IMPORTED_MODULE_3__.loadProfile)(app, userId);
   });
-
-  // Students
   (_document$getElementB2 = document.getElementById("menuStudents")) === null || _document$getElementB2 === void 0 || _document$getElementB2.addEventListener("click", function (e) {
     e.preventDefault();
     (0,_Students_js__WEBPACK_IMPORTED_MODULE_4__.loadStudents)(app);
   });
-
-  // Faculty
   (_document$getElementB3 = document.getElementById("menuFaculty")) === null || _document$getElementB3 === void 0 || _document$getElementB3.addEventListener("click", function (e) {
     e.preventDefault();
     (0,_Faculty_js__WEBPACK_IMPORTED_MODULE_5__.loadFaculty)(app);
   });
-
-  // Report
   (_document$getElementB4 = document.getElementById("menuReport")) === null || _document$getElementB4 === void 0 || _document$getElementB4.addEventListener("click", function (e) {
     e.preventDefault();
     (0,_Report_js__WEBPACK_IMPORTED_MODULE_6__.loadReport)(app);
@@ -18181,24 +18180,18 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadReport(app) {
-  app.innerHTML = "\n    <nav class=\"sidebar new-sidebar\">\n        <button class=\"new-item-btn\">+ New Item</button>\n        <ul class=\"sidebar-menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" class=\"active\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n        </ul>\n    </nav>\n    <div class=\"main new-main\">\n        <header class=\"topbar new-topbar\">\n            <div class=\"topbar-left\">\n                <h1 class=\"dashboard-title\">Reports</h1>\n            </div>\n        </header>\n        <div class=\"report-container\">\n            <h2 class=\"report-title\">\uD83D\uDCCA Reports</h2>\n\n            <!-- Filters -->\n            <div class=\"report-filters\">\n                <select id=\"reportType\">\n                    <option value=\"faculty\">Faculty Report</option>\n                    <option value=\"student\">Student Report</option>\n                </select>\n                <select id=\"courseSelect\"><option value=\"\">All Courses</option></select>\n                <select id=\"departmentSelect\"><option value=\"\">All Departments</option></select>\n                <select id=\"academicYearSelect\"><option value=\"\">All Academic Years</option></select>\n                <button id=\"filterBtn\">Filter</button>\n                <button id=\"exportBtn\">\u2B07\uFE0F Export CSV</button>\n            </div>\n\n            <!-- Table -->\n            <div class=\"report-summary\" id=\"reportSummary\"></div>\n            <table class=\"report-table\">\n                <thead>\n                    <tr id=\"reportHeader\">\n                        <th>Name</th>\n                        <th>Course / Department</th>\n                        <th>Academic Year</th>\n                        <th>Status</th>\n                    </tr>\n                </thead>\n                <tbody id=\"reportTableBody\">\n                    <tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>\n                </tbody>\n            </table>\n\n            <!-- Manual Report Section -->\n            <div class=\"make-report\">\n                <h3>\uD83D\uDCDD Make a Report</h3>\n                <input type=\"text\" id=\"reportTitle\" placeholder=\"Title\" />\n                <select id=\"reportSubject\">\n                    <option value=\"\">Choose Subject</option>\n                    <option value=\"faculty\">Faculty</option>\n                    <option value=\"student\">Student</option>\n                </select>\n                <textarea id=\"reportContent\" placeholder=\"Report content...\"></textarea>\n                <button class=\"send-report-btn\">Send Report</button>\n            </div>\n        </div>\n    </div>\n    ";
+  app.innerHTML = "\n  <div class=\"dashboard-container\">\n    <nav class=\"sidebar new-sidebar\">\n      <button class=\"new-item-btn\">+ New Item</button>\n      <ul class=\"sidebar-menu\">\n        <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n        <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n        <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n        <li><a href=\"#\" id=\"menuReport\" class=\"active\" data-page=\"report\"><span>Report</span></a></li>\n        <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n        <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n      </ul>\n    </nav>\n\n    <div class=\"main new-main\">\n      <header class=\"topbar new-topbar\">\n        <div class=\"topbar-left\">\n          <h1 class=\"dashboard-title\">Reports</h1>\n        </div>\n      </header>\n\n      <section class=\"report-container\">\n        <h2 class=\"report-title\">\uD83D\uDCCA Reports Overview</h2>\n\n        <!-- Filters -->\n        <div class=\"report-filters\">\n          <select id=\"reportType\">\n            <option value=\"faculty\">Faculty Report</option>\n            <option value=\"student\">Student Report</option>\n          </select>\n          <select id=\"courseSelect\"><option value=\"\">All Courses</option></select>\n          <select id=\"departmentSelect\"><option value=\"\">All Departments</option></select>\n          <select id=\"academicYearSelect\"><option value=\"\">All Academic Years</option></select>\n          <button id=\"filterBtn\" class=\"btn-primary\">Filter</button>\n          <button id=\"exportBtn\" class=\"btn-secondary\">\u2B07\uFE0F Export CSV</button>\n        </div>\n\n        <div class=\"report-summary\" id=\"reportSummary\"></div>\n\n        <div class=\"table-wrapper\">\n          <table class=\"report-table\">\n            <thead>\n              <tr id=\"reportHeader\">\n                <th>Name</th>\n                <th>Course / Department</th>\n                <th>Academic Year</th>\n                <th>Status</th>\n              </tr>\n            </thead>\n            <tbody id=\"reportTableBody\">\n              <tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>\n            </tbody>\n          </table>\n        </div>\n\n        <!-- Manual Report Section -->\n        <div class=\"make-report\">\n          <h3>\uD83D\uDCDD Make a Report</h3>\n          <input type=\"text\" id=\"reportTitle\" placeholder=\"Report title...\" />\n          <select id=\"reportSubject\">\n            <option value=\"\">Choose Subject</option>\n            <option value=\"faculty\">Faculty</option>\n            <option value=\"student\">Student</option>\n          </select>\n          <textarea id=\"reportContent\" placeholder=\"Write your report...\"></textarea>\n          <button class=\"send-report-btn\">Send Report</button>\n        </div>\n      </section>\n    </div>\n  </div>\n  ";
 
-  // Load filters on page load
+  // --- Functionality ---
   fetchDropdowns();
   fetchReport();
-
-  // Button actions
   document.getElementById("filterBtn").addEventListener("click", fetchReport);
   document.getElementById("reportType").addEventListener("change", fetchReport);
   document.getElementById("exportBtn").addEventListener("click", exportToCSV);
-
-  // ✅ Add event listener for Send Report button
   document.querySelector(".send-report-btn").addEventListener("click", sendReport);
-
-  // Load dropdowns
   function fetchDropdowns() {
     return _fetchDropdowns.apply(this, arguments);
-  } // Fetch report data
+  }
   function _fetchDropdowns() {
     _fetchDropdowns = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
       var _yield$Promise$all, _yield$Promise$all2, courseRes, deptRes, yearRes, _yield$Promise$all3, _yield$Promise$all4, courses, departments, years, courseSelect, deptSelect, yearSelect, _t;
@@ -18249,7 +18242,7 @@ function loadReport(app) {
   }
   function fetchReport() {
     return _fetchReport.apply(this, arguments);
-  } // ✅ New function: send manual report to backend
+  }
   function _fetchReport() {
     _fetchReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
       var type, course, department, year, tbody, summary, params, res, data, _t2;
@@ -18287,9 +18280,9 @@ function loadReport(app) {
           case 4:
             tbody.innerHTML = data.map(function (item) {
               var _item$course, _item$department, _item$academic_year;
-              return "\n                <tr>\n                    <td>".concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname, "</td>\n                    <td>").concat(type === "student" ? ((_item$course = item.course) === null || _item$course === void 0 ? void 0 : _item$course.course_name) || "N/A" : ((_item$department = item.department) === null || _item$department === void 0 ? void 0 : _item$department.department_name) || "N/A", "</td>\n                    <td>").concat(((_item$academic_year = item.academic_year) === null || _item$academic_year === void 0 ? void 0 : _item$academic_year.year) || "N/A", "</td>\n                    <td><span class=\"status-badge ").concat(item.yearstatus === "active" ? "active" : "inactive", "\">\n                        ").concat(item.yearstatus || "Active", "\n                    </span></td>\n                </tr>\n            ");
+              return "\n          <tr>\n            <td>".concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname, "</td>\n            <td>").concat(type === "student" ? ((_item$course = item.course) === null || _item$course === void 0 ? void 0 : _item$course.course_name) || "N/A" : ((_item$department = item.department) === null || _item$department === void 0 ? void 0 : _item$department.department_name) || "N/A", "</td>\n            <td>").concat(((_item$academic_year = item.academic_year) === null || _item$academic_year === void 0 ? void 0 : _item$academic_year.year) || "N/A", "</td>\n            <td><span class=\"status-badge ").concat(item.yearstatus === "active" ? "active" : "inactive", "\">\n              ").concat(item.yearstatus || "Active", "\n            </span></td>\n          </tr>\n        ");
             }).join("");
-            summary.innerHTML = "\n                <div class=\"summary-box\">\n                    Showing <strong>".concat(data.length, "</strong> ").concat(type === "student" ? "students" : "faculty", " found.\n                </div>\n            ");
+            summary.innerHTML = "\n        <div class=\"summary-box\">\n          Showing <strong>".concat(data.length, "</strong> ").concat(type === "student" ? "students" : "faculty", " found.\n        </div>\n      ");
             _context2.n = 6;
             break;
           case 5:
@@ -18306,10 +18299,10 @@ function loadReport(app) {
   }
   function sendReport() {
     return _sendReport.apply(this, arguments);
-  } // CSV Export
+  }
   function _sendReport() {
     _sendReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var title, subject, content, res, data, _t3;
+      var title, subject, content, res, _t3;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
@@ -18344,27 +18337,21 @@ function loadReport(app) {
             }
             throw new Error("Failed to send report");
           case 3:
-            _context3.n = 4;
-            return res.json();
-          case 4:
-            data = _context3.v;
             alert("✅ Report sent successfully!");
-
-            // Clear inputs
             document.getElementById("reportTitle").value = "";
             document.getElementById("reportSubject").value = "";
             document.getElementById("reportContent").value = "";
-            _context3.n = 6;
+            _context3.n = 5;
             break;
-          case 5:
-            _context3.p = 5;
+          case 4:
+            _context3.p = 4;
             _t3 = _context3.v;
             console.error("Error sending report:", _t3);
             alert("❌ Failed to send report. Please try again.");
-          case 6:
+          case 5:
             return _context3.a(2);
         }
-      }, _callee3, null, [[1, 5]]);
+      }, _callee3, null, [[1, 4]]);
     }));
     return _sendReport.apply(this, arguments);
   }
