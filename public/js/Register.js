@@ -17580,7 +17580,6 @@ function _loadDashboard() {
     return _regenerator().w(function (_context) {
       while (1) switch (_context.p = _context.n) {
         case 0:
-          // Sidebar
           sidebar = "\n        <nav class=\"sidebar new-sidebar\">\n            <button class=\"new-item-btn\">+ New Item</button>\n            <ul class=\"sidebar-menu\">\n                <li><a href=\"#\" class=\"active\" data-page=\"overview\"><span>Overview</span></a></li>\n                <li><a href=\"#\" id=\"menuStudents\" data-page=\"students\"><span>Students</span></a></li>\n                <li><a href=\"#\" id=\"menuFaculty\" data-page=\"faculty\"><span>Faculty</span></a></li>\n                <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n                <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n                <li><a href=\"#\" id=\"menuProfile\" data-page=\"profile\"><span>Profile</span></a></li>\n                <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n            </ul>\n        </nav>\n    "; // Dashboard Layout
           dashboardContent = "\n        <div class=\"main new-main\">\n            <header class=\"topbar new-topbar\">\n                <div class=\"topbar-left\">\n                    <h1 class=\"dashboard-title\">Dashboard</h1>\n                    <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n                </div>\n                <div class=\"topbar-center\">\n                    <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n                </div>\n            </header>\n\n            <section class=\"overview-section\">\n                <h2 class=\"overview-title\">Overview</h2>\n                <p class=\"overview-desc\">Stay informed with the latest updates across your campus</p>\n                <div class=\"overview-cards\">\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC68\u200D\uD83C\uDF93</div>\n                        <div>\n                            <div class=\"card-label\">Total Students</div>\n                            <div class=\"card-value\" id=\"studentCount\">0</div>\n                        </div>\n                    </div>\n                    <div class=\"overview-card\">\n                        <div class=\"card-icon\">\uD83D\uDC69\u200D\uD83C\uDFEB</div>\n                        <div>\n                            <div class=\"card-label\">Total Faculty</div>\n                            <div class=\"card-value\" id=\"facultyCount\">0</div>\n                        </div>\n                    </div>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Students per Course</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"studentsChart\"></canvas>\n                </div>\n            </section>\n\n            <section class=\"chart-section new-chart-section\">\n                <div class=\"chart-header\">\n                    <span class=\"chart-title\">Faculty per Department</span>\n                </div>\n                <div class=\"chart-container\">\n                    <canvas id=\"facultyChart\"></canvas>\n                </div>\n            </section>\n        </div>\n    ";
           app.innerHTML = sidebar + dashboardContent;
@@ -17725,281 +17724,242 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
-function loadFaculty(_x) {
-  return _loadFaculty.apply(this, arguments);
-}
-function _loadFaculty() {
-  _loadFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(app) {
-    var isEditing, allDepartments, allAcademicYears, allFaculty, loadSelectOptions, _loadSelectOptions, fetchFaculty, _fetchFaculty, renderFaculty, form, submitBtn, cancelBtn, resetForm;
-    return _regenerator().w(function (_context6) {
-      while (1) switch (_context6.n) {
-        case 0:
-          resetForm = function _resetForm() {
-            form.reset();
-            submitBtn.textContent = "Add Faculty";
-            cancelBtn.style.display = "none";
-            isEditing = false;
-          };
-          renderFaculty = function _renderFaculty() {
-            var search = document.getElementById("searchInput").value.toLowerCase();
-            var department = document.getElementById("departmentFilter").value;
-            var academicYear = document.getElementById("academicYearFilter").value;
-            var yearstatus = document.getElementById("yearstatusFilter").value;
-            var tbody = document.getElementById("facultyList");
-            var filtered = allFaculty.filter(function (f) {
-              var match = true;
-              if (search) {
-                match = f.faculty_id && f.faculty_id.toLowerCase().includes(search) || f.first_name && f.first_name.toLowerCase().includes(search) || f.last_name && f.last_name.toLowerCase().includes(search) || f.email && f.email.toLowerCase().includes(search);
-              }
-              if (match && department) match = f.department_id == department;
-              if (match && academicYear) match = f.academic_year_id == academicYear;
-              if (match && yearstatus) match = f.yearstatus == yearstatus;
-              return match;
-            });
-            tbody.innerHTML = filtered.length ? filtered.map(function (f) {
-              var _allDepartments$find, _allDepartments$find2, _allAcademicYears$fin, _allAcademicYears$fin2;
-              return "\n                <tr>\n                  <td class=\"border p-2\">".concat(f.id, "</td>\n                  <td class=\"border p-2\">").concat(f.faculty_id, "</td>\n                  <td class=\"border p-2\">").concat(f.first_name, " ").concat(f.middle_name ? f.middle_name + ' ' : '').concat(f.last_name, "</td>\n                  <td class=\"border p-2\">").concat(f.email, "</td>\n                  <td class=\"border p-2\">").concat(((_allDepartments$find = allDepartments.find(function (d) {
-                return d.id == f.department_id;
-              })) === null || _allDepartments$find === void 0 ? void 0 : _allDepartments$find.name) || ((_allDepartments$find2 = allDepartments.find(function (d) {
-                return d.id == f.department_id;
-              })) === null || _allDepartments$find2 === void 0 ? void 0 : _allDepartments$find2.department_name) || "", "</td>\n                  <td class=\"border p-2\">").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
-                return y.id == f.academic_year_id;
-              })) === null || _allAcademicYears$fin === void 0 ? void 0 : _allAcademicYears$fin.year) || ((_allAcademicYears$fin2 = allAcademicYears.find(function (y) {
-                return y.id == f.academic_year_id;
-              })) === null || _allAcademicYears$fin2 === void 0 ? void 0 : _allAcademicYears$fin2.academic_year) || "", "</td>\n                  <td class=\"border p-2\">").concat(f.yearstatus || "", "</td>\n                  <td class=\"border p-2\">").concat(f.position || "", "</td>\n                  <td class=\"border p-2\">\n                    <button class=\"text-blue-600 edit-btn\" data-id=\"").concat(f.id, "\">Edit</button>\n                    <button class=\"text-red-600 delete-btn\" data-id=\"").concat(f.id, "\">Delete</button>\n                  </td>\n                </tr>\n            ");
-            }).join("") : "<tr><td colspan=\"9\" class=\"text-center p-4\">No faculty found.</td></tr>";
+function loadFaculty(app) {
+  app.innerHTML = "\n    <div class=\"faculty-page\">\n      <aside class=\"faculty-sidebar\">\n        <h2 class=\"sidebar-title\">Menu</h2>\n        <button class=\"primary-btn full-width\" id=\"addFacultyBtn\">+ Add Faculty</button>\n        <ul class=\"sidebar-menu\">\n          <li><a href=\"#\" data-page=\"overview\">Overview</a></li>\n          <li><a href=\"#\" data-page=\"students\">Students</a></li>\n          <li><a href=\"#\" class=\"active\" data-page=\"faculty\">Faculty</a></li>\n          <li><a href=\"#\" data-page=\"archive\">Archive</a></li>\n          <li><a href=\"#\" id=\"menuReport\" data-page=\"report\">Report</a></li>\n          <li><a href=\"#\" data-page=\"profile\">Profile</a></li>\n          <li><a href=\"#\" data-page=\"settings\">System Settings</a></li>\n        </ul>\n      </aside>\n\n      <main class=\"faculty-main\">\n        <header class=\"faculty-header\">\n          <h1>Faculty Management</h1>\n          <button id=\"addFacultyBtnTop\" class=\"primary-btn\">+ Add Faculty</button>\n        </header>\n\n        <section class=\"faculty-filters\">\n          <input type=\"text\" id=\"searchInput\" placeholder=\"Search faculty...\" />\n          <select id=\"departmentFilter\"><option value=\"\">All Departments</option></select>\n          <select id=\"academicYearFilter\"><option value=\"\">All Academic Years</option></select>\n          <select id=\"yearstatusFilter\">\n            <option value=\"\">All Status</option>\n            <option value=\"active\">Active</option>\n            <option value=\"inactive\">Inactive</option>\n            <option value=\"graduated\">Graduated</option>\n          </select>\n          <button id=\"clearFilters\" class=\"secondary-btn\">Clear Filters</button>\n        </section>\n\n        <section class=\"faculty-table-card\">\n          <table class=\"faculty-table\">\n            <thead>\n              <tr>\n                <th>ID</th>\n                <th>Faculty ID</th>\n                <th>Name</th>\n                <th>Email</th>\n                <th>Department</th>\n                <th>Position</th>\n                <th>Academic Year</th>\n                <th>Status</th>\n                <th>Actions</th>\n              </tr>\n            </thead>\n            <tbody id=\"facultyList\"></tbody>\n          </table>\n        </section>\n      </main>\n\n      <div id=\"facultyModal\" class=\"modal hidden\">\n        <div class=\"modal-content\">\n          <button id=\"closeFacultyModal\" class=\"modal-close\">&times;</button>\n          <h3 id=\"facultyModalTitle\">Add New Faculty</h3>\n          <form id=\"facultyForm\" class=\"faculty-form\">\n            <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\" />\n            <input type=\"text\" name=\"faculty_id\" id=\"faculty_id\" placeholder=\"Faculty ID\" required />\n            <input type=\"text\" name=\"first_name\" id=\"first_name\" placeholder=\"First Name\" required />\n            <input type=\"text\" name=\"middle_name\" id=\"middle_name\" placeholder=\"Middle Name\" />\n            <input type=\"text\" name=\"last_name\" id=\"last_name\" placeholder=\"Last Name\" required />\n            <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" required />\n            <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" />\n            <input type=\"text\" name=\"address\" id=\"address\" placeholder=\"Address\" />\n            <input type=\"text\" name=\"position\" id=\"position\" placeholder=\"Position\" />\n            <input type=\"date\" name=\"date_hired\" id=\"date_hired\" />\n            <select name=\"department_id\" id=\"departmentSelect\" required>\n              <option value=\"\">Select Department</option>\n            </select>\n            <select name=\"academic_year_id\" id=\"academicYearSelectForm\" required>\n              <option value=\"\">Select Academic Year</option>\n            </select>\n            <select name=\"yearstatus\" id=\"yearstatus\" required>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"graduated\">Graduated</option>\n            </select>\n\n            <div class=\"form-actions\">\n              <button type=\"button\" id=\"cancelBtn\" class=\"secondary-btn\">Cancel</button>\n              <button type=\"submit\" id=\"submitBtn\" class=\"primary-btn\">Save Faculty</button>\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  ";
+  var allFaculty = [];
+  var allDepartments = [];
+  var allAcademicYears = [];
+  var isEditing = false;
 
-            // Delete logic
-            document.querySelectorAll(".delete-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-                var id;
-                return _regenerator().w(function (_context) {
-                  while (1) switch (_context.n) {
-                    case 0:
-                      id = btn.dataset.id;
-                      if (!confirm("Delete this faculty member?")) {
-                        _context.n = 2;
-                        break;
-                      }
-                      _context.n = 1;
-                      return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/faculty/".concat(id));
-                    case 1:
-                      fetchFaculty();
-                      resetForm();
-                    case 2:
-                      return _context.a(2);
-                  }
-                }, _callee);
-              })));
-            });
-
-            // Edit logic
-            document.querySelectorAll(".edit-btn").forEach(function (btn) {
-              btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-                var id, res, f, _t;
-                return _regenerator().w(function (_context2) {
-                  while (1) switch (_context2.p = _context2.n) {
-                    case 0:
-                      id = btn.dataset.id;
-                      _context2.p = 1;
-                      _context2.n = 2;
-                      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
-                    case 2:
-                      res = _context2.v;
-                      f = res.data;
-                      document.getElementById("edit_id").value = f.id;
-                      document.getElementById("faculty_id").value = f.faculty_id;
-                      document.getElementById("first_name").value = f.first_name;
-                      document.getElementById("middle_name").value = f.middle_name || "";
-                      document.getElementById("last_name").value = f.last_name;
-                      document.getElementById("email").value = f.email;
-                      document.getElementById("phone").value = f.phone || "";
-                      document.getElementById("address").value = f.address || "";
-                      document.getElementById("departmentSelect").value = f.department_id || "";
-                      document.getElementById("academicYearSelectForm").value = f.academic_year_id || "";
-                      document.getElementById("yearstatus").value = f.yearstatus || "active";
-                      document.getElementById("position").value = f.position || "";
-                      document.getElementById("date_hired").value = f.date_hired || "";
-                      document.getElementById("submitBtn").textContent = "Update Faculty";
-                      document.getElementById("cancelBtn").style.display = "inline-block";
-                      isEditing = true;
-                      _context2.n = 4;
-                      break;
-                    case 3:
-                      _context2.p = 3;
-                      _t = _context2.v;
-                      alert("Failed to fetch faculty data.");
-                    case 4:
-                      return _context2.a(2);
-                  }
-                }, _callee2, null, [[1, 3]]);
-              })));
-            });
-          };
-          _fetchFaculty = function _fetchFaculty3() {
-            _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-              var res, _t4;
-              return _regenerator().w(function (_context5) {
-                while (1) switch (_context5.p = _context5.n) {
-                  case 0:
-                    _context5.p = 0;
-                    _context5.n = 1;
-                    return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty");
-                  case 1:
-                    res = _context5.v;
-                    allFaculty = res.data;
-                    renderFaculty();
-                    _context5.n = 3;
-                    break;
-                  case 2:
-                    _context5.p = 2;
-                    _t4 = _context5.v;
-                    console.error("Error fetching faculty:", _t4);
-                  case 3:
-                    return _context5.a(2);
-                }
-              }, _callee5, null, [[0, 2]]);
-            }));
-            return _fetchFaculty.apply(this, arguments);
-          };
-          fetchFaculty = function _fetchFaculty2() {
-            return _fetchFaculty.apply(this, arguments);
-          };
-          _loadSelectOptions = function _loadSelectOptions3() {
-            _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-              var _yield$Promise$all, _yield$Promise$all2, departmentsRes, yearsRes, _t3;
-              return _regenerator().w(function (_context4) {
-                while (1) switch (_context4.p = _context4.n) {
-                  case 0:
-                    _context4.p = 0;
-                    _context4.n = 1;
-                    return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
-                  case 1:
-                    _yield$Promise$all = _context4.v;
-                    _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
-                    departmentsRes = _yield$Promise$all2[0];
-                    yearsRes = _yield$Promise$all2[1];
-                    allDepartments = departmentsRes.data;
-                    allAcademicYears = yearsRes.data;
-
-                    // Filters
-                    document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
-                      return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
-                    }).join("");
-                    document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
-                      return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
-                    }).join("");
-
-                    // Form
-                    document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
-                      return "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
-                    }).join("");
-                    document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
-                      return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
-                    }).join("");
-                    _context4.n = 3;
-                    break;
-                  case 2:
-                    _context4.p = 2;
-                    _t3 = _context4.v;
-                    alert("Failed to load departments or academic years.");
-                  case 3:
-                    return _context4.a(2);
-                }
-              }, _callee4, null, [[0, 2]]);
-            }));
-            return _loadSelectOptions.apply(this, arguments);
-          };
-          loadSelectOptions = function _loadSelectOptions2() {
-            return _loadSelectOptions.apply(this, arguments);
-          };
-          app.innerHTML = "\n    <nav class=\"sidebar new-sidebar\">\n        <button class=\"new-item-btn\">+ New Item</button>\n        <ul class=\"sidebar-menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" class=\"active\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" data-page=\"archive\"><span>Archive</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" data-page=\"settings\"><span>System Settings</span></a></li>\n        </ul>\n    </nav>\n    <div class=\"main new-main\">\n        <header class=\"topbar new-topbar\">\n            <div class=\"topbar-left\">\n                <h1 class=\"dashboard-title\">Faculty Management</h1>\n            </div>\n        </header>\n        <div class=\"faculty-container p-4\">\n          <h2 class=\"text-2xl font-bold mb-4\">Faculty Management</h2>\n          <div class=\"flex flex-wrap gap-2 mb-4 items-center\">\n            <input type=\"text\" id=\"searchInput\" placeholder=\"Search faculty...\" class=\"border p-2 rounded flex-1 min-w-[200px]\"/>\n            <select id=\"departmentFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Departments</option>\n            </select>\n            <select id=\"academicYearFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All Academic Years</option>\n            </select>\n            <select id=\"yearstatusFilter\" class=\"border p-2 rounded\">\n              <option value=\"\">All YearStatus</option>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"retired\">Retired</option>\n            </select>\n            <button id=\"clearFilters\" class=\"border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300\">Clear</button>\n          </div>\n          <table class=\"w-full border-collapse border text-sm mb-8 bg-white shadow rounded\">\n            <thead class=\"bg-gray-100\">\n              <tr>\n                <th class=\"border p-2\">ID</th>\n                <th class=\"border p-2\">Faculty ID</th>\n                <th class=\"border p-2\">Name</th>\n                <th class=\"border p-2\">Email</th>\n                <th class=\"border p-2\">Department</th>\n                <th class=\"border p-2\">Academic Year</th>\n                <th class=\"border p-2\">YearStatus</th>\n                <th class=\"border p-2\">Position</th>\n                <th class=\"border p-2\">Actions</th>\n              </tr>\n            </thead>\n            <tbody id=\"facultyList\"></tbody>\n          </table>\n\n          <!-- Add/Edit Faculty Form -->\n          <form id=\"facultyForm\" class=\"grid grid-cols-2 gap-4 mb-6 bg-white p-6 rounded shadow\">\n            <input type=\"hidden\" name=\"edit_id\" id=\"edit_id\">\n            <input type=\"text\" name=\"faculty_id\" id=\"faculty_id\" placeholder=\"Faculty ID (e.g. F001)\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"first_name\" id=\"first_name\" placeholder=\"First Name\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"middle_name\" id=\"middle_name\" placeholder=\"Middle Name\" class=\"border p-2 rounded\">\n            <input type=\"text\" name=\"last_name\" id=\"last_name\" placeholder=\"Last Name\" class=\"border p-2 rounded\" required>\n            <input type=\"email\" name=\"email\" id=\"email\" placeholder=\"Email\" class=\"border p-2 rounded\" required>\n            <input type=\"text\" name=\"phone\" id=\"phone\" placeholder=\"Phone\" class=\"border p-2 rounded\">\n            <input type=\"text\" name=\"address\" id=\"address\" placeholder=\"Address\" class=\"border p-2 rounded\">\n            <select name=\"department_id\" id=\"departmentSelect\" class=\"border p-2 rounded\" required>\n              <option value=\"\">Select Department</option>\n            </select>\n            <select name=\"academic_year_id\" id=\"academicYearSelectForm\" class=\"border p-2 rounded\" required>\n              <option value=\"\">Select Academic Year</option>\n            </select>\n            <select name=\"yearstatus\" id=\"yearstatus\" class=\"border p-2 rounded\" required>\n              <option value=\"active\">Active</option>\n              <option value=\"inactive\">Inactive</option>\n              <option value=\"retired\">Retired</option>\n            </select>\n            <input type=\"text\" name=\"position\" id=\"position\" placeholder=\"Position\" class=\"border p-2 rounded\">\n            <input type=\"date\" name=\"date_hired\" id=\"date_hired\" class=\"border p-2 rounded\">\n            <div class=\"col-span-2 flex gap-2\">\n              <button type=\"submit\" class=\"bg-blue-600 text-white p-2 rounded hover:bg-blue-700\" id=\"submitBtn\">\n                Add Faculty\n              </button>\n              <button type=\"button\" class=\"bg-gray-400 text-white p-2 rounded hover:bg-gray-500\" id=\"cancelBtn\" style=\"display:none;\">\n                Cancel\n              </button>\n            </div>\n          </form>\n        </div>\n    </div>\n    ";
-          isEditing = false;
-          allDepartments = [];
-          allAcademicYears = [];
-          allFaculty = []; // Load department and academic year options
-          _context6.n = 1;
-          return loadSelectOptions();
-        case 1:
-          _context6.n = 2;
-          return fetchFaculty();
-        case 2:
-          // Submit (Add/Edit)
-          form = document.getElementById("facultyForm");
-          submitBtn = document.getElementById("submitBtn");
-          cancelBtn = document.getElementById("cancelBtn");
-          form.addEventListener("submit", /*#__PURE__*/function () {
-            var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
-              var formData, id, _error$response, _t2;
-              return _regenerator().w(function (_context3) {
-                while (1) switch (_context3.p = _context3.n) {
-                  case 0:
-                    e.preventDefault();
-                    formData = Object.fromEntries(new FormData(form));
-                    id = formData.edit_id;
-                    delete formData.edit_id;
-                    _context3.p = 1;
-                    if (!(isEditing && id)) {
-                      _context3.n = 3;
-                      break;
-                    }
-                    _context3.n = 2;
-                    return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/faculty/".concat(id), formData);
-                  case 2:
-                    _context3.n = 4;
-                    break;
-                  case 3:
-                    _context3.n = 4;
-                    return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/faculty", formData);
-                  case 4:
-                    form.reset();
-                    submitBtn.textContent = "Add Faculty";
-                    cancelBtn.style.display = "none";
-                    isEditing = false;
-                    fetchFaculty();
-                    _context3.n = 6;
-                    break;
-                  case 5:
-                    _context3.p = 5;
-                    _t2 = _context3.v;
-                    console.error("Error saving faculty:", ((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t2);
-                    alert("Failed to save faculty. Check console for details.");
-                  case 6:
-                    return _context3.a(2);
-                }
-              }, _callee3, null, [[1, 5]]);
-            }));
-            return function (_x2) {
-              return _ref3.apply(this, arguments);
-            };
-          }());
-
-          // Cancel button logic
-          cancelBtn.addEventListener("click", function () {
-            form.reset();
-            submitBtn.textContent = "Add Faculty";
-            cancelBtn.style.display = "none";
-            isEditing = false;
-          });
-
-          // Filters & search
-          document.getElementById("searchInput").addEventListener("input", renderFaculty);
-          document.getElementById("departmentFilter").addEventListener("change", renderFaculty);
-          document.getElementById("academicYearFilter").addEventListener("change", renderFaculty);
-          document.getElementById("yearstatusFilter").addEventListener("change", renderFaculty);
-          document.getElementById("clearFilters").addEventListener("click", function () {
-            document.getElementById("searchInput").value = "";
-            document.getElementById("departmentFilter").value = "";
-            document.getElementById("academicYearFilter").value = "";
-            document.getElementById("yearstatusFilter").value = "";
+  // Load dropdown data
+  function loadSelectOptions() {
+    return _loadSelectOptions.apply(this, arguments);
+  } // Fetch faculty
+  function _loadSelectOptions() {
+    _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, yearsRes;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            _context2.n = 1;
+            return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
+          case 1:
+            _yield$Promise$all = _context2.v;
+            _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+            departmentsRes = _yield$Promise$all2[0];
+            yearsRes = _yield$Promise$all2[1];
+            allDepartments = departmentsRes.data;
+            allAcademicYears = yearsRes.data;
+            document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
+              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+            }).join("");
+            document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
+              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+            }).join("");
+            document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
+              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
+            }).join("");
+            document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
+              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
+            }).join("");
+          case 2:
+            return _context2.a(2);
+        }
+      }, _callee2);
+    }));
+    return _loadSelectOptions.apply(this, arguments);
+  }
+  function fetchFaculty() {
+    return _fetchFaculty.apply(this, arguments);
+  } // Render table
+  function _fetchFaculty() {
+    _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var res, _t;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            _context3.p = 0;
+            _context3.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty");
+          case 1:
+            res = _context3.v;
+            allFaculty = res.data;
             renderFaculty();
-          });
-        case 3:
-          return _context6.a(2);
-      }
-    }, _callee6);
-  }));
-  return _loadFaculty.apply(this, arguments);
+            _context3.n = 3;
+            break;
+          case 2:
+            _context3.p = 2;
+            _t = _context3.v;
+            console.error("Error fetching faculty:", _t);
+          case 3:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[0, 2]]);
+    }));
+    return _fetchFaculty.apply(this, arguments);
+  }
+  function renderFaculty() {
+    var search = document.getElementById("searchInput").value.toLowerCase();
+    var department = document.getElementById("departmentFilter").value;
+    var academicYear = document.getElementById("academicYearFilter").value;
+    var yearstatus = document.getElementById("yearstatusFilter").value;
+    var tbody = document.getElementById("facultyList");
+    var filtered = allFaculty.filter(function (f) {
+      var match = true;
+      if (search) match = f.first_name.toLowerCase().includes(search) || f.last_name.toLowerCase().includes(search) || f.email.toLowerCase().includes(search);
+      if (match && department) match = f.department_id == department;
+      if (match && academicYear) match = f.academic_year_id == academicYear;
+      if (match && yearstatus) match = f.yearstatus == yearstatus;
+      return match;
+    });
+    tbody.innerHTML = filtered.length ? filtered.map(function (f) {
+      var _allDepartments$find, _allAcademicYears$fin;
+      return "\n          <tr>\n            <td>".concat(f.id, "</td>\n            <td>").concat(f.faculty_id, "</td>\n            <td>").concat(f.first_name, " ").concat(f.middle_name || "", " ").concat(f.last_name, "</td>\n            <td>").concat(f.email, "</td>\n            <td>").concat(((_allDepartments$find = allDepartments.find(function (d) {
+        return d.id == f.department_id;
+      })) === null || _allDepartments$find === void 0 ? void 0 : _allDepartments$find.name) || "", "</td>\n            <td>").concat(f.position || "", "</td>\n            <td>").concat(((_allAcademicYears$fin = allAcademicYears.find(function (y) {
+        return y.id == f.academic_year_id;
+      })) === null || _allAcademicYears$fin === void 0 ? void 0 : _allAcademicYears$fin.year) || "", "</td>\n            <td>\n              <span class=\"status-badge ").concat(f.yearstatus, "\">\n                ").concat(f.yearstatus, "\n              </span>\n            </td>\n            <td class=\"actions\">\n              <button class=\"action-btn edit\" data-id=\"").concat(f.id, "\">\u270F\uFE0F</button>\n              <button class=\"action-btn delete\" data-id=\"").concat(f.id, "\">\uD83D\uDDD1\uFE0F</button>\n            </td>\n          </tr>\n        ");
+    }).join("") : "<tr><td colspan=\"9\" class=\"text-center p-4\">No faculty found.</td></tr>";
+
+    // Attach edit/delete logic
+    document.querySelectorAll(".edit").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        return openEditModal(btn.dataset.id);
+      });
+    });
+    document.querySelectorAll(".delete").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        return deleteFaculty(btn.dataset.id);
+      });
+    });
+  }
+  function deleteFaculty(_x) {
+    return _deleteFaculty.apply(this, arguments);
+  }
+  function _deleteFaculty() {
+    _deleteFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(id) {
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.n) {
+          case 0:
+            if (!confirm("Delete this faculty?")) {
+              _context4.n = 2;
+              break;
+            }
+            _context4.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/faculty/".concat(id));
+          case 1:
+            fetchFaculty();
+          case 2:
+            return _context4.a(2);
+        }
+      }, _callee4);
+    }));
+    return _deleteFaculty.apply(this, arguments);
+  }
+  function openEditModal(_x2) {
+    return _openEditModal.apply(this, arguments);
+  } // Modal logic
+  function _openEditModal() {
+    _openEditModal = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(id) {
+      var res, f;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.n) {
+          case 0:
+            _context5.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
+          case 1:
+            res = _context5.v;
+            f = res.data;
+            isEditing = true;
+            document.getElementById("edit_id").value = f.id;
+            document.getElementById("faculty_id").value = f.faculty_id;
+            document.getElementById("first_name").value = f.first_name;
+            document.getElementById("middle_name").value = f.middle_name || "";
+            document.getElementById("last_name").value = f.last_name;
+            document.getElementById("email").value = f.email;
+            document.getElementById("phone").value = f.phone || "";
+            document.getElementById("address").value = f.address || "";
+            document.getElementById("position").value = f.position || "";
+            document.getElementById("date_hired").value = f.date_hired || "";
+            document.getElementById("departmentSelect").value = f.department_id || "";
+            document.getElementById("academicYearSelectForm").value = f.academic_year_id || "";
+            document.getElementById("yearstatus").value = f.yearstatus || "active";
+            document.getElementById("facultyModalTitle").textContent = "Edit Faculty";
+            document.getElementById("submitBtn").textContent = "Update Faculty";
+            document.getElementById("facultyModal").classList.remove("hidden");
+          case 2:
+            return _context5.a(2);
+        }
+      }, _callee5);
+    }));
+    return _openEditModal.apply(this, arguments);
+  }
+  document.getElementById("addFacultyBtn").addEventListener("click", showModal);
+  document.getElementById("addFacultyBtnTop").addEventListener("click", showModal);
+  document.getElementById("closeFacultyModal").addEventListener("click", hideModal);
+  document.getElementById("cancelBtn").addEventListener("click", hideModal);
+  function showModal() {
+    document.getElementById("facultyModal").classList.remove("hidden");
+    document.getElementById("facultyModalTitle").textContent = "Add New Faculty";
+    document.getElementById("submitBtn").textContent = "Save Faculty";
+    resetForm();
+  }
+  function hideModal() {
+    document.getElementById("facultyModal").classList.add("hidden");
+    resetForm();
+  }
+
+  // Submit form
+  var form = document.getElementById("facultyForm");
+  form.addEventListener("submit", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
+      var data, id;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            e.preventDefault();
+            data = Object.fromEntries(new FormData(form));
+            id = data.edit_id;
+            delete data.edit_id;
+            if (!isEditing) {
+              _context.n = 2;
+              break;
+            }
+            _context.n = 1;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/faculty/".concat(id), data);
+          case 1:
+            _context.n = 3;
+            break;
+          case 2:
+            _context.n = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/faculty", data);
+          case 3:
+            hideModal();
+            fetchFaculty();
+          case 4:
+            return _context.a(2);
+        }
+      }, _callee);
+    }));
+    return function (_x3) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+  function resetForm() {
+    form.reset();
+    isEditing = false;
+  }
+
+  // Filters
+  document.getElementById("searchInput").addEventListener("input", renderFaculty);
+  document.getElementById("clearFilters").addEventListener("click", function () {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("departmentFilter").value = "";
+    document.getElementById("academicYearFilter").value = "";
+    document.getElementById("yearstatusFilter").value = "";
+    renderFaculty();
+  });
+  loadSelectOptions().then(fetchFaculty);
 }
 
 /***/ }),

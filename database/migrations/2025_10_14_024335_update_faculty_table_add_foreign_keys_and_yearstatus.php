@@ -27,8 +27,7 @@ class UpdateFacultyTableAddForeignKeysAndYearstatus extends Migration
             // Add new columns
             $table->unsignedBigInteger('department_id')->nullable()->after('id');
             $table->unsignedBigInteger('academic_year_id')->nullable()->after('department_id');
-            $table->enum('yearstatus', ['active', 'inactive', 'retired'])->default('active')->after('date_hired');
-
+            $table->enum('yearstatus', ['active', 'inactive'])->default('active')->after('date_hired');
 
             // Add foreign key constraints
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');

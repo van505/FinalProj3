@@ -15,3 +15,4 @@ class ModifyYearstatusEnumInFacultyTable extends Migration
         DB::statement("ALTER TABLE faculty MODIFY yearstatus ENUM('active', 'inactive') DEFAULT 'active'");
     }
 }
+

@@ -12685,47 +12685,35 @@ body {
   min-height: 100vh;
   font-family: "Inter", sans-serif;
   color: #1e293b;
-  overflow: hidden;
 }
 
 .students-sidebar {
-  width: 260px;
+  width: 240px;
   background: white;
   border-right: 1px solid #e5e7eb;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
 }
 .students-sidebar .sidebar-title {
   font-weight: 700;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  color: #2563eb;
-}
-.students-sidebar .primary-btn {
   margin-bottom: 1rem;
 }
 .students-sidebar .sidebar-menu {
   list-style: none;
   padding: 0;
-  margin-top: 0.5rem;
-  flex-grow: 1;
+  margin-top: 1rem;
 }
 .students-sidebar .sidebar-menu li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 .students-sidebar .sidebar-menu a {
   color: #1e293b;
   text-decoration: none;
   font-weight: 500;
   display: block;
-  padding: 0.6rem 0.9rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 6px;
   transition: background 0.2s, color 0.2s;
 }
@@ -12736,33 +12724,24 @@ body {
 .students-sidebar .sidebar-menu a.active {
   background: #2563eb;
   color: white;
-  font-weight: 600;
 }
 
 .students-main {
   flex: 1;
-  margin-left: 260px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  overflow-y: auto;
-  min-height: 100vh;
 }
 
 .students-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 .students-header h1, .students-header .h1 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2563eb;
 }
 
 .students-filters {
@@ -12945,187 +12924,250 @@ body {
     transform: scale(1);
   }
 }
-/* ===== Faculty Page - Match Students Management Style ===== */
-.faculty-container {
-  padding: 2rem;
-  background-color: #f3f6fb;
-  min-height: 100vh;
-}
-
-/* Top section */
-.dashboard-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2563eb;
-  margin-bottom: 1.5rem;
-}
-
-.new-item-btn {
-  display: inline-block;
-  background-color: #2563eb;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.new-item-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* Filter section */
-.faculty-container .flex {
+.faculty-page {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  color: #1e293b;
+}
+
+.faculty-sidebar {
+  width: 240px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+}
+.faculty-sidebar .sidebar-title {
+  font-weight: 700;
   margin-bottom: 1rem;
 }
-
-.faculty-container input[type=text],
-.faculty-container select {
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background-color: #fff;
-  font-size: 0.95rem;
+.faculty-sidebar .sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.faculty-sidebar .sidebar-menu li {
+  margin-bottom: 0.75rem;
+}
+.faculty-sidebar .sidebar-menu a {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #1e293b;
   transition: all 0.2s ease;
 }
-
-.faculty-container input:focus,
-.faculty-container select:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
-  outline: none;
+.faculty-sidebar .sidebar-menu a:hover {
+  background: #f8fafc;
+  color: #0ea5e9;
+}
+.faculty-sidebar .sidebar-menu a.active {
+  background: #0ea5e9;
+  color: white;
 }
 
-#clearFilters {
-  background-color: #e5e7eb;
-  color: #111827;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  transition: background 0.2s ease;
+.faculty-main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-#clearFilters:hover {
-  background-color: #d1d5db;
+.faculty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faculty-header h1, .faculty-header .h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-/* Table styling */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+.faculty-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
-
-table thead {
-  background-color: #f9fafb;
-}
-
-table th,
-table td {
-  border: 1px solid #e5e7eb;
-  padding: 0.75rem;
-  text-align: left;
+.faculty-filters input,
+.faculty-filters select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  transition: border 0.2s;
   font-size: 0.9rem;
 }
-
-table tbody tr:hover {
-  background-color: #f3f4f6;
-}
-
-/* Action buttons */
-.edit-btn {
-  color: #2563eb;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.edit-btn:hover {
-  text-decoration: underline;
-}
-
-.delete-btn {
-  color: #dc2626;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.delete-btn:hover {
-  text-decoration: underline;
-}
-
-/* Form styling */
-#facultyForm {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-top: 2rem;
-}
-
-#facultyForm input,
-#facultyForm select {
-  border: 1px solid #d1d5db;
-  padding: 0.6rem;
-  border-radius: 0.5rem;
-  width: 100%;
-}
-
-#facultyForm input:focus,
-#facultyForm select:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+.faculty-filters input:focus,
+.faculty-filters select:focus {
+  border-color: #0ea5e9;
   outline: none;
 }
 
-/* Buttons in form */
-#submitBtn {
-  background-color: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.6rem 1.2rem;
+.faculty-table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.faculty-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.faculty-table th,
+.faculty-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+.faculty-table th {
+  background: #f8fafc;
   font-weight: 600;
-  transition: background 0.2s ease;
+  font-size: 0.9rem;
 }
-
-#submitBtn:hover {
-  background-color: #1d4ed8;
+.faculty-table tr:hover {
+  background: #f9fafb;
 }
-
-#cancelBtn {
-  background-color: #9ca3af;
-  color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.6rem 1.2rem;
+.faculty-table .status-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
-  transition: background 0.2s ease;
+}
+.faculty-table .status-badge.active {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.faculty-table .status-badge.graduated {
+  background: #dbeafe;
+  color: #0ea5e9;
+}
+.faculty-table .status-badge.inactive {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+.faculty-table .actions {
+  display: flex;
+  gap: 0.4rem;
+}
+.faculty-table .action-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.faculty-table .action-btn.edit {
+  color: #0ea5e9;
+}
+.faculty-table .action-btn.delete {
+  color: #ef4444;
+}
+.faculty-table .action-btn:hover {
+  opacity: 0.8;
 }
 
-#cancelBtn:hover {
-  background-color: #6b7280;
+.primary-btn {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.primary-btn:hover {
+  background: rgb(11.6874493927, 137.7449392713, 194.5125506073);
 }
 
-/* Responsive layout */
-@media (max-width: 768px) {
-  .faculty-container {
-    padding: 1rem;
+.secondary-btn {
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.secondary-btn:hover {
+  background: rgb(209.1931818182, 218.6704545455, 231.3068181818);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal.hidden {
+  display: none;
+}
+.modal .modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.25s ease-in-out;
+}
+.modal .modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.modal .faculty-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.modal .faculty-form input,
+.modal .faculty-form select {
+  padding: 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.modal .faculty-form input:focus,
+.modal .faculty-form select:focus {
+  border-color: #0ea5e9;
+  outline: none;
+}
+.modal .faculty-form .form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  table th,
-  table td {
-    font-size: 0.8rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

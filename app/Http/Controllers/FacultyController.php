@@ -10,8 +10,8 @@ class FacultyController extends Controller
     // List all faculty with relationships
     public function index()
     {
-        $faculties = Faculty::with(['department', 'academicYear'])->get();
-        return response()->json($faculties);
+        $faculty = Faculty::with(['department', 'academicYear'])->get();
+        return response()->json($faculty);
     }
 
     // Store a new faculty

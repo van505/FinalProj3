@@ -7,7 +7,6 @@ import { loadFaculty } from "./Faculty.js";
 import { loadReport } from "./Report.js";
 
 export async function loadDashboard(app) {
-    // Sidebar
     const sidebar = `
         <nav class="sidebar new-sidebar">
             <button class="new-item-btn">+ New Item</button>
