@@ -8,8 +8,9 @@ import "./bootstrap";
 import { loadLogin } from "./components/Login";
 import { loadRegister } from "./components/Register";
 import { loadDashboard } from "./components/Dashboard";
-
-// ✅ Import new components
+import { loadStudents } from "./components/Students"; // ✅ plural
+import { loadFaculty } from "./components/Faculty";
+import { loadReport } from "./components/Report";
 import { loadSystemSettings } from "./components/SystemSettings";
 import { loadProfile } from "./components/Profile";
 
@@ -21,44 +22,67 @@ if (app) {
     const path = window.location.pathname;
 
     if (token) {
-        // ✅ Add token to every axios request
+        // ✅ Add token to axios
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        // ✅ Determine which page to load
+        // ✅ Handle initial load based on URL
         if (path === "/dashboard") {
             loadDashboard(app);
         } 
+        else if (path === "/students") {
+            loadStudents(app);
+        }
+        else if (path === "/faculty") {
+            loadFaculty(app);
+        }
+        else if (path === "/report") {
+            loadReport(app);
+        }
         else if (path === "/settings") {
-            loadSystemSettings(app); // 👈 Load System Settings page
+            loadSystemSettings(app);
         }
         else if (path === "/profile") {
-            loadProfile(app); // 👈 Load Profile page
+            loadProfile(app);
         }
         else {
-            // ✅ Default to dashboard if no path matches
-            window.location.href = "/dashboard";
+            // default to dashboard
+            window.history.pushState({}, "", "/dashboard");
+            loadDashboard(app);
         }
 
-        // ✅ Listen to in-app navigation (sidebar links)
+        // ✅ Sidebar link navigation (no page refresh)
         document.addEventListener("click", (e) => {
             const link = e.target.closest("a[data-page]");
             if (!link) return;
             e.preventDefault();
 
             const page = link.dataset.page;
-            // Remove active class
+
+            // remove active class
             document.querySelectorAll(".sidebar-menu a").forEach(a => a.classList.remove("active"));
             link.classList.add("active");
 
-            // Load appropriate component
-            if (page === "overview") {
+            // ✅ Handle navigation
+            if (page === "overview" || page === "dashboard") {
                 loadDashboard(app);
                 window.history.pushState({}, "", "/dashboard");
             } 
+            else if (page === "students") {
+                loadStudents(app);
+                window.history.pushState({}, "", "/students");
+            } 
+            else if (page === "faculty") {
+                loadFaculty(app);
+                window.history.pushState({}, "", "/faculty");
+            } 
+            else if (page === "report") {
+                loadReport(app);
+                window.history.pushState({}, "", "/report");
+            }
             else if (page === "settings") {
                 loadSystemSettings(app);
                 window.history.pushState({}, "", "/settings");
-            } 
+            }
             else if (page === "profile") {
                 loadProfile(app);
                 window.history.pushState({}, "", "/profile");
@@ -66,7 +90,7 @@ if (app) {
         });
 
     } else {
-        // 🚪 No token = show login/register
+        // 🚪 Not logged in → show login
         if (path !== "/") {
             window.history.pushState({}, "", "/");
         }

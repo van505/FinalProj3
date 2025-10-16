@@ -21,3 +21,8 @@ Route::get('/dashboard', function () {
     return view('welcome');
 });
 
+
+Route::get('{any}', function () {
+    return view('app'); // your main React/JS blade
+})->where('any', '.*');
+

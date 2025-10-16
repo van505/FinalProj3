@@ -10,7 +10,6 @@ export function loadFaculty(app) {
           <li><a href="#" data-page="overview">Overview</a></li>
           <li><a href="#" data-page="students">Students</a></li>
           <li><a href="#" class="active" data-page="faculty">Faculty</a></li>
-          <li><a href="#" data-page="archive">Archive</a></li>
           <li><a href="#" id="menuReport" data-page="report">Report</a></li>
           <li><a href="#" data-page="profile">Profile</a></li>
           <li><a href="#" data-page="settings">System Settings</a></li>

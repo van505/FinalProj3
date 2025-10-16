@@ -15,7 +15,6 @@ export async function loadDashboard(app) {
                     <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
                     <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
                     <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li>
-                    <li><a href="#" data-page="archive"><span>Archive</span></a></li>
                     <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
                     <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
                     <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
