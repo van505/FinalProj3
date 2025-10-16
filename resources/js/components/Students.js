@@ -2,107 +2,102 @@ import axios from "axios";
 
 export function loadStudents(app) {
   app.innerHTML = `
-    <nav class="sidebar new-sidebar">
-        <button class="new-item-btn" id="addStudentBtn">+ Add Student</button>
+    <div class="students-page">
+      <aside class="students-sidebar">
+        <h2 class="sidebar-title">Menu</h2>
+        <button class="primary-btn full-width" id="addStudentBtn">+ Add Student</button>
         <ul class="sidebar-menu">
-            <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-            <li><a href="#" class="active" data-page="students"><span>Students</span></a></li>
-            <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-            <li><a href="#" data-page="archive"><span>Archive</span></a></li>
-            <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-            <li><a href="#" data-page="profile"><span>Profile</span></a></li>
-            <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
+          <li><a href="#" data-page="overview">Overview</a></li>
+          <li><a href="#" class="active" data-page="students">Students</a></li>
+          <li><a href="#" data-page="faculty">Faculty</a></li>
+          <li><a href="#" data-page="archive">Archive</a></li>
+          <li><a href="#" id="menuReport" data-page="report">Report</a></li>
+          <li><a href="#" data-page="profile">Profile</a></li>
+          <li><a href="#" data-page="settings">System Settings</a></li>
         </ul>
-    </nav>
-    <div class="main new-main bg-gray-50 min-h-screen">
-        <header class="topbar new-topbar">
-            <div class="topbar-left">
-                <h1 class="dashboard-title font-bold text-2xl mt-6 mb-2">Students Management</h1>
-            </div>
+      </aside>
+
+      <main class="students-main">
+        <header class="students-header">
+          <h1>Students Management</h1>
+          <button id="addStudentBtnTop" class="primary-btn">+ Add Student</button>
         </header>
-        <div class="students-container p-8">
-          <div class="flex flex-wrap gap-2 mb-4 items-center">
-            <input type="text" id="searchInput" placeholder="Search students..." class="border p-2 rounded flex-1 min-w-[200px]"/>
-            <select id="departmentFilter" class="border p-2 rounded">
-              <option value="">All Departments</option>
+
+        <section class="students-filters">
+          <input type="text" id="searchInput" placeholder="Search students..." />
+          <select id="departmentFilter"><option value="">All Departments</option></select>
+          <select id="courseFilter"><option value="">All Courses</option></select>
+          <select id="academicYearFilter"><option value="">All Academic Years</option></select>
+          <select id="yearstatusFilter">
+            <option value="">All Year Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="graduated">Graduated</option>
+          </select>
+          <button id="clearFilters" class="secondary-btn">Clear Filters</button>
+        </section>
+
+        <section class="students-table-card">
+          <table class="students-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Department</th>
+                <th>Academic Year</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentList"></tbody>
+          </table>
+        </section>
+      </main>
+
+      <div id="studentModal" class="modal hidden">
+        <div class="modal-content">
+          <button id="closeStudentModal" class="modal-close">&times;</button>
+          <h3 id="studentModalTitle">Add New Student</h3>
+          <form id="studentForm" class="student-form">
+            <input type="hidden" name="edit_id" id="edit_id" />
+            <input type="text" name="studID" id="studID" placeholder="Student ID" required />
+            <input type="text" name="firstname" id="firstname" placeholder="First Name" required />
+            <input type="text" name="middlename" id="middlename" placeholder="Middle Name" />
+            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required />
+            <input type="text" name="suffix" id="suffix" placeholder="Suffix" />
+            <input type="email" name="email" id="email" placeholder="Email" required />
+            <input type="text" name="phone" id="phone" placeholder="Phone" />
+            <input type="date" name="date_of_birth" id="date_of_birth" />
+            <select name="sex" id="sex">
+              <option value="">Select Sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
-            <select id="courseFilter" class="border p-2 rounded">
-              <option value="">All Courses</option>
+            <select name="department_id" id="departmentSelect" required>
+              <option value="">Select Department</option>
             </select>
-            <select id="academicYearFilter" class="border p-2 rounded">
-              <option value="">All Academic Years</option>
+            <select name="course_id" id="courseSelect" required>
+              <option value="">Select Course</option>
             </select>
-            <select id="yearstatusFilter" class="border p-2 rounded">
-              <option value="">All YearStatus</option>
+            <select name="academic_year_id" id="academicYearSelectForm" required>
+              <option value="">Select Academic Year</option>
+            </select>
+            <select name="yearstatus" id="yearstatus" required>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="graduated">Graduated</option>
             </select>
-            <button id="clearFilters" class="border px-3 py-2 rounded bg-gray-200 hover:bg-gray-300">Clear</button>
-            <button id="addStudentBtnTop" class="ml-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2">
-              <span>+ Add Student</span>
-            </button>
-          </div>
-          <div class="overflow-x-auto rounded shadow bg-white">
-            <table class="min-w-full border-collapse border text-sm mb-8">
-              <thead class="bg-gray-100">
-                <tr>
-                  <th class="border p-2">ID</th>
-                  <th class="border p-2">Student ID</th>
-                  <th class="border p-2">Name</th>
-                  <th class="border p-2">Course</th>
-                  <th class="border p-2">Department</th>
-                  <th class="border p-2">Academic Year</th>
-                  <th class="border p-2">YearStatus</th>
-                  <th class="border p-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="studentList"></tbody>
-            </table>
-          </div>
+            <input type="date" name="enrollment_date" id="enrollment_date" />
+
+            <div class="form-actions">
+              <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
+              <button type="submit" id="submitBtn" class="primary-btn">Save Student</button>
+            </div>
+          </form>
         </div>
-        <!-- Modal for Add/Edit Student -->
-        <div id="studentModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-          <div class="bg-white rounded shadow-lg w-full max-w-2xl p-6 relative">
-            <button id="closeStudentModal" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
-            <h3 class="text-xl font-bold mb-4" id="studentModalTitle">Add New Student</h3>
-            <form id="studentForm" class="grid grid-cols-2 gap-4">
-              <input type="hidden" name="edit_id" id="edit_id">
-              <input type="text" name="studID" id="studID" placeholder="Student ID" class="border p-2 rounded" required>
-              <input type="text" name="firstname" id="firstname" placeholder="First Name" class="border p-2 rounded" required>
-              <input type="text" name="middlename" id="middlename" placeholder="Middle Name" class="border p-2 rounded">
-              <input type="text" name="lastname" id="lastname" placeholder="Last Name" class="border p-2 rounded" required>
-              <input type="text" name="suffix" id="suffix" placeholder="Suffix" class="border p-2 rounded">
-              <input type="email" name="email" id="email" placeholder="Email" class="border p-2 rounded" required>
-              <input type="text" name="phone" id="phone" placeholder="Phone" class="border p-2 rounded">
-              <input type="date" name="date_of_birth" id="date_of_birth" class="border p-2 rounded">
-              <select name="sex" id="sex" class="border p-2 rounded">
-                <option value="">Select Sex</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-              <select name="department_id" id="departmentSelect" class="border p-2 rounded" required>
-                <option value="">Select Department</option>
-              </select>
-              <select name="course_id" id="courseSelect" class="border p-2 rounded" required>
-                <option value="">Select Course</option>
-              </select>
-              <select name="academic_year_id" id="academicYearSelectForm" class="border p-2 rounded" required>
-                <option value="">Select Academic Year</option>
-              </select>
-              <select name="yearstatus" id="yearstatus" class="border p-2 rounded" required>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                <option value="graduated">Graduated</option>
-              </select>
-              <input type="date" name="enrollment_date" id="enrollment_date" class="border p-2 rounded">
-              <div class="col-span-2 flex gap-2 justify-end mt-4">
-                <button type="button" id="cancelBtn" class="bg-gray-400 text-white p-2 rounded hover:bg-gray-500">Cancel</button>
-                <button type="submit" id="submitBtn" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Save Student</button>
-              </div>
-            </form>
-          </div>
-        </div>
+      </div>
     </div>
   `;
 

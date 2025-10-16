@@ -1,0 +1,185 @@
+/* ===== Faculty Page - Match Students Management Style ===== */
+
+.faculty-container {
+  padding: 2rem;
+  background-color: #f3f6fb;
+  min-height: 100vh;
+}
+
+/* Top section */
+.dashboard-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 1.5rem;
+}
+
+.new-item-btn {
+  display: inline-block;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.new-item-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Filter section */
+.faculty-container .flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.faculty-container input[type="text"],
+.faculty-container select {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.faculty-container input:focus,
+.faculty-container select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+#clearFilters {
+  background-color: #e5e7eb;
+  color: #111827;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s ease;
+}
+
+#clearFilters:hover {
+  background-color: #d1d5db;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+table thead {
+  background-color: #f9fafb;
+}
+
+table th,
+table td {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+table tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* Action buttons */
+.edit-btn {
+  color: #2563eb;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-btn:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  color: #dc2626;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+}
+
+/* Form styling */
+#facultyForm {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+#facultyForm input,
+#facultyForm select {
+  border: 1px solid #d1d5db;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+#facultyForm input:focus,
+#facultyForm select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+  outline: none;
+}
+
+/* Buttons in form */
+#submitBtn {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+#submitBtn:hover {
+  background-color: #1d4ed8;
+}
+
+#cancelBtn {
+  background-color: #9ca3af;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+#cancelBtn:hover {
+  background-color: #6b7280;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .faculty-container {
+    padding: 1rem;
+  }
+  table th,
+  table td {
+    font-size: 0.8rem;
+  }
+}
