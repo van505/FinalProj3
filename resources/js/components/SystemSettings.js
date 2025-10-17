@@ -1,607 +1,530 @@
 export function loadSystemSettings(app) {
-    app.innerHTML = `
-        <nav class="sidebar new-sidebar">
-            <button class="new-item-btn">+ New Item</button>
-            <ul class="sidebar-menu">
-                <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-                <li><a href="#" data-page="students"><span>Students</span></a></li>
-                <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-                <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-                <li><a href="#" data-page="profile"><span>Profile</span></a></li>
-                <li><a href="#" class="active" data-page="settings"><span>System Settings</span></a></li>
-            </ul>
-        </nav>
-        <div class="main new-main">
-            <header class="topbar new-topbar">
-                <div class="topbar-left">
-                    <h1 class="dashboard-title">DashBoard</h1>
-                    <span class="system-settings">⚙️ System Settings</span>
-                </div>
-                <div class="topbar-center">
-                    <input type="text" class="search-input" placeholder="Search">
-                </div>
-            
-            </header>
-            <section class="settings-section">
-                <h2 class="settings-title"><span style="font-size:2rem;">⚙️</span> System Settings</h2>
-                <div class="settings-tabs" style="margin-bottom:2rem;">
-                    <button class="tab-btn active" data-tab="courses">Courses</button>
-                    <button class="tab-btn" data-tab="departments">Departments</button>
-                    <button class="tab-btn" data-tab="academic">Academic Years</button>
-                    <button class="tab-btn" data-tab="archives">Archives</button>
-                </div>
-                <div id="tabContent">
-                    <!-- Courses tab content will be loaded here by default -->
-                </div>
-                <div id="settingsMessage"></div>
-            </section>
+  app.innerHTML = `
+    <div class="dashboard-container">
+      <nav class="sidebar new-sidebar">
+        <div class="sidebar-inner">
+          <div class="sidebar-brand">
+            <img src="/images/logo.png" alt="EDUTrack" class="sidebar-logo" />
+            <div class="brand-title">EDUTrack</div>
+          </div>
+
+          <button class="new-item-btn">+ New Item</button>
+
+          <ul class="sidebar-menu">
+            <li><a href="#" data-page="overview"><span>Overview</span></a></li>
+            <li><a href="#" data-page="students"><span>Students</span></a></li>
+            <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
+            <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
+            <li><a href="#" data-page="profile"><span>Profile</span></a></li>
+            <li><a href="#" class="active" data-page="settings"><span>System Settings</span></a></li>
+          </ul>
         </div>
-    `;
 
-    // --- Tab Content Templates ---
-    function getCoursesContent() {
-        return `
-            <div>
-                <h4>Courses List</h4>
-                <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
-                    <thead>
-                        <tr style="background:#f3f4f6;">
-                            <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Course Name</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Department</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="coursesTable"></tbody>
-                </table>
-                <h3>Add / Edit Course</h3>
-                <form id="addCourseForm">
-                    <input type="hidden" name="edit_course_id" id="edit_course_id" />
-                    <input type="text" name="course_name" id="course_name" placeholder="Course Name" required class="input" />
-                    <select name="department_id" id="course_department_id" required class="input">
-                        <option value="">Select Department</option>
-                    </select>
-                    <button type="submit" class="btn btn-blue" id="courseSubmitBtn">Add Course</button>
-                    <button type="button" class="btn btn-gray" id="cancelCourseEditBtn" style="display:none;">Cancel</button>
-                </form>
-            </div>
-        `;
-    }
+        <div class="sidebar-footer">v1.0.0</div>
+      </nav>
 
-    function getDepartmentsContent() {
-        return `
-            <div>
-                <h4>Departments List</h4>
-                <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
-                    <thead>
-                        <tr style="background:#f3f4f6;">
-                            <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Department Name</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Head</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="departmentsTable"></tbody>
-                </table>
-                <h3>Add / Edit Department</h3>
-                <form id="addDepartmentForm">
-                    <input type="hidden" name="edit_department_id" id="edit_department_id" />
-                    <input type="text" name="department_name" id="department_name" placeholder="Department Name" required class="input" />
-                    <input type="text" name="department_head" id="department_head" placeholder="Department Head" required class="input" />
-                    <button type="submit" class="btn btn-green" id="departmentSubmitBtn">Add Department</button>
-                    <button type="button" class="btn btn-gray" id="cancelDepartmentEditBtn" style="display:none;">Cancel</button>
-                </form>
-            </div>
-        `;
-    }
+      <div class="main new-main">
+        <header class="topbar new-topbar">
+          <div class="topbar-left">
+            <h1 class="dashboard-title">Dashboard</h1>
+            <span class="system-settings">⚙️ System Settings</span>
+          </div>
+          <div class="topbar-center">
+            <input type="text" class="search-input" placeholder="Search">
+          </div>
+        </header>
 
-    function getAcademicContent() {
-        return `
-            <div>
-                <h4>Academic Years List</h4>
-                <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
-                    <thead>
-                        <tr style="background:#f3f4f6;">
-                            <th style="padding:8px;border:1px solid #e5e7eb;">#</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Academic Year</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Status</th>
-                            <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="academicTable"></tbody>
-                </table>
-                <h3>Add / Edit Academic Year</h3>
-                <form id="addAcademicForm">
-                    <input type="hidden" id="edit_academic_id">
-                    <input type="text" id="academic_year" placeholder="Academic Year (e.g., 2025-2026)" required>
-                    <label><input type="checkbox" id="is_active"> Active</label>
-                    <button type="submit" id="academicSubmitBtn">Add Academic Year</button>
-                    <button type="button" id="cancelAcademicEditBtn" style="display:none;">Cancel</button>
-                </form>
-            </div>
-        `;
-    }
+        <section class="settings-section">
+          <div class="settings-header">
+            <h2 class="settings-title">⚙️ System Settings</h2>
+            <div id="settingsMessage" class="settings-message" aria-live="polite"></div>
+          </div>
 
-    function getArchivesContent() {
-        return `
-        <div>
-            <h4>Archived Data</h4>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
-                <thead>
-                    <tr style="background:#f3f4f6;">
-                        <th style="padding:8px;border:1px solid #e5e7eb;">Type</th>
-                        <th style="padding:8px;border:1px solid #e5e7eb;">Name/Title</th>
-                        <th style="padding:8px;border:1px solid #e5e7eb;">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="archiveTable"></tbody>
-            </table>
+          <div class="settings-tabs">
+            <button class="tab-btn active" data-tab="courses">Courses</button>
+            <button class="tab-btn" data-tab="departments">Departments</button>
+            <button class="tab-btn" data-tab="academic">Academic Years</button>
+            <button class="tab-btn" data-tab="archives">Archives</button>
+          </div>
+
+          <div id="tabContent" class="settings-content"></div>
+        </section>
+      </div>
+    </div>
+  `;
+
+  /* ---------------- Tab templates (UI only, no inline styles) ---------------- */
+  function getCoursesContent() {
+    return `
+      <div class="settings-panel">
+        <div class="panel-top">
+          <h3 class="panel-title">Courses</h3>
+          <p class="panel-sub">Manage courses and assign to departments</p>
         </div>
+
+        <div class="table-card">
+          <table class="settings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Course Name</th>
+                <th>Department</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="coursesTable"></tbody>
+          </table>
+        </div>
+
+        <form id="addCourseForm" class="settings-form">
+          <input type="hidden" id="edit_course_id" name="edit_course_id" />
+          <div class="form-row">
+            <input type="text" id="course_name" name="course_name" class="input" placeholder="Course Name" required />
+            <select id="course_department_id" name="department_id" class="input" required>
+              <option value="">Select Department</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="courseSubmitBtn" class="btn btn-blue">Add Course</button>
+            <button type="button" id="cancelCourseEditBtn" class="btn btn-gray hidden">Cancel</button>
+          </div>
+        </form>
+      </div>
     `;
+  }
+
+  function getDepartmentsContent() {
+    return `
+      <div class="settings-panel">
+        <div class="panel-top">
+          <h3 class="panel-title">Departments</h3>
+          <p class="panel-sub">Create and manage departments</p>
+        </div>
+
+        <div class="table-card">
+          <table class="settings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Department Name</th>
+                <th>Head</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="departmentsTable"></tbody>
+          </table>
+        </div>
+
+        <form id="addDepartmentForm" class="settings-form">
+          <input type="hidden" id="edit_department_id" name="edit_department_id" />
+          <div class="form-row">
+            <input type="text" id="department_name" name="department_name" class="input" placeholder="Department Name" required />
+            <input type="text" id="department_head" name="department_head" class="input" placeholder="Department Head" required />
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="departmentSubmitBtn" class="btn btn-green">Add Department</button>
+            <button type="button" id="cancelDepartmentEditBtn" class="btn btn-gray hidden">Cancel</button>
+          </div>
+        </form>
+      </div>
+    `;
+  }
+
+  function getAcademicContent() {
+    return `
+      <div class="settings-panel">
+        <div class="panel-top">
+          <h3 class="panel-title">Academic Years</h3>
+          <p class="panel-sub">Add academic year ranges and set active</p>
+        </div>
+
+        <div class="table-card">
+          <table class="settings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Academic Year</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="academicTable"></tbody>
+          </table>
+        </div>
+
+        <form id="addAcademicForm" class="settings-form">
+          <input type="hidden" id="edit_academic_id" />
+          <div class="form-row">
+            <input type="text" id="academic_year" class="input" placeholder="Academic Year (e.g., 2025-2026)" required />
+            <label class="checkbox-wrap"><input type="checkbox" id="is_active" /> Active</label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="academicSubmitBtn" class="btn btn-blue">Add Academic Year</button>
+            <button type="button" id="cancelAcademicEditBtn" class="btn btn-gray hidden">Cancel</button>
+          </div>
+        </form>
+      </div>
+    `;
+  }
+
+  function getArchivesContent() {
+    return `
+      <div class="settings-panel">
+        <div class="panel-top">
+          <h3 class="panel-title">Archives</h3>
+          <p class="panel-sub">Restore archived items</p>
+        </div>
+
+        <div class="table-card">
+          <table class="settings-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Name / Title</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="archiveTable"></tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ---------------- Tab switching ---------------- */
+  const tabContent = document.getElementById("tabContent");
+  async function showTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+
+    if (tab === "courses") {
+      tabContent.innerHTML = getCoursesContent();
+      await populateCourseDepartments();
+      fetchCourses();
+      setupCourseForm();
+    } else if (tab === "departments") {
+      tabContent.innerHTML = getDepartmentsContent();
+      fetchDepartments();
+      setupDepartmentForm();
+    } else if (tab === "academic") {
+      tabContent.innerHTML = getAcademicContent();
+      fetchAcademicYears();
+      setupAcademicForm();
+    } else if (tab === "archives") {
+      tabContent.innerHTML = getArchivesContent();
+      fetchArchives();
     }
+  }
 
-    async function fetchArchives() {
-        const res = await fetch('/api/archives');
-        const table = document.getElementById('archiveTable');
-        if (res.ok) {
-            const data = await res.json();
-            let html = '';
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  });
 
-            data.courses.forEach(c =>
-                html += `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">Course</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${c.name}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;"><button onclick="restoreItem('course',${c.id})">Restore</button></td>
-                </tr>`
-            );
-            data.departments.forEach(d =>
-                html += `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">Department</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${d.name}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;"><button onclick="restoreItem('department',${d.id})">Restore</button></td>
-                </tr>`
-            );
-            data.academic_years.forEach(a =>
-                html += `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">Academic Year</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${a.year || a.academic_year}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;"><button onclick="restoreItem('academic_year',${a.id})">Restore</button></td>
-                </tr>`
-            );
-            data.faculties.forEach(f =>
-                html += `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">Faculty</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${f.first_name || f.firstname} ${f.last_name || f.lastname}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;"><button onclick="restoreItem('faculty',${f.id})">Restore</button></td>
-                </tr>`
-            );
-            data.students.forEach(s =>
-                html += `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">Student</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${s.first_name || s.firstname} ${s.last_name || s.lastname}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;"><button onclick="restoreItem('student',${s.id})">Restore</button></td>
-                </tr>`
-            );
+  /* ---------------- Courses (logic preserved, UI cleaned) ---------------- */
+  let editingCourseId = null;
+  async function fetchCourses() {
+    const res = await fetch('/api/courses', { credentials: 'include' });
+    const table = document.getElementById('coursesTable');
+    if (!table) return;
+    if (res.ok) {
+      const data = await res.json();
+      table.innerHTML = data.length
+        ? data.map((c, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${c.name}</td>
+              <td>${c.department?.name || ''}</td>
+              <td>
+                <button class="btn btn-small btn-edit-course" data-id="${c.id}" data-name="${c.name}" data-department="${c.department_id}">Edit</button>
+                <button class="btn btn-small btn-danger btn-delete-course" data-id="${c.id}">Delete</button>
+              </td>
+            </tr>
+          `).join('')
+        : `<tr><td colspan="4" class="text-muted">No courses found.</td></tr>`;
 
-            if (!html) {
-                html = `<tr><td colspan="3" style="text-align:center;padding:8px;">No archived data found.</td></tr>`;
-            }
-            table.innerHTML = html;
-        } else {
-            table.innerHTML = `<tr><td colspan="3" style="color:red;text-align:center;">Failed to load archives.</td></tr>`;
-        }
+      // attach handlers
+      document.querySelectorAll('.btn-delete-course').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Are you sure you want to delete this course?')) return;
+          await fetch(`/api/courses/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+          fetchCourses();
+          resetCourseForm();
+        });
+      });
+      document.querySelectorAll('.btn-edit-course').forEach(btn => {
+        btn.addEventListener('click', () => {
+          editingCourseId = btn.dataset.id;
+          document.getElementById('edit_course_id').value = editingCourseId;
+          document.getElementById('course_name').value = btn.dataset.name;
+          document.getElementById('course_department_id').value = btn.dataset.department;
+          document.getElementById('courseSubmitBtn').textContent = "Update Course";
+          document.getElementById('cancelCourseEditBtn').classList.remove('hidden');
+        });
+      });
+    } else {
+      table.innerHTML = `<tr><td colspan="4" class="text-error">Failed to load courses.</td></tr>`;
     }
+  }
 
-    // Make restoreItem globally available for inline onclick
-    window.restoreItem = async function(type, id) {
-        const res = await fetch(`/api/archives/restore/${type}/${id}`, { method: 'POST' });
-        if (res.ok) {
+  function setupCourseForm() {
+    const form = document.getElementById('addCourseForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const courseName = document.getElementById('course_name').value;
+      const departmentId = document.getElementById('course_department_id').value;
+      const editId = document.getElementById('edit_course_id').value;
+      const msg = document.getElementById('settingsMessage');
+      let res;
+      const body = JSON.stringify({ name: courseName, department_id: departmentId });
+
+      if (editId) {
+        res = await fetch(`/api/courses/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      } else {
+        res = await fetch('/api/courses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      }
+      msg.textContent = res.ok ? (editId ? "Course updated!" : "Course added!") : "Failed to save course.";
+      fetchCourses();
+      resetCourseForm();
+    });
+    document.getElementById('cancelCourseEditBtn').addEventListener('click', resetCourseForm);
+  }
+
+  function resetCourseForm() {
+    const form = document.getElementById('addCourseForm');
+    if (!form) return;
+    form.reset();
+    document.getElementById('edit_course_id').value = "";
+    document.getElementById('courseSubmitBtn').textContent = "Add Course";
+    document.getElementById('cancelCourseEditBtn').classList.add('hidden');
+    editingCourseId = null;
+  }
+
+  /* ---------------- Departments ---------------- */
+  let editingDepartmentId = null;
+  async function fetchDepartments() {
+    const res = await fetch('/api/departments', { credentials: 'include' });
+    const table = document.getElementById('departmentsTable');
+    if (!table) return;
+    if (res.ok) {
+      const data = await res.json();
+      table.innerHTML = data.length
+        ? data.map((d, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${d.name}</td>
+              <td>${d.head}</td>
+              <td>
+                <button class="btn btn-small btn-edit-dept" data-id="${d.id}" data-name="${d.name}" data-head="${d.head}">Edit</button>
+                <button class="btn btn-small btn-danger btn-delete-dept" data-id="${d.id}">Delete</button>
+              </td>
+            </tr>
+          `).join('')
+        : `<tr><td colspan="4" class="text-muted">No departments found.</td></tr>`;
+
+      document.querySelectorAll('.btn-delete-dept').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Are you sure you want to delete this department?')) return;
+          await fetch(`/api/departments/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+          fetchDepartments();
+          resetDepartmentForm();
+        });
+      });
+      document.querySelectorAll('.btn-edit-dept').forEach(btn => {
+        btn.addEventListener('click', () => {
+          editingDepartmentId = btn.dataset.id;
+          document.getElementById('edit_department_id').value = editingDepartmentId;
+          document.getElementById('department_name').value = btn.dataset.name;
+          document.getElementById('department_head').value = btn.dataset.head;
+          document.getElementById('departmentSubmitBtn').textContent = "Update Department";
+          document.getElementById('cancelDepartmentEditBtn').classList.remove('hidden');
+        });
+      });
+    } else {
+      table.innerHTML = `<tr><td colspan="4" class="text-error">Failed to load departments.</td></tr>`;
+    }
+  }
+
+  function setupDepartmentForm() {
+    const form = document.getElementById('addDepartmentForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const departmentName = document.getElementById('department_name').value;
+      const departmentHead = document.getElementById('department_head').value;
+      const editId = document.getElementById('edit_department_id').value;
+      const msg = document.getElementById('settingsMessage');
+      let res;
+      const body = JSON.stringify({ name: departmentName, head: departmentHead });
+
+      if (editId) {
+        res = await fetch(`/api/departments/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      } else {
+        res = await fetch('/api/departments', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      }
+      msg.textContent = res.ok ? (editId ? "Department updated!" : "Department added!") : "Failed to save department.";
+      fetchDepartments();
+      resetDepartmentForm();
+    });
+    document.getElementById('cancelDepartmentEditBtn').addEventListener('click', resetDepartmentForm);
+  }
+
+  function resetDepartmentForm() {
+    const form = document.getElementById('addDepartmentForm');
+    if (!form) return;
+    form.reset();
+    document.getElementById('edit_department_id').value = "";
+    document.getElementById('departmentSubmitBtn').textContent = "Add Department";
+    document.getElementById('cancelDepartmentEditBtn').classList.add('hidden');
+    editingDepartmentId = null;
+  }
+
+  /* ---------------- Academic Years ---------------- */
+  let editingAcademicId = null;
+  async function fetchAcademicYears() {
+    const res = await fetch('/api/academic-years', { credentials: 'include' });
+    const table = document.getElementById('academicTable');
+    if (!table) return;
+    if (res.ok) {
+      const data = await res.json();
+      table.innerHTML = data.length
+        ? data.map((a, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${a.year || a.academic_year}</td>
+              <td>${a.is_active ? 'Active' : 'Inactive'}</td>
+              <td>
+                <button class="btn btn-small btn-edit-academic" data-id="${a.id}" data-year="${a.year || a.academic_year}" data-active="${a.is_active ? 1 : 0}">Edit</button>
+                <button class="btn btn-small btn-danger btn-delete-academic" data-id="${a.id}">Archive</button>
+              </td>
+            </tr>
+          `).join('')
+        : `<tr><td colspan="4" class="text-muted">No academic years found.</td></tr>`;
+
+      document.querySelectorAll('.btn-delete-academic').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Are you sure you want to archive this academic year?')) return;
+          await fetch(`/api/academic-years/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+          fetchAcademicYears();
+          resetAcademicForm();
+        });
+      });
+      document.querySelectorAll('.btn-edit-academic').forEach(btn => {
+        btn.addEventListener('click', () => {
+          editingAcademicId = btn.dataset.id;
+          document.getElementById('edit_academic_id').value = editingAcademicId;
+          document.getElementById('academic_year').value = btn.dataset.year;
+          document.getElementById('is_active').checked = btn.dataset.active === "1";
+          document.getElementById('academicSubmitBtn').textContent = "Update Academic Year";
+          document.getElementById('cancelAcademicEditBtn').classList.remove('hidden');
+        });
+      });
+    } else {
+      table.innerHTML = `<tr><td colspan="4" class="text-error">Failed to load academic years.</td></tr>`;
+    }
+  }
+
+  function setupAcademicForm() {
+    const form = document.getElementById('addAcademicForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const year = document.getElementById('academic_year').value;
+      const is_active = document.getElementById('is_active').checked ? 1 : 0;
+      const editId = document.getElementById('edit_academic_id').value;
+      const msg = document.getElementById('settingsMessage');
+      const body = JSON.stringify({ year, is_active });
+      let res;
+
+      if (editId) {
+        res = await fetch(`/api/academic-years/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      } else {
+        res = await fetch('/api/academic-years', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+      }
+      msg.textContent = res.ok ? (editId ? "Academic year updated!" : "Academic year added!") : "Failed to save academic year.";
+      fetchAcademicYears();
+      resetAcademicForm();
+    });
+    document.getElementById('cancelAcademicEditBtn').addEventListener('click', resetAcademicForm);
+  }
+
+  function resetAcademicForm() {
+    const form = document.getElementById('addAcademicForm');
+    if (!form) return;
+    form.reset();
+    document.getElementById('edit_academic_id').value = "";
+    document.getElementById('academicSubmitBtn').textContent = "Add Academic Year";
+    document.getElementById('cancelAcademicEditBtn').classList.add('hidden');
+    editingAcademicId = null;
+  }
+
+  /* ---------------- Archives ---------------- */
+  async function fetchArchives() {
+    const res = await fetch('/api/archives', { credentials: 'include' });
+    const table = document.getElementById('archiveTable');
+    if (!table) return;
+    if (res.ok) {
+      const data = await res.json();
+      let rows = [];
+
+      (data.courses || []).forEach(c => rows.push({ type: 'Course', name: c.name, id: c.id }));
+      (data.departments || []).forEach(d => rows.push({ type: 'Department', name: d.name, id: d.id }));
+      (data.academic_years || []).forEach(a => rows.push({ type: 'Academic Year', name: a.year || a.academic_year, id: a.id }));
+      (data.faculties || []).forEach(f => rows.push({ type: 'Faculty', name: (f.first_name||f.firstname)+' '+(f.last_name||f.lastname), id: f.id }));
+      (data.students || []).forEach(s => rows.push({ type: 'Student', name: (s.first_name||s.firstname)+' '+(s.last_name||s.lastname), id: s.id }));
+
+      table.innerHTML = rows.length
+        ? rows.map(r => `
+            <tr>
+              <td>${r.type}</td>
+              <td>${r.name}</td>
+              <td><button class="btn btn-small btn-restore" data-type="${r.type.toLowerCase().replace(' ', '_')}" data-id="${r.id}">Restore</button></td>
+            </tr>
+          `).join('')
+        : `<tr><td colspan="3" class="text-muted">No archived data found.</td></tr>`;
+
+      document.querySelectorAll('.btn-restore').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const type = btn.dataset.type;
+          const id = btn.dataset.id;
+          const res = await fetch(`/api/archives/restore/${type}/${id}`, { method: 'POST', credentials: 'include' });
+          if (res.ok) {
             alert(`${type} restored successfully!`);
             fetchArchives();
-        } else {
+          } else {
             alert('Failed to restore');
-        }
-    };
-
-    // --- Tab Switching Logic ---
-    const tabContent = document.getElementById("tabContent");
-    async function showTab(tab) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
-        if (tab === "courses") {
-            tabContent.innerHTML = getCoursesContent();
-            await populateCourseDepartments();
-            fetchCourses();
-            setupCourseForm();
-        } else if (tab === "departments") {
-            tabContent.innerHTML = getDepartmentsContent();
-            fetchDepartments();
-            setupDepartmentForm();
-        } else if (tab === "academic") {
-            tabContent.innerHTML = getAcademicContent();
-            fetchAcademicYears();
-            setupAcademicForm();
-        } else if (tab === "archives") {
-            tabContent.innerHTML = getArchivesContent();
-            fetchArchives();
-        }
+          }
+        });
+      });
+    } else {
+      table.innerHTML = `<tr><td colspan="3" class="text-error">Failed to load archives.</td></tr>`;
     }
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  }
+
+  /* ---------------- helpers ---------------- */
+  async function populateCourseDepartments() {
+    const res = await fetch('/api/departments', { credentials: 'include' });
+    if (!res.ok) return;
+    const departments = await res.json();
+    const select = document.getElementById('course_department_id');
+    if (select) {
+      select.innerHTML = `<option value="">Select Department</option>` + departments.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+    }
+  }
+
+  /* ---------------- initialize ---------------- */
+  showTab("courses");
+
+  // sidebar navigation (keeps consistent with Dashboard behavior)
+  document.querySelectorAll('.sidebar-menu a').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const page = this.getAttribute('data-page');
+      if (page === 'settings') return;
+      if (page === 'students') window.dispatchEvent(new CustomEvent('navigate', { detail: { page: 'students' } }));
+      if (page === 'faculty') window.dispatchEvent(new CustomEvent('navigate', { detail: { page: 'faculty' } }));
+      if (page === 'report') window.dispatchEvent(new CustomEvent('navigate', { detail: { page: 'report' } }));
+      if (page === 'overview') window.location.reload();
     });
-
-    // --- Courses Logic ---
-    let editingCourseId = null;
-    async function fetchCourses() {
-        const res = await fetch('/api/courses');
-        const table = document.getElementById('coursesTable');
-        if (res.ok) {
-            const data = await res.json();
-            table.innerHTML = data.length
-                ? data.map((c, i) => `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${c.name}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${c.department?.name || ''}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">
-                        <button class="edit-course-btn" data-id="${c.id}" data-name="${c.name}" data-department="${c.department_id}" style="color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;">Edit</button>
-                        <button class="delete-course-btn" data-id="${c.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Delete</button>
-                    </td>
-                </tr>`).join('')
-                : `<tr><td colspan="4" style="text-align:center;padding:8px;">No courses found.</td></tr>`;
-            document.querySelectorAll('.delete-course-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    if (confirm('Are you sure you want to delete this course?')) {
-                        await fetch(`/api/courses/${btn.dataset.id}`, { method: 'DELETE' });
-                        fetchCourses();
-                        resetCourseForm();
-                    }
-                });
-            });
-            document.querySelectorAll('.edit-course-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    editingCourseId = btn.dataset.id;
-                    document.getElementById('edit_course_id').value = editingCourseId;
-                    document.getElementById('course_name').value = btn.dataset.name;
-                    document.getElementById('course_department_id').value = btn.dataset.department;
-                    document.getElementById('courseSubmitBtn').textContent = "Update Course";
-                    document.getElementById('cancelCourseEditBtn').style.display = "inline-block";
-                });
-            });
-        } else {
-            table.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Failed to load courses.</td></tr>`;
-        }
-    }
-    function setupCourseForm() {
-        document.getElementById('addCourseForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const courseName = document.getElementById('course_name').value;
-            const departmentId = document.getElementById('course_department_id').value;
-            const editId = document.getElementById('edit_course_id').value;
-            const msg = document.getElementById('settingsMessage');
-            let res;
-            if (editId) {
-                res = await fetch(`/api/courses/${editId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ name: courseName, department_id: departmentId })
-                });
-            } else {
-                res = await fetch('/api/courses', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ name: courseName, department_id: departmentId })
-                });
-            }
-            if (res.ok) {
-                msg.textContent = editId ? "Course updated!" : "Course added!";
-                fetchCourses();
-                resetCourseForm();
-            } else {
-                msg.textContent = "Failed to save course.";
-            }
-        });
-        document.getElementById('cancelCourseEditBtn').addEventListener('click', resetCourseForm);
-    }
-    function resetCourseForm() {
-        document.getElementById('addCourseForm').reset();
-        document.getElementById('edit_course_id').value = "";
-        document.getElementById('courseSubmitBtn').textContent = "Add Course";
-        document.getElementById('cancelCourseEditBtn').style.display = "none";
-        editingCourseId = null;
-    }
-
-    // --- Departments Logic ---
-    let editingDepartmentId = null;
-    async function fetchDepartments() {
-        const res = await fetch('/api/departments');
-        const table = document.getElementById('departmentsTable');
-        if (res.ok) {
-            const data = await res.json();
-            table.innerHTML = data.length
-                ? data.map((d, i) => `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${d.name}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${d.head}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">
-                        <button class="edit-dept-btn" data-id="${d.id}" data-name="${d.name}" data-head="${d.head}" style="color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;">Edit</button>
-                        <button class="delete-dept-btn" data-id="${d.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Delete</button>
-                    </td>
-                </tr>`).join('')
-                : `<tr><td colspan="4" style="text-align:center;padding:8px;">No departments found.</td></tr>`;
-            document.querySelectorAll('.delete-dept-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    if (confirm('Are you sure you want to delete this department?')) {
-                        await fetch(`/api/departments/${btn.dataset.id}`, { method: 'DELETE' });
-                        fetchDepartments();
-                        resetDepartmentForm();
-                    }
-                });
-            });
-            document.querySelectorAll('.edit-dept-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    editingDepartmentId = btn.dataset.id;
-                    document.getElementById('edit_department_id').value = editingDepartmentId;
-                    document.getElementById('department_name').value = btn.dataset.name;
-                    document.getElementById('department_head').value = btn.dataset.head;
-                    document.getElementById('departmentSubmitBtn').textContent = "Update Department";
-                    document.getElementById('cancelDepartmentEditBtn').style.display = "inline-block";
-                });
-            });
-        } else {
-            table.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Failed to load departments.</td></tr>`;
-        }
-    }
-    function setupDepartmentForm() {
-        document.getElementById('addDepartmentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const departmentName = document.getElementById('department_name').value;
-            const departmentHead = document.getElementById('department_head').value;
-            const editId = document.getElementById('edit_department_id').value;
-            const msg = document.getElementById('settingsMessage');
-            let res;
-            if (editId) {
-                res = await fetch(`/api/departments/${editId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ name: departmentName, head: departmentHead })
-                });
-            } else {
-                res = await fetch('/api/departments', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ name: departmentName, head: departmentHead })
-                });
-            }
-            if (res.ok) {
-                msg.textContent = editId ? "Department updated!" : "Department added!";
-                fetchDepartments();
-                resetDepartmentForm();
-            } else {
-                msg.textContent = "Failed to save department.";
-            }
-        });
-        document.getElementById('cancelDepartmentEditBtn').addEventListener('click', resetDepartmentForm);
-    }
-    function resetDepartmentForm() {
-        document.getElementById('addDepartmentForm').reset();
-        document.getElementById('edit_department_id').value = "";
-        document.getElementById('departmentSubmitBtn').textContent = "Add Department";
-        document.getElementById('cancelDepartmentEditBtn').style.display = "none";
-        editingDepartmentId = null;
-    }
-
-    // --- Academic Years Logic ---
-    let editingAcademicId = null;
-
-    async function fetchAcademicYears() {
-        const res = await fetch('/api/academic-years');
-        const table = document.getElementById('academicTable');
-
-        if (res.ok) {
-            const data = await res.json();
-            table.innerHTML = data.length
-                ? data.map((a, i) => `<tr>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${i + 1}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${a.year}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">${a.is_active ? 'Active' : 'Inactive'}</td>
-                    <td style="padding:8px;border:1px solid #e5e7eb;">
-                        <button class="edit-academic-btn" data-id="${a.id}" data-year="${a.year}" data-active="${a.is_active}" style="color:#fff;background:#3b82f6;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;margin-right:4px;">Edit</button>
-                        <button class="delete-academic-btn" data-id="${a.id}" style="color:#fff;background:#ef4444;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">Archive</button>
-                    </td>
-                </tr>`).join('')
-                : `<tr><td colspan="4" style="text-align:center;padding:8px;">No academic years found.</td></tr>`;
-
-            // Delete
-            document.querySelectorAll('.delete-academic-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    if (confirm('Are you sure you want to archive this academic year?')) {
-                        await fetch(`/api/academic-years/${btn.dataset.id}`, { method: 'DELETE' });
-                        fetchAcademicYears();
-                        resetAcademicForm();
-                    }
-                });
-            });
-
-            // Edit
-            document.querySelectorAll('.edit-academic-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    editingAcademicId = btn.dataset.id;
-                    document.getElementById('edit_academic_id').value = editingAcademicId;
-                    document.getElementById('academic_year').value = btn.dataset.year;
-                    document.getElementById('is_active').checked = btn.dataset.active === "1";
-                    document.getElementById('academicSubmitBtn').textContent = "Update Academic Year";
-                    document.getElementById('cancelAcademicEditBtn').style.display = "inline-block";
-                });
-            });
-        } else {
-            table.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Failed to load academic years.</td></tr>`;
-        }
-    }
-
-    function setupAcademicForm() {
-        document.getElementById('addAcademicForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const year = document.getElementById('academic_year').value;
-            const is_active = document.getElementById('is_active').checked ? 1 : 0;
-            const editId = document.getElementById('edit_academic_id').value;
-            const msg = document.getElementById('settingsMessage');
-            let res;
-
-            const bodyData = JSON.stringify({ year, is_active });
-
-            if (editId) {
-                res = await fetch(`/api/academic-years/${editId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    credentials: 'include',
-                    body: bodyData
-                });
-            } else {
-                res = await fetch('/api/academic-years', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    credentials: 'include',
-                    body: bodyData
-                });
-            }
-
-            if (res.ok) {
-                msg.textContent = editId ? "Academic year updated!" : "Academic year added!";
-                fetchAcademicYears();
-                resetAcademicForm();
-            } else {
-                msg.textContent = "Failed to save academic year.";
-            }
-        });
-
-        document.getElementById('cancelAcademicEditBtn').addEventListener('click', resetAcademicForm);
-    }
-
-    function resetAcademicForm() {
-        document.getElementById('addAcademicForm').reset();
-        document.getElementById('edit_academic_id').value = "";
-        document.getElementById('academicSubmitBtn').textContent = "Add Academic Year";
-        document.getElementById('cancelAcademicEditBtn').style.display = "none";
-        editingAcademicId = null;
-    }
-
-
-    async function fetchArchives() {
-        const res = await fetch('/api/archives');
-        const table = document.getElementById('archiveTable');
-        if (res.ok) {
-            const data = await res.json();
-            let html = '';
-
-            // Courses
-            html += '<tr><th colspan="3">Archived Courses</th></tr>';
-            html += data.courses.length
-                ? data.courses.map(c => `
-                    <tr>
-                        <td>${c.name}</td>
-                        <td>Course</td>
-                        <td><button onclick="restoreItem('course', ${c.id})">Restore</button></td>
-                    </tr>`).join('')
-                : '<tr><td colspan="3">No archived courses</td></tr>';
-
-            // Departments
-            html += '<tr><th colspan="3">Archived Departments</th></tr>';
-            html += data.departments.length
-                ? data.departments.map(d => `
-                    <tr>
-                        <td>${d.name}</td>
-                        <td>Department</td>
-                        <td><button onclick="restoreItem('department', ${d.id})">Restore</button></td>
-                    </tr>`).join('')
-                : '<tr><td colspan="3">No archived departments</td></tr>';
-
-            // Academic Years
-            html += '<tr><th colspan="3">Archived Academic Years</th></tr>';
-            html += data.academic_years.length
-                ? data.academic_years.map(a => `
-                    <tr>
-                        <td>${a.academic_year}</td>
-                        <td>Academic Year</td>
-                        <td><button onclick="restoreItem('academic_year', ${a.id})">Restore</button></td>
-                    </tr>`).join('')
-                : '<tr><td colspan="3">No archived academic years</td></tr>';
-
-            // Faculties
-            html += '<tr><th colspan="3">Archived Faculties</th></tr>';
-            html += data.faculties.length
-                ? data.faculties.map(f => `
-                    <tr>
-                        <td>${f.firstname} ${f.lastname}</td>
-                        <td>Faculty</td>
-                        <td><button onclick="restoreItem('faculty', ${f.id})">Restore</button></td>
-                    </tr>`).join('')
-                : '<tr><td colspan="3">No archived faculties</td></tr>';
-
-            // Students
-            html += '<tr><th colspan="3">Archived Students</th></tr>';
-            html += data.students.length
-                ? data.students.map(s => `
-                    <tr>
-                        <td>${s.firstname} ${s.lastname}</td>
-                        <td>Student</td>
-                        <td><button onclick="restoreItem('student', ${s.id})">Restore</button></td>
-                    </tr>`).join('')
-                : '<tr><td colspan="3">No archived students</td></tr>';
-
-            table.innerHTML = html;
-        } else {
-            table.innerHTML = '<tr><td colspan="3" style="color:red;">Failed to load archives</td></tr>';
-        }   
-    }
-
-    async function restoreItem(type, id) {
-        const res = await fetch(`/api/archives/restore/${type}/${id}`, { method: 'POST' });
-        if (res.ok) {
-            alert(`${type} restored successfully!`);
-            fetchArchives();
-        } else {
-            alert('Failed to restore');
-        }
-    }
-
-    // --- Initial Tab ---
-    showTab("courses");
-
-    // Navigation for sidebar (reuse your Dashboard logic if needed)
-    document.querySelectorAll('.sidebar-menu a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const page = this.getAttribute('data-page');
-            if (page === 'overview') window.location.reload(); // Or call your loadDashboard
-            // Add more navigation as needed
-        });
-    });
-
-    async function populateCourseDepartments() {
-        const res = await fetch('/api/departments');
-        if (res.ok) {
-            const departments = await res.json();
-            const select = document.getElementById('course_department_id');
-            if (select) {
-                select.innerHTML = `<option value="">Select Department</option>` +
-                    departments.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
-            }
-        }
-    }
+  });
 }

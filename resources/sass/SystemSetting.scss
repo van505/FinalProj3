@@ -1,85 +1,229 @@
-.settings-section {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(22, 61, 125, 0.06);
-  padding: 2rem;
-  margin-bottom: 2rem;
+// System Settings UI styles — sidebar matches dashboard, modern minimal design
 
-  .settings-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #222;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-  .settings-forms {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-    .settings-form-card {
-      background: #f5f7fb;
-      border-radius: 0.7rem;
-      padding: 1.2rem 1.5rem;
-      min-width: 260px;
-      flex: 1 1 260px;
-      h3 {
-        margin-top: 0;
-        margin-bottom: 1rem;
-        color: #4b6bfb;
-      }
-      .input {
-        width: 100%;
-        padding: 0.7rem 1rem;
-        margin-bottom: 1rem;
-        border: 1px solid #e0e6ed;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        background: #fff;
-      }
-      .btn {
-        padding: 0.6rem 1.2rem;
-        border: none;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        &.btn-blue { background: #4b6bfb; color: #fff; }
-        &.btn-green { background: #27ae60; color: #fff; }
-      }
-    }
-  }
-  #settingsMessage {
-    font-size: 1rem;
-    color: #27ae60;
-    margin-top: 0.5rem;
+$primary: #4b6bfb;
+$muted: #6b7280;
+$bg: #f5f7fb;
+$card-bg: #ffffff;
+$border: #e6eef9;
+$radius: 12px;
+$shadow: 0 6px 18px rgba(11,16,45,0.06);
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: $bg;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Sidebar (same as dashboard) */
+.new-sidebar {
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-weight: 800;
+  color: #123a71;
+  font-size: 1rem;
+}
+
+.new-item-btn {
+  background: $primary;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.new-item-btn:hover { background: darken($primary, 6%); }
+
+.sidebar-menu {
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+  li { margin: 1rem 0; }
+  a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    &:hover, &.active { color: $primary; }
   }
 }
 
-.settings-table-section {
-  margin-top: 2rem;
-  h3 {
-    margin-top: 1.5rem;
-    color: #4b6bfb;
+.sidebar-footer {
+  font-size: .85rem;
+  color: #777;
+  text-align: center;
+}
+
+/* Main content */
+.new-main {
+  margin-left: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3rem;
+}
+
+/* Settings section */
+.settings-section {
+  background: transparent;
+  padding-bottom: 2rem;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  .settings-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0b122d;
   }
+  .settings-message { color: #16a34a; font-weight: 600; }
+}
+
+.settings-tabs {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  .tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    color: $muted;
+    cursor: pointer;
+    &.active {
+      background: rgba(75,107,251,0.08);
+      color: $primary;
+      box-shadow: 0 6px 18px rgba(75,107,251,0.06);
+    }
+  }
+}
+
+/* Panel cards & tables */
+.settings-content {
+  background: transparent;
+}
+
+.settings-panel {
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 1.25rem;
+  box-shadow: $shadow;
+  margin-bottom: 1rem;
+
+  .panel-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    .panel-title { font-size: 1.05rem; font-weight: 700; color: #0b122d; }
+    .panel-sub { color: $muted; font-size: .95rem; }
+  }
+
+  .table-card {
+    overflow: auto;
+    border-radius: 10px;
+    border: 1px solid $border;
+    padding: .5rem;
+    margin-bottom: 1rem;
+  }
+
   .settings-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1.5rem;
+    min-width: 620px;
     th, td {
-      border: 1px solid #e0e6ed;
-      padding: 0.7rem 1rem;
+      padding: .7rem .9rem;
+      border-bottom: 1px solid $border;
       text-align: left;
+      color: #0b122d;
+      font-size: .95rem;
     }
-    th {
-      background: #f5f7fb;
-      color: #222;
-      font-weight: 600;
+    thead th { background: #fafcff; font-weight: 700; color: $muted; }
+    tbody tr:hover { background: rgba(11,16,45,0.02); }
+    .text-muted { color: $muted; }
+    .text-error { color: #ef4444; }
+  }
+
+  .settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    .form-row {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
     }
-    tr:nth-child(even) {
-      background: #fafbfc;
+
+    .input, select {
+      padding: .6rem .85rem;
+      border-radius: 8px;
+      border: 1px solid $border;
+      background: #fff;
+      font-size: .95rem;
+      outline: none;
+    }
+
+    .checkbox-wrap { display:flex; align-items:center; gap: .4rem; color: $muted; }
+
+    .form-actions {
+      display: flex;
+      gap: .6rem;
+      justify-content: flex-end;
+      margin-top: .5rem;
     }
   }
+
+  .btn {
+    padding: .55rem .9rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    &.btn-blue { background: $primary; color: #fff; }
+    &.btn-green { background: #22c55e; color: #fff; }
+    &.btn-gray { background: #f3f6fb; color: $muted; border: 1px solid $border; }
+    &.btn-small { padding: .35rem .6rem; font-weight: 600; border-radius: 6px; }
+    &.btn-danger { background: #ef4444; color: #fff; }
+  }
+
+  .text-center { text-align: center; }
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+  .settings-panel .settings-table { min-width: 520px; }
+  .new-main { padding: 1.2rem; margin-left: 0; }
+  .new-sidebar { position: relative; width: 100%; height: auto; border-right: none; display: flex; flex-direction: row; align-items:center; gap:1rem; padding: .8rem; }
 }

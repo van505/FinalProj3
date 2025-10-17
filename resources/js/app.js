@@ -38,7 +38,7 @@ if (app) {
         else if (path === "/report") {
             loadReport(app);
         }
-        else if (path === "/settings") {
+        else if (path === "/systemsettings") {
             loadSystemSettings(app);
         }
         else if (path === "/profile") {
@@ -81,7 +81,7 @@ if (app) {
             }
             else if (page === "settings") {
                 loadSystemSettings(app);
-                window.history.pushState({}, "", "/settings");
+                window.history.pushState({}, "", "/systemsettings");
             }
             else if (page === "profile") {
                 loadProfile(app);

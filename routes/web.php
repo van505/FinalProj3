@@ -22,7 +22,28 @@ Route::get('/dashboard', function () {
 });
 
 
-Route::get('{any}', function () {
-    return view('app'); // your main React/JS blade
-})->where('any', '.*');
+Route::get('/profile', function () {
+    return view('welcome');
+});
 
+
+Route::get('/systemsettings', function () {
+    return view('welcome');
+});
+
+
+
+Route::get('/report', function () {
+    return view('welcome');
+});
+
+
+
+Route::get('/faculty', function () {
+    return view('welcome');
+});
+
+
+Route::get('/students', function () {
+    return view('welcome');
+});

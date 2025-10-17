@@ -2,15 +2,25 @@ export function loadReport(app) {
   app.innerHTML = `
   <div class="dashboard-container">
     <nav class="sidebar new-sidebar">
-      <button class="new-item-btn">+ New Item</button>
-      <ul class="sidebar-menu">
-        <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-        <li><a href="#" data-page="students"><span>Students</span></a></li>
-        <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-        <li><a href="#" id="menuReport" class="active" data-page="report"><span>Report</span></a></li>
-        <li><a href="#" data-page="profile"><span>Profile</span></a></li>
-        <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
-      </ul>
+      <div class="sidebar-inner">
+        <div class="sidebar-brand">
+          <img src="/images/logo.png" alt="logo" class="sidebar-logo" />
+          <div class="brand-title">EDUTrack</div>
+        </div>
+
+        <button class="new-item-btn">+ New Item</button>
+
+        <ul class="sidebar-menu">
+          <li><a href="#" data-page="overview"><span>Overview</span></a></li>
+          <li><a href="#" data-page="students"><span>Students</span></a></li>
+          <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
+          <li><a href="#" id="menuReport" class="active" data-page="report"><span>Report</span></a></li>
+          <li><a href="#" data-page="profile"><span>Profile</span></a></li>
+          <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">v1.0.0</div>
     </nav>
 
     <div class="main new-main">
@@ -71,7 +81,7 @@ export function loadReport(app) {
   </div>
   `;
 
-  // --- Functionality ---
+  // --- Functionality (unchanged) ---
   fetchDropdowns();
   fetchReport();
 

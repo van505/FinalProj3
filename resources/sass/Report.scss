@@ -186,3 +186,82 @@
     }
   }
 }
+
+/* ---------- Sidebar styles added to match dashboard sidebar ---------- */
+.new-sidebar {
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-weight: 800;
+  color: #123a71;
+  font-size: 1rem;
+}
+
+/* keep same primary blue used across app */
+.new-item-btn {
+  background: #4b6bfb;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.new-item-btn:hover {
+  background: #3c5ae0;
+}
+
+.sidebar-menu {
+  margin-top: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li { margin: 0.9rem 0; }
+
+.sidebar-menu a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  padding: 0.35rem 0;
+  transition: 0.2s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  color: #4b6bfb;
+}
+
+/* footer */
+.sidebar-footer {
+  font-size: .85rem;
+  color: #777;
+  text-align: center;
+}

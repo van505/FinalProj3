@@ -3,171 +3,205 @@ import { loadStudents } from "./Students";
 import axios from "axios";
 
 export function loadProfile(app) {
-    app.innerHTML = `
-        <nav class="sidebar new-sidebar">
-            <button class="new-item-btn">+ New Item</button>
-            <ul class="sidebar-menu">
-                <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-                <li><a href="#" data-page="students"><span>Students</span></a></li>
-                <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-                <li><a href="#" data-page="archive"><span>Archive</span></a></li>
-                <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-                <li><a href="#" class="active" data-page="profile"><span>Profile</span></a></li>
-                <li><a href="#" id="menuSettings" data-page="settings"><span>System Settings</span></a></li>
-            </ul>
-        </nav>
-        <div class="main new-main" style="background:#f8fafc;min-height:100vh;">
-            <header class="topbar new-topbar">
-                <div class="topbar-left">
-                    <h1 class="dashboard-title">My Profile</h1>
-                </div>
-            </header>
-            <section style="display:flex;gap:2rem;align-items:flex-start;justify-content:flex-start;margin-top:2rem;">
-                <div style="background:#fff;padding:2rem 2.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);flex:2;">
-                    <h3 style="margin-bottom:1.5rem;">Profile Information</h3>
-                    <form id="profileForm" style="display:flex;gap:2rem;flex-wrap:wrap;">
-                        <div style="flex:1;min-width:220px;">
-                            <label>Full Name *</label>
-                            <input type="text" id="name" class="input" required style="width:100%;margin-bottom:1rem;">
-                        </div>
-                        <div style="flex:1;min-width:220px;">
-                            <label>Email Address *</label>
-                            <input type="email" id="email" class="input" required style="width:100%;margin-bottom:1rem;">
-                        </div>
-                        <button type="submit" class="btn btn-blue" style="height:40px;align-self:flex-end;">Update Profile</button>
-                    </form>
-                    <hr style="margin:2rem 0;">
-                    <h3>Change Password</h3>
-                    <form id="passwordForm" style="display:flex;gap:1rem;flex-wrap:wrap;">
-                        <div style="flex:1;min-width:180px;">
-                            <label>Current Password</label>
-                            <input type="password" id="current_password" class="input" style="width:100%;">
-                        </div>
-                        <div style="flex:1;min-width:180px;">
-                            <label>New Password</label>
-                            <input type="password" id="new_password" class="input" style="width:100%;">
-                        </div>
-                        <div style="flex:1;min-width:180px;">
-                            <label>Confirm New Password</label>
-                            <input type="password" id="confirm_password" class="input" style="width:100%;">
-                        </div>
-                        <button type="submit" class="btn btn-blue" style="height:40px;align-self:flex-end;">Update Password</button>
-                    </form>
-                    <div id="profileMsg" style="margin-top:1rem;"></div>
-                </div>
-                <div style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:1.5rem;">
-                    <div style="background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);text-align:center;">
-                        <div style="font-size:3rem;margin-bottom:0.5rem;"><span style="background:#e5e7eb;border-radius:50%;padding:0.5rem 1.2rem;">👤</span></div>
-                        <div style="font-weight:600;font-size:1.1rem;" id="summaryName"></div>
-                        <div style="color:#6b7280;" id="summaryEmail"></div>
-                        <div style="margin-top:1rem;display:flex;justify-content:center;gap:1.5rem;">
-                            <div>
-                                <div style="font-size:0.9rem;color:#888;">Role</div>
-                                <div style="font-weight:500;">Admin</div>
-                            </div>
-                            <div>
-                                <div style="font-size:0.9rem;color:#888;">Status</div>
-                                <div style="font-weight:500;color:#22c55e;">Active</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
-                        <div style="font-weight:600;color:#3b82f6;margin-bottom:0.5rem;">Quick Actions</div>
-                        <button class="btn btn-outline" style="width:100%;margin-bottom:0.5rem;">Download Data</button>
-                        <button class="btn btn-outline" style="width:100%;margin-bottom:0.5rem;">Activity Log</button>
-                        <button class="btn btn-outline" style="width:100%;" id="logoutBtn">Logout</button>
-                    </div>
-                </div>
-            </section>
+  app.innerHTML = `
+    <div class="dashboard-container">
+      <nav class="sidebar new-sidebar">
+        <div class="sidebar-inner">
+          <div class="sidebar-brand">
+            <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
+            <div class="brand-title">EDUTrack</div>
+          </div>
+
+          <button class="new-item-btn">+ New Item</button>
+
+          <ul class="sidebar-menu">
+            <li><a href="#" data-page="overview"><span>Overview</span></a></li>
+            <li><a href="#" data-page="students"><span>Students</span></a></li>
+            <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
+            <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
+            <li><a href="#" class="active" data-page="profile"><span>Profile</span></a></li>
+            <li><a href="#" id="menuSettings" data-page="settings"><span>System Settings</span></a></li>
+          </ul>
         </div>
-    `;
 
-    // Navigation
-    document.getElementById("menuSettings").addEventListener("click", (e) => {
-        e.preventDefault();
-        loadSystemSettings(app);
-    });
-    document.querySelectorAll('.sidebar-menu a[data-page="students"]').forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            loadStudents(app);
-        });
-    });
+        <div class="sidebar-footer">v1.0.0</div>
+      </nav>
 
-    // Token for auth requests
-    const token = localStorage.getItem("token");
-    const api = axios.create({
-        baseURL: "http://127.0.0.1:8000/api",
-        headers: { Authorization: `Bearer ${token}` }
-    });
+      <main class="main new-main profile-page">
+        <header class="topbar new-topbar">
+          <div class="topbar-left">
+            <h1 class="dashboard-title">My Profile</h1>
+          </div>
+        </header>
 
-    // Load user data
-    async function loadProfileData() {
-        try {
-            const res = await api.get("/profile");
-            const user = res.data;
-            document.getElementById("name").value = user.name;
-            document.getElementById("email").value = user.email;
-            document.getElementById("summaryName").textContent = user.name;
-            document.getElementById("summaryEmail").textContent = user.email;
-        } catch (err) {
-            console.error(err);
-            document.getElementById("profileMsg").textContent = "Failed to load profile.";
-        }
+        <section class="profile-hero" role="banner">
+          <div class="hero-inner">
+            <div class="hero-welcome">
+              <div class="hero-title">Welcome, <span id="heroName">User</span></div>
+              <div class="hero-sub" id="heroDate"></div>
+            </div>
+            <div class="hero-action">
+              <button id="logoutBtn" class="btn btn-logout">Log out</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-main">
+          <div class="profile-card summary-card">
+            <div class="avatar-wrap">
+              <div class="avatar">👤</div>
+            </div>
+            <div class="summary-info">
+              <div class="summary-name" id="summaryName">Admin User</div>
+              <div class="summary-email" id="summaryEmail">admin@example.com</div>
+              <div class="summary-meta">
+                <div class="meta-item">
+                  <div class="meta-label">Role</div>
+                  <div class="meta-value">Admin</div>
+                </div>
+                <div class="meta-item">
+                  <div class="meta-label">Status</div>
+                  <div class="meta-value meta-active">Active</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-forms">
+            <div class="card form-card">
+              <h3 class="card-title">Profile Information</h3>
+              <form id="profileForm" class="form-grid" novalidate>
+                <div class="field">
+                  <label for="name">Full Name *</label>
+                  <input type="text" id="name" class="input" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" class="input" required />
+                </div>
+                <div class="form-actions">
+                  <button type="button" class="btn btn-outline">Download Data</button>
+                  <button type="button" class="btn btn-ghost">Activity Log</button>
+                  <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
+                <div id="profileMsg" class="form-message" aria-live="polite"></div>
+              </form>
+            </div>
+
+            <div class="card form-card">
+              <h3 class="card-title">Change Password</h3>
+              <form id="passwordForm" class="form-grid" novalidate>
+                <div class="field">
+                  <label for="current_password">Current Password</label>
+                  <input type="password" id="current_password" class="input" />
+                </div>
+                <div class="field">
+                  <label for="new_password">New Password</label>
+                  <input type="password" id="new_password" class="input" />
+                </div>
+                <div class="field">
+                  <label for="confirm_password">Confirm New Password</label>
+                  <input type="password" id="confirm_password" class="input" />
+                </div>
+                <div class="form-actions right">
+                  <button type="submit" class="btn btn-primary">Update Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  `;
+
+  // Navigation handlers (keep logic unchanged)
+  document.getElementById("menuSettings").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadSystemSettings(app);
+  });
+  document.querySelectorAll('.sidebar-menu a[data-page="students"]').forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      loadStudents(app);
+    });
+  });
+
+  // Token for auth requests — logic preserved
+  const token = localStorage.getItem("token");
+  const api = axios.create({
+    baseURL: "http://127.0.0.1:8000/api",
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  // Load user data
+  async function loadProfileData() {
+    try {
+      const res = await api.get("/profile");
+      const user = res.data;
+      document.getElementById("name").value = user.name;
+      document.getElementById("email").value = user.email;
+      document.getElementById("summaryName").textContent = user.name;
+      document.getElementById("summaryEmail").textContent = user.email;
+      document.getElementById("heroName").textContent = (user.name || "User").split(" ")[0];
+      document.getElementById("heroDate").textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    } catch (err) {
+      console.error(err);
+      document.getElementById("profileMsg").textContent = "Failed to load profile.";
     }
-    loadProfileData();
+  }
+  loadProfileData();
 
-    // Update Profile
-    document.getElementById("profileForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const msg = document.getElementById("profileMsg");
-        try {
-            const res = await api.put("/profile/update", { name, email });
-            msg.textContent = res.data.message;
-            loadProfileData();
-        } catch (err) {
-            msg.textContent = "Error updating profile.";
-            console.error(err);
-        }
-    });
+  // Update Profile (logic unchanged)
+  document.getElementById("profileForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const msg = document.getElementById("profileMsg");
+    try {
+      const res = await api.put("/profile/update", { name, email });
+      msg.textContent = res.data.message;
+      loadProfileData();
+    } catch (err) {
+      msg.textContent = "Error updating profile.";
+      console.error(err);
+    }
+  });
 
-    // Change Password
-    document.getElementById("passwordForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const current_password = document.getElementById("current_password").value;
-        const new_password = document.getElementById("new_password").value;
-        const confirm_password = document.getElementById("confirm_password").value;
-        const msg = document.getElementById("profileMsg");
+  // Change Password (logic unchanged)
+  document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const current_password = document.getElementById("current_password").value;
+    const new_password = document.getElementById("new_password").value;
+    const confirm_password = document.getElementById("confirm_password").value;
+    const msg = document.getElementById("profileMsg");
 
-        if (new_password !== confirm_password) {
-            msg.textContent = "New passwords do not match.";
-            return;
-        }
+    if (new_password !== confirm_password) {
+      msg.textContent = "New passwords do not match.";
+      return;
+    }
 
-        try {
-            const res = await api.put("/profile/password", {
-                current_password,
-                new_password,
-                new_password_confirmation: confirm_password
-            });
-            msg.textContent = res.data.message;
-            document.getElementById("passwordForm").reset();
-        } catch (err) {
-            msg.textContent = "Error updating password. Check your current password.";
-            console.error(err);
-        }
-    });
+    try {
+      const res = await api.put("/profile/password", {
+        current_password,
+        new_password,
+        new_password_confirmation: confirm_password
+      });
+      msg.textContent = res.data.message;
+      document.getElementById("passwordForm").reset();
+    } catch (err) {
+      msg.textContent = "Error updating password. Check your current password.";
+      console.error(err);
+    }
+  });
 
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-        try {
-            await api.post("/auth/logout");
-        } catch (err) {
-            console.warn("Logout request failed, clearing token anyway.");
-        }
-        localStorage.removeItem("token");
-        window.location.href = "/";
-    });
+  // Logout (logic unchanged)
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+      await api.post("/auth/logout");
+    } catch (err) {
+      console.warn("Logout request failed, clearing token anyway.");
+    }
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  });
 }
