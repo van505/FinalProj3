@@ -55,39 +55,68 @@ export function loadStudents(app) {
         </section>
       </main>
 
-      <div id="studentModal" class="modal hidden">
-        <div class="modal-content">
-          <button id="closeStudentModal" class="modal-close">&times;</button>
+      <div id="studentModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-content" role="document">
+          <button id="closeStudentModal" class="modal-close" aria-label="Close">&times;</button>
           <h3 id="studentModalTitle">Add New Student</h3>
-          <form id="studentForm" class="student-form">
+
+          <form id="studentForm" class="student-form" autocomplete="on" novalidate>
             <input type="hidden" name="edit_id" id="edit_id" />
-            <input type="text" name="studID" id="studID" placeholder="Student ID" required />
+
+            <label for="studID">Student ID</label>
+            <input type="text" name="studID" id="studID" placeholder="e.g. STU000123" required />
+
+            <label for="firstname">First Name</label>
             <input type="text" name="firstname" id="firstname" placeholder="First Name" required />
+
+            <label for="middlename">Middle Name</label>
             <input type="text" name="middlename" id="middlename" placeholder="Middle Name" />
+
+            <label for="lastname">Last Name</label>
             <input type="text" name="lastname" id="lastname" placeholder="Last Name" required />
+
+            <label for="suffix">Suffix</label>
             <input type="text" name="suffix" id="suffix" placeholder="Suffix" />
-            <input type="email" name="email" id="email" placeholder="Email" required />
-            <input type="text" name="phone" id="phone" placeholder="Phone" />
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="you@example.com" required />
+
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" id="phone" placeholder="+123456789" />
+
+            <label for="date_of_birth">Date of Birth</label>
             <input type="date" name="date_of_birth" id="date_of_birth" />
+
+            <label for="sex">Sex</label>
             <select name="sex" id="sex">
               <option value="">Select Sex</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
+
+            <label for="departmentSelect">Department</label>
             <select name="department_id" id="departmentSelect" required>
               <option value="">Select Department</option>
             </select>
+
+            <label for="courseSelect">Course</label>
             <select name="course_id" id="courseSelect" required>
               <option value="">Select Course</option>
             </select>
+
+            <label for="academicYearSelectForm">Academic Year</label>
             <select name="academic_year_id" id="academicYearSelectForm" required>
               <option value="">Select Academic Year</option>
             </select>
+
+            <label for="yearstatus">Year Status</label>
             <select name="yearstatus" id="yearstatus" required>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="graduated">Graduated</option>
             </select>
+
+            <label for="enrollment_date">Enrollment Date</label>
             <input type="date" name="enrollment_date" id="enrollment_date" />
 
             <div class="form-actions">
@@ -238,20 +267,20 @@ export function loadStudents(app) {
           .map(
             (s) => `
             <tr>
-              <td class="border p-2">${s.id}</td>
-              <td class="border p-2">${s.studID}</td>
-              <td class="border p-2">${s.firstname} ${s.middlename ? s.middlename + ' ' : ''}${s.lastname}</td>
-              <td class="border p-2">${allCourses.find(c => c.id == s.course_id)?.name || allCourses.find(c => c.id == s.course_id)?.course_name || ""}</td>
-              <td class="border p-2">${allDepartments.find(d => d.id == s.department_id)?.name || allDepartments.find(d => d.id == s.department_id)?.department_name || ""}</td>
-              <td class="border p-2">${allAcademicYears.find(y => y.id == s.academic_year_id)?.year || allAcademicYears.find(y => y.id == s.academic_year_id)?.academic_year || ""}</td>
-              <td class="border p-2">
-                <span class="px-2 py-1 rounded text-xs ${s.yearstatus === 'active' ? 'bg-green-100 text-green-700' : s.yearstatus === 'graduated' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}">
+              <td>${s.id}</td>
+              <td>${s.studID}</td>
+              <td>${s.firstname} ${s.middlename ? s.middlename + ' ' : ''}${s.lastname}</td>
+              <td>${allCourses.find(c => c.id == s.course_id)?.name || allCourses.find(c => c.id == s.course_id)?.course_name || ""}</td>
+              <td>${allDepartments.find(d => d.id == s.department_id)?.name || allDepartments.find(d => d.id == s.department_id)?.department_name || ""}</td>
+              <td>${allAcademicYears.find(y => y.id == s.academic_year_id)?.year || allAcademicYears.find(y => y.id == s.academic_year_id)?.academic_year || ""}</td>
+              <td>
+                <span class="status-badge ${s.yearstatus === 'active' ? 'active' : s.yearstatus === 'graduated' ? 'graduated' : 'inactive'}">
                   ${s.yearstatus || "active"}
                 </span>
               </td>
-              <td class="border p-2 flex gap-1">
-                <button class="text-blue-600 edit-btn" data-id="${s.id}" title="Edit"><i class="fas fa-edit"></i>✏️</button>
-                <button class="text-red-600 delete-btn" data-id="${s.id}" title="Delete"><i class="fas fa-trash"></i>🗑️</button>
+              <td>
+                <button class="action-btn edit edit-btn" data-id="${s.id}" title="Edit">Edit</button>
+                <button class="action-btn delete delete-btn" data-id="${s.id}" title="Delete">Delete</button>
               </td>
             </tr>
           `

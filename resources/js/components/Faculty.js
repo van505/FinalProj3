@@ -55,27 +55,53 @@ export function loadFaculty(app) {
         </section>
       </main>
 
-      <div id="facultyModal" class="modal hidden">
-        <div class="modal-content">
-          <button id="closeFacultyModal" class="modal-close">&times;</button>
+      <!-- Landscape modal (no logic change) -->
+      <div id="facultyModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-content modal-landscape" role="document">
+          <button id="closeFacultyModal" class="modal-close" aria-label="Close">&times;</button>
           <h3 id="facultyModalTitle">Add New Faculty</h3>
-          <form id="facultyForm" class="faculty-form">
+
+          <form id="facultyForm" class="faculty-form" autocomplete="on" novalidate>
             <input type="hidden" name="edit_id" id="edit_id" />
+
+            <label for="faculty_id">Faculty ID</label>
             <input type="text" name="faculty_id" id="faculty_id" placeholder="Faculty ID" required />
+
+            <label for="first_name">First Name</label>
             <input type="text" name="first_name" id="first_name" placeholder="First Name" required />
+
+            <label for="middle_name">Middle Name</label>
             <input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" />
+
+            <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" placeholder="Last Name" required />
+
+            <label for="email">Email</label>
             <input type="email" name="email" id="email" placeholder="Email" required />
+
+            <label for="phone">Phone</label>
             <input type="text" name="phone" id="phone" placeholder="Phone" />
+
+            <label for="address">Address</label>
             <input type="text" name="address" id="address" placeholder="Address" />
+
+            <label for="position">Position</label>
             <input type="text" name="position" id="position" placeholder="Position" />
+
+            <label for="date_hired">Date Hired</label>
             <input type="date" name="date_hired" id="date_hired" />
+
+            <label for="departmentSelect">Department</label>
             <select name="department_id" id="departmentSelect" required>
               <option value="">Select Department</option>
             </select>
+
+            <label for="academicYearSelectForm">Academic Year</label>
             <select name="academic_year_id" id="academicYearSelectForm" required>
               <option value="">Select Academic Year</option>
             </select>
+
+            <label for="yearstatus">Status</label>
             <select name="yearstatus" id="yearstatus" required>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -92,6 +118,7 @@ export function loadFaculty(app) {
     </div>
   `;
 
+  // ----- existing logic (kept unchanged) -----
   let allFaculty = [];
   let allDepartments = [];
   let allAcademicYears = [];

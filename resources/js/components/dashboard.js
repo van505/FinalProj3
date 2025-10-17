@@ -7,80 +7,85 @@ import { loadFaculty } from "./Faculty.js";
 import { loadReport } from "./Report.js";
 
 export async function loadDashboard(app) {
+    // UI changed to match the provided design (logic / IDs kept the same)
     app.innerHTML = `
         <div class="dashboard-container">
             <nav class="sidebar new-sidebar">
-                <button class="new-item-btn">+ New Item</button>
-                <ul class="sidebar-menu">
-                    <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
-                    <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
-                    <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li>
-                    <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-                    <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
-                    <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
-                </ul>
+                <div>
+                  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem">
+                    <img src="/images/logo.png" alt="logo" style="width:36px;height:36px"/>
+                    <div style="font-weight:800;color:#123a71">EDUTrack</div>
+                  </div>
+                  <button class="new-item-btn">+ New Item</button>
+                  <ul class="sidebar-menu">
+                      <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
+                      <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
+                      <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li>
+                      <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
+                      <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
+                      <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
+                  </ul>
+                </div>
+                <div style="font-size:.85rem;color:#777">v1.0.0</div>
             </nav>
 
             <div class="main new-main">
                 <header class="topbar new-topbar">
                     <div class="topbar-left">
-                        <h1 class="dashboard-title">Dashboard Overview</h1>
-                        <span class="system-settings">⚙️ Manage your system</span>
+                        <h1 class="dashboard-title">Overview</h1>
+                        <p class="system-settings">Stay informed with the latest updates across your campus</p>
                     </div>
                     <div class="topbar-center">
-                        <input type="text" class="search-input" placeholder="Search...">
+                        <input type="text" class="search-input" placeholder="Search">
                     </div>
                 </header>
 
                 <section class="overview-section">
-                    <h2 class="overview-title">Key Metrics</h2>
-                    <p class="overview-desc">A quick look at your institution's data</p>
-                    <div class="overview-cards">
-                        <div class="overview-card student-card">
-                            <div class="card-icon">👨‍🎓</div>
-                            <div>
-                                <div class="card-label">Total Students</div>
-                                <div class="card-value" id="studentCount">0</div>
+                    <div class="overview-card-wrap">
+                        <div class="overview-cards">
+                            <div class="overview-card student-card">
+                                <div class="card-icon">👨‍🎓</div>
+                                <div>
+                                    <div class="card-label">Total students in campus</div>
+                                    <div class="card-value" id="studentCount">0</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="overview-card faculty-card">
-                            <div class="card-icon">👩‍🏫</div>
-                            <div>
-                                <div class="card-label">Total Faculty</div>
-                                <div class="card-value" id="facultyCount">0</div>
+
+                            <div class="overview-card faculty-card">
+                                <div class="card-icon">👩‍🏫</div>
+                                <div>
+                                    <div class="card-label">Total Faculty (employees)</div>
+                                    <div class="card-value" id="facultyCount">0</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="overview-card course-card">
-                            <div class="card-icon">📘</div>
-                            <div>
-                                <div class="card-label">Total Courses</div>
-                                <div class="card-value" id="courseCount">0</div>
+
+                            <div class="overview-card course-card">
+                                <div class="card-icon">📘</div>
+                                <div>
+                                    <div class="card-label">Courses</div>
+                                    <div class="card-value" id="courseCount">0</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="overview-card department-card">
-                            <div class="card-icon">🏛️</div>
-                            <div>
-                                <div class="card-label">Total Departments</div>
-                                <div class="card-value" id="departmentCount">0</div>
+
+                            <div class="overview-card department-card">
+                                <div class="card-icon">🏛️</div>
+                                <div>
+                                    <div class="card-label">Departments</div>
+                                    <div class="card-value" id="departmentCount">0</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="chart-section new-chart-section">
-                    <div class="chart-header">
-                        <span class="chart-title">Students per Course</span>
-                    </div>
+                <section class="new-chart-section">
                     <div class="chart-container">
+                        <div class="chart-title">Total numbers of students per course</div>
                         <canvas id="studentsChart"></canvas>
                     </div>
-                </section>
 
-                <section class="chart-section new-chart-section">
-                    <div class="chart-header">
-                        <span class="chart-title">Faculty per Department</span>
-                    </div>
                     <div class="chart-container">
+                        <div class="chart-title">Total numbers of faculty per department</div>
                         <canvas id="facultyChart"></canvas>
                     </div>
                 </section>
@@ -93,12 +98,13 @@ export async function loadDashboard(app) {
         </div>
     `;
 
+    // --- existing logic (unchanged) ---
     try {
         const [studentsRes, facultyRes, coursesRes, departmentsRes] = await Promise.all([
-            axios.get("http://127.0.0.1:8000/api/students"),
-            axios.get("http://127.0.0.1:8000/api/faculty"),
-            axios.get("http://127.0.0.1:8000/api/courses"),
-            axios.get("http://127.0.0.1:8000/api/departments"),
+            axios.get("/api/students"),
+            axios.get("/api/faculty"),
+            axios.get("/api/courses"),
+            axios.get("/api/departments"),
         ]);
 
         const students = studentsRes.data;
@@ -113,29 +119,26 @@ export async function loadDashboard(app) {
 
         const courseCounts = {};
         students.forEach(s => {
-            const course = s.course?.course_name || "Unassigned";
+            const course = (s.course && (s.course.course_name || s.course.name)) || "Unassigned";
             courseCounts[course] = (courseCounts[course] || 0) + 1;
         });
 
         const deptCounts = {};
         faculty.forEach(f => {
-            const dept = f.department?.department_name || "Unassigned";
+            const dept = (f.department && (f.department.department_name || f.department.name)) || "Unassigned";
             deptCounts[dept] = (deptCounts[dept] || 0) + 1;
         });
 
         renderChart("studentsChart", "Students per Course", courseCounts);
         renderChart("facultyChart", "Faculty per Department", deptCounts);
 
-        // 🕒 Recent activity (latest 5 students and faculty)
         const recentActivity = [
-            ...students.slice(-3).map(s => `👨‍🎓 New student added: ${s.name}`),
-            ...faculty.slice(-3).map(f => `👩‍🏫 New faculty joined: ${f.name}`)
+            ...students.slice(-3).map(s => `👨‍🎓 New student added: ${s.firstname || s.name || s.studID || "Student"}`),
+            ...faculty.slice(-3).map(f => `👩‍🏫 New faculty joined: ${f.firstname || f.name || "Faculty"}`)
         ].reverse();
 
         const list = document.getElementById("recentActivity");
-        list.innerHTML = recentActivity
-            .map(item => `<li>${item}</li>`)
-            .join("");
+        list.innerHTML = recentActivity.map(item => `<li>${item}</li>`).join("");
 
     } catch (error) {
         console.error("Error loading dashboard data:", error);
@@ -176,6 +179,9 @@ function setupMenuListeners(app) {
             const page = this.getAttribute('data-page');
 
             if (page === 'settings') loadSystemSettings(app);
+            if (page === 'students') loadStudents(app);
+            if (page === 'faculty') loadFaculty(app);
+            if (page === 'report') loadReport(app);
         });
     });
 
