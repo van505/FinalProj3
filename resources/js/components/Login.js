@@ -8,7 +8,10 @@ export function loadLogin(app, goRegister) {
       <header class="login-header">
         <div class="header-content">
           <img src="/images/logo.png" alt="EDUTrack logo" class="header-logo" />
-          <h1 class="header-title">EDUTrack</h1>
+          <div class="header-text">
+            <h1 class="header-title">EDUTrack</h1>
+            <p class="header-tagline">Lets you manage faculty and monitor student and more</p>
+          </div>
         </div>
       </header>
 
@@ -53,6 +56,17 @@ export function loadLogin(app, goRegister) {
           </div>
         </div>
       </div>
+
+      <!-- Footer -->
+      <footer class="login-footer">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="#" class="footer-link">Calendar</a>
+            <a href="#" class="footer-link">About us</a>
+            <a href="#" class="footer-link">Contact Us</a>
+          </div>
+        </div>
+      </footer>
     </div>
   `;
 

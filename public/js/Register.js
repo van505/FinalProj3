@@ -18765,23 +18765,23 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadSystemSettings(app) {
-  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar new-sidebar\">\n        <div class=\"sidebar-inner\">\n          <div class=\"sidebar-brand\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack\" class=\"sidebar-logo\" />\n            <div class=\"brand-title\">EDUTrack</div>\n          </div>\n\n          <button class=\"new-item-btn\">+ New Item</button>\n\n          <ul class=\"sidebar-menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n          </ul>\n        </div>\n\n        <div class=\"sidebar-footer\">v1.0.0</div>\n      </nav>\n\n      <div class=\"main new-main\">\n        <header class=\"topbar new-topbar\">\n          <div class=\"topbar-left\">\n            <h1 class=\"dashboard-title\">Dashboard</h1>\n            <span class=\"system-settings\">\u2699\uFE0F System Settings</span>\n          </div>\n          <div class=\"topbar-center\">\n            <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n          </div>\n        </header>\n\n        <section class=\"settings-section\">\n          <div class=\"settings-header\">\n            <h2 class=\"settings-title\">\u2699\uFE0F System Settings</h2>\n            <div id=\"settingsMessage\" class=\"settings-message\" aria-live=\"polite\"></div>\n          </div>\n\n          <div class=\"settings-tabs\">\n            <button class=\"tab-btn active\" data-tab=\"courses\">Courses</button>\n            <button class=\"tab-btn\" data-tab=\"departments\">Departments</button>\n            <button class=\"tab-btn\" data-tab=\"academic\">Academic Years</button>\n            <button class=\"tab-btn\" data-tab=\"archives\">Archives</button>\n          </div>\n\n          <div id=\"tabContent\" class=\"settings-content\"></div>\n        </section>\n      </div>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar new-sidebar\" aria-label=\"Main navigation\">\n        <div class=\"sidebar-inner\">\n          <div class=\"sidebar-brand\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack\" class=\"sidebar-logo\" />\n            <div class=\"brand-title\">EDUTrack</div>\n          </div>\n\n          <button class=\"new-item-btn\" type=\"button\">+ New Item</button>\n\n          <ul class=\"sidebar-menu\" role=\"menu\">\n            <li><a href=\"#\" data-page=\"overview\"><span>Overview</span></a></li>\n            <li><a href=\"#\" data-page=\"students\"><span>Students</span></a></li>\n            <li><a href=\"#\" data-page=\"faculty\"><span>Faculty</span></a></li>\n            <li><a href=\"#\" id=\"menuReport\" data-page=\"report\"><span>Report</span></a></li>\n            <li><a href=\"#\" data-page=\"profile\"><span>Profile</span></a></li>\n            <li><a href=\"#\" class=\"active\" data-page=\"settings\"><span>System Settings</span></a></li>\n          </ul>\n        </div>\n\n        <div class=\"sidebar-footer\">v1.0.0</div>\n      </nav>\n\n      <main class=\"new-main\" role=\"main\">\n        <header class=\"settings-topbar\">\n          <div class=\"settings-header-left\">\n            <h1 class=\"settings-title\">System Settings</h1>\n            <p class=\"settings-sub\">Manage courses, departments, academic years and archives</p>\n          </div>\n          <div class=\"settings-search\">\n            <input id=\"settingsSearch\" class=\"search-input\" placeholder=\"Search Course\" />\n          </div>\n        </header>\n\n        <section class=\"settings-body\">\n          <div class=\"tabs-row\" role=\"tablist\" aria-label=\"Settings tabs\">\n            <button class=\"tab-btn active\" data-tab=\"courses\" role=\"tab\">Courses</button>\n            <button class=\"tab-btn\" data-tab=\"departments\" role=\"tab\">Departments</button>\n            <button class=\"tab-btn\" data-tab=\"academic\" role=\"tab\">Academic Years</button>\n            <button class=\"tab-btn\" data-tab=\"archives\" role=\"tab\">Archives</button>\n          </div>\n\n          <div id=\"tabContent\" class=\"settings-content\" aria-live=\"polite\"></div>\n        </section>\n      </main>\n    </div>\n  ";
 
-  /* ---------------- Tab templates (UI only, no inline styles) ---------------- */
+  /* ---------------- Tab templates (UI only) ---------------- */
   function getCoursesContent() {
-    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Courses</h3>\n          <p class=\"panel-sub\">Manage courses and assign to departments</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Course Name</th>\n                <th>Department</th>\n                <th>Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"coursesTable\"></tbody>\n          </table>\n        </div>\n\n        <form id=\"addCourseForm\" class=\"settings-form\">\n          <input type=\"hidden\" id=\"edit_course_id\" name=\"edit_course_id\" />\n          <div class=\"form-row\">\n            <input type=\"text\" id=\"course_name\" name=\"course_name\" class=\"input\" placeholder=\"Course Name\" required />\n            <select id=\"course_department_id\" name=\"department_id\" class=\"input\" required>\n              <option value=\"\">Select Department</option>\n            </select>\n          </div>\n          <div class=\"form-actions\">\n            <button type=\"submit\" id=\"courseSubmitBtn\" class=\"btn btn-blue\">Add Course</button>\n            <button type=\"button\" id=\"cancelCourseEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n          </div>\n        </form>\n      </div>\n    ";
+    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <div>\n            <h3 class=\"panel-title\">Courses</h3>\n            <p class=\"panel-sub\">Manage courses and assign to departments</p>\n          </div>\n          <div class=\"panel-actions\">\n            <button id=\"refreshCourses\" class=\"btn btn-gray\">Refresh</button>\n          </div>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Course Name</th>\n                <th>Department</th>\n                <th class=\"text-center\">Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"coursesTable\"></tbody>\n          </table>\n        </div>\n\n        <div class=\"form-card\">\n          <h4 class=\"form-title\">Add / Edit Course</h4>\n          <form id=\"addCourseForm\" class=\"settings-form\" autocomplete=\"off\" novalidate>\n            <input type=\"hidden\" id=\"edit_course_id\" name=\"edit_course_id\" />\n            <div class=\"form-row grid-2\">\n              <div class=\"field\">\n                <label for=\"course_name\">Course Name</label>\n                <input type=\"text\" id=\"course_name\" name=\"course_name\" class=\"input\" placeholder=\"Course Name\" required />\n              </div>\n              <div class=\"field\">\n                <label for=\"course_department_id\">Select Department</label>\n                <select id=\"course_department_id\" name=\"department_id\" class=\"input\" required>\n                  <option value=\"\">Select Department</option>\n                </select>\n              </div>\n            </div>\n\n            <div class=\"form-actions\">\n              <button type=\"button\" id=\"cancelCourseEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n              <button type=\"submit\" id=\"courseSubmitBtn\" class=\"btn btn-primary\">Add Course</button>\n            </div>\n          </form>\n        </div>\n      </div>\n    ";
   }
   function getDepartmentsContent() {
-    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Departments</h3>\n          <p class=\"panel-sub\">Create and manage departments</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Department Name</th>\n                <th>Head</th>\n                <th>Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"departmentsTable\"></tbody>\n          </table>\n        </div>\n\n        <form id=\"addDepartmentForm\" class=\"settings-form\">\n          <input type=\"hidden\" id=\"edit_department_id\" name=\"edit_department_id\" />\n          <div class=\"form-row\">\n            <input type=\"text\" id=\"department_name\" name=\"department_name\" class=\"input\" placeholder=\"Department Name\" required />\n            <input type=\"text\" id=\"department_head\" name=\"department_head\" class=\"input\" placeholder=\"Department Head\" required />\n          </div>\n          <div class=\"form-actions\">\n            <button type=\"submit\" id=\"departmentSubmitBtn\" class=\"btn btn-green\">Add Department</button>\n            <button type=\"button\" id=\"cancelDepartmentEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n          </div>\n        </form>\n      </div>\n    ";
+    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Departments</h3>\n          <p class=\"panel-sub\">Create and manage departments</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Department Name</th>\n                <th>Head</th>\n                <th class=\"text-center\">Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"departmentsTable\"></tbody>\n          </table>\n        </div>\n\n        <div class=\"form-card\">\n          <h4 class=\"form-title\">Add / Edit Department</h4>\n          <form id=\"addDepartmentForm\" class=\"settings-form\" novalidate>\n            <input type=\"hidden\" id=\"edit_department_id\" name=\"edit_department_id\" />\n            <div class=\"form-row grid-2\">\n              <div class=\"field\">\n                <label for=\"department_name\">Department Name</label>\n                <input type=\"text\" id=\"department_name\" name=\"department_name\" class=\"input\" placeholder=\"Department Name\" required />\n              </div>\n              <div class=\"field\">\n                <label for=\"department_head\">Department Head</label>\n                <input type=\"text\" id=\"department_head\" name=\"department_head\" class=\"input\" placeholder=\"Department Head\" required />\n              </div>\n            </div>\n\n            <div class=\"form-actions\">\n              <button type=\"button\" id=\"cancelDepartmentEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n              <button type=\"submit\" id=\"departmentSubmitBtn\" class=\"btn btn-primary\">Add Department</button>\n            </div>\n          </form>\n        </div>\n      </div>\n    ";
   }
   function getAcademicContent() {
-    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Academic Years</h3>\n          <p class=\"panel-sub\">Add academic year ranges and set active</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Academic Year</th>\n                <th>Status</th>\n                <th>Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"academicTable\"></tbody>\n          </table>\n        </div>\n\n        <form id=\"addAcademicForm\" class=\"settings-form\">\n          <input type=\"hidden\" id=\"edit_academic_id\" />\n          <div class=\"form-row\">\n            <input type=\"text\" id=\"academic_year\" class=\"input\" placeholder=\"Academic Year (e.g., 2025-2026)\" required />\n            <label class=\"checkbox-wrap\"><input type=\"checkbox\" id=\"is_active\" /> Active</label>\n          </div>\n          <div class=\"form-actions\">\n            <button type=\"submit\" id=\"academicSubmitBtn\" class=\"btn btn-blue\">Add Academic Year</button>\n            <button type=\"button\" id=\"cancelAcademicEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n          </div>\n        </form>\n      </div>\n    ";
+    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Academic Years</h3>\n          <p class=\"panel-sub\">Add academic year ranges and set active</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>#</th>\n                <th>Academic Year</th>\n                <th>Status</th>\n                <th class=\"text-center\">Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"academicTable\"></tbody>\n          </table>\n        </div>\n\n        <div class=\"form-card\">\n          <h4 class=\"form-title\">Add / Edit Academic Year</h4>\n          <form id=\"addAcademicForm\" class=\"settings-form\" novalidate>\n            <input type=\"hidden\" id=\"edit_academic_id\" />\n            <div class=\"form-row grid-2\">\n              <div class=\"field\">\n                <label for=\"academic_year\">Academic Year</label>\n                <input type=\"text\" id=\"academic_year\" class=\"input\" placeholder=\"e.g. 2025-2026\" required />\n              </div>\n              <div class=\"field\">\n                <label for=\"is_active\" class=\"label-checkbox\">Set Active</label>\n                <div class=\"checkbox-wrap\">\n                  <input type=\"checkbox\" id=\"is_active\" /> <span class=\"small-muted\">Mark as active</span>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"form-actions\">\n              <button type=\"button\" id=\"cancelAcademicEditBtn\" class=\"btn btn-gray hidden\">Cancel</button>\n              <button type=\"submit\" id=\"academicSubmitBtn\" class=\"btn btn-primary\">Add Academic Year</button>\n            </div>\n          </form>\n        </div>\n      </div>\n    ";
   }
   function getArchivesContent() {
-    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Archives</h3>\n          <p class=\"panel-sub\">Restore archived items</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>Type</th>\n                <th>Name / Title</th>\n                <th>Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"archiveTable\"></tbody>\n          </table>\n        </div>\n      </div>\n    ";
+    return "\n      <div class=\"settings-panel\">\n        <div class=\"panel-top\">\n          <h3 class=\"panel-title\">Archives</h3>\n          <p class=\"panel-sub\">Restore archived items</p>\n        </div>\n\n        <div class=\"table-card\">\n          <table class=\"settings-table\">\n            <thead>\n              <tr>\n                <th>Type</th>\n                <th>Name / Title</th>\n                <th class=\"text-center\">Action</th>\n              </tr>\n            </thead>\n            <tbody id=\"archiveTable\"></tbody>\n          </table>\n        </div>\n      </div>\n    ";
   }
 
-  /* ---------------- Tab switching ---------------- */
+  /* ---------------- Tab switching (keeps existing logic) ---------------- */
   var tabContent = document.getElementById("tabContent");
   function showTab(_x) {
     return _showTab.apply(this, arguments);
@@ -18833,7 +18833,7 @@ function loadSystemSettings(app) {
     });
   });
 
-  /* ---------------- Courses (logic preserved, UI cleaned) ---------------- */
+  /* ---------------- Courses, Departments, Academic, Archives logic (unchanged) ---------------- */
   var editingCourseId = null;
   function fetchCourses() {
     return _fetchCourses.apply(this, arguments);
@@ -19562,12 +19562,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 function loadRegister(app, goLogin) {
-  app.innerHTML = "\n    <div class=\"register-container\">\n      <div class=\"register-left\">\n        <header class=\"register-header\">\n          <img src=\"public/images/logo.png\" alt=\"Logo\" class=\"register-logo\" />\n          <h1 class=\"register-system-name\">EDUTrack Students and Faculty Management System</h1>\n        </header>\n\n        <div class=\"register-card\">\n          <h2 class=\"register-title\">Sign up now</h2>\n\n          <form id=\"registerForm\" class=\"register-form\">\n            <input type=\"text\" id=\"name\" placeholder=\"Name\" required />\n            <input type=\"email\" id=\"email\" placeholder=\"Email\" required />\n            <input type=\"password\" id=\"password\" placeholder=\"Password\" required />\n            <input type=\"password\" id=\"password_confirmation\" placeholder=\"Confirm Password\" required />\n\n            <label class=\"register-checkbox\">\n              <input type=\"checkbox\" id=\"is_admin\" /> Register as Admin\n            </label>\n\n            <button type=\"submit\" class=\"register-btn\">Register</button>\n          </form>\n\n          <p class=\"register-switch\">\n            Already have an account? <a href=\"#\" id=\"goLogin\">Log In</a>\n          </p>\n\n          <p class=\"register-terms\">\n            By Creating an Account, it means you agree to our\n            <a href=\"#\">Privacy Policy</a> and\n            <a href=\"#\">Terms of Service</a>\n          </p>\n        </div>\n      </div>\n\n      <div class=\"register-right\"></div>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"register-container\">\n      <div class=\"register-left\">\n        <header class=\"register-header\">\n          <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"register-logo\" />\n          <h1 class=\"register-system-name\">EDUTrack Students and Faculty Management System</h1>\n        </header>\n\n        <div class=\"register-card\">\n          <h2 class=\"register-title\">Sign up now</h2>\n\n          <form id=\"registerForm\" class=\"register-form\">\n            <div class=\"form-group\">\n              <input type=\"text\" id=\"name\" placeholder=\"Name\" required />\n            </div>\n            \n            <div class=\"form-group\">\n              <input type=\"email\" id=\"email\" placeholder=\"Email\" required />\n            </div>\n            \n            <div class=\"form-group password-group\">\n              <input type=\"password\" id=\"password\" placeholder=\"Password\" required />\n              <button type=\"button\" class=\"password-toggle\" id=\"passwordToggle\">\n                <svg class=\"eye-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"></path>\n                  <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n                </svg>\n              </button>\n            </div>\n            \n            <div class=\"form-group\">\n              <input type=\"password\" id=\"password_confirmation\" placeholder=\"Confirm Password\" required />\n            </div>\n\n            <div class=\"checkbox-group\">\n              <label class=\"register-checkbox\">\n                <input type=\"checkbox\" id=\"is_admin\" />\n                <span class=\"checkmark\"></span>\n                Register as Admin\n              </label>\n            </div>\n\n            <button type=\"submit\" class=\"register-btn\">Register</button>\n          </form>\n\n          <p class=\"register-switch\">\n            Already have an account? <a href=\"#\" id=\"goLogin\">Log In</a>\n          </p>\n\n          <p class=\"register-terms\">\n            By Creating an Account, it means you agree to our\n            <a href=\"#\">Privacy Policy</a> and\n            <a href=\"#\">Terms of Service</a>\n          </p>\n        </div>\n      </div>\n\n      <div class=\"register-right\">\n        <div class=\"gradient-shapes\">\n          <div class=\"shape shape-1\"></div>\n          <div class=\"shape shape-2\"></div>\n          <div class=\"shape shape-3\"></div>\n        </div>\n      </div>\n    </div>\n  ";
 
-  // --- Logic remains unchanged ---
+  // Event listeners
   document.getElementById("registerForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var name, email, password, password_confirmation, is_admin, _t;
+      var name, email, password, password_confirmation, is_admin, response, _err$response, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
@@ -19579,7 +19579,7 @@ function loadRegister(app, goLogin) {
             is_admin = document.getElementById("is_admin").checked;
             _context.p = 1;
             _context.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://localhost:8000/api/register", {
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/register", {
               name: name,
               email: email,
               password: password,
@@ -19587,13 +19587,17 @@ function loadRegister(app, goLogin) {
               is_admin: is_admin
             });
           case 2:
-            (0,_Dashboard__WEBPACK_IMPORTED_MODULE_1__.loadDashboard)(app);
+            response = _context.v;
+            localStorage.setItem("token", response.data.token);
+            (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
+            alert("Registration successful! Please log in.");
+            goLogin(app, loadRegister);
             _context.n = 4;
             break;
           case 3:
             _context.p = 3;
             _t = _context.v;
-            alert("Registration failed: " + _t.response.data.message);
+            alert("Error: " + (((_err$response = _t.response) === null || _err$response === void 0 || (_err$response = _err$response.data) === null || _err$response === void 0 ? void 0 : _err$response.message) || "Registration failed"));
           case 4:
             return _context.a(2);
         }
@@ -19605,141 +19609,22 @@ function loadRegister(app, goLogin) {
   }());
   document.getElementById("goLogin").addEventListener("click", function (e) {
     e.preventDefault();
-    goLogin();
-  });
-
-  // --- Logic remains unchanged ---
-  document.getElementById("registerForm").addEventListener("submit", /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-      var name, email, password, password_confirmation, is_admin, _t2;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
-          case 0:
-            e.preventDefault();
-            name = document.getElementById("name").value;
-            email = document.getElementById("email").value;
-            password = document.getElementById("password").value;
-            password_confirmation = document.getElementById("password_confirmation").value;
-            is_admin = document.getElementById("is_admin").checked;
-            _context2.p = 1;
-            _context2.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://localhost:8000/api/register", {
-              name: name,
-              email: email,
-              password: password,
-              password_confirmation: password_confirmation,
-              is_admin: is_admin
-            });
-          case 2:
-            (0,_Dashboard__WEBPACK_IMPORTED_MODULE_1__.loadDashboard)(app);
-            _context2.n = 4;
-            break;
-          case 3:
-            _context2.p = 3;
-            _t2 = _context2.v;
-            alert("Registration failed: " + _t2.response.data.message);
-          case 4:
-            return _context2.a(2);
-        }
-      }, _callee2, null, [[1, 3]]);
-    }));
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }());
-  document.getElementById("goLogin").addEventListener("click", function (e) {
-    e.preventDefault();
-    goLogin();
-  });
-
-  // --- Logic stays the same ---
-  document.getElementById("registerForm").addEventListener("submit", /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
-      var name, email, password, password_confirmation, is_admin, _t3;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.p = _context3.n) {
-          case 0:
-            e.preventDefault();
-            name = document.getElementById("name").value;
-            email = document.getElementById("email").value;
-            password = document.getElementById("password").value;
-            password_confirmation = document.getElementById("password_confirmation").value;
-            is_admin = document.getElementById("is_admin").checked;
-            _context3.p = 1;
-            _context3.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://localhost:8000/api/register", {
-              name: name,
-              email: email,
-              password: password,
-              password_confirmation: password_confirmation,
-              is_admin: is_admin
-            });
-          case 2:
-            (0,_Dashboard__WEBPACK_IMPORTED_MODULE_1__.loadDashboard)(app);
-            _context3.n = 4;
-            break;
-          case 3:
-            _context3.p = 3;
-            _t3 = _context3.v;
-            alert("Registration failed: " + _t3.response.data.message);
-          case 4:
-            return _context3.a(2);
-        }
-      }, _callee3, null, [[1, 3]]);
-    }));
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }());
-  document.getElementById("goLogin").addEventListener("click", function (e) {
-    e.preventDefault();
-    goLogin();
-  });
-  document.getElementById("registerForm").addEventListener("submit", /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(e) {
-      var name, email, password, password_confirmation, is_admin, response, _err$response, _t4;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.p = _context4.n) {
-          case 0:
-            e.preventDefault();
-            name = document.getElementById("name").value;
-            email = document.getElementById("email").value;
-            password = document.getElementById("password").value;
-            password_confirmation = document.getElementById("password_confirmation").value;
-            is_admin = document.getElementById("is_admin").checked;
-            _context4.p = 1;
-            _context4.n = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/register", {
-              name: name,
-              email: email,
-              password: password,
-              password_confirmation: password_confirmation,
-              is_admin: is_admin
-            });
-          case 2:
-            response = _context4.v;
-            localStorage.setItem("token", response.data.token);
-            (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
-            alert("Registration successful! Please log in.");
-            goLogin(app, loadRegister);
-            _context4.n = 4;
-            break;
-          case 3:
-            _context4.p = 3;
-            _t4 = _context4.v;
-            alert("Error: " + (((_err$response = _t4.response) === null || _err$response === void 0 || (_err$response = _err$response.data) === null || _err$response === void 0 ? void 0 : _err$response.message) || "Registration failed"));
-          case 4:
-            return _context4.a(2);
-        }
-      }, _callee4, null, [[1, 3]]);
-    }));
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
-    };
-  }());
-  document.getElementById("goLogin").addEventListener("click", function (e) {
-    e.preventDefault();
     goLogin(app, loadRegister);
+  });
+
+  // Password toggle functionality
+  document.getElementById("passwordToggle").addEventListener("click", function (e) {
+    e.preventDefault();
+    var passwordInput = document.getElementById("password");
+    var toggleBtn = document.getElementById("passwordToggle");
+    var eyeIcon = toggleBtn.querySelector('.eye-icon');
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.innerHTML = "\n        <path d=\"M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24\"></path>\n        <line x1=\"1\" y1=\"1\" x2=\"23\" y2=\"23\"></line>\n      ";
+    } else {
+      passwordInput.type = "password";
+      eyeIcon.innerHTML = "\n        <path d=\"M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"></path>\n        <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n      ";
+    }
   });
 }
 })();

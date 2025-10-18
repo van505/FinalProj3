@@ -1,4 +1,4 @@
-// System Settings UI styles — sidebar matches dashboard, modern minimal design
+// System Settings UI styles — prototype-aligned (no inline styles)
 
 $primary: #4b6bfb;
 $muted: #6b7280;
@@ -12,10 +12,10 @@ $shadow: 0 6px 18px rgba(11,16,45,0.06);
   display: flex;
   min-height: 100vh;
   background: $bg;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* Sidebar (same as dashboard) */
+/* Sidebar (consistent with dashboard) */
 .new-sidebar {
   width: 250px;
   height: 100%;
@@ -37,20 +37,12 @@ $shadow: 0 6px 18px rgba(11,16,45,0.06);
   margin-bottom: 0.75rem;
 }
 
-.sidebar-logo {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-}
+.sidebar-logo { width: 36px; height: 36px; object-fit: contain; }
 
-.brand-title {
-  font-weight: 800;
-  color: #123a71;
-  font-size: 1rem;
-}
+.brand-title { font-weight: 800; color: #123a71; font-size: 1rem; }
 
 .new-item-btn {
-  background: $primary;
+  background: #4b6bfb;
   color: white;
   border: none;
   padding: 0.7rem 1rem;
@@ -59,171 +51,234 @@ $shadow: 0 6px 18px rgba(11,16,45,0.06);
   font-weight: 600;
   transition: 0.3s ease;
 }
-.new-item-btn:hover { background: darken($primary, 6%); }
+.sidebar-menu { margin-top: 1.25rem; list-style: none; padding: 0; }
+.sidebar-menu li { margin: 0.9rem 0; }
+.sidebar-menu a { color: #333; text-decoration: none; font-weight: 500; display:block; padding: .35rem 0; }
+.sidebar-menu a:hover, .sidebar-menu a.active { color: #4b6bfb; }
 
-.sidebar-menu {
-  margin-top: 2rem;
-  list-style: none;
-  padding: 0;
-  li { margin: 1rem 0; }
-  a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s;
-    &:hover, &.active { color: $primary; }
-  }
-}
+.sidebar-footer { font-size:.85rem; color:#777; text-align:center; }
 
-.sidebar-footer {
-  font-size: .85rem;
-  color: #777;
-  text-align: center;
-}
-
-/* Main content */
+/* Main area */
 .new-main {
-  margin-left: 250px;
+  margin-left: 220px;
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 2rem 3rem;
 }
 
-/* Settings section */
-.settings-section {
-  background: transparent;
-  padding-bottom: 2rem;
-}
-
-.settings-header {
+/* Topbar */
+.settings-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  .settings-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #0b122d;
-  }
-  .settings-message { color: #16a34a; font-weight: 600; }
+  margin-bottom: 1.2rem;
 }
 
-.settings-tabs {
+.settings-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0b122d;
+  margin: 0;
+}
+
+.settings-sub {
+  color: $muted;
+  margin-top: 0.25rem;
+  font-size: .95rem;
+}
+
+.settings-search .search-input {
+  width: 320px;
+  padding: .6rem .9rem;
+  border-radius: 10px;
+  border: 1px solid $border;
+  background: #fff;
+}
+
+/* Tabs */
+.tabs-row {
   display: flex;
   gap: 0.6rem;
   margin-bottom: 1rem;
-  .tab-btn {
-    background: transparent;
-    border: 1px solid transparent;
-    padding: 0.5rem 0.9rem;
-    border-radius: 8px;
-    font-weight: 600;
-    color: $muted;
-    cursor: pointer;
-    &.active {
-      background: rgba(75,107,251,0.08);
-      color: $primary;
-      box-shadow: 0 6px 18px rgba(75,107,251,0.06);
-    }
-  }
 }
 
-/* Panel cards & tables */
-.settings-content {
-  background: transparent;
+.tab-btn {
+  background: #fff;
+  border: 1px solid $border;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 700;
+  color: $muted;
+  cursor: pointer;
 }
 
+.tab-btn.active {
+  background: linear-gradient(90deg, rgba(75,107,251,0.12), rgba(75,107,251,0.04));
+  color: $primary;
+  box-shadow: 0 6px 18px rgba(75,107,251,0.06);
+}
+
+/* Panel & table */
 .settings-panel {
   background: $card-bg;
   border-radius: $radius;
   padding: 1.25rem;
   box-shadow: $shadow;
   margin-bottom: 1rem;
-
-  .panel-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.8rem;
-    .panel-title { font-size: 1.05rem; font-weight: 700; color: #0b122d; }
-    .panel-sub { color: $muted; font-size: .95rem; }
-  }
-
-  .table-card {
-    overflow: auto;
-    border-radius: 10px;
-    border: 1px solid $border;
-    padding: .5rem;
-    margin-bottom: 1rem;
-  }
-
-  .settings-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 620px;
-    th, td {
-      padding: .7rem .9rem;
-      border-bottom: 1px solid $border;
-      text-align: left;
-      color: #0b122d;
-      font-size: .95rem;
-    }
-    thead th { background: #fafcff; font-weight: 700; color: $muted; }
-    tbody tr:hover { background: rgba(11,16,45,0.02); }
-    .text-muted { color: $muted; }
-    .text-error { color: #ef4444; }
-  }
-
-  .settings-form {
-    display: flex;
-    flex-direction: column;
-    gap: .75rem;
-
-    .form-row {
-      display: flex;
-      gap: .6rem;
-      flex-wrap: wrap;
-    }
-
-    .input, select {
-      padding: .6rem .85rem;
-      border-radius: 8px;
-      border: 1px solid $border;
-      background: #fff;
-      font-size: .95rem;
-      outline: none;
-    }
-
-    .checkbox-wrap { display:flex; align-items:center; gap: .4rem; color: $muted; }
-
-    .form-actions {
-      display: flex;
-      gap: .6rem;
-      justify-content: flex-end;
-      margin-top: .5rem;
-    }
-  }
-
-  .btn {
-    padding: .55rem .9rem;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    &.btn-blue { background: $primary; color: #fff; }
-    &.btn-green { background: #22c55e; color: #fff; }
-    &.btn-gray { background: #f3f6fb; color: $muted; border: 1px solid $border; }
-    &.btn-small { padding: .35rem .6rem; font-weight: 600; border-radius: 6px; }
-    &.btn-danger { background: #ef4444; color: #fff; }
-  }
-
-  .text-center { text-align: center; }
 }
+
+.panel-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: .9rem;
+}
+
+.panel-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0b122d;
+  margin: 0;
+}
+
+.panel-sub {
+  color: $muted;
+  font-size: .95rem;
+  margin: 0.2rem 0 0;
+}
+
+.table-card {
+  overflow: auto;
+  border-radius: 10px;
+  border: 1px solid $border;
+  padding: .4rem;
+  margin-bottom: 1rem;
+}
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.settings-table thead th {
+  text-align: left;
+  padding: .75rem .9rem;
+  font-weight: 700;
+  color: $muted;
+  background: #fbfdff;
+  border-bottom: 1px solid $border;
+}
+
+.settings-table td {
+  padding: .6rem .9rem;
+  border-bottom: 1px solid $border;
+  color: #0b122d;
+}
+
+.settings-table .text-center { text-align: center; }
+
+/* action buttons in table */
+.btn-small {
+  padding: .35rem .6rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-edit {
+  background: #22c55e;
+  color: #fff;
+  margin-right: .45rem;
+}
+
+.btn-archive {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* Form card */
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid $border;
+  box-shadow: 0 4px 12px rgba(11,16,45,0.04);
+}
+
+.form-title {
+  margin: 0 0 0.6rem 0;
+  font-weight: 800;
+  color: #0b122d;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .6rem;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  font-size: .9rem;
+  margin-bottom: .35rem;
+  color: #0b122d;
+}
+
+.input, select {
+  width: 100%;
+  padding: .6rem .85rem;
+  border-radius: 8px;
+  border: 1px solid $border;
+  background: #fff;
+  font-size: .95rem;
+}
+
+.checkbox-wrap { display:flex; align-items:center; gap: .5rem; color: $muted; }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .6rem;
+  margin-top: .4rem;
+}
+
+/* primary / gray buttons */
+.btn-primary {
+  background: $primary;
+  color: #fff;
+  padding: .65rem 1rem;
+  border-radius: 8px;
+  font-weight: 800;
+  border: none;
+}
+
+.btn-gray {
+  background: #f3f6fb;
+  color: $muted;
+  border: 1px solid $border;
+  padding: .55rem .9rem;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* small helper */
+.small-muted { color: $muted; font-size: .9rem; }
 
 /* responsive */
 @media (max-width: 1024px) {
-  .settings-panel .settings-table { min-width: 520px; }
   .new-main { padding: 1.2rem; margin-left: 0; }
   .new-sidebar { position: relative; width: 100%; height: auto; border-right: none; display: flex; flex-direction: row; align-items:center; gap:1rem; padding: .8rem; }
+  .settings-table { min-width: 520px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .settings-search .search-input { width: 100%; }
 }

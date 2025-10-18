@@ -1,16 +1,16 @@
 export function loadSystemSettings(app) {
   app.innerHTML = `
     <div class="dashboard-container">
-      <nav class="sidebar new-sidebar">
+      <nav class="sidebar new-sidebar" aria-label="Main navigation">
         <div class="sidebar-inner">
           <div class="sidebar-brand">
             <img src="/images/logo.png" alt="EDUTrack" class="sidebar-logo" />
             <div class="brand-title">EDUTrack</div>
           </div>
 
-          <button class="new-item-btn">+ New Item</button>
+          <button class="new-item-btn" type="button">+ New Item</button>
 
-          <ul class="sidebar-menu">
+          <ul class="sidebar-menu" role="menu">
             <li><a href="#" data-page="overview"><span>Overview</span></a></li>
             <li><a href="#" data-page="students"><span>Students</span></a></li>
             <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
@@ -23,43 +23,43 @@ export function loadSystemSettings(app) {
         <div class="sidebar-footer">v1.0.0</div>
       </nav>
 
-      <div class="main new-main">
-        <header class="topbar new-topbar">
-          <div class="topbar-left">
-            <h1 class="dashboard-title">Dashboard</h1>
-            <span class="system-settings">⚙️ System Settings</span>
+      <main class="new-main" role="main">
+        <header class="settings-topbar">
+          <div class="settings-header-left">
+            <h1 class="settings-title">System Settings</h1>
+            <p class="settings-sub">Manage courses, departments, academic years and archives</p>
           </div>
-          <div class="topbar-center">
-            <input type="text" class="search-input" placeholder="Search">
+          <div class="settings-search">
+            <input id="settingsSearch" class="search-input" placeholder="Search Course" />
           </div>
         </header>
 
-        <section class="settings-section">
-          <div class="settings-header">
-            <h2 class="settings-title">⚙️ System Settings</h2>
-            <div id="settingsMessage" class="settings-message" aria-live="polite"></div>
+        <section class="settings-body">
+          <div class="tabs-row" role="tablist" aria-label="Settings tabs">
+            <button class="tab-btn active" data-tab="courses" role="tab">Courses</button>
+            <button class="tab-btn" data-tab="departments" role="tab">Departments</button>
+            <button class="tab-btn" data-tab="academic" role="tab">Academic Years</button>
+            <button class="tab-btn" data-tab="archives" role="tab">Archives</button>
           </div>
 
-          <div class="settings-tabs">
-            <button class="tab-btn active" data-tab="courses">Courses</button>
-            <button class="tab-btn" data-tab="departments">Departments</button>
-            <button class="tab-btn" data-tab="academic">Academic Years</button>
-            <button class="tab-btn" data-tab="archives">Archives</button>
-          </div>
-
-          <div id="tabContent" class="settings-content"></div>
+          <div id="tabContent" class="settings-content" aria-live="polite"></div>
         </section>
-      </div>
+      </main>
     </div>
   `;
 
-  /* ---------------- Tab templates (UI only, no inline styles) ---------------- */
+  /* ---------------- Tab templates (UI only) ---------------- */
   function getCoursesContent() {
     return `
       <div class="settings-panel">
         <div class="panel-top">
-          <h3 class="panel-title">Courses</h3>
-          <p class="panel-sub">Manage courses and assign to departments</p>
+          <div>
+            <h3 class="panel-title">Courses</h3>
+            <p class="panel-sub">Manage courses and assign to departments</p>
+          </div>
+          <div class="panel-actions">
+            <button id="refreshCourses" class="btn btn-gray">Refresh</button>
+          </div>
         </div>
 
         <div class="table-card">
@@ -69,26 +69,36 @@ export function loadSystemSettings(app) {
                 <th>#</th>
                 <th>Course Name</th>
                 <th>Department</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody id="coursesTable"></tbody>
           </table>
         </div>
 
-        <form id="addCourseForm" class="settings-form">
-          <input type="hidden" id="edit_course_id" name="edit_course_id" />
-          <div class="form-row">
-            <input type="text" id="course_name" name="course_name" class="input" placeholder="Course Name" required />
-            <select id="course_department_id" name="department_id" class="input" required>
-              <option value="">Select Department</option>
-            </select>
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="courseSubmitBtn" class="btn btn-blue">Add Course</button>
-            <button type="button" id="cancelCourseEditBtn" class="btn btn-gray hidden">Cancel</button>
-          </div>
-        </form>
+        <div class="form-card">
+          <h4 class="form-title">Add / Edit Course</h4>
+          <form id="addCourseForm" class="settings-form" autocomplete="off" novalidate>
+            <input type="hidden" id="edit_course_id" name="edit_course_id" />
+            <div class="form-row grid-2">
+              <div class="field">
+                <label for="course_name">Course Name</label>
+                <input type="text" id="course_name" name="course_name" class="input" placeholder="Course Name" required />
+              </div>
+              <div class="field">
+                <label for="course_department_id">Select Department</label>
+                <select id="course_department_id" name="department_id" class="input" required>
+                  <option value="">Select Department</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="cancelCourseEditBtn" class="btn btn-gray hidden">Cancel</button>
+              <button type="submit" id="courseSubmitBtn" class="btn btn-primary">Add Course</button>
+            </div>
+          </form>
+        </div>
       </div>
     `;
   }
@@ -108,24 +118,34 @@ export function loadSystemSettings(app) {
                 <th>#</th>
                 <th>Department Name</th>
                 <th>Head</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody id="departmentsTable"></tbody>
           </table>
         </div>
 
-        <form id="addDepartmentForm" class="settings-form">
-          <input type="hidden" id="edit_department_id" name="edit_department_id" />
-          <div class="form-row">
-            <input type="text" id="department_name" name="department_name" class="input" placeholder="Department Name" required />
-            <input type="text" id="department_head" name="department_head" class="input" placeholder="Department Head" required />
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="departmentSubmitBtn" class="btn btn-green">Add Department</button>
-            <button type="button" id="cancelDepartmentEditBtn" class="btn btn-gray hidden">Cancel</button>
-          </div>
-        </form>
+        <div class="form-card">
+          <h4 class="form-title">Add / Edit Department</h4>
+          <form id="addDepartmentForm" class="settings-form" novalidate>
+            <input type="hidden" id="edit_department_id" name="edit_department_id" />
+            <div class="form-row grid-2">
+              <div class="field">
+                <label for="department_name">Department Name</label>
+                <input type="text" id="department_name" name="department_name" class="input" placeholder="Department Name" required />
+              </div>
+              <div class="field">
+                <label for="department_head">Department Head</label>
+                <input type="text" id="department_head" name="department_head" class="input" placeholder="Department Head" required />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="cancelDepartmentEditBtn" class="btn btn-gray hidden">Cancel</button>
+              <button type="submit" id="departmentSubmitBtn" class="btn btn-primary">Add Department</button>
+            </div>
+          </form>
+        </div>
       </div>
     `;
   }
@@ -145,24 +165,36 @@ export function loadSystemSettings(app) {
                 <th>#</th>
                 <th>Academic Year</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody id="academicTable"></tbody>
           </table>
         </div>
 
-        <form id="addAcademicForm" class="settings-form">
-          <input type="hidden" id="edit_academic_id" />
-          <div class="form-row">
-            <input type="text" id="academic_year" class="input" placeholder="Academic Year (e.g., 2025-2026)" required />
-            <label class="checkbox-wrap"><input type="checkbox" id="is_active" /> Active</label>
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="academicSubmitBtn" class="btn btn-blue">Add Academic Year</button>
-            <button type="button" id="cancelAcademicEditBtn" class="btn btn-gray hidden">Cancel</button>
-          </div>
-        </form>
+        <div class="form-card">
+          <h4 class="form-title">Add / Edit Academic Year</h4>
+          <form id="addAcademicForm" class="settings-form" novalidate>
+            <input type="hidden" id="edit_academic_id" />
+            <div class="form-row grid-2">
+              <div class="field">
+                <label for="academic_year">Academic Year</label>
+                <input type="text" id="academic_year" class="input" placeholder="e.g. 2025-2026" required />
+              </div>
+              <div class="field">
+                <label for="is_active" class="label-checkbox">Set Active</label>
+                <div class="checkbox-wrap">
+                  <input type="checkbox" id="is_active" /> <span class="small-muted">Mark as active</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="cancelAcademicEditBtn" class="btn btn-gray hidden">Cancel</button>
+              <button type="submit" id="academicSubmitBtn" class="btn btn-primary">Add Academic Year</button>
+            </div>
+          </form>
+        </div>
       </div>
     `;
   }
@@ -181,7 +213,7 @@ export function loadSystemSettings(app) {
               <tr>
                 <th>Type</th>
                 <th>Name / Title</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody id="archiveTable"></tbody>
@@ -191,7 +223,7 @@ export function loadSystemSettings(app) {
     `;
   }
 
-  /* ---------------- Tab switching ---------------- */
+  /* ---------------- Tab switching (keeps existing logic) ---------------- */
   const tabContent = document.getElementById("tabContent");
   async function showTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -220,7 +252,7 @@ export function loadSystemSettings(app) {
     btn.addEventListener('click', () => showTab(btn.dataset.tab));
   });
 
-  /* ---------------- Courses (logic preserved, UI cleaned) ---------------- */
+  /* ---------------- Courses, Departments, Academic, Archives logic (unchanged) ---------------- */
   let editingCourseId = null;
   async function fetchCourses() {
     const res = await fetch('/api/courses', { credentials: 'include' });
