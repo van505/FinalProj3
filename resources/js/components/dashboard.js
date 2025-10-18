@@ -10,90 +10,192 @@ export async function loadDashboard(app) {
     // UI changed to match the provided design (logic / IDs kept the same)
     app.innerHTML = `
         <div class="dashboard-container">
-            <nav class="sidebar new-sidebar">
-                <div>
-                  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem">
-                    <img src="/images/logo.png" alt="logo" style="width:36px;height:36px"/>
-                    <div style="font-weight:800;color:#123a71">EDUTrack</div>
-                  </div>
-                  <button class="new-item-btn">+ New Item</button>
-                  <ul class="sidebar-menu">
-                      <li><a href="#" class="active" data-page="overview"><span>Overview</span></a></li>
-                      <li><a href="#" id="menuStudents" data-page="students"><span>Students</span></a></li>
-                      <li><a href="#" id="menuFaculty" data-page="faculty"><span>Faculty</span></a></li>
-                      <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-                      <li><a href="#" id="menuProfile" data-page="profile"><span>Profile</span></a></li>
-                      <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
-                  </ul>
+            <nav class="sidebar">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">
+                        <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
+                        <h1 class="sidebar-title">EDUTrack</h1>
+                    </div>
+                    
+                    <button class="new-item-btn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        New Item
+                    </button>
+                    
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="#" class="menu-item active" data-page="overview">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>Overview</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item" id="menuStudents" data-page="students">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Students</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item" id="menuFaculty" data-page="faculty">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <span>Faculty</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item" id="menuReport" data-page="report">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 20V10"></path>
+                                    <path d="M12 20V4"></path>
+                                    <path d="M6 20v-6"></path>
+                                </svg>
+                                <span>Report</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item" id="menuProfile" data-page="profile">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item" data-page="settings">
+                                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                </svg>
+                                <span>System Settings</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div style="font-size:.85rem;color:#777">v1.0.0</div>
+                
+                <div class="sidebar-footer">
+                    <span class="version-text">v1.0.0</span>
+                </div>
             </nav>
 
-            <div class="main new-main">
-                <header class="topbar new-topbar">
-                    <div class="topbar-left">
-                        <h1 class="dashboard-title">Overview</h1>
-                        <p class="system-settings">Stay informed with the latest updates across your campus</p>
+            <div class="main-content">
+                <header class="top-header">
+                    <div class="header-left">
+                        <h1 class="page-title">DashBoard</h1>
                     </div>
-                    <div class="topbar-center">
-                        <input type="text" class="search-input" placeholder="Search">
+                    <div class="header-right">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="M21 21l-4.35-4.35"></path>
+                            </svg>
+                        </div>
                     </div>
                 </header>
 
-                <section class="overview-section">
-                    <div class="overview-card-wrap">
-                        <div class="overview-cards">
-                            <div class="overview-card student-card">
-                                <div class="card-icon">👨‍🎓</div>
-                                <div>
-                                    <div class="card-label">Total students in campus</div>
-                                    <div class="card-value" id="studentCount">0</div>
+                <div class="content-area">
+                    <section class="overview-banner">
+                        <div class="banner-content">
+                            <h2 class="banner-title">Overview</h2>
+                            <p class="banner-subtitle">Stay informed with the latest updates across your campus</p>
+                        </div>
+                    </section>
+
+                    <section class="metrics-section">
+                        <div class="metrics-grid">
+                            <div class="metric-card student-card">
+                                <div class="metric-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-label">Total student in campus</div>
+                                    <div class="metric-value" id="studentCount">0</div>
                                 </div>
                             </div>
 
-                            <div class="overview-card faculty-card">
-                                <div class="card-icon">👩‍🏫</div>
-                                <div>
-                                    <div class="card-label">Total Faculty (employees)</div>
-                                    <div class="card-value" id="facultyCount">0</div>
+                            <div class="metric-card faculty-card">
+                                <div class="metric-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-label">Total Faculty(employee)</div>
+                                    <div class="metric-value" id="facultyCount">0</div>
                                 </div>
                             </div>
 
-                            <div class="overview-card course-card">
-                                <div class="card-icon">📘</div>
-                                <div>
-                                    <div class="card-label">Courses</div>
-                                    <div class="card-value" id="courseCount">0</div>
+                            <div class="metric-card course-card">
+                                <div class="metric-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-label">Courses</div>
+                                    <div class="metric-value" id="courseCount">0</div>
                                 </div>
                             </div>
 
-                            <div class="overview-card department-card">
-                                <div class="card-icon">🏛️</div>
-                                <div>
-                                    <div class="card-label">Departments</div>
-                                    <div class="card-value" id="departmentCount">0</div>
+                            <div class="metric-card department-card">
+                                <div class="metric-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 21h18"></path>
+                                        <path d="M5 21V7l8-4v18"></path>
+                                        <path d="M19 21V11l-6-4"></path>
+                                    </svg>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-label">Departments</div>
+                                    <div class="metric-value" id="departmentCount">0</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section class="new-chart-section">
-                    <div class="chart-container">
-                        <div class="chart-title">Total numbers of students per course</div>
-                        <canvas id="studentsChart"></canvas>
-                    </div>
+                    <section class="charts-section">
+                        <div class="chart-container">
+                            <h3 class="chart-title">Total numbers of students per course</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="studentsChart"></canvas>
+                            </div>
+                        </div>
 
-                    <div class="chart-container">
-                        <div class="chart-title">Total numbers of faculty per department</div>
-                        <canvas id="facultyChart"></canvas>
-                    </div>
-                </section>
+                        <div class="chart-container">
+                            <h3 class="chart-title">Total numbers of faculty per department</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="facultyChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
 
-                <section class="recent-activity-section">
-                    <h2>Recent Activity</h2>
-                    <ul class="activity-list" id="recentActivity"></ul>
-                </section>
+                    <section class="activity-section">
+                        <div class="activity-container">
+                            <h3 class="activity-title">Recent Activity</h3>
+                            <ul class="activity-list" id="recentActivity"></ul>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     `;

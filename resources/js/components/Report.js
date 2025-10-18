@@ -1,84 +1,207 @@
 export function loadReport(app) {
   app.innerHTML = `
-  <div class="dashboard-container">
-    <nav class="sidebar new-sidebar">
-      <div class="sidebar-inner">
-        <div class="sidebar-brand">
-          <img src="/images/logo.png" alt="logo" class="sidebar-logo" />
-          <div class="brand-title">EDUTrack</div>
+    <div class="dashboard-container">
+      <nav class="sidebar">
+        <div class="sidebar-content">
+          <div class="sidebar-header">
+            <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
+            <h1 class="sidebar-title">EDUTrack</h1>
+          </div>
+          
+          <button class="new-item-btn">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Item
+          </button>
+          
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="menu-item" data-page="overview">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Overview</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="students">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Students</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="faculty">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Faculty</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item active" id="menuReport" data-page="report">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 20V10"></path>
+                  <path d="M12 20V4"></path>
+                  <path d="M6 20v-6"></path>
+                </svg>
+                <span>Report</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="profile">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="settings">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>System Settings</span>
+              </a>
+            </li>
+          </ul>
         </div>
+        
+        <div class="sidebar-footer">
+          <span class="version-text">v1.0.0</span>
+        </div>
+      </nav>
 
-        <button class="new-item-btn">+ New Item</button>
+      <div class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 class="page-title">Report</h1>
+          </div>
+          <div class="header-right">
+            <div class="search-container">
+              <input type="text" class="search-input" placeholder="Search">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+            </div>
+          </div>
+        </header>
 
-        <ul class="sidebar-menu">
-          <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-          <li><a href="#" data-page="students"><span>Students</span></a></li>
-          <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-          <li><a href="#" id="menuReport" class="active" data-page="report"><span>Report</span></a></li>
-          <li><a href="#" data-page="profile"><span>Profile</span></a></li>
-          <li><a href="#" data-page="settings"><span>System Settings</span></a></li>
-        </ul>
+        <div class="content-area">
+          <section class="report-banner">
+            <div class="banner-content">
+              <h2 class="banner-title">Report</h2>
+            </div>
+          </section>
+
+          <section class="filters-section">
+            <div class="filters-container">
+              <div class="filter-group">
+                <select id="reportType" class="filter-select">
+                  <option value="faculty">Faculty Report</option>
+                  <option value="student">Student Report</option>
+                </select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+              
+              <div class="filter-group">
+                <select id="courseSelect" class="filter-select">
+                  <option value="">All Courses</option>
+                </select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+              
+              <div class="filter-group">
+                <select id="departmentSelect" class="filter-select">
+                  <option value="">All Departments</option>
+                </select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+              
+              <div class="filter-group">
+                <select id="academicYearSelect" class="filter-select">
+                  <option value="">All Academic Years</option>
+                </select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+              
+              <div class="action-buttons">
+                <button id="filterBtn" class="btn btn-clear">Clear</button>
+                <button id="exportBtn" class="btn btn-export">Export CSV</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="report-summary" id="reportSummary"></section>
+
+          <section class="table-section">
+            <div class="table-container">
+              <table class="report-table">
+                <thead>
+                  <tr id="reportHeader">
+                    <th>Name</th>
+                    <th>Course/Department</th>
+                    <th>Academic Year</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                  <tr><td colspan="4" class="no-data">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="make-report-section">
+            <div class="make-report-container">
+              <h3 class="section-title">Make a report</h3>
+              <form class="report-form">
+                <div class="form-group">
+                  <label for="reportTitle" class="form-label">Report Title</label>
+                  <input type="text" id="reportTitle" class="form-input" placeholder="Report title..." />
+                </div>
+                
+                <div class="form-group">
+                  <label for="reportSubject" class="form-label">Choose Subject</label>
+                  <select id="reportSubject" class="form-select">
+                    <option value="">Choose Subject</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="student">Student</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="reportContent" class="form-label">Report Content</label>
+                  <textarea id="reportContent" class="form-textarea" placeholder="Write you report..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                  <button type="button" class="btn btn-send-report">Send Report</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
       </div>
-
-      <div class="sidebar-footer">v1.0.0</div>
-    </nav>
-
-    <div class="main new-main">
-      <header class="topbar new-topbar">
-        <div class="topbar-left">
-          <h1 class="dashboard-title">Reports</h1>
-        </div>
-      </header>
-
-      <section class="report-container">
-        <h2 class="report-title">📊 Reports Overview</h2>
-
-        <!-- Filters -->
-        <div class="report-filters">
-          <select id="reportType">
-            <option value="faculty">Faculty Report</option>
-            <option value="student">Student Report</option>
-          </select>
-          <select id="courseSelect"><option value="">All Courses</option></select>
-          <select id="departmentSelect"><option value="">All Departments</option></select>
-          <select id="academicYearSelect"><option value="">All Academic Years</option></select>
-          <button id="filterBtn" class="btn-primary">Filter</button>
-          <button id="exportBtn" class="btn-secondary">⬇️ Export CSV</button>
-        </div>
-
-        <div class="report-summary" id="reportSummary"></div>
-
-        <div class="table-wrapper">
-          <table class="report-table">
-            <thead>
-              <tr id="reportHeader">
-                <th>Name</th>
-                <th>Course / Department</th>
-                <th>Academic Year</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="reportTableBody">
-              <tr><td colspan="4" class="no-data">Loading...</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Manual Report Section -->
-        <div class="make-report">
-          <h3>📝 Make a Report</h3>
-          <input type="text" id="reportTitle" placeholder="Report title..." />
-          <select id="reportSubject">
-            <option value="">Choose Subject</option>
-            <option value="faculty">Faculty</option>
-            <option value="student">Student</option>
-          </select>
-          <textarea id="reportContent" placeholder="Write your report..."></textarea>
-          <button class="send-report-btn">Send Report</button>
-        </div>
-      </section>
     </div>
-  </div>
   `;
 
   // --- Functionality (unchanged) ---
@@ -88,7 +211,7 @@ export function loadReport(app) {
   document.getElementById("filterBtn").addEventListener("click", fetchReport);
   document.getElementById("reportType").addEventListener("change", fetchReport);
   document.getElementById("exportBtn").addEventListener("click", exportToCSV);
-  document.querySelector(".send-report-btn").addEventListener("click", sendReport);
+  document.querySelector(".btn-send-report").addEventListener("click", sendReport);
 
   async function fetchDropdowns() {
     try {

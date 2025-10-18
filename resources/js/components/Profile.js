@@ -5,112 +5,186 @@ import axios from "axios";
 export function loadProfile(app) {
   app.innerHTML = `
     <div class="dashboard-container">
-      <nav class="sidebar new-sidebar">
-        <div class="sidebar-inner">
-          <div class="sidebar-brand">
+      <nav class="sidebar">
+        <div class="sidebar-content">
+          <div class="sidebar-header">
             <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
-            <div class="brand-title">EDUTrack</div>
+            <h1 class="sidebar-title">EDUTrack</h1>
           </div>
-
-          <button class="new-item-btn">+ New Item</button>
-
+          
+          <button class="new-item-btn">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Item
+          </button>
+          
           <ul class="sidebar-menu">
-            <li><a href="#" data-page="overview"><span>Overview</span></a></li>
-            <li><a href="#" data-page="students"><span>Students</span></a></li>
-            <li><a href="#" data-page="faculty"><span>Faculty</span></a></li>
-            <li><a href="#" id="menuReport" data-page="report"><span>Report</span></a></li>
-            <li><a href="#" class="active" data-page="profile"><span>Profile</span></a></li>
-            <li><a href="#" id="menuSettings" data-page="settings"><span>System Settings</span></a></li>
+            <li>
+              <a href="#" class="menu-item" data-page="overview">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Overview</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="students">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Students</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="faculty">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Faculty</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" id="menuReport" data-page="report">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 20V10"></path>
+                  <path d="M12 20V4"></path>
+                  <path d="M6 20v-6"></path>
+                </svg>
+                <span>Report</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item active" data-page="profile">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" id="menuSettings" data-page="settings">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>System Settings</span>
+              </a>
+            </li>
           </ul>
         </div>
-
-        <div class="sidebar-footer">v1.0.0</div>
+        
+        <div class="sidebar-footer">
+          <span class="version-text">v1.0.0</span>
+        </div>
       </nav>
 
-      <main class="main new-main profile-page">
-        <header class="topbar new-topbar">
-          <div class="topbar-left">
-            <h1 class="dashboard-title">My Profile</h1>
+      <div class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 class="page-title">My Profile</h1>
+          </div>
+          <div class="header-right">
+            <div class="search-container">
+              <input type="text" class="search-input" placeholder="Search">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+            </div>
           </div>
         </header>
 
-        <section class="profile-hero" role="banner">
-          <div class="hero-inner">
-            <div class="hero-welcome">
-              <div class="hero-title">Welcome, <span id="heroName">User</span></div>
-              <div class="hero-sub" id="heroDate"></div>
+        <div class="content-area">
+          <section class="welcome-banner">
+            <div class="banner-content">
+              <div class="welcome-text">
+                <h2 class="welcome-title">Welcome, <span id="heroName">User</span></h2>
+                <p class="welcome-date" id="heroDate"></p>
+              </div>
+              <div class="banner-actions">
+                <button id="logoutBtn" class="logout-btn">Log out</button>
+              </div>
             </div>
-            <div class="hero-action">
-              <button id="logoutBtn" class="btn btn-logout">Log out</button>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="profile-main">
-          <div class="profile-card summary-card">
-            <div class="avatar-wrap">
-              <div class="avatar">👤</div>
-            </div>
-            <div class="summary-info">
-              <div class="summary-name" id="summaryName">Admin User</div>
-              <div class="summary-email" id="summaryEmail">admin@example.com</div>
-              <div class="summary-meta">
-                <div class="meta-item">
-                  <div class="meta-label">Role</div>
-                  <div class="meta-value">Admin</div>
+          <section class="profile-content">
+            <div class="profile-summary">
+              <div class="profile-avatar">
+                <div class="avatar-circle">
+                  <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
                 </div>
-                <div class="meta-item">
-                  <div class="meta-label">Status</div>
-                  <div class="meta-value meta-active">Active</div>
+              </div>
+              <div class="profile-info">
+                <h3 class="profile-name" id="summaryName">Admin User</h3>
+                <p class="profile-email" id="summaryEmail">admin@gmail.com</p>
+                <div class="profile-meta">
+                  <div class="meta-item">
+                    <span class="meta-label">Role:</span>
+                    <span class="meta-value">Admin</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">Status:</span>
+                    <span class="meta-value status-active">Active</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="profile-forms">
-            <div class="card form-card">
-              <h3 class="card-title">Profile Information</h3>
-              <form id="profileForm" class="form-grid" novalidate>
-                <div class="field">
-                  <label for="name">Full Name *</label>
-                  <input type="text" id="name" class="input" required />
-                </div>
-                <div class="field">
-                  <label for="email">Email Address *</label>
-                  <input type="email" id="email" class="input" required />
-                </div>
-                <div class="form-actions">
-                  <button type="button" class="btn btn-outline">Download Data</button>
-                  <button type="button" class="btn btn-ghost">Activity Log</button>
-                  <button type="submit" class="btn btn-primary">Update Profile</button>
-                </div>
-                <div id="profileMsg" class="form-message" aria-live="polite"></div>
-              </form>
-            </div>
+            <div class="profile-forms">
+              <div class="form-section">
+                <h3 class="section-title">Profile Information</h3>
+                <form id="profileForm" class="profile-form">
+                  <div class="form-group">
+                    <label for="name" class="form-label">Full Name*</label>
+                    <input type="text" id="name" class="form-input" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="form-label">Email Address*</label>
+                    <input type="email" id="email" class="form-input" required />
+                  </div>
+                  <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">Download Data</button>
+                    <button type="button" class="btn btn-warning">Activity Log</button>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                  </div>
+                  <div id="profileMsg" class="form-message" aria-live="polite"></div>
+                </form>
+              </div>
 
-            <div class="card form-card">
-              <h3 class="card-title">Change Password</h3>
-              <form id="passwordForm" class="form-grid" novalidate>
-                <div class="field">
-                  <label for="current_password">Current Password</label>
-                  <input type="password" id="current_password" class="input" />
-                </div>
-                <div class="field">
-                  <label for="new_password">New Password</label>
-                  <input type="password" id="new_password" class="input" />
-                </div>
-                <div class="field">
-                  <label for="confirm_password">Confirm New Password</label>
-                  <input type="password" id="confirm_password" class="input" />
-                </div>
-                <div class="form-actions right">
-                  <button type="submit" class="btn btn-primary">Update Password</button>
-                </div>
-              </form>
+              <div class="form-section">
+                <h3 class="section-title">Change Password</h3>
+                <form id="passwordForm" class="password-form">
+                  <div class="form-group">
+                    <label for="current_password" class="form-label">Current Password:</label>
+                    <input type="password" id="current_password" class="form-input" />
+                  </div>
+                  <div class="form-group">
+                    <label for="new_password" class="form-label">New Password:</label>
+                    <input type="password" id="new_password" class="form-input" />
+                  </div>
+                  <div class="form-group">
+                    <label for="confirm_password" class="form-label">Confirm New Password:</label>
+                    <input type="password" id="confirm_password" class="form-input" />
+                  </div>
+                  <div class="form-actions right">
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </div>
+      </div>
     </div>
   `;
 
