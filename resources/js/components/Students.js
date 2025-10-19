@@ -1,404 +1,231 @@
 import axios from "axios";
 
-export function loadStudents(app) {
-  app.innerHTML = `
-    <div class="students-page">
-      <aside class="students-sidebar">
-        <h2 class="sidebar-title">Menu</h2>
-        <button class="primary-btn full-width" id="addStudentBtn">+ Add Student</button>
-        <ul class="sidebar-menu">
-          <li><a href="#" data-page="overview">Overview</a></li>
-          <li><a href="#" class="active" data-page="students">Students</a></li>
-          <li><a href="#" data-page="faculty">Faculty</a></li>
-          <li><a href="#" id="menuReport" data-page="report">Report</a></li>
-          <li><a href="#" data-page="profile">Profile</a></li>
-          <li><a href="#" data-page="settings">System Settings</a></li>
-        </ul>
-      </aside>
+export async function loadStudents(app) {
+    app.innerHTML = `
+    <div class="dashboard-container">
+      <nav class="sidebar">
+        <div class="sidebar-content">
+          <div class="sidebar-header">
+            <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
+            <h1 class="sidebar-title">EDUTrack</h1>
+          </div>
 
-      <main class="students-main">
-        <header class="students-header">
-          <h1>Students Management</h1>
-          <button id="addStudentBtnTop" class="primary-btn">+ Add Student</button>
+          <button class="new-item-btn">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Student
+          </button>
+
+          <ul class="sidebar-menu">
+            <li><a href="#" class="menu-item" data-page="overview">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg><span>Overview</span></a></li>
+
+            <li><a href="#" class="menu-item active" data-page="students">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg><span>Students</span></a></li>
+
+            <li><a href="#" class="menu-item" data-page="faculty">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg><span>Faculty</span></a></li>
+
+            <li><a href="#" class="menu-item" data-page="report">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path>
+              </svg><span>Report</span></a></li>
+
+            <li><a href="#" class="menu-item" data-page="profile">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg><span>Profile</span></a></li>
+
+            <li><a href="#" class="menu-item" data-page="settings">
+              <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 
+                2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 
+                1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 
+                2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4 
+                a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 
+                2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 
+                1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 
+                2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9 
+                a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 
+                2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9 
+                a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 
+                2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 
+                a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 
+                2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9 
+                a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 
+                2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg><span>Settings</span></a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="version-text">v1.0.0</span>
+        </div>
+      </nav>
+
+      <div class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 class="page-title">Students</h1>
+          </div>
+          <div class="header-right">
+            <div class="search-container">
+              <input type="text" id="searchInput" class="search-input" placeholder="Search student...">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+            </div>
+          </div>
         </header>
 
-        <section class="students-filters">
-          <input type="text" id="searchInput" placeholder="Search students..." />
-          <select id="departmentFilter"><option value="">All Departments</option></select>
-          <select id="courseFilter"><option value="">All Courses</option></select>
-          <select id="academicYearFilter"><option value="">All Academic Years</option></select>
-          <select id="yearstatusFilter">
-            <option value="">All Year Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="graduated">Graduated</option>
-          </select>
-          <button id="clearFilters" class="secondary-btn">Clear Filters</button>
-        </section>
-
-        <section class="students-table-card">
-          <table class="students-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Department</th>
-                <th>Academic Year</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="studentList"></tbody>
-          </table>
-        </section>
-      </main>
-
-      <div id="studentModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="modal-content" role="document">
-          <button id="closeStudentModal" class="modal-close" aria-label="Close">&times;</button>
-          <h3 id="studentModalTitle">Add New Student</h3>
-
-          <form id="studentForm" class="student-form" autocomplete="on" novalidate>
-            <input type="hidden" name="edit_id" id="edit_id" />
-
-            <label for="studID">Student ID</label>
-            <input type="text" name="studID" id="studID" placeholder="e.g. STU000123" required />
-
-            <label for="firstname">First Name</label>
-            <input type="text" name="firstname" id="firstname" placeholder="First Name" required />
-
-            <label for="middlename">Middle Name</label>
-            <input type="text" name="middlename" id="middlename" placeholder="Middle Name" />
-
-            <label for="lastname">Last Name</label>
-            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required />
-
-            <label for="suffix">Suffix</label>
-            <input type="text" name="suffix" id="suffix" placeholder="Suffix" />
-
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="you@example.com" required />
-
-            <label for="phone">Phone</label>
-            <input type="text" name="phone" id="phone" placeholder="+123456789" />
-
-            <label for="date_of_birth">Date of Birth</label>
-            <input type="date" name="date_of_birth" id="date_of_birth" />
-
-            <label for="sex">Sex</label>
-            <select name="sex" id="sex">
-              <option value="">Select Sex</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-
-            <label for="departmentSelect">Department</label>
-            <select name="department_id" id="departmentSelect" required>
-              <option value="">Select Department</option>
-            </select>
-
-            <label for="courseSelect">Course</label>
-            <select name="course_id" id="courseSelect" required>
-              <option value="">Select Course</option>
-            </select>
-
-            <label for="academicYearSelectForm">Academic Year</label>
-            <select name="academic_year_id" id="academicYearSelectForm" required>
-              <option value="">Select Academic Year</option>
-            </select>
-
-            <label for="yearstatus">Year Status</label>
-            <select name="yearstatus" id="yearstatus" required>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="graduated">Graduated</option>
-            </select>
-
-            <label for="enrollment_date">Enrollment Date</label>
-            <input type="date" name="enrollment_date" id="enrollment_date" />
-
-            <div class="form-actions">
-              <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
-              <button type="submit" id="submitBtn" class="primary-btn">Save Student</button>
+        <div class="content-area">
+          <section class="filters-section">
+            <div class="filters-container">
+              <div class="filter-group">
+                <select id="departmentFilter" class="filter-select"><option value="">All Departments</option></select>
+              </div>
+              <div class="filter-group">
+                <select id="courseFilter" class="filter-select"><option value="">All Courses</option></select>
+              </div>
+              <div class="filter-group">
+                <select id="academicYearFilter" class="filter-select"><option value="">All Academic Years</option></select>
+              </div>
+              <div class="action-buttons">
+                <button id="clearFilterBtn" class="btn btn-clear">Clear</button>
+                <button id="exportBtn" class="btn btn-export">Export CSV</button>
+              </div>
             </div>
-          </form>
+          </section>
+
+          <section class="table-section">
+            <div class="table-container">
+              <table class="report-table">
+                <thead>
+                  <tr><th>Name</th><th>Course</th><th>Department</th><th>Academic Year</th><th>Status</th></tr>
+                </thead>
+                <tbody id="studentTableBody">
+                  <tr><td colspan="5" class="no-data">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
       </div>
     </div>
   `;
 
-  let isEditing = false;
-  let allStudents = [];
-  let allDepartments = [];
-  let allCourses = [];
-  let allAcademicYears = [];
+    let allStudents = [];
+    let allDepartments = [];
+    let allCourses = [];
+    let allYears = [];
 
-  // Load departments, courses, academic years for filters and form
-  async function loadSelectOptions() {
-    const [departmentsRes, coursesRes, yearsRes] = await Promise.all([
-        axios.get("/api/departments"),
-        axios.get("/api/courses"),
-        axios.get("/api/academic-years")
-    ]);
-    allDepartments = departmentsRes.data;
-    allCourses = coursesRes.data;
-    allAcademicYears = yearsRes.data;
+    async function loadOptions() {
+        const [deptRes, courseRes, yearRes] = await Promise.all([
+            axios.get("/api/departments"),
+            axios.get("/api/courses"),
+            axios.get("/api/academic-years"),
+        ]);
 
-    // Department filter
-    document.getElementById("departmentFilter").innerHTML =
-        `<option value="">All Departments</option>` +
-        allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+        allDepartments = deptRes.data;
+        allCourses = courseRes.data;
+        allYears = yearRes.data;
 
-    // Course filter (initially all)
-    updateCourseFilter();
+        document.getElementById("departmentFilter").innerHTML =
+            '<option value="">All Departments</option>' +
+            allDepartments
+                .map((d) => `<option value="${d.id}">${d.name}</option>`)
+                .join("");
 
-    // Academic year filter
-    document.getElementById("academicYearFilter").innerHTML =
-        `<option value="">All Academic Years</option>` +
-        allAcademicYears.map(y => `<option value="${y.id}">${y.year || y.academic_year}</option>`).join("");
+        document.getElementById("courseFilter").innerHTML =
+            '<option value="">All Courses</option>' +
+            allCourses
+                .map((c) => `<option value="${c.id}">${c.name}</option>`)
+                .join("");
 
-    // Department select (form)
-    document.getElementById("departmentSelect").innerHTML =
-        `<option value="">Select Department</option>` +
-        allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
-
-    // Academic year select (form)
-    document.getElementById("academicYearSelectForm").innerHTML =
-        `<option value="">Select Academic Year</option>` +
-        allAcademicYears.map(y => `<option value="${y.id}">${y.year || y.academic_year}</option>`).join("");
-
-    // Course select (form, initially all)
-    updateCourseSelect();
-  }
-
-  // --- FILTER LOGIC ---
-
-  // When department filter changes, update course filter options
-  document.addEventListener("change", function(e) {
-    if (e.target && e.target.id === "departmentFilter") {
-      updateCourseFilter();
-      renderStudents();
+        document.getElementById("academicYearFilter").innerHTML =
+            '<option value="">All Academic Years</option>' +
+            allYears
+                .map((y) => `<option value="${y.id}">${y.year}</option>`)
+                .join("");
     }
-    if (e.target && e.target.id === "courseFilter") {
-      renderStudents();
+
+    async function fetchStudents() {
+        const res = await axios.get("/api/students");
+        allStudents = res.data;
+        renderStudents();
     }
-    if (e.target && e.target.id === "academicYearFilter") {
-      renderStudents();
-    }
-    if (e.target && e.target.id === "yearstatusFilter") {
-      renderStudents();
-    }
-  });
 
-  function updateCourseFilter() {
-    const deptId = document.getElementById("departmentFilter").value;
-    const courseFilter = document.getElementById("courseFilter");
-    let filteredCourses = deptId
-      ? allCourses.filter(c => c.department_id == deptId)
-      : allCourses;
-    courseFilter.innerHTML =
-      `<option value="">All Courses</option>` +
-      filteredCourses.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
-  }
+    function renderStudents() {
+        const search = document
+            .getElementById("searchInput")
+            .value.toLowerCase();
+        const dept = document.getElementById("departmentFilter").value;
+        const course = document.getElementById("courseFilter").value;
+        const year = document.getElementById("academicYearFilter").value;
 
-  // --- FORM LOGIC ---
-
-  // When department select (form) changes, update course select (form)
-  document.addEventListener("change", function(e) {
-    if (e.target && e.target.id === "departmentSelect") {
-      updateCourseSelect();
-    }
-  });
-
-  function updateCourseSelect() {
-    const deptId = document.getElementById("departmentSelect").value;
-    const courseSelect = document.getElementById("courseSelect");
-    let filteredCourses = deptId
-      ? allCourses.filter(c => c.department_id == deptId)
-      : allCourses;
-    courseSelect.innerHTML =
-      `<option value="">Select Course</option>` +
-      filteredCourses.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
-  }
-
-  // --- REST OF YOUR LOGIC (fetchStudents, renderStudents, form submit, etc.) ---
-
-  // Fetch students
-  async function fetchStudents() {
-    try {
-      const res = await axios.get("/api/students");
-      allStudents = res.data;
-      renderStudents();
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  }
-
-  // Render students with filters/search
-  function renderStudents() {
-    const search = document.getElementById("searchInput").value.toLowerCase();
-    const department = document.getElementById("departmentFilter").value;
-    const course = document.getElementById("courseFilter").value;
-    const academicYear = document.getElementById("academicYearFilter").value;
-    const yearstatus = document.getElementById("yearstatusFilter").value;
-
-    const tbody = document.getElementById("studentList");
-    let filtered = allStudents.filter(s => {
-      let match = true;
-      if (search) {
-        match = (
-          (s.studID && s.studID.toLowerCase().includes(search)) ||
-          (s.firstname && s.firstname.toLowerCase().includes(search)) ||
-          (s.lastname && s.lastname.toLowerCase().includes(search)) ||
-          (s.email && s.email.toLowerCase().includes(search))
+        const tbody = document.getElementById("studentTableBody");
+        const filtered = allStudents.filter(
+            (s) =>
+                (!dept || s.department_id == dept) &&
+                (!course || s.course_id == course) &&
+                (!year || s.academic_year_id == year) &&
+                (!search || s.name.toLowerCase().includes(search))
         );
-      }
-      if (match && department) match = s.department_id == department;
-      if (match && course) match = s.course_id == course;
-      if (match && academicYear) match = s.academic_year_id == academicYear;
-      if (match && yearstatus) match = s.yearstatus == yearstatus;
-      return match;
-    });
 
-    tbody.innerHTML = filtered.length
-      ? filtered
-          .map(
-            (s) => `
-            <tr>
-              <td>${s.id}</td>
-              <td>${s.studID}</td>
-              <td>${s.firstname} ${s.middlename ? s.middlename + ' ' : ''}${s.lastname}</td>
-              <td>${allCourses.find(c => c.id == s.course_id)?.name || allCourses.find(c => c.id == s.course_id)?.course_name || ""}</td>
-              <td>${allDepartments.find(d => d.id == s.department_id)?.name || allDepartments.find(d => d.id == s.department_id)?.department_name || ""}</td>
-              <td>${allAcademicYears.find(y => y.id == s.academic_year_id)?.year || allAcademicYears.find(y => y.id == s.academic_year_id)?.academic_year || ""}</td>
-              <td>
-                <span class="status-badge ${s.yearstatus === 'active' ? 'active' : s.yearstatus === 'graduated' ? 'graduated' : 'inactive'}">
-                  ${s.yearstatus || "active"}
-                </span>
-              </td>
-              <td>
-                <button class="action-btn edit edit-btn" data-id="${s.id}" title="Edit">Edit</button>
-                <button class="action-btn delete delete-btn" data-id="${s.id}" title="Delete">Delete</button>
-              </td>
-            </tr>
-          `
-          )
-          .join("")
-      : `<tr><td colspan="8" class="text-center p-4">No students found.</td></tr>`;
-
-    // Delete logic
-    document.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        if (confirm("Delete this student?")) {
-          await axios.delete(`/api/students/${id}`);
-          fetchStudents();
-          resetForm();
+        if (!filtered.length) {
+            tbody.innerHTML = `<tr><td colspan="5" class="no-data">No students found</td></tr>`;
+            return;
         }
-      });
-    });
 
-    // Edit logic
-    document.querySelectorAll(".edit-btn").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        try {
-          const res = await axios.get(`/api/students/${id}`);
-          const s = res.data;
-
-          document.getElementById("edit_id").value = s.id;
-          document.getElementById("studID").value = s.studID;
-          document.getElementById("firstname").value = s.firstname;
-          document.getElementById("middlename").value = s.middlename || "";
-          document.getElementById("lastname").value = s.lastname;
-          document.getElementById("suffix").value = s.suffix || "";
-          document.getElementById("email").value = s.email;
-          document.getElementById("phone").value = s.phone || "";
-          document.getElementById("date_of_birth").value = s.date_of_birth || "";
-          document.getElementById("sex").value = s.sex || "";
-          document.getElementById("departmentSelect").value = s.department_id || "";
-          updateCourseSelect();
-          document.getElementById("courseSelect").value = s.course_id || "";
-          document.getElementById("academicYearSelectForm").value = s.academic_year_id || "";
-          document.getElementById("yearstatus").value = s.yearstatus || "";
-          document.getElementById("enrollment_date").value = s.enrollment_date || "";
-
-          document.getElementById("studentModal").classList.remove("hidden");
-          document.getElementById("studentModalTitle").textContent = "Edit Student";
-          document.getElementById("submitBtn").textContent = "Update Student";
-          document.getElementById("cancelBtn").style.display = "inline-block";
-          isEditing = true;
-        } catch (error) {
-          alert("Failed to fetch student data.");
-        }
-      });
-    });
-  }
-
-  // Modal logic
-  function showStudentModal() {
-    document.getElementById("studentModal").classList.remove("hidden");
-    document.getElementById("studentModalTitle").textContent = "Add New Student";
-    document.getElementById("submitBtn").textContent = "Save Student";
-    resetForm();
-  }
-  function hideStudentModal() {
-    document.getElementById("studentModal").classList.add("hidden");
-    resetForm();
-  }
-
-  // Add Student button (sidebar and top)
-  document.getElementById("addStudentBtn").addEventListener("click", showStudentModal);
-  document.getElementById("addStudentBtnTop").addEventListener("click", showStudentModal);
-  document.getElementById("closeStudentModal").addEventListener("click", hideStudentModal);
-  document.getElementById("cancelBtn").addEventListener("click", hideStudentModal);
-
-  // Submit (Add/Edit)
-  const form = document.getElementById("studentForm");
-  const submitBtn = document.getElementById("submitBtn");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(form));
-    const id = formData.edit_id;
-    delete formData.edit_id;
-
-    try {
-      if (isEditing && id) {
-        await axios.put(`/api/students/${id}`, formData);
-      } else {
-        await axios.post("/api/students", formData);
-      }
-      form.reset();
-      isEditing = false;
-      hideStudentModal();
-      fetchStudents();
-    } catch (error) {
-      console.error("Error saving student:", error.response?.data || error);
-      alert("Failed to save student. Check console for details.");
+        tbody.innerHTML = filtered
+            .map(
+                (s) => `
+        <tr>
+          <td>${s.name}</td>
+          <td>${s.course_name || "N/A"}</td>
+          <td>${s.department_name || "N/A"}</td>
+          <td>${s.academic_year || "N/A"}</td>
+          <td>${s.status || "Active"}</td>
+        </tr>`
+            )
+            .join("");
     }
-  });
 
-  function resetForm() {
-    form.reset();
-    isEditing = false;
-    document.getElementById("cancelBtn").style.display = "none";
-  }
+    // Event listeners
+    document.addEventListener("input", (e) => {
+        if (e.target.id === "searchInput") renderStudents();
+    });
+    document.addEventListener("change", (e) => {
+        if (
+            ["departmentFilter", "courseFilter", "academicYearFilter"].includes(
+                e.target.id
+            )
+        )
+            renderStudents();
+    });
+    document.getElementById("clearFilterBtn").addEventListener("click", () => {
+        document.getElementById("searchInput").value = "";
+        document.getElementById("departmentFilter").value = "";
+        document.getElementById("courseFilter").value = "";
+        document.getElementById("academicYearFilter").value = "";
+        renderStudents();
+    });
 
-  // Filters & search
-  document.getElementById("searchInput").addEventListener("input", renderStudents);
-  document.getElementById("clearFilters").addEventListener("click", () => {
-    document.getElementById("searchInput").value = "";
-    document.getElementById("departmentFilter").value = "";
-    updateCourseFilter();
-    document.getElementById("courseFilter").value = "";
-    document.getElementById("academicYearFilter").value = "";
-    document.getElementById("yearstatusFilter").value = "";
-    renderStudents();
-  });
-
-  // Initialize
-  loadSelectOptions().then(fetchStudents);
+    await loadOptions();
+    await fetchStudents();
 }

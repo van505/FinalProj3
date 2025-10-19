@@ -202,12 +202,13 @@ export async function loadDashboard(app) {
 
     // --- existing logic (unchanged) ---
     try {
-        const [studentsRes, facultyRes, coursesRes, departmentsRes] = await Promise.all([
-            axios.get("/api/students"),
-            axios.get("/api/faculty"),
-            axios.get("/api/courses"),
-            axios.get("/api/departments"),
-        ]);
+        const [studentsRes, facultyRes, coursesRes, departmentsRes] =
+            await Promise.all([
+                axios.get("/api/students"),
+                axios.get("/api/faculty"),
+                axios.get("/api/courses"),
+                axios.get("/api/departments"),
+            ]);
 
         const students = studentsRes.data;
         const faculty = facultyRes.data;
@@ -217,17 +218,23 @@ export async function loadDashboard(app) {
         document.getElementById("studentCount").textContent = students.length;
         document.getElementById("facultyCount").textContent = faculty.length;
         document.getElementById("courseCount").textContent = courses.length;
-        document.getElementById("departmentCount").textContent = departments.length;
+        document.getElementById("departmentCount").textContent =
+            departments.length;
 
         const courseCounts = {};
-        students.forEach(s => {
-            const course = (s.course && (s.course.course_name || s.course.name)) || "Unassigned";
+        students.forEach((s) => {
+            const course =
+                (s.course && (s.course.course_name || s.course.name)) ||
+                "Unassigned";
             courseCounts[course] = (courseCounts[course] || 0) + 1;
         });
 
         const deptCounts = {};
-        faculty.forEach(f => {
-            const dept = (f.department && (f.department.department_name || f.department.name)) || "Unassigned";
+        faculty.forEach((f) => {
+            const dept =
+                (f.department &&
+                    (f.department.department_name || f.department.name)) ||
+                "Unassigned";
             deptCounts[dept] = (deptCounts[dept] || 0) + 1;
         });
 
@@ -235,13 +242,28 @@ export async function loadDashboard(app) {
         renderChart("facultyChart", "Faculty per Department", deptCounts);
 
         const recentActivity = [
-            ...students.slice(-3).map(s => `👨‍🎓 New student added: ${s.firstname || s.name || s.studID || "Student"}`),
-            ...faculty.slice(-3).map(f => `👩‍🏫 New faculty joined: ${f.firstname || f.name || "Faculty"}`)
+            ...students
+                .slice(-3)
+                .map(
+                    (s) =>
+                        `👨‍🎓 New student added: ${
+                            s.firstname || s.name || s.studID || "Student"
+                        }`
+                ),
+            ...faculty
+                .slice(-3)
+                .map(
+                    (f) =>
+                        `👩‍🏫 New faculty joined: ${
+                            f.firstname || f.name || "Faculty"
+                        }`
+                ),
         ].reverse();
 
         const list = document.getElementById("recentActivity");
-        list.innerHTML = recentActivity.map(item => `<li>${item}</li>`).join("");
-
+        list.innerHTML = recentActivity
+            .map((item) => `<li>${item}</li>`)
+            .join("");
     } catch (error) {
         console.error("Error loading dashboard data:", error);
     }
@@ -275,15 +297,15 @@ function renderChart(canvasId, label, dataObj) {
 }
 
 function setupMenuListeners(app) {
-    document.querySelectorAll('.sidebar-menu a').forEach(link => {
-        link.addEventListener('click', function (e) {
+    document.querySelectorAll(".sidebar-menu a").forEach((link) => {
+        link.addEventListener("click", function (e) {
             e.preventDefault();
-            const page = this.getAttribute('data-page');
+            const page = this.getAttribute("data-page");
 
-            if (page === 'settings') loadSystemSettings(app);
-            if (page === 'students') loadStudents(app);
-            if (page === 'faculty') loadFaculty(app);
-            if (page === 'report') loadReport(app);
+            if (page === "settings") loadSystemSettings(app);
+            if (page === "students") loadStudents(app);
+            if (page === "faculty") loadFaculty(app);
+            if (page === "report") loadReport(app);
         });
     });
 

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // ✅ Create a default admin user
+        // ✅ Create default admin user
         User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
@@ -33,8 +33,10 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // ✅ Call the ReportSeeder (this will seed sample reports)
+        // ✅ Run other seeders in the correct order
         $this->call([
+            DepartmentSeeder::class,
+            CourseSeeder::class,
             ReportSeeder::class,
         ]);
     }

@@ -28,23 +28,17 @@ if (app) {
         // ✅ Handle initial load based on URL
         if (path === "/dashboard") {
             loadDashboard(app);
-        } 
-        else if (path === "/students") {
+        } else if (path === "/students") {
             loadStudents(app);
-        }
-        else if (path === "/faculty") {
+        } else if (path === "/faculty") {
             loadFaculty(app);
-        }
-        else if (path === "/report") {
+        } else if (path === "/report") {
             loadReport(app);
-        }
-        else if (path === "/systemsettings") {
+        } else if (path === "/systemsettings") {
             loadSystemSettings(app);
-        }
-        else if (path === "/profile") {
+        } else if (path === "/profile") {
             loadProfile(app);
-        }
-        else {
+        } else {
             // default to dashboard
             window.history.pushState({}, "", "/dashboard");
             loadDashboard(app);
@@ -59,36 +53,32 @@ if (app) {
             const page = link.dataset.page;
 
             // remove active class
-            document.querySelectorAll(".sidebar-menu a").forEach(a => a.classList.remove("active"));
+            document
+                .querySelectorAll(".sidebar-menu a")
+                .forEach((a) => a.classList.remove("active"));
             link.classList.add("active");
 
             // ✅ Handle navigation
             if (page === "overview" || page === "dashboard") {
                 loadDashboard(app);
                 window.history.pushState({}, "", "/dashboard");
-            } 
-            else if (page === "students") {
+            } else if (page === "students") {
                 loadStudents(app);
                 window.history.pushState({}, "", "/students");
-            } 
-            else if (page === "faculty") {
+            } else if (page === "faculty") {
                 loadFaculty(app);
                 window.history.pushState({}, "", "/faculty");
-            } 
-            else if (page === "report") {
+            } else if (page === "report") {
                 loadReport(app);
                 window.history.pushState({}, "", "/report");
-            }
-            else if (page === "settings") {
+            } else if (page === "settings") {
                 loadSystemSettings(app);
                 window.history.pushState({}, "", "/systemsettings");
-            }
-            else if (page === "profile") {
+            } else if (page === "profile") {
                 loadProfile(app);
                 window.history.pushState({}, "", "/profile");
             }
         });
-
     } else {
         // 🚪 Not logged in → show login
         if (path !== "/") {
