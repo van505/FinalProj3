@@ -2,41 +2,154 @@ import axios from "axios";
 
 export function loadFaculty(app) {
   app.innerHTML = `
-    <div class="faculty-page">
-      <aside class="faculty-sidebar">
-        <h2 class="sidebar-title">Menu</h2>
-        <button class="primary-btn full-width" id="addFacultyBtn">+ Add Faculty</button>
-        <ul class="sidebar-menu">
-          <li><a href="#" data-page="overview">Overview</a></li>
-          <li><a href="#" data-page="students">Students</a></li>
-          <li><a href="#" class="active" data-page="faculty">Faculty</a></li>
-          <li><a href="#" id="menuReport" data-page="report">Report</a></li>
-          <li><a href="#" data-page="profile">Profile</a></li>
-          <li><a href="#" data-page="settings">System Settings</a></li>
-        </ul>
-      </aside>
+    <div class="dashboard-container">
+      <nav class="sidebar">
+        <div class="sidebar-content">
+          <div class="sidebar-header">
+            <img src="/images/logo.png" alt="EDUTrack logo" class="sidebar-logo" />
+            <h1 class="sidebar-title">EDUTrack</h1>
+          </div>
 
-      <main class="faculty-main">
-        <header class="faculty-header">
-          <h1>Faculty Management</h1>
-          <button id="addFacultyBtnTop" class="primary-btn">+ Add Faculty</button>
+          <button class="new-item-btn" id="addFacultyBtn">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Add Faculty
+          </button>
+
+        <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="menu-item" data-page="overview">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Overview</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="students">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Students</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item active" data-page="faculty">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Faculty</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" id="menuReport" data-page="report">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 20V10"></path>
+                  <path d="M12 20V4"></path>
+                  <path d="M6 20v-6"></path>
+                </svg>
+                <span>Report</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="profile">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item" data-page="settings">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>System Settings</span>
+              </a>
+            </li>
+        </ul>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="version-text">v1.0.0</span>
+        </div>
+      </nav>
+
+      <div class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <h1 class="page-title">Faculty Management</h1>
+          </div>
+          <div class="header-right">
+            <div class="search-container">
+              <input type="text" class="search-input" placeholder="Search">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+              </svg>
+            </div>
+          </div>
         </header>
 
-        <section class="faculty-filters">
-          <input type="text" id="searchInput" placeholder="Search faculty..." />
-          <select id="departmentFilter"><option value="">All Departments</option></select>
-          <select id="academicYearFilter"><option value="">All Academic Years</option></select>
-          <select id="yearstatusFilter">
+        <div class="content-area">
+          <section class="students-banner">
+            <div class="banner-content">
+              <h2 class="banner-title">Faculty Management</h2>
+              <p class="banner-subtitle">can add, edit, delete data</p>
+            </div>
+          </section>
+
+          <section class="filters-section">
+            <div class="filters-container">
+              <div class="search-group">
+                <input type="text" id="searchInput" class="search-field" placeholder="Search faculty..." />
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="M21 21l-4.35-4.35"></path>
+                </svg>
+              </div>
+
+              <div class="filter-group">
+                <select id="departmentFilter" class="filter-select"><option value="">All Departments</option></select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+
+              <div class="filter-group">
+                <select id="academicYearFilter" class="filter-select"><option value="">All Academic Years</option></select>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+
+              <div class="filter-group">
+                <select id="yearstatusFilter" class="filter-select">
             <option value="">All Status</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
             <option value="graduated">Graduated</option>
           </select>
-          <button id="clearFilters" class="secondary-btn">Clear Filters</button>
+                <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
+              </div>
+
+              <button id="clearFilters" class="btn btn-clear">Clear Filters</button>
+            </div>
         </section>
 
-        <section class="faculty-table-card">
-          <table class="faculty-table">
+          <section class="table-section">
+            <div class="table-container">
+              <table class="students-table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -52,65 +165,85 @@ export function loadFaculty(app) {
             </thead>
             <tbody id="facultyList"></tbody>
           </table>
+            </div>
         </section>
-      </main>
+        </div>
+      </div>
 
-      <!-- Landscape modal (no logic change) -->
+      <!-- Modal -->
       <div id="facultyModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="modal-content modal-landscape" role="document">
+        <div class="modal-content" role="document">
           <button id="closeFacultyModal" class="modal-close" aria-label="Close">&times;</button>
-          <h3 id="facultyModalTitle">Add New Faculty</h3>
+          <h3 id="facultyModalTitle" class="modal-title">Add New Faculty</h3>
 
-          <form id="facultyForm" class="faculty-form" autocomplete="on" novalidate>
+          <form id="facultyForm" class="student-form" autocomplete="on" novalidate>
             <input type="hidden" name="edit_id" id="edit_id" />
 
-            <label for="faculty_id">Faculty ID</label>
-            <input type="text" name="faculty_id" id="faculty_id" placeholder="Faculty ID" required />
+            <div class="form-column">
+              <div class="form-group">
+                <label for="faculty_id" class="form-label">Faculty ID</label>
+                <input type="text" name="faculty_id" id="faculty_id" class="form-input" placeholder="Faculty ID" required />
+              </div>
+              <div class="form-group">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-input" placeholder="First Name" required />
+              </div>
+              <div class="form-group">
+                <label for="middle_name" class="form-label">Middle Name</label>
+                <input type="text" name="middle_name" id="middle_name" class="form-input" placeholder="Middle Name" />
+              </div>
+              <div class="form-group">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-input" placeholder="Last Name" required />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-input" placeholder="Email" required />
+              </div>
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-input" placeholder="Phone" />
+              </div>
+            </div>
 
-            <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" placeholder="First Name" required />
-
-            <label for="middle_name">Middle Name</label>
-            <input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" />
-
-            <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" placeholder="Last Name" required />
-
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Email" required />
-
-            <label for="phone">Phone</label>
-            <input type="text" name="phone" id="phone" placeholder="Phone" />
-
-            <label for="address">Address</label>
-            <input type="text" name="address" id="address" placeholder="Address" />
-
-            <label for="position">Position</label>
-            <input type="text" name="position" id="position" placeholder="Position" />
-
-            <label for="date_hired">Date Hired</label>
-            <input type="date" name="date_hired" id="date_hired" />
-
-            <label for="departmentSelect">Department</label>
-            <select name="department_id" id="departmentSelect" required>
+            <div class="form-column">
+              <div class="form-group">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" name="address" id="address" class="form-input" placeholder="Address" />
+              </div>
+              <div class="form-group">
+                <label for="position" class="form-label">Position</label>
+                <input type="text" name="position" id="position" class="form-input" placeholder="Position" />
+              </div>
+              <div class="form-group">
+                <label for="date_hired" class="form-label">Date Hired</label>
+                <input type="date" name="date_hired" id="date_hired" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="departmentSelect" class="form-label">Department</label>
+                <select name="department_id" id="departmentSelect" class="form-select" required>
               <option value="">Select Department</option>
             </select>
-
-            <label for="academicYearSelectForm">Academic Year</label>
-            <select name="academic_year_id" id="academicYearSelectForm" required>
+              </div>
+              <div class="form-group">
+                <label for="academicYearSelectForm" class="form-label">Academic Year</label>
+                <select name="academic_year_id" id="academicYearSelectForm" class="form-select" required>
               <option value="">Select Academic Year</option>
             </select>
-
-            <label for="yearstatus">Status</label>
-            <select name="yearstatus" id="yearstatus" required>
+              </div>
+              <div class="form-group">
+                <label for="yearstatus" class="form-label">Status</label>
+                <select name="yearstatus" id="yearstatus" class="form-select" required>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="graduated">Graduated</option>
             </select>
+              </div>
+            </div>
 
             <div class="form-actions">
-              <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
-              <button type="submit" id="submitBtn" class="primary-btn">Save Faculty</button>
+              <button type="button" id="cancelBtn" class="btn btn-cancel">Cancel</button>
+              <button type="submit" id="submitBtn" class="btn btn-save">Save Faculty</button>
             </div>
           </form>
         </div>
@@ -199,19 +332,19 @@ export function loadFaculty(app) {
               </span>
             </td>
             <td class="actions">
-              <button class="action-btn edit" data-id="${f.id}">✏️</button>
-              <button class="action-btn delete" data-id="${f.id}">🗑️</button>
+              <button class="action-btn edit-btn" data-id="${f.id}" title="Edit">Edit</button>
+              <button class="action-btn archive-btn" data-id="${f.id}" title="Archive">Archive</button>
             </td>
           </tr>
         `)
           .join("")
       : `<tr><td colspan="9" class="text-center p-4">No faculty found.</td></tr>`;
 
-    // Attach edit/delete logic
-    document.querySelectorAll(".edit").forEach(btn => {
+    // Attach edit/archive logic
+    document.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", () => openEditModal(btn.dataset.id));
     });
-    document.querySelectorAll(".delete").forEach(btn => {
+    document.querySelectorAll(".archive-btn").forEach(btn => {
       btn.addEventListener("click", () => deleteFaculty(btn.dataset.id));
     });
   }
@@ -249,7 +382,10 @@ export function loadFaculty(app) {
 
   // Modal logic
   document.getElementById("addFacultyBtn").addEventListener("click", showModal);
-  document.getElementById("addFacultyBtnTop").addEventListener("click", showModal);
+  const addFacultyBtnTop = document.getElementById("addFacultyBtnTop");
+  if (addFacultyBtnTop) {
+    addFacultyBtnTop.addEventListener("click", showModal);
+  }
   document.getElementById("closeFacultyModal").addEventListener("click", hideModal);
   document.getElementById("cancelBtn").addEventListener("click", hideModal);
 
@@ -287,6 +423,16 @@ export function loadFaculty(app) {
 
   // Filters
   document.getElementById("searchInput").addEventListener("input", renderFaculty);
+  document.addEventListener("change", (e) => {
+    const id = e.target?.id;
+    if (
+      id === "departmentFilter" ||
+      id === "academicYearFilter" ||
+      id === "yearstatusFilter"
+    ) {
+      renderFaculty();
+    }
+  });
   document.getElementById("clearFilters").addEventListener("click", () => {
     document.getElementById("searchInput").value = "";
     document.getElementById("departmentFilter").value = "";
