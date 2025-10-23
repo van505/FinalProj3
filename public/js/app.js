@@ -42260,7 +42260,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
- // ✅ plural
+
 
 
 
@@ -43195,21 +43195,28 @@ function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present,
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function loadReport(app) {
-  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar\">\n        <div class=\"sidebar-content\">\n          <div class=\"sidebar-header\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"sidebar-logo\" />\n            <h1 class=\"sidebar-title\">EDUTrack</h1>\n          </div>\n          \n          <button class=\"new-item-btn\">\n            <svg class=\"btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n              <line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line>\n              <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n            </svg>\n            New Item\n          </button>\n          \n          <ul class=\"sidebar-menu\">\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"overview\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>\n                </svg>\n                <span>Overview</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"students\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Students</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"faculty\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"9\" cy=\"7\" r=\"4\"></circle>\n                  <path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path>\n                  <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path>\n                </svg>\n                <span>Faculty</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item active\" id=\"menuReport\" data-page=\"report\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M18 20V10\"></path>\n                  <path d=\"M12 20V4\"></path>\n                  <path d=\"M6 20v-6\"></path>\n                </svg>\n                <span>Report</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"profile\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Profile</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"settings\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n                  <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path>\n                </svg>\n                <span>System Settings</span>\n              </a>\n            </li>\n          </ul>\n        </div>\n        \n        <div class=\"sidebar-footer\">\n          <span class=\"version-text\">v1.0.0</span>\n        </div>\n      </nav>\n\n      <div class=\"main-content\">\n        <header class=\"top-header\">\n          <div class=\"header-left\">\n            <h1 class=\"page-title\">Report</h1>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n              <svg class=\"search-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n                <path d=\"M21 21l-4.35-4.35\"></path>\n              </svg>\n            </div>\n          </div>\n        </header>\n\n        <div class=\"content-area\">\n          <section class=\"report-banner\">\n            <div class=\"banner-content\">\n              <h2 class=\"banner-title\">Report</h2>\n            </div>\n          </section>\n\n          <section class=\"filters-section\">\n            <div class=\"filters-container\">\n              <div class=\"filter-group\">\n                <select id=\"reportType\" class=\"filter-select\">\n                  <option value=\"faculty\">Faculty Report</option>\n                  <option value=\"student\">Student Report</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"courseSelect\" class=\"filter-select\">\n                  <option value=\"\">All Courses</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"departmentSelect\" class=\"filter-select\">\n                  <option value=\"\">All Departments</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"academicYearSelect\" class=\"filter-select\">\n                  <option value=\"\">All Academic Years</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"action-buttons\">\n                <button id=\"filterBtn\" class=\"btn btn-clear\">Clear</button>\n                <button id=\"exportBtn\" class=\"btn btn-export\">Export CSV</button>\n              </div>\n            </div>\n          </section>\n\n          <section class=\"report-summary\" id=\"reportSummary\"></section>\n\n          <section class=\"table-section\">\n            <div class=\"table-container\">\n              <table class=\"report-table\">\n                <thead>\n                  <tr id=\"reportHeader\">\n                    <th>Name</th>\n                    <th>Course/Department</th>\n                    <th>Academic Year</th>\n                    <th>Status</th>\n                  </tr>\n                </thead>\n                <tbody id=\"reportTableBody\">\n                  <tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>\n                </tbody>\n              </table>\n            </div>\n          </section>\n\n          <section class=\"make-report-section\">\n            <div class=\"make-report-container\">\n              <h3 class=\"section-title\">Make a report</h3>\n              <form class=\"report-form\">\n                <div class=\"form-group\">\n                  <label for=\"reportTitle\" class=\"form-label\">Report Title</label>\n                  <input type=\"text\" id=\"reportTitle\" class=\"form-input\" placeholder=\"Report title...\" />\n                </div>\n                \n                <div class=\"form-group\">\n                  <label for=\"reportSubject\" class=\"form-label\">Choose Subject</label>\n                  <select id=\"reportSubject\" class=\"form-select\">\n                    <option value=\"\">Choose Subject</option>\n                    <option value=\"faculty\">Faculty</option>\n                    <option value=\"student\">Student</option>\n                  </select>\n                </div>\n                \n                <div class=\"form-group\">\n                  <label for=\"reportContent\" class=\"form-label\">Report Content</label>\n                  <textarea id=\"reportContent\" class=\"form-textarea\" placeholder=\"Write you report...\"></textarea>\n                </div>\n                \n                <div class=\"form-actions\">\n                  <button type=\"button\" class=\"btn btn-send-report\">Send Report</button>\n                </div>\n              </form>\n            </div>\n          </section>\n        </div>\n      </div>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar\">\n        <div class=\"sidebar-content\">\n          <div class=\"sidebar-header\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"sidebar-logo\" />\n            <h1 class=\"sidebar-title\">EDUTrack</h1>\n          </div>\n          \n          <button class=\"new-item-btn\">\n            <svg class=\"btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n              <line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line>\n              <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n            </svg>\n            New Item\n          </button>\n          \n          <ul class=\"sidebar-menu\">\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"overview\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>\n                </svg>\n                <span>Overview</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"students\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Students</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"faculty\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"9\" cy=\"7\" r=\"4\"></circle>\n                  <path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path>\n                  <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path>\n                </svg>\n                <span>Faculty</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item active\" id=\"menuReport\" data-page=\"report\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M18 20V10\"></path>\n                  <path d=\"M12 20V4\"></path>\n                  <path d=\"M6 20v-6\"></path>\n                </svg>\n                <span>Report</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"profile\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Profile</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"settings\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n                  <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path>\n                </svg>\n                <span>System Settings</span>\n              </a>\n            </li>\n          </ul>\n        </div>\n        \n        <div class=\"sidebar-footer\">\n          <span class=\"version-text\">v1.0.0</span>\n        </div>\n      </nav>\n\n      <div class=\"main-content\">\n        <header class=\"top-header\">\n          <div class=\"header-left\">\n            <h1 class=\"page-title\">Report</h1>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n              <svg class=\"search-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n                <path d=\"M21 21l-4.35-4.35\"></path>\n              </svg>\n            </div>\n          </div>\n        </header>\n\n        <div class=\"content-area\">\n          <section class=\"report-banner\">\n            <div class=\"banner-content\">\n              <h2 class=\"banner-title\">Report</h2>\n            </div>\n          </section>\n\n          <section class=\"filters-section\">\n            <div class=\"filters-container\">\n              <div class=\"filter-group\">\n                <select id=\"reportType\" class=\"filter-select\">\n                  <option value=\"students\">Students Report</option>\n                  <option value=\"faculty\">Faculty Report</option>\n                  <option value=\"courses\">Courses Report</option>\n                  <option value=\"departments\">Departments Report</option>\n                  <option value=\"academic_years\">Academic Years Report</option>\n                  <option value=\"archives\">Archives Report</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"courseSelect\" class=\"filter-select\">\n                  <option value=\"\">All Courses</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"departmentSelect\" class=\"filter-select\">\n                  <option value=\"\">All Departments</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"filter-group\">\n                <select id=\"academicYearSelect\" class=\"filter-select\">\n                  <option value=\"\">All Academic Years</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n\n              <div class=\"filter-group\">\n                <select id=\"exportFormat\" class=\"filter-select\">\n                  <option value=\"csv\">Export as CSV</option>\n                  <option value=\"pdf\">Export as PDF</option>\n                  <option value=\"excel\">Export as Excel</option>\n                  <option value=\"word\">Export as Word</option>\n                </select>\n                <svg class=\"dropdown-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <polyline points=\"6,9 12,15 18,9\"></polyline>\n                </svg>\n              </div>\n              \n              <div class=\"action-buttons\">\n                <button id=\"filterBtn\" class=\"btn btn-clear\">Clear Filters</button>\n                <button id=\"exportBtn\" class=\"btn btn-export\">Export Report</button>\n              </div>\n            </div>\n          </section>\n\n          <section class=\"report-summary\" id=\"reportSummary\"></section>\n\n          <section class=\"table-section\">\n            <div class=\"table-container\">\n              <table class=\"report-table\">\n                <thead>\n                  <tr id=\"reportHeader\">\n                    <!-- Headers will be dynamically populated based on report type -->\n                  </tr>\n                </thead>\n                <tbody id=\"reportTableBody\">\n                  <tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>\n                </tbody>\n              </table>\n            </div>\n          </section>\n\n          <section class=\"make-report-section\">\n            <div class=\"make-report-container\">\n              <h3 class=\"section-title\">Make a report</h3>\n              <form class=\"report-form\">\n                <div class=\"form-group\">\n                  <label for=\"reportTitle\" class=\"form-label\">Report Title</label>\n                  <input type=\"text\" id=\"reportTitle\" class=\"form-input\" placeholder=\"Report title...\" />\n                </div>\n                \n                <div class=\"form-group\">\n                  <label for=\"reportSubject\" class=\"form-label\">Choose Subject</label>\n                  <select id=\"reportSubject\" class=\"form-select\">\n                    <option value=\"\">Choose Subject</option>\n                    <option value=\"faculty\">Faculty</option>\n                    <option value=\"student\">Student</option>\n                  </select>\n                </div>\n                \n                <div class=\"form-group\">\n                  <label for=\"reportContent\" class=\"form-label\">Report Content</label>\n                  <textarea id=\"reportContent\" class=\"form-textarea\" placeholder=\"Write you report...\"></textarea>\n                </div>\n                \n                <div class=\"form-actions\">\n                  <button type=\"button\" class=\"btn btn-send-report\">Send Report</button>\n                </div>\n              </form>\n            </div>\n          </section>\n        </div>\n      </div>\n    </div>\n  ";
 
   // --- Functionality (unchanged) ---
   fetchDropdowns();
   fetchReport();
   document.getElementById("filterBtn").addEventListener("click", fetchReport);
   document.getElementById("reportType").addEventListener("change", fetchReport);
-  document.getElementById("exportBtn").addEventListener("click", exportToCSV);
+  document.getElementById("courseSelect").addEventListener("change", fetchReport);
+  document.getElementById("departmentSelect").addEventListener("change", fetchReport);
+  document.getElementById("academicYearSelect").addEventListener("change", fetchReport);
+  document.getElementById("exportBtn").addEventListener("click", exportReport);
   document.querySelector(".btn-send-report").addEventListener("click", sendReport);
   function fetchDropdowns() {
     return _fetchDropdowns.apply(this, arguments);
@@ -43264,10 +43271,10 @@ function loadReport(app) {
   }
   function fetchReport() {
     return _fetchReport.apply(this, arguments);
-  }
+  } // Individual fetch functions for each report type
   function _fetchReport() {
     _fetchReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var type, course, department, year, tbody, summary, params, res, data, _t2;
+      var type, course, department, year, tbody, header, summary, data, headers, summaryText, _t2, _t3;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.p = _context2.n) {
           case 0:
@@ -43276,70 +43283,467 @@ function loadReport(app) {
             department = document.getElementById("departmentSelect").value;
             year = document.getElementById("academicYearSelect").value;
             tbody = document.getElementById("reportTableBody");
+            header = document.getElementById("reportHeader");
             summary = document.getElementById("reportSummary");
             tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>";
             _context2.p = 1;
-            params = new URLSearchParams({
-              course_id: course,
-              department_id: department,
-              academic_year_id: year
-            });
-            _context2.n = 2;
-            return fetch("/api/reports/".concat(type, "?").concat(params));
+            data = [];
+            headers = [];
+            summaryText = "";
+            _t2 = type;
+            _context2.n = _t2 === 'students' ? 2 : _t2 === 'faculty' ? 4 : _t2 === 'courses' ? 6 : _t2 === 'departments' ? 8 : _t2 === 'academic_years' ? 10 : _t2 === 'archives' ? 12 : 14;
+            break;
           case 2:
-            res = _context2.v;
+            headers = ['#', 'Student Name', 'Course', 'Academic Year', 'Status'];
             _context2.n = 3;
-            return res.json();
+            return fetchStudentsReport(course, department, year);
           case 3:
             data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> students found.");
+            return _context2.a(3, 14);
+          case 4:
+            headers = ['#', 'Faculty Name', 'Department', 'Academic Year', 'Status'];
+            _context2.n = 5;
+            return fetchFacultyReport(course, department, year);
+          case 5:
+            data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> faculty found.");
+            return _context2.a(3, 14);
+          case 6:
+            headers = ['#', 'Course Name', 'Department', 'Created Date', 'Status'];
+            _context2.n = 7;
+            return fetchCoursesReport();
+          case 7:
+            data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> courses found.");
+            return _context2.a(3, 14);
+          case 8:
+            headers = ['#', 'Department Name', 'Head', 'Created Date', 'Status'];
+            _context2.n = 9;
+            return fetchDepartmentsReport();
+          case 9:
+            data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> departments found.");
+            return _context2.a(3, 14);
+          case 10:
+            headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
+            _context2.n = 11;
+            return fetchAcademicYearsReport();
+          case 11:
+            data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> academic years found.");
+            return _context2.a(3, 14);
+          case 12:
+            headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
+            _context2.n = 13;
+            return fetchArchivesReport();
+          case 13:
+            data = _context2.v;
+            summaryText = "Showing <strong>".concat(data.length, "</strong> archived items found.");
+            return _context2.a(3, 14);
+          case 14:
+            // Update table headers
+            header.innerHTML = headers.map(function (h) {
+              return "<th>".concat(h, "</th>");
+            }).join('');
             if (data.length) {
-              _context2.n = 4;
+              _context2.n = 15;
               break;
             }
-            tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">No records found</td></tr>";
+            tbody.innerHTML = "<tr><td colspan=\"".concat(headers.length, "\" class=\"no-data\">No records found</td></tr>");
             summary.textContent = "";
             return _context2.a(2);
-          case 4:
-            tbody.innerHTML = data.map(function (item) {
-              var _item$course, _item$department, _item$academic_year;
-              return "\n          <tr>\n            <td>".concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname, "</td>\n            <td>").concat(type === "student" ? ((_item$course = item.course) === null || _item$course === void 0 ? void 0 : _item$course.course_name) || "N/A" : ((_item$department = item.department) === null || _item$department === void 0 ? void 0 : _item$department.department_name) || "N/A", "</td>\n            <td>").concat(((_item$academic_year = item.academic_year) === null || _item$academic_year === void 0 ? void 0 : _item$academic_year.year) || "N/A", "</td>\n            <td><span class=\"status-badge ").concat(item.yearstatus === "active" ? "active" : "inactive", "\">\n              ").concat(item.yearstatus || "Active", "\n            </span></td>\n          </tr>\n        ");
-            }).join("");
-            summary.innerHTML = "\n        <div class=\"summary-box\">\n          Showing <strong>".concat(data.length, "</strong> ").concat(type === "student" ? "students" : "faculty", " found.\n        </div>\n      ");
-            _context2.n = 6;
+          case 15:
+            // Render table rows based on data type
+            tbody.innerHTML = data.map(function (item, index) {
+              var _item$course, _item$course2, _item$academic_year, _item$academic_year2, _item$department, _item$department2, _item$academic_year3, _item$academic_year4, _item$department3, _item$department4;
+              switch (type) {
+                case 'students':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname, "</td>\n                <td>").concat(((_item$course = item.course) === null || _item$course === void 0 ? void 0 : _item$course.name) || ((_item$course2 = item.course) === null || _item$course2 === void 0 ? void 0 : _item$course2.course_name) || 'N/A', "</td>\n                <td>").concat(((_item$academic_year = item.academic_year) === null || _item$academic_year === void 0 ? void 0 : _item$academic_year.year) || ((_item$academic_year2 = item.academic_year) === null || _item$academic_year2 === void 0 ? void 0 : _item$academic_year2.academic_year) || 'N/A', "</td>\n                <td><span class=\"status-badge ").concat(item.yearstatus === "active" ? "active" : "inactive", "\">\n                  ").concat(item.yearstatus || "Active", "\n                </span></td>\n              </tr>\n            ");
+                case 'faculty':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname, "</td>\n                <td>").concat(((_item$department = item.department) === null || _item$department === void 0 ? void 0 : _item$department.name) || ((_item$department2 = item.department) === null || _item$department2 === void 0 ? void 0 : _item$department2.department_name) || 'N/A', "</td>\n                <td>").concat(((_item$academic_year3 = item.academic_year) === null || _item$academic_year3 === void 0 ? void 0 : _item$academic_year3.year) || ((_item$academic_year4 = item.academic_year) === null || _item$academic_year4 === void 0 ? void 0 : _item$academic_year4.academic_year) || 'N/A', "</td>\n                <td><span class=\"status-badge ").concat(item.yearstatus === "active" ? "active" : "inactive", "\">\n                  ").concat(item.yearstatus || "Active", "\n                </span></td>\n              </tr>\n            ");
+                case 'courses':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.name || item.course_name, "</td>\n                <td>").concat(((_item$department3 = item.department) === null || _item$department3 === void 0 ? void 0 : _item$department3.name) || ((_item$department4 = item.department) === null || _item$department4 === void 0 ? void 0 : _item$department4.department_name) || 'N/A', "</td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n                <td><span class=\"status-badge active\">Active</span></td>\n              </tr>\n            ");
+                case 'departments':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.name || item.department_name, "</td>\n                <td>").concat(item.head || item.department_head || 'N/A', "</td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n                <td><span class=\"status-badge active\">Active</span></td>\n              </tr>\n            ");
+                case 'academic_years':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.year || item.academic_year, "</td>\n                <td><span class=\"status-badge ").concat(item.is_active ? "active" : "inactive", "\">\n                  ").concat(item.is_active ? "Active" : "Inactive", "\n                </span></td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n                <td>\n                  <button class=\"action-btn edit-btn\" data-id=\"").concat(item.id, "\">Edit</button>\n                  <button class=\"action-btn archive-btn\" data-id=\"").concat(item.id, "\">Archive</button>\n                </td>\n              </tr>\n            ");
+                case 'archives':
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.type, "</td>\n                <td>").concat(item.name, "</td>\n                <td>").concat(item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A', "</td>\n                <td>\n                  <button class=\"action-btn edit-btn\" data-type=\"").concat(item.group, "\" data-id=\"").concat(item.id, "\">Restore</button>\n                  <button class=\"action-btn archive-btn\" data-type=\"").concat(item.group, "\" data-id=\"").concat(item.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
+                default:
+                  return '';
+              }
+            }).join('');
+            summary.innerHTML = "<div class=\"summary-box\">".concat(summaryText, "</div>");
+            _context2.n = 17;
             break;
-          case 5:
-            _context2.p = 5;
-            _t2 = _context2.v;
-            console.error("Error fetching report:", _t2);
-            tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">Error loading data</td></tr>";
-          case 6:
+          case 16:
+            _context2.p = 16;
+            _t3 = _context2.v;
+            console.error("Error fetching report:", _t3);
+            tbody.innerHTML = "<tr><td colspan=\"5\" class=\"no-data\">Error loading data</td></tr>";
+          case 17:
             return _context2.a(2);
         }
-      }, _callee2, null, [[1, 5]]);
+      }, _callee2, null, [[1, 16]]);
     }));
     return _fetchReport.apply(this, arguments);
   }
+  function fetchStudentsReport(_x, _x2, _x3) {
+    return _fetchStudentsReport.apply(this, arguments);
+  }
+  function _fetchStudentsReport() {
+    _fetchStudentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(course, department, year) {
+      var res, data;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.n) {
+          case 0:
+            _context3.n = 1;
+            return fetch('/api/students');
+          case 1:
+            res = _context3.v;
+            if (res.ok) {
+              _context3.n = 3;
+              break;
+            }
+            _context3.n = 2;
+            return fetch('/api/reports/students');
+          case 2:
+            res = _context3.v;
+          case 3:
+            if (res.ok) {
+              _context3.n = 5;
+              break;
+            }
+            _context3.n = 4;
+            return fetch('/api/reports/student');
+          case 4:
+            res = _context3.v;
+          case 5:
+            if (res.ok) {
+              _context3.n = 6;
+              break;
+            }
+            return _context3.a(2, []);
+          case 6:
+            _context3.n = 7;
+            return res.json();
+          case 7:
+            data = _context3.v;
+            // Apply client-side filtering
+            if (course) {
+              data = data.filter(function (s) {
+                var _s$course;
+                return s.course_id == course || ((_s$course = s.course) === null || _s$course === void 0 ? void 0 : _s$course.id) == course;
+              });
+            }
+            if (department) {
+              data = data.filter(function (s) {
+                var _s$department;
+                return s.department_id == department || ((_s$department = s.department) === null || _s$department === void 0 ? void 0 : _s$department.id) == department;
+              });
+            }
+            if (year) {
+              data = data.filter(function (s) {
+                var _s$academic_year;
+                return s.academic_year_id == year || ((_s$academic_year = s.academic_year) === null || _s$academic_year === void 0 ? void 0 : _s$academic_year.id) == year;
+              });
+            }
+            return _context3.a(2, data);
+        }
+      }, _callee3);
+    }));
+    return _fetchStudentsReport.apply(this, arguments);
+  }
+  function fetchFacultyReport(_x4, _x5, _x6) {
+    return _fetchFacultyReport.apply(this, arguments);
+  }
+  function _fetchFacultyReport() {
+    _fetchFacultyReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(course, department, year) {
+      var res, data;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.n) {
+          case 0:
+            _context4.n = 1;
+            return fetch('/api/faculties');
+          case 1:
+            res = _context4.v;
+            if (res.ok) {
+              _context4.n = 3;
+              break;
+            }
+            _context4.n = 2;
+            return fetch('/api/faculty');
+          case 2:
+            res = _context4.v;
+          case 3:
+            if (res.ok) {
+              _context4.n = 5;
+              break;
+            }
+            _context4.n = 4;
+            return fetch('/api/reports/faculty');
+          case 4:
+            res = _context4.v;
+          case 5:
+            if (res.ok) {
+              _context4.n = 6;
+              break;
+            }
+            return _context4.a(2, []);
+          case 6:
+            _context4.n = 7;
+            return res.json();
+          case 7:
+            data = _context4.v;
+            // Apply client-side filtering
+            if (course) {
+              data = data.filter(function (f) {
+                var _f$course;
+                return f.course_id == course || ((_f$course = f.course) === null || _f$course === void 0 ? void 0 : _f$course.id) == course;
+              });
+            }
+            if (department) {
+              data = data.filter(function (f) {
+                var _f$department;
+                return f.department_id == department || ((_f$department = f.department) === null || _f$department === void 0 ? void 0 : _f$department.id) == department;
+              });
+            }
+            if (year) {
+              data = data.filter(function (f) {
+                var _f$academic_year;
+                return f.academic_year_id == year || ((_f$academic_year = f.academic_year) === null || _f$academic_year === void 0 ? void 0 : _f$academic_year.id) == year;
+              });
+            }
+            return _context4.a(2, data);
+        }
+      }, _callee4);
+    }));
+    return _fetchFacultyReport.apply(this, arguments);
+  }
+  function fetchCoursesReport() {
+    return _fetchCoursesReport.apply(this, arguments);
+  }
+  function _fetchCoursesReport() {
+    _fetchCoursesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var res, data, department;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.n) {
+          case 0:
+            _context5.n = 1;
+            return fetch('/api/courses');
+          case 1:
+            res = _context5.v;
+            if (res.ok) {
+              _context5.n = 2;
+              break;
+            }
+            return _context5.a(2, []);
+          case 2:
+            _context5.n = 3;
+            return res.json();
+          case 3:
+            data = _context5.v;
+            department = document.getElementById("departmentSelect").value; // Apply client-side filtering
+            if (department) {
+              data = data.filter(function (c) {
+                var _c$department;
+                return c.department_id == department || ((_c$department = c.department) === null || _c$department === void 0 ? void 0 : _c$department.id) == department;
+              });
+            }
+            return _context5.a(2, data);
+        }
+      }, _callee5);
+    }));
+    return _fetchCoursesReport.apply(this, arguments);
+  }
+  function fetchDepartmentsReport() {
+    return _fetchDepartmentsReport.apply(this, arguments);
+  }
+  function _fetchDepartmentsReport() {
+    _fetchDepartmentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var res, data, course, coursesRes, courses, targetCourse;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.n) {
+          case 0:
+            _context6.n = 1;
+            return fetch('/api/departments');
+          case 1:
+            res = _context6.v;
+            if (res.ok) {
+              _context6.n = 2;
+              break;
+            }
+            return _context6.a(2, []);
+          case 2:
+            _context6.n = 3;
+            return res.json();
+          case 3:
+            data = _context6.v;
+            course = document.getElementById("courseSelect").value; // Apply client-side filtering (if needed)
+            // For departments, we might filter by courses that belong to them
+            if (!course) {
+              _context6.n = 6;
+              break;
+            }
+            _context6.n = 4;
+            return fetch('/api/courses');
+          case 4:
+            coursesRes = _context6.v;
+            if (!coursesRes.ok) {
+              _context6.n = 6;
+              break;
+            }
+            _context6.n = 5;
+            return coursesRes.json();
+          case 5:
+            courses = _context6.v;
+            targetCourse = courses.find(function (c) {
+              return c.id == course;
+            });
+            if (targetCourse) {
+              data = data.filter(function (d) {
+                return d.id == targetCourse.department_id;
+              });
+            }
+          case 6:
+            return _context6.a(2, data);
+        }
+      }, _callee6);
+    }));
+    return _fetchDepartmentsReport.apply(this, arguments);
+  }
+  function fetchAcademicYearsReport() {
+    return _fetchAcademicYearsReport.apply(this, arguments);
+  }
+  function _fetchAcademicYearsReport() {
+    _fetchAcademicYearsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+      var res, data, year;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.n) {
+          case 0:
+            _context7.n = 1;
+            return fetch('/api/academic-years');
+          case 1:
+            res = _context7.v;
+            if (res.ok) {
+              _context7.n = 2;
+              break;
+            }
+            return _context7.a(2, []);
+          case 2:
+            _context7.n = 3;
+            return res.json();
+          case 3:
+            data = _context7.v;
+            year = document.getElementById("academicYearSelect").value; // Apply client-side filtering
+            if (year) {
+              data = data.filter(function (a) {
+                return a.id == year;
+              });
+            }
+            return _context7.a(2, data);
+        }
+      }, _callee7);
+    }));
+    return _fetchAcademicYearsReport.apply(this, arguments);
+  }
+  function fetchArchivesReport() {
+    return _fetchArchivesReport.apply(this, arguments);
+  }
+  function _fetchArchivesReport() {
+    _fetchArchivesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      var res, data, rows;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.n) {
+          case 0:
+            _context8.n = 1;
+            return fetch('/api/archives');
+          case 1:
+            res = _context8.v;
+            if (res.ok) {
+              _context8.n = 2;
+              break;
+            }
+            return _context8.a(2, []);
+          case 2:
+            _context8.n = 3;
+            return res.json();
+          case 3:
+            data = _context8.v;
+            rows = [];
+            (data.courses || []).forEach(function (c) {
+              return rows.push({
+                group: 'course',
+                type: 'Course',
+                name: c.name,
+                id: c.id,
+                archived_at: c.archived_at
+              });
+            });
+            (data.departments || []).forEach(function (d) {
+              return rows.push({
+                group: 'department',
+                type: 'Department',
+                name: d.name,
+                id: d.id,
+                archived_at: d.archived_at
+              });
+            });
+            (data.academic_years || []).forEach(function (a) {
+              return rows.push({
+                group: 'academic_year',
+                type: 'Academic Year',
+                name: a.year || a.academic_year,
+                id: a.id,
+                archived_at: a.archived_at
+              });
+            });
+            (data.faculties || []).forEach(function (f) {
+              return rows.push({
+                group: 'faculty',
+                type: 'Faculty',
+                name: (f.first_name || f.firstname) + ' ' + (f.last_name || f.lastname),
+                id: f.id,
+                archived_at: f.archived_at
+              });
+            });
+            (data.students || []).forEach(function (s) {
+              return rows.push({
+                group: 'student',
+                type: 'Student',
+                name: (s.first_name || s.firstname) + ' ' + (s.last_name || s.lastname),
+                id: s.id,
+                archived_at: s.archived_at
+              });
+            });
+            return _context8.a(2, rows);
+        }
+      }, _callee8);
+    }));
+    return _fetchArchivesReport.apply(this, arguments);
+  }
   function sendReport() {
     return _sendReport.apply(this, arguments);
-  }
+  } // Enhanced export functionality
   function _sendReport() {
-    _sendReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var title, subject, content, res, _t3;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.p = _context3.n) {
+    _sendReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      var title, subject, content, res, _t4;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
           case 0:
             title = document.getElementById("reportTitle").value.trim();
             subject = document.getElementById("reportSubject").value;
             content = document.getElementById("reportContent").value.trim();
             if (!(!title || !subject || !content)) {
-              _context3.n = 1;
+              _context9.n = 1;
               break;
             }
             alert("Please fill in all fields before sending.");
-            return _context3.a(2);
+            return _context9.a(2);
           case 1:
-            _context3.p = 1;
-            _context3.n = 2;
+            _context9.p = 1;
+            _context9.n = 2;
             return fetch("/api/reports", {
               method: "POST",
               headers: {
@@ -43352,9 +43756,9 @@ function loadReport(app) {
               })
             });
           case 2:
-            res = _context3.v;
+            res = _context9.v;
             if (res.ok) {
-              _context3.n = 3;
+              _context9.n = 3;
               break;
             }
             throw new Error("Failed to send report");
@@ -43363,37 +43767,266 @@ function loadReport(app) {
             document.getElementById("reportTitle").value = "";
             document.getElementById("reportSubject").value = "";
             document.getElementById("reportContent").value = "";
-            _context3.n = 5;
+            _context9.n = 5;
             break;
           case 4:
-            _context3.p = 4;
-            _t3 = _context3.v;
-            console.error("Error sending report:", _t3);
+            _context9.p = 4;
+            _t4 = _context9.v;
+            console.error("Error sending report:", _t4);
             alert("❌ Failed to send report. Please try again.");
           case 5:
-            return _context3.a(2);
+            return _context9.a(2);
         }
-      }, _callee3, null, [[1, 4]]);
+      }, _callee9, null, [[1, 4]]);
     }));
     return _sendReport.apply(this, arguments);
   }
-  function exportToCSV() {
-    var rows = Array.from(document.querySelectorAll("#reportTableBody tr")).map(function (tr) {
-      return Array.from(tr.children).map(function (td) {
-        return td.textContent;
-      });
+  function exportReport() {
+    return _exportReport.apply(this, arguments);
+  }
+  function _exportReport() {
+    _exportReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+      var format, type, course, department, year, data, headers, title, exportData, _t5, _t6, _t7;
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
+          case 0:
+            format = document.getElementById("exportFormat").value;
+            type = document.getElementById("reportType").value;
+            course = document.getElementById("courseSelect").value;
+            department = document.getElementById("departmentSelect").value;
+            year = document.getElementById("academicYearSelect").value;
+            _context0.p = 1;
+            data = [];
+            headers = [];
+            title = ""; // Get data based on report type
+            _t5 = type;
+            _context0.n = _t5 === 'students' ? 2 : _t5 === 'faculty' ? 4 : _t5 === 'courses' ? 6 : _t5 === 'departments' ? 8 : _t5 === 'academic_years' ? 10 : _t5 === 'archives' ? 12 : 14;
+            break;
+          case 2:
+            headers = ['#', 'Student Name', 'Course', 'Academic Year', 'Status'];
+            _context0.n = 3;
+            return fetchStudentsReport(course, department, year);
+          case 3:
+            data = _context0.v;
+            title = "Students Report";
+            return _context0.a(3, 14);
+          case 4:
+            headers = ['#', 'Faculty Name', 'Department', 'Academic Year', 'Status'];
+            _context0.n = 5;
+            return fetchFacultyReport(course, department, year);
+          case 5:
+            data = _context0.v;
+            title = "Faculty Report";
+            return _context0.a(3, 14);
+          case 6:
+            headers = ['#', 'Course Name', 'Department', 'Created Date', 'Status'];
+            _context0.n = 7;
+            return fetchCoursesReport();
+          case 7:
+            data = _context0.v;
+            title = "Courses Report";
+            return _context0.a(3, 14);
+          case 8:
+            headers = ['#', 'Department Name', 'Head', 'Created Date', 'Status'];
+            _context0.n = 9;
+            return fetchDepartmentsReport();
+          case 9:
+            data = _context0.v;
+            title = "Departments Report";
+            return _context0.a(3, 14);
+          case 10:
+            headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
+            _context0.n = 11;
+            return fetchAcademicYearsReport();
+          case 11:
+            data = _context0.v;
+            title = "Academic Years Report";
+            return _context0.a(3, 14);
+          case 12:
+            headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
+            _context0.n = 13;
+            return fetchArchivesReport();
+          case 13:
+            data = _context0.v;
+            title = "Archives Report";
+            return _context0.a(3, 14);
+          case 14:
+            if (data.length) {
+              _context0.n = 15;
+              break;
+            }
+            alert("No data to export!");
+            return _context0.a(2);
+          case 15:
+            // Prepare data for export
+            exportData = data.map(function (item, index) {
+              var _item$course3, _item$course4, _item$academic_year5, _item$academic_year6, _item$department5, _item$department6, _item$academic_year7, _item$academic_year8, _item$department7, _item$department8;
+              switch (type) {
+                case 'students':
+                  return [index + 1, "".concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname), ((_item$course3 = item.course) === null || _item$course3 === void 0 ? void 0 : _item$course3.name) || ((_item$course4 = item.course) === null || _item$course4 === void 0 ? void 0 : _item$course4.course_name) || 'N/A', ((_item$academic_year5 = item.academic_year) === null || _item$academic_year5 === void 0 ? void 0 : _item$academic_year5.year) || ((_item$academic_year6 = item.academic_year) === null || _item$academic_year6 === void 0 ? void 0 : _item$academic_year6.academic_year) || 'N/A', item.yearstatus || "Active"];
+                case 'faculty':
+                  return [index + 1, "".concat(item.first_name || item.firstname, " ").concat(item.last_name || item.lastname), ((_item$department5 = item.department) === null || _item$department5 === void 0 ? void 0 : _item$department5.name) || ((_item$department6 = item.department) === null || _item$department6 === void 0 ? void 0 : _item$department6.department_name) || 'N/A', ((_item$academic_year7 = item.academic_year) === null || _item$academic_year7 === void 0 ? void 0 : _item$academic_year7.year) || ((_item$academic_year8 = item.academic_year) === null || _item$academic_year8 === void 0 ? void 0 : _item$academic_year8.academic_year) || 'N/A', item.yearstatus || "Active"];
+                case 'courses':
+                  return [index + 1, item.name || item.course_name, ((_item$department7 = item.department) === null || _item$department7 === void 0 ? void 0 : _item$department7.name) || ((_item$department8 = item.department) === null || _item$department8 === void 0 ? void 0 : _item$department8.department_name) || 'N/A', item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', 'Active'];
+                case 'departments':
+                  return [index + 1, item.name || item.department_name, item.head || item.department_head || 'N/A', item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', 'Active'];
+                case 'academic_years':
+                  return [index + 1, item.year || item.academic_year, item.is_active ? "Active" : "Inactive", item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', 'Available'];
+                case 'archives':
+                  return [index + 1, item.type, item.name, item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A', 'Available'];
+                default:
+                  return [];
+              }
+            }); // Export based on format
+            _t6 = format;
+            _context0.n = _t6 === 'csv' ? 16 : _t6 === 'pdf' ? 17 : _t6 === 'excel' ? 19 : _t6 === 'word' ? 21 : 23;
+            break;
+          case 16:
+            exportToCSV(headers, exportData, title);
+            return _context0.a(3, 23);
+          case 17:
+            _context0.n = 18;
+            return exportToPDF(headers, exportData, title);
+          case 18:
+            return _context0.a(3, 23);
+          case 19:
+            _context0.n = 20;
+            return exportToExcel(headers, exportData, title);
+          case 20:
+            return _context0.a(3, 23);
+          case 21:
+            _context0.n = 22;
+            return exportToWord(headers, exportData, title);
+          case 22:
+            return _context0.a(3, 23);
+          case 23:
+            _context0.n = 25;
+            break;
+          case 24:
+            _context0.p = 24;
+            _t7 = _context0.v;
+            console.error("Error exporting report:", _t7);
+            alert("Failed to export report. Please try again.");
+          case 25:
+            return _context0.a(2);
+        }
+      }, _callee0, null, [[1, 24]]);
+    }));
+    return _exportReport.apply(this, arguments);
+  }
+  function exportToCSV(headers, data, title) {
+    var csvContent = [headers.join(",")].concat(_toConsumableArray(data.map(function (row) {
+      return row.map(function (cell) {
+        return "\"".concat(cell, "\"");
+      }).join(",");
+    }))).join("\n");
+    var blob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;"
     });
-    if (!rows.length || rows[0][0] === "No records found") {
-      alert("No data to export!");
-      return;
-    }
-    var csvContent = "data:text/csv;charset=utf-8," + rows.map(function (r) {
-      return r.join(",");
-    }).join("\n");
     var link = document.createElement("a");
-    link.href = encodeURI(csvContent);
-    link.download = "report.csv";
+    var url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = "".concat(title, "_").concat(new Date().toISOString().split('T')[0], ".csv");
     link.click();
+    URL.revokeObjectURL(url);
+  }
+  function exportToPDF(_x7, _x8, _x9) {
+    return _exportToPDF.apply(this, arguments);
+  }
+  function _exportToPDF() {
+    _exportToPDF = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(headers, data, title) {
+      var htmlContent, printWindow;
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.n) {
+          case 0:
+            // Create a simple HTML table and use browser's print to PDF
+            htmlContent = "\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charset=\"utf-8\">\n          <title>".concat(title, "</title>\n          <style>\n            body { font-family: Arial, sans-serif; margin: 20px; }\n            h1 { color: #2563EB; text-align: center; }\n            .date { color: #666; font-size: 12px; text-align: center; margin-bottom: 20px; }\n            table { border-collapse: collapse; width: 100%; margin-top: 20px; }\n            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n            th { background-color: #2563EB; color: white; font-weight: bold; }\n            tr:nth-child(even) { background-color: #f2f2f2; }\n            @media print {\n              body { margin: 0; }\n              @page { margin: 1cm; }\n            }\n          </style>\n        </head>\n        <body>\n          <h1>").concat(title, "</h1>\n          <p class=\"date\">Generated on: ").concat(new Date().toLocaleDateString(), "</p>\n          <table>\n            <thead>\n              <tr>\n                ").concat(headers.map(function (h) {
+              return "<th>".concat(h, "</th>");
+            }).join(''), "\n              </tr>\n            </thead>\n            <tbody>\n              ").concat(data.map(function (row) {
+              return "\n                <tr>\n                  ".concat(row.map(function (cell) {
+                return "<td>".concat(cell, "</td>");
+              }).join(''), "\n                </tr>\n              ");
+            }).join(''), "\n            </tbody>\n          </table>\n        </body>\n      </html>\n    "); // Open in new window and trigger print
+            printWindow = window.open('', '_blank');
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            printWindow.focus();
+
+            // Wait for content to load then print
+            setTimeout(function () {
+              printWindow.print();
+              printWindow.close();
+            }, 500);
+          case 1:
+            return _context1.a(2);
+        }
+      }, _callee1);
+    }));
+    return _exportToPDF.apply(this, arguments);
+  }
+  function exportToExcel(_x0, _x1, _x10) {
+    return _exportToExcel.apply(this, arguments);
+  }
+  function _exportToExcel() {
+    _exportToExcel = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(headers, data, title) {
+      var csvContent, blob, link, url;
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.n) {
+          case 0:
+            // Create CSV format that Excel can open
+            csvContent = [headers.join(",")].concat(_toConsumableArray(data.map(function (row) {
+              return row.map(function (cell) {
+                return "\"".concat(cell, "\"");
+              }).join(",");
+            }))).join("\n");
+            blob = new Blob([csvContent], {
+              type: "text/csv;charset=utf-8;"
+            });
+            link = document.createElement("a");
+            url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = "".concat(title, "_").concat(new Date().toISOString().split('T')[0], ".xlsx");
+            link.click();
+            URL.revokeObjectURL(url);
+          case 1:
+            return _context10.a(2);
+        }
+      }, _callee10);
+    }));
+    return _exportToExcel.apply(this, arguments);
+  }
+  function exportToWord(_x11, _x12, _x13) {
+    return _exportToWord.apply(this, arguments);
+  }
+  function _exportToWord() {
+    _exportToWord = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(headers, data, title) {
+      var htmlContent, blob, link, url;
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.n) {
+          case 0:
+            // Create HTML content for Word export
+            htmlContent = "\n      <html>\n        <head>\n          <meta charset=\"utf-8\">\n          <title>".concat(title, "</title>\n          <style>\n            body { font-family: Arial, sans-serif; margin: 20px; }\n            h1 { color: #2563EB; }\n            table { border-collapse: collapse; width: 100%; margin-top: 20px; }\n            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n            th { background-color: #2563EB; color: white; }\n            tr:nth-child(even) { background-color: #f2f2f2; }\n            .date { color: #666; font-size: 12px; }\n          </style>\n        </head>\n        <body>\n          <h1>").concat(title, "</h1>\n          <p class=\"date\">Generated on: ").concat(new Date().toLocaleDateString(), "</p>\n          <table>\n            <thead>\n              <tr>\n                ").concat(headers.map(function (h) {
+              return "<th>".concat(h, "</th>");
+            }).join(''), "\n              </tr>\n            </thead>\n            <tbody>\n              ").concat(data.map(function (row) {
+              return "\n                <tr>\n                  ".concat(row.map(function (cell) {
+                return "<td>".concat(cell, "</td>");
+              }).join(''), "\n                </tr>\n              ");
+            }).join(''), "\n            </tbody>\n          </table>\n        </body>\n      </html>\n    ");
+            blob = new Blob([htmlContent], {
+              type: "application/msword"
+            });
+            link = document.createElement("a");
+            url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = "".concat(title, "_").concat(new Date().toISOString().split('T')[0], ".doc");
+            link.click();
+            URL.revokeObjectURL(url);
+          case 1:
+            return _context11.a(2);
+        }
+      }, _callee11);
+    }));
+    return _exportToWord.apply(this, arguments);
   }
 }
 

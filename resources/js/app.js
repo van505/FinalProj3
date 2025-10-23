@@ -8,7 +8,7 @@ import "./bootstrap";
 import { loadLogin } from "./components/Login";
 import { loadRegister } from "./components/Register";
 import { loadDashboard } from "./components/Dashboard";
-import { loadStudents } from "./components/Students"; // ✅ plural
+import { loadStudents } from "./components/Students"; 
 import { loadFaculty } from "./components/Faculty";
 import { loadReport } from "./components/Report";
 import { loadSystemSettings } from "./components/SystemSettings";
