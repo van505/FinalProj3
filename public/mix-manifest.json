@@ -2,5 +2,12 @@
     "/js/app.js": "/js/app.js",
     "/js/Register.js": "/js/Register.js",
     "/css/app.css": "/css/app.css",
-    "/css/register.css": "/css/register.css"
+    "/css/dashboard.css": "/css/dashboard.css",
+    "/css/faculty.css": "/css/faculty.css",
+    "/css/student.css": "/css/student.css",
+    "/css/register.css": "/css/register.css",
+    "/css/SystemSetting.css": "/css/SystemSetting.css",
+    "/css/Report.css": "/css/Report.css",
+    "/css/profile.css": "/css/profile.css",
+    "/css/login.css": "/css/login.css"
 }

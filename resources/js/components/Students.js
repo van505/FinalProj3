@@ -301,58 +301,70 @@ export function loadStudents(app) {
 
     // Load departments, courses, academic years for filters and form
     async function loadSelectOptions() {
-        const [departmentsRes, coursesRes, yearsRes] = await Promise.all([
-            axios.get("/api/departments"),
-            axios.get("/api/courses"),
-            axios.get("/api/academic-years"),
-        ]);
-        allDepartments = departmentsRes.data;
-        allCourses = coursesRes.data;
-        allAcademicYears = yearsRes.data;
+        try {
+            const [departmentsRes, coursesRes, yearsRes] = await Promise.all([
+                axios.get("/api/departments"),
+                axios.get("/api/courses"),
+                axios.get("/api/academic-years"),
+            ]);
+            allDepartments = departmentsRes.data;
+            allCourses = coursesRes.data;
+            allAcademicYears = yearsRes.data;
 
-        // Department filter
-        document.getElementById("departmentFilter").innerHTML =
-            `<option value="">All Departments</option>` +
-            allDepartments
-                .map((d) => `<option value="${d.id}">${d.name}</option>`)
-                .join("");
+            // Department filter
+            document.getElementById("departmentFilter").innerHTML =
+                `<option value="">All Departments</option>` +
+                allDepartments
+                    .map((d) => `<option value="${d.id}">${d.name}</option>`)
+                    .join("");
 
-        // Course filter (initially all)
-        updateCourseFilter();
+            // Course filter (initially all)
+            updateCourseFilter();
 
-        // Academic year filter
-        document.getElementById("academicYearFilter").innerHTML =
-            `<option value="">All Academic Years</option>` +
-            allAcademicYears
-                .map(
-                    (y) =>
-                        `<option value="${y.id}">${
-                            y.year || y.academic_year
-                        }</option>`
-                )
-                .join("");
+            // Academic year filter
+            document.getElementById("academicYearFilter").innerHTML =
+                `<option value="">All Academic Years</option>` +
+                allAcademicYears
+                    .map(
+                        (y) =>
+                            `<option value="${y.id}">${
+                                y.year || y.academic_year
+                            }</option>`
+                    )
+                    .join("");
 
-        // Department select (form)
-        document.getElementById("departmentSelect").innerHTML =
-            `<option value="">Select Department</option>` +
-            allDepartments
-                .map((d) => `<option value="${d.id}">${d.name}</option>`)
-                .join("");
+            // Department select (form)
+            document.getElementById("departmentSelect").innerHTML =
+                `<option value="">Select Department</option>` +
+                allDepartments
+                    .map((d) => `<option value="${d.id}">${d.name}</option>`)
+                    .join("");
 
-        // Academic year select (form)
-        document.getElementById("academicYearSelectForm").innerHTML =
-            `<option value="">Select Academic Year</option>` +
-            allAcademicYears
-                .map(
-                    (y) =>
-                        `<option value="${y.id}">${
-                            y.year || y.academic_year
-                        }</option>`
-                )
-                .join("");
+            // Academic year select (form)
+            document.getElementById("academicYearSelectForm").innerHTML =
+                `<option value="">Select Academic Year</option>` +
+                allAcademicYears
+                    .map(
+                        (y) =>
+                            `<option value="${y.id}">${
+                                y.year || y.academic_year
+                            }</option>`
+                    )
+                    .join("");
 
-        // Course select (form, initially all)
-        updateCourseSelect();
+            // Course select (form, initially all)
+            updateCourseSelect();
+        } catch (error) {
+            console.error("Error loading select options:", error.response?.data || error);
+            
+            if (error.response?.status === 401) {
+                alert("Authentication error. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+            } else {
+                alert("Failed to load form options. Please refresh the page.");
+            }
+        }
     }
 
     // --- FILTER LOGIC ---
@@ -418,7 +430,15 @@ export function loadStudents(app) {
             allStudents = res.data;
             renderStudents();
         } catch (error) {
-            console.error("Error fetching students:", error);
+            console.error("Error fetching students:", error.response?.data || error);
+            
+            if (error.response?.status === 401) {
+                alert("Authentication error. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+            } else {
+                alert("Failed to fetch students. Please try again.");
+            }
         }
     }
 
@@ -510,9 +530,22 @@ export function loadStudents(app) {
             btn.addEventListener("click", async () => {
                 const id = btn.dataset.id;
                 if (confirm("Archive this student?")) {
-                    await axios.delete(`/api/students/${id}`);
-                    fetchStudents();
-                    resetForm();
+                    try {
+                        await axios.delete(`/api/students/${id}`);
+                        alert("Student archived successfully!");
+                        fetchStudents();
+                        resetForm();
+                    } catch (error) {
+                        console.error("Error archiving student:", error.response?.data || error);
+                        
+                        if (error.response?.status === 401) {
+                            alert("Authentication error. Please log in again.");
+                            localStorage.removeItem("token");
+                            window.location.href = "/";
+                        } else {
+                            alert("Failed to archive student. Please try again.");
+                        }
+                    }
                 }
             });
         });
@@ -560,7 +593,15 @@ export function loadStudents(app) {
                         "inline-block";
                     isEditing = true;
                 } catch (error) {
-                    alert("Failed to fetch student data.");
+                    console.error("Error fetching student data:", error.response?.data || error);
+                    
+                    if (error.response?.status === 401) {
+                        alert("Authentication error. Please log in again.");
+                        localStorage.removeItem("token");
+                        window.location.href = "/";
+                    } else {
+                        alert("Failed to fetch student data. Please try again.");
+                    }
                 }
             });
         });
@@ -604,22 +645,42 @@ export function loadStudents(app) {
         const id = formData.edit_id;
         delete formData.edit_id;
 
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = isEditing ? "Updating..." : "Saving...";
+
         try {
             if (isEditing && id) {
                 await axios.put(`/api/students/${id}`, formData);
             } else {
                 await axios.post("/api/students", formData);
             }
+            
+            // Success feedback
+            alert(isEditing ? "Student updated successfully!" : "Student added successfully!");
+            
             form.reset();
             isEditing = false;
             hideStudentModal();
             fetchStudents();
         } catch (error) {
-            console.error(
-                "Error saving student:",
-                error.response?.data || error
-            );
-            alert("Failed to save student. Check console for details.");
+            console.error("Error saving student:", error.response?.data || error);
+            
+            if (error.response?.status === 401) {
+                alert("Authentication error. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+            } else if (error.response?.status === 422) {
+                const errors = error.response.data.errors;
+                const errorMessages = Object.values(errors).flat().join("\n");
+                alert(`Validation errors:\n${errorMessages}`);
+            } else {
+                alert("Failed to save student. Please try again.");
+            }
+        } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.textContent = isEditing ? "Update Student" : "Save Student";
         }
     });
 

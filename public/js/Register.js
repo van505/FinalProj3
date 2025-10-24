@@ -19070,10 +19070,11 @@ function loadStudents(app) {
   // When department filter changes, update course filter options
   function _loadSelectOptions() {
     _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes;
+      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes, _error$response8, _error$response9, _t4;
       return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.n) {
+        while (1) switch (_context4.p = _context4.n) {
           case 0:
+            _context4.p = 0;
             _context4.n = 1;
             return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/courses"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
           case 1:
@@ -19111,10 +19112,23 @@ function loadStudents(app) {
 
             // Course select (form, initially all)
             updateCourseSelect();
+            _context4.n = 3;
+            break;
           case 2:
+            _context4.p = 2;
+            _t4 = _context4.v;
+            console.error("Error loading select options:", ((_error$response8 = _t4.response) === null || _error$response8 === void 0 ? void 0 : _error$response8.data) || _t4);
+            if (((_error$response9 = _t4.response) === null || _error$response9 === void 0 ? void 0 : _error$response9.status) === 401) {
+              alert("Authentication error. Please log in again.");
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            } else {
+              alert("Failed to load form options. Please refresh the page.");
+            }
+          case 3:
             return _context4.a(2);
         }
-      }, _callee4);
+      }, _callee4, null, [[0, 2]]);
     }));
     return _loadSelectOptions.apply(this, arguments);
   }
@@ -19171,7 +19185,7 @@ function loadStudents(app) {
   } // Render students with filters/search
   function _fetchStudents() {
     _fetchStudents = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var res, _t3;
+      var res, _error$response0, _error$response1, _t5;
       return _regenerator().w(function (_context5) {
         while (1) switch (_context5.p = _context5.n) {
           case 0:
@@ -19186,8 +19200,15 @@ function loadStudents(app) {
             break;
           case 2:
             _context5.p = 2;
-            _t3 = _context5.v;
-            console.error("Error fetching students:", _t3);
+            _t5 = _context5.v;
+            console.error("Error fetching students:", ((_error$response0 = _t5.response) === null || _error$response0 === void 0 ? void 0 : _error$response0.data) || _t5);
+            if (((_error$response1 = _t5.response) === null || _error$response1 === void 0 ? void 0 : _error$response1.status) === 401) {
+              alert("Authentication error. Please log in again.");
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            } else {
+              alert("Failed to fetch students. Please try again.");
+            }
           case 3:
             return _context5.a(2);
         }
@@ -19233,31 +19254,46 @@ function loadStudents(app) {
     // Archive logic
     document.querySelectorAll(".archive-btn").forEach(function (btn) {
       btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var id;
+        var id, _error$response, _error$response2, _t;
         return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               id = btn.dataset.id;
               if (!confirm("Archive this student?")) {
-                _context.n = 2;
+                _context.n = 4;
                 break;
               }
-              _context.n = 1;
+              _context.p = 1;
+              _context.n = 2;
               return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/students/".concat(id));
-            case 1:
+            case 2:
+              alert("Student archived successfully!");
               fetchStudents();
               resetForm();
-            case 2:
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error("Error archiving student:", ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t);
+              if (((_error$response2 = _t.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 401) {
+                alert("Authentication error. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+              } else {
+                alert("Failed to archive student. Please try again.");
+              }
+            case 4:
               return _context.a(2);
           }
-        }, _callee);
+        }, _callee, null, [[1, 3]]);
       })));
     });
 
     // Edit logic
     document.querySelectorAll(".edit-btn").forEach(function (btn) {
       btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var id, res, s, _t;
+        var id, res, s, _error$response3, _error$response4, _t2;
         return _regenerator().w(function (_context2) {
           while (1) switch (_context2.p = _context2.n) {
             case 0:
@@ -19293,8 +19329,15 @@ function loadStudents(app) {
               break;
             case 3:
               _context2.p = 3;
-              _t = _context2.v;
-              alert("Failed to fetch student data.");
+              _t2 = _context2.v;
+              console.error("Error fetching student data:", ((_error$response3 = _t2.response) === null || _error$response3 === void 0 ? void 0 : _error$response3.data) || _t2);
+              if (((_error$response4 = _t2.response) === null || _error$response4 === void 0 ? void 0 : _error$response4.status) === 401) {
+                alert("Authentication error. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+              } else {
+                alert("Failed to fetch student data. Please try again.");
+              }
             case 4:
               return _context2.a(2);
           }
@@ -19329,7 +19372,7 @@ function loadStudents(app) {
   var submitBtn = document.getElementById("submitBtn");
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
-      var formData, id, _error$response, _t2;
+      var formData, id, _error$response5, _error$response6, _error$response7, errors, errorMessages, _t3;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
@@ -19337,6 +19380,10 @@ function loadStudents(app) {
             formData = Object.fromEntries(new FormData(form));
             id = formData.edit_id;
             delete formData.edit_id;
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = isEditing ? "Updating..." : "Saving...";
             _context3.p = 1;
             if (!(isEditing && id)) {
               _context3.n = 3;
@@ -19351,6 +19398,8 @@ function loadStudents(app) {
             _context3.n = 4;
             return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/students", formData);
           case 4:
+            // Success feedback
+            alert(isEditing ? "Student updated successfully!" : "Student added successfully!");
             form.reset();
             isEditing = false;
             hideStudentModal();
@@ -19359,13 +19408,29 @@ function loadStudents(app) {
             break;
           case 5:
             _context3.p = 5;
-            _t2 = _context3.v;
-            console.error("Error saving student:", ((_error$response = _t2.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t2);
-            alert("Failed to save student. Check console for details.");
+            _t3 = _context3.v;
+            console.error("Error saving student:", ((_error$response5 = _t3.response) === null || _error$response5 === void 0 ? void 0 : _error$response5.data) || _t3);
+            if (((_error$response6 = _t3.response) === null || _error$response6 === void 0 ? void 0 : _error$response6.status) === 401) {
+              alert("Authentication error. Please log in again.");
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            } else if (((_error$response7 = _t3.response) === null || _error$response7 === void 0 ? void 0 : _error$response7.status) === 422) {
+              errors = _t3.response.data.errors;
+              errorMessages = Object.values(errors).flat().join("\n");
+              alert("Validation errors:\n".concat(errorMessages));
+            } else {
+              alert("Failed to save student. Please try again.");
+            }
           case 6:
+            _context3.p = 6;
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.textContent = isEditing ? "Update Student" : "Save Student";
+            return _context3.f(6);
+          case 7:
             return _context3.a(2);
         }
-      }, _callee3, null, [[1, 5]]);
+      }, _callee3, null, [[1, 5, 6, 7]]);
     }));
     return function (_x) {
       return _ref3.apply(this, arguments);
