@@ -44520,7 +44520,7 @@ function loadSystemSettings(app) {
   }
   function _showTab() {
     _showTab = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(tab) {
-      var sidebarBtn, filtersContainer, refreshBtn, _t, _t2;
+      var sidebarBtn, filtersContainer, refreshBtn, _t9, _t0;
       return _regenerator().w(function (_context9) {
         while (1) switch (_context9.n) {
           case 0:
@@ -44535,8 +44535,8 @@ function loadSystemSettings(app) {
               _context9.n = 5;
               break;
             }
-            _t = tab;
-            _context9.n = _t === 'courses' ? 1 : _t === 'departments' ? 2 : _t === 'academic' ? 3 : 4;
+            _t9 = tab;
+            _context9.n = _t9 === 'courses' ? 1 : _t9 === 'departments' ? 2 : _t9 === 'academic' ? 3 : 4;
             break;
           case 1:
             sidebarBtn.innerHTML = "\n            <svg class=\"btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n              <line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line>\n              <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n            </svg>\n            Add Course\n          ";
@@ -44556,8 +44556,8 @@ function loadSystemSettings(app) {
               _context9.n = 14;
               break;
             }
-            _t2 = tab;
-            _context9.n = _t2 === 'courses' ? 6 : _t2 === 'departments' ? 8 : _t2 === 'academic' ? 10 : _t2 === 'archives' ? 12 : 14;
+            _t0 = tab;
+            _context9.n = _t0 === 'courses' ? 6 : _t0 === 'departments' ? 8 : _t0 === 'academic' ? 10 : _t0 === 'archives' ? 12 : 14;
             break;
           case 6:
             filtersContainer.innerHTML = getCoursesFilters();
@@ -44702,8 +44702,9 @@ function loadSystemSettings(app) {
     // Attach event listeners
     document.querySelectorAll('.archive-btn').forEach(function (btn) {
       btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var res, _t;
         return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               if (confirm('Are you sure you want to archive this course?')) {
                 _context.n = 1;
@@ -44711,18 +44712,40 @@ function loadSystemSettings(app) {
               }
               return _context.a(2);
             case 1:
+              _context.p = 1;
               _context.n = 2;
               return fetch("/api/courses/".concat(btn.dataset.id), {
                 method: 'DELETE',
                 credentials: 'include'
               });
             case 2:
-              fetchCourses();
-              resetCourseForm();
+              res = _context.v;
+              if (!res.ok) {
+                _context.n = 4;
+                break;
+              }
+              alert('Course archived successfully!');
+              _context.n = 3;
+              return fetchCourses();
             case 3:
+              // Refresh the table
+              resetCourseForm();
+              _context.n = 5;
+              break;
+            case 4:
+              alert('Failed to archive course. Please try again.');
+            case 5:
+              _context.n = 7;
+              break;
+            case 6:
+              _context.p = 6;
+              _t = _context.v;
+              console.error('Error archiving course:', _t);
+              alert('Failed to archive course. Please try again.');
+            case 7:
               return _context.a(2);
           }
-        }, _callee);
+        }, _callee, null, [[1, 6]]);
       })));
     });
     document.querySelectorAll('.edit-btn').forEach(function (btn) {
@@ -44741,24 +44764,27 @@ function loadSystemSettings(app) {
     if (!form) return;
     form.addEventListener('submit', /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
-        var courseName, departmentId, editId, msg, res, body;
+        var courseName, departmentId, editId, submitBtn, body, res, errorData, _t2;
         return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
               e.preventDefault();
               courseName = document.getElementById('course_name').value;
               departmentId = document.getElementById('course_department_id').value;
               editId = document.getElementById('edit_course_id').value;
-              msg = document.getElementById('settingsMessage');
+              submitBtn = document.getElementById('courseSubmitBtn'); // Show loading state
+              submitBtn.disabled = true;
+              submitBtn.textContent = editId ? "Updating..." : "Adding...";
+              _context2.p = 1;
               body = JSON.stringify({
                 name: courseName,
                 department_id: departmentId
               });
               if (!editId) {
-                _context2.n = 2;
+                _context2.n = 3;
                 break;
               }
-              _context2.n = 1;
+              _context2.n = 2;
               return fetch("/api/courses/".concat(editId), {
                 method: 'PUT',
                 headers: {
@@ -44767,12 +44793,12 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 1:
-              res = _context2.v;
-              _context2.n = 4;
-              break;
             case 2:
-              _context2.n = 3;
+              res = _context2.v;
+              _context2.n = 5;
+              break;
+            case 3:
+              _context2.n = 4;
               return fetch('/api/courses', {
                 method: 'POST',
                 headers: {
@@ -44781,16 +44807,47 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 3:
-              res = _context2.v;
             case 4:
-              msg.textContent = res.ok ? editId ? "Course updated!" : "Course added!" : "Failed to save course.";
-              fetchCourses();
-              resetCourseForm();
+              res = _context2.v;
             case 5:
+              if (!res.ok) {
+                _context2.n = 7;
+                break;
+              }
+              alert(editId ? "Course updated successfully!" : "Course added successfully!");
+              _context2.n = 6;
+              return fetchCourses();
+            case 6:
+              // Refresh the table
+              resetCourseForm();
+              _context2.n = 9;
+              break;
+            case 7:
+              _context2.n = 8;
+              return res.json()["catch"](function () {
+                return {};
+              });
+            case 8:
+              errorData = _context2.v;
+              alert("Failed to save course: ".concat(errorData.message || 'Unknown error'));
+            case 9:
+              _context2.n = 11;
+              break;
+            case 10:
+              _context2.p = 10;
+              _t2 = _context2.v;
+              console.error('Error saving course:', _t2);
+              alert('Failed to save course. Please try again.');
+            case 11:
+              _context2.p = 11;
+              // Reset button state
+              submitBtn.disabled = false;
+              submitBtn.textContent = editId ? "Update Course" : "Add Course";
+              return _context2.f(11);
+            case 12:
               return _context2.a(2);
           }
-        }, _callee2);
+        }, _callee2, null, [[1, 10, 11, 12]]);
       }));
       return function (_x2) {
         return _ref2.apply(this, arguments);
@@ -44886,8 +44943,9 @@ function loadSystemSettings(app) {
     // Attach event listeners
     document.querySelectorAll('.archive-btn').forEach(function (btn) {
       btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var res, _t3;
         return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
               if (confirm('Are you sure you want to archive this department?')) {
                 _context3.n = 1;
@@ -44895,18 +44953,40 @@ function loadSystemSettings(app) {
               }
               return _context3.a(2);
             case 1:
+              _context3.p = 1;
               _context3.n = 2;
               return fetch("/api/departments/".concat(btn.dataset.id), {
                 method: 'DELETE',
                 credentials: 'include'
               });
             case 2:
-              fetchDepartments();
-              resetDepartmentForm();
+              res = _context3.v;
+              if (!res.ok) {
+                _context3.n = 4;
+                break;
+              }
+              alert('Department archived successfully!');
+              _context3.n = 3;
+              return fetchDepartments();
             case 3:
+              // Refresh the table
+              resetDepartmentForm();
+              _context3.n = 5;
+              break;
+            case 4:
+              alert('Failed to archive department. Please try again.');
+            case 5:
+              _context3.n = 7;
+              break;
+            case 6:
+              _context3.p = 6;
+              _t3 = _context3.v;
+              console.error('Error archiving department:', _t3);
+              alert('Failed to archive department. Please try again.');
+            case 7:
               return _context3.a(2);
           }
-        }, _callee3);
+        }, _callee3, null, [[1, 6]]);
       })));
     });
     document.querySelectorAll('.edit-btn').forEach(function (btn) {
@@ -44927,23 +45007,27 @@ function loadSystemSettings(app) {
     if (!form) return;
     form.addEventListener('submit', /*#__PURE__*/function () {
       var _ref4 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(e) {
-        var departmentName, departmentHead, editId, res, body;
+        var departmentName, departmentHead, editId, submitBtn, body, res, errorData, _t4;
         return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
               e.preventDefault();
               departmentName = document.getElementById('department_name').value;
               departmentHead = document.getElementById('department_head').value;
               editId = document.getElementById('edit_department_id').value;
+              submitBtn = document.getElementById('departmentSubmitBtn'); // Show loading state
+              submitBtn.disabled = true;
+              submitBtn.textContent = editId ? "Updating..." : "Adding...";
+              _context4.p = 1;
               body = JSON.stringify({
                 name: departmentName,
                 head: departmentHead
               });
               if (!editId) {
-                _context4.n = 2;
+                _context4.n = 3;
                 break;
               }
-              _context4.n = 1;
+              _context4.n = 2;
               return fetch("/api/departments/".concat(editId), {
                 method: 'PUT',
                 headers: {
@@ -44952,12 +45036,12 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 1:
-              res = _context4.v;
-              _context4.n = 4;
-              break;
             case 2:
-              _context4.n = 3;
+              res = _context4.v;
+              _context4.n = 5;
+              break;
+            case 3:
+              _context4.n = 4;
               return fetch('/api/departments', {
                 method: 'POST',
                 headers: {
@@ -44966,15 +45050,47 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 3:
-              res = _context4.v;
             case 4:
-              fetchDepartments();
-              resetDepartmentForm();
+              res = _context4.v;
             case 5:
+              if (!res.ok) {
+                _context4.n = 7;
+                break;
+              }
+              alert(editId ? "Department updated successfully!" : "Department added successfully!");
+              _context4.n = 6;
+              return fetchDepartments();
+            case 6:
+              // Refresh the table
+              resetDepartmentForm();
+              _context4.n = 9;
+              break;
+            case 7:
+              _context4.n = 8;
+              return res.json()["catch"](function () {
+                return {};
+              });
+            case 8:
+              errorData = _context4.v;
+              alert("Failed to save department: ".concat(errorData.message || 'Unknown error'));
+            case 9:
+              _context4.n = 11;
+              break;
+            case 10:
+              _context4.p = 10;
+              _t4 = _context4.v;
+              console.error('Error saving department:', _t4);
+              alert('Failed to save department. Please try again.');
+            case 11:
+              _context4.p = 11;
+              // Reset button state
+              submitBtn.disabled = false;
+              submitBtn.textContent = editId ? "Update Department" : "Add Department";
+              return _context4.f(11);
+            case 12:
               return _context4.a(2);
           }
-        }, _callee4);
+        }, _callee4, null, [[1, 10, 11, 12]]);
       }));
       return function (_x3) {
         return _ref4.apply(this, arguments);
@@ -45069,8 +45185,9 @@ function loadSystemSettings(app) {
     // Attach event listeners
     document.querySelectorAll('.archive-btn').forEach(function (btn) {
       btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var res, _t5;
         return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+          while (1) switch (_context5.p = _context5.n) {
             case 0:
               if (confirm('Are you sure you want to archive this academic year?')) {
                 _context5.n = 1;
@@ -45078,18 +45195,40 @@ function loadSystemSettings(app) {
               }
               return _context5.a(2);
             case 1:
+              _context5.p = 1;
               _context5.n = 2;
               return fetch("/api/academic-years/".concat(btn.dataset.id), {
                 method: 'DELETE',
                 credentials: 'include'
               });
             case 2:
-              fetchAcademicYears();
-              resetAcademicForm();
+              res = _context5.v;
+              if (!res.ok) {
+                _context5.n = 4;
+                break;
+              }
+              alert('Academic year archived successfully!');
+              _context5.n = 3;
+              return fetchAcademicYears();
             case 3:
+              // Refresh the table
+              resetAcademicForm();
+              _context5.n = 5;
+              break;
+            case 4:
+              alert('Failed to archive academic year. Please try again.');
+            case 5:
+              _context5.n = 7;
+              break;
+            case 6:
+              _context5.p = 6;
+              _t5 = _context5.v;
+              console.error('Error archiving academic year:', _t5);
+              alert('Failed to archive academic year. Please try again.');
+            case 7:
               return _context5.a(2);
           }
-        }, _callee5);
+        }, _callee5, null, [[1, 6]]);
       })));
     });
     document.querySelectorAll('.edit-btn').forEach(function (btn) {
@@ -45108,24 +45247,27 @@ function loadSystemSettings(app) {
     if (!form) return;
     form.addEventListener('submit', /*#__PURE__*/function () {
       var _ref6 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(e) {
-        var year, is_active, editId, msg, body, res;
+        var year, is_active, editId, submitBtn, body, res, errorData, _t6;
         return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
               e.preventDefault();
               year = document.getElementById('academic_year').value;
               is_active = document.getElementById('is_active').checked ? 1 : 0;
               editId = document.getElementById('edit_academic_id').value;
-              msg = document.getElementById('settingsMessage');
+              submitBtn = document.getElementById('academicSubmitBtn'); // Show loading state
+              submitBtn.disabled = true;
+              submitBtn.textContent = editId ? "Updating..." : "Adding...";
+              _context6.p = 1;
               body = JSON.stringify({
                 year: year,
                 is_active: is_active
               });
               if (!editId) {
-                _context6.n = 2;
+                _context6.n = 3;
                 break;
               }
-              _context6.n = 1;
+              _context6.n = 2;
               return fetch("/api/academic-years/".concat(editId), {
                 method: 'PUT',
                 headers: {
@@ -45134,12 +45276,12 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 1:
-              res = _context6.v;
-              _context6.n = 4;
-              break;
             case 2:
-              _context6.n = 3;
+              res = _context6.v;
+              _context6.n = 5;
+              break;
+            case 3:
+              _context6.n = 4;
               return fetch('/api/academic-years', {
                 method: 'POST',
                 headers: {
@@ -45148,16 +45290,47 @@ function loadSystemSettings(app) {
                 credentials: 'include',
                 body: body
               });
-            case 3:
-              res = _context6.v;
             case 4:
-              msg.textContent = res.ok ? editId ? "Academic year updated!" : "Academic year added!" : "Failed to save academic year.";
-              fetchAcademicYears();
-              resetAcademicForm();
+              res = _context6.v;
             case 5:
+              if (!res.ok) {
+                _context6.n = 7;
+                break;
+              }
+              alert(editId ? "Academic year updated successfully!" : "Academic year added successfully!");
+              _context6.n = 6;
+              return fetchAcademicYears();
+            case 6:
+              // Refresh the table
+              resetAcademicForm();
+              _context6.n = 9;
+              break;
+            case 7:
+              _context6.n = 8;
+              return res.json()["catch"](function () {
+                return {};
+              });
+            case 8:
+              errorData = _context6.v;
+              alert("Failed to save academic year: ".concat(errorData.message || 'Unknown error'));
+            case 9:
+              _context6.n = 11;
+              break;
+            case 10:
+              _context6.p = 10;
+              _t6 = _context6.v;
+              console.error('Error saving academic year:', _t6);
+              alert('Failed to save academic year. Please try again.');
+            case 11:
+              _context6.p = 11;
+              // Reset button state
+              submitBtn.disabled = false;
+              submitBtn.textContent = editId ? "Update Academic Year" : "Add Academic Year";
+              return _context6.f(11);
+            case 12:
               return _context6.a(2);
           }
-        }, _callee6);
+        }, _callee6, null, [[1, 10, 11, 12]]);
       }));
       return function (_x4) {
         return _ref6.apply(this, arguments);
@@ -45291,21 +45464,28 @@ function loadSystemSettings(app) {
     // actions
     document.querySelectorAll('.btn-restore').forEach(function (btn) {
       btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var type, id, res, restoreEndpoints, alt;
+        var type, id, res, restoreEndpoints, alt, _t7;
         return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
               type = btn.dataset.type; // course | department | academic_year | faculty | student
-              id = btn.dataset.id; // Try archives restore endpoint first
-              _context7.n = 1;
+              id = btn.dataset.id;
+              if (confirm("Are you sure you want to restore this ".concat(type, "?"))) {
+                _context7.n = 1;
+                break;
+              }
+              return _context7.a(2);
+            case 1:
+              _context7.p = 1;
+              _context7.n = 2;
               return fetch("/api/archives/restore/".concat(type, "/").concat(id), {
                 method: 'POST',
                 credentials: 'include'
               });
-            case 1:
+            case 2:
               res = _context7.v;
               if (res.ok) {
-                _context7.n = 3;
+                _context7.n = 4;
                 break;
               }
               restoreEndpoints = {
@@ -45317,33 +45497,48 @@ function loadSystemSettings(app) {
               };
               alt = restoreEndpoints[type];
               if (!alt) {
-                _context7.n = 3;
+                _context7.n = 4;
                 break;
               }
-              _context7.n = 2;
+              _context7.n = 3;
               return fetch(alt, {
                 method: 'POST',
                 credentials: 'include'
               });
-            case 2:
-              res = _context7.v;
             case 3:
-              if (res.ok) {
-                fetchArchives();
-              } else {
-                alert('Failed to restore');
-              }
+              res = _context7.v;
             case 4:
+              if (!res.ok) {
+                _context7.n = 6;
+                break;
+              }
+              alert('Item restored successfully!');
+              _context7.n = 5;
+              return fetchArchives();
+            case 5:
+              _context7.n = 7;
+              break;
+            case 6:
+              alert('Failed to restore item. Please try again.');
+            case 7:
+              _context7.n = 9;
+              break;
+            case 8:
+              _context7.p = 8;
+              _t7 = _context7.v;
+              console.error('Error restoring item:', _t7);
+              alert('Failed to restore item. Please try again.');
+            case 9:
               return _context7.a(2);
           }
-        }, _callee7);
+        }, _callee7, null, [[1, 8]]);
       })));
     });
     document.querySelectorAll('.btn-delete').forEach(function (btn) {
       btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var type, id, res, deleteEndpoints, alt;
+        var type, id, res, deleteEndpoints, alt, _t8;
         return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
+          while (1) switch (_context8.p = _context8.n) {
             case 0:
               if (confirm('Permanently delete this archived item? This cannot be undone.')) {
                 _context8.n = 1;
@@ -45352,16 +45547,17 @@ function loadSystemSettings(app) {
               return _context8.a(2);
             case 1:
               type = btn.dataset.type; // course | department | academic_year | faculty | student
-              id = btn.dataset.id; // Try archives delete endpoint first
-              _context8.n = 2;
+              id = btn.dataset.id;
+              _context8.p = 2;
+              _context8.n = 3;
               return fetch("/api/archives/".concat(type, "/").concat(id), {
                 method: 'DELETE',
                 credentials: 'include'
               });
-            case 2:
+            case 3:
               res = _context8.v;
               if (res.ok) {
-                _context8.n = 4;
+                _context8.n = 5;
                 break;
               }
               deleteEndpoints = {
@@ -45373,26 +45569,41 @@ function loadSystemSettings(app) {
               };
               alt = deleteEndpoints[type];
               if (!alt) {
-                _context8.n = 4;
+                _context8.n = 5;
                 break;
               }
-              _context8.n = 3;
+              _context8.n = 4;
               return fetch(alt, {
                 method: 'DELETE',
                 credentials: 'include'
               });
-            case 3:
-              res = _context8.v;
             case 4:
-              if (res.ok) {
-                fetchArchives();
-              } else {
-                alert('Failed to delete');
-              }
+              res = _context8.v;
             case 5:
+              if (!res.ok) {
+                _context8.n = 7;
+                break;
+              }
+              alert('Item permanently deleted successfully!');
+              _context8.n = 6;
+              return fetchArchives();
+            case 6:
+              _context8.n = 8;
+              break;
+            case 7:
+              alert('Failed to delete item. Please try again.');
+            case 8:
+              _context8.n = 10;
+              break;
+            case 9:
+              _context8.p = 9;
+              _t8 = _context8.v;
+              console.error('Error deleting item:', _t8);
+              alert('Failed to delete item. Please try again.');
+            case 10:
               return _context8.a(2);
           }
-        }, _callee8);
+        }, _callee8, null, [[2, 9]]);
       })));
     });
   }

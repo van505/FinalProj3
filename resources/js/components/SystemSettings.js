@@ -601,9 +601,20 @@ export function loadSystemSettings(app) {
     document.querySelectorAll('.archive-btn').forEach(btn => {
         btn.addEventListener('click', async () => {
         if (!confirm('Are you sure you want to archive this course?')) return;
-          await fetch(`/api/courses/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
-          fetchCourses();
-          resetCourseForm();
+        
+        try {
+          const res = await fetch(`/api/courses/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+          if (res.ok) {
+            alert('Course archived successfully!');
+            await fetchCourses(); // Refresh the table
+            resetCourseForm();
+          } else {
+            alert('Failed to archive course. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error archiving course:', error);
+          alert('Failed to archive course. Please try again.');
+        }
         });
       });
     document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -626,18 +637,38 @@ export function loadSystemSettings(app) {
       const courseName = document.getElementById('course_name').value;
       const departmentId = document.getElementById('course_department_id').value;
       const editId = document.getElementById('edit_course_id').value;
-      const msg = document.getElementById('settingsMessage');
-      let res;
-      const body = JSON.stringify({ name: courseName, department_id: departmentId });
+      const submitBtn = document.getElementById('courseSubmitBtn');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = editId ? "Updating..." : "Adding...";
+      
+      try {
+        const body = JSON.stringify({ name: courseName, department_id: departmentId });
+        let res;
 
-      if (editId) {
-        res = await fetch(`/api/courses/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
-      } else {
-        res = await fetch('/api/courses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        if (editId) {
+          res = await fetch(`/api/courses/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        } else {
+          res = await fetch('/api/courses', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        }
+        
+        if (res.ok) {
+          alert(editId ? "Course updated successfully!" : "Course added successfully!");
+          await fetchCourses(); // Refresh the table
+          resetCourseForm();
+        } else {
+          const errorData = await res.json().catch(() => ({}));
+          alert(`Failed to save course: ${errorData.message || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error saving course:', error);
+        alert('Failed to save course. Please try again.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = editId ? "Update Course" : "Add Course";
       }
-      msg.textContent = res.ok ? (editId ? "Course updated!" : "Course added!") : "Failed to save course.";
-      fetchCourses();
-      resetCourseForm();
     });
     document.getElementById('cancelCourseEditBtn').addEventListener('click', resetCourseForm);
   }
@@ -715,9 +746,20 @@ export function loadSystemSettings(app) {
     document.querySelectorAll('.archive-btn').forEach(btn => {
         btn.addEventListener('click', async () => {
         if (!confirm('Are you sure you want to archive this department?')) return;
-          await fetch(`/api/departments/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
-          fetchDepartments();
-          resetDepartmentForm();
+        
+        try {
+          const res = await fetch(`/api/departments/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+          if (res.ok) {
+            alert('Department archived successfully!');
+            await fetchDepartments(); // Refresh the table
+            resetDepartmentForm();
+          } else {
+            alert('Failed to archive department. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error archiving department:', error);
+          alert('Failed to archive department. Please try again.');
+        }
         });
       });
       document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -742,16 +784,38 @@ export function loadSystemSettings(app) {
       const departmentName = document.getElementById('department_name').value;
       const departmentHead = document.getElementById('department_head').value;
       const editId = document.getElementById('edit_department_id').value;
-      let res;
-      const body = JSON.stringify({ name: departmentName, head: departmentHead });
+      const submitBtn = document.getElementById('departmentSubmitBtn');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = editId ? "Updating..." : "Adding...";
+      
+      try {
+        const body = JSON.stringify({ name: departmentName, head: departmentHead });
+        let res;
 
-      if (editId) {
-        res = await fetch(`/api/departments/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
-      } else {
-        res = await fetch('/api/departments', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        if (editId) {
+          res = await fetch(`/api/departments/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        } else {
+          res = await fetch('/api/departments', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        }
+        
+        if (res.ok) {
+          alert(editId ? "Department updated successfully!" : "Department added successfully!");
+          await fetchDepartments(); // Refresh the table
+          resetDepartmentForm();
+        } else {
+          const errorData = await res.json().catch(() => ({}));
+          alert(`Failed to save department: ${errorData.message || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error saving department:', error);
+        alert('Failed to save department. Please try again.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = editId ? "Update Department" : "Add Department";
       }
-      fetchDepartments();
-      resetDepartmentForm();
     });
     document.getElementById('cancelDepartmentEditBtn').addEventListener('click', resetDepartmentForm);
   }
@@ -831,9 +895,20 @@ export function loadSystemSettings(app) {
     document.querySelectorAll('.archive-btn').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (!confirm('Are you sure you want to archive this academic year?')) return;
-          await fetch(`/api/academic-years/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
-          fetchAcademicYears();
-          resetAcademicForm();
+          
+          try {
+            const res = await fetch(`/api/academic-years/${btn.dataset.id}`, { method: 'DELETE', credentials: 'include' });
+            if (res.ok) {
+              alert('Academic year archived successfully!');
+              await fetchAcademicYears(); // Refresh the table
+              resetAcademicForm();
+            } else {
+              alert('Failed to archive academic year. Please try again.');
+            }
+          } catch (error) {
+            console.error('Error archiving academic year:', error);
+            alert('Failed to archive academic year. Please try again.');
+          }
         });
       });
     document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -856,18 +931,38 @@ export function loadSystemSettings(app) {
       const year = document.getElementById('academic_year').value;
       const is_active = document.getElementById('is_active').checked ? 1 : 0;
       const editId = document.getElementById('edit_academic_id').value;
-      const msg = document.getElementById('settingsMessage');
-      const body = JSON.stringify({ year, is_active });
-      let res;
+      const submitBtn = document.getElementById('academicSubmitBtn');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = editId ? "Updating..." : "Adding...";
+      
+      try {
+        const body = JSON.stringify({ year, is_active });
+        let res;
 
-      if (editId) {
-        res = await fetch(`/api/academic-years/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
-      } else {
-        res = await fetch('/api/academic-years', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        if (editId) {
+          res = await fetch(`/api/academic-years/${editId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        } else {
+          res = await fetch('/api/academic-years', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body });
+        }
+        
+        if (res.ok) {
+          alert(editId ? "Academic year updated successfully!" : "Academic year added successfully!");
+          await fetchAcademicYears(); // Refresh the table
+          resetAcademicForm();
+        } else {
+          const errorData = await res.json().catch(() => ({}));
+          alert(`Failed to save academic year: ${errorData.message || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error('Error saving academic year:', error);
+        alert('Failed to save academic year. Please try again.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = editId ? "Update Academic Year" : "Add Academic Year";
       }
-      msg.textContent = res.ok ? (editId ? "Academic year updated!" : "Academic year added!") : "Failed to save academic year.";
-      fetchAcademicYears();
-      resetAcademicForm();
     });
     document.getElementById('cancelAcademicEditBtn').addEventListener('click', resetAcademicForm);
   }
@@ -951,28 +1046,36 @@ export function loadSystemSettings(app) {
         const type = btn.dataset.type; // course | department | academic_year | faculty | student
         const id = btn.dataset.id;
 
-        // Try archives restore endpoint first
-        let res = await fetch(`/api/archives/restore/${type}/${id}`, { method: 'POST', credentials: 'include' });
+        if (!confirm(`Are you sure you want to restore this ${type}?`)) return;
 
-        // Fallbacks for common backend routes
-        if (!res.ok) {
-          const restoreEndpoints = {
-            course: `/api/courses/${id}/restore`,
-            department: `/api/departments/${id}/restore`,
-            academic_year: `/api/academic-years/${id}/restore`,
-            faculty: `/api/faculties/${id}/restore`,
-            student: `/api/students/${id}/restore`
-          };
-          const alt = restoreEndpoints[type];
-          if (alt) {
-            res = await fetch(alt, { method: 'POST', credentials: 'include' });
+        try {
+          // Try archives restore endpoint first
+          let res = await fetch(`/api/archives/restore/${type}/${id}`, { method: 'POST', credentials: 'include' });
+
+          // Fallbacks for common backend routes
+          if (!res.ok) {
+            const restoreEndpoints = {
+              course: `/api/courses/${id}/restore`,
+              department: `/api/departments/${id}/restore`,
+              academic_year: `/api/academic-years/${id}/restore`,
+              faculty: `/api/faculties/${id}/restore`,
+              student: `/api/students/${id}/restore`
+            };
+            const alt = restoreEndpoints[type];
+            if (alt) {
+              res = await fetch(alt, { method: 'POST', credentials: 'include' });
+            }
           }
-        }
 
-        if (res.ok) {
-          fetchArchives();
-        } else {
-          alert('Failed to restore');
+          if (res.ok) {
+            alert('Item restored successfully!');
+            await fetchArchives(); // Refresh the table
+          } else {
+            alert('Failed to restore item. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error restoring item:', error);
+          alert('Failed to restore item. Please try again.');
         }
       });
     });
@@ -983,28 +1086,34 @@ export function loadSystemSettings(app) {
         const type = btn.dataset.type; // course | department | academic_year | faculty | student
         const id = btn.dataset.id;
 
-        // Try archives delete endpoint first
-        let res = await fetch(`/api/archives/${type}/${id}`, { method: 'DELETE', credentials: 'include' });
+        try {
+          // Try archives delete endpoint first
+          let res = await fetch(`/api/archives/${type}/${id}`, { method: 'DELETE', credentials: 'include' });
 
-        // Fallbacks for common backend routes
-        if (!res.ok) {
-          const deleteEndpoints = {
-            course: `/api/courses/${id}/force-delete`,
-            department: `/api/departments/${id}/force-delete`,
-            academic_year: `/api/academic-years/${id}/force-delete`,
-            faculty: `/api/faculties/${id}/force-delete`,
-            student: `/api/students/${id}/force-delete`
-          };
-          const alt = deleteEndpoints[type];
-          if (alt) {
-            res = await fetch(alt, { method: 'DELETE', credentials: 'include' });
+          // Fallbacks for common backend routes
+          if (!res.ok) {
+            const deleteEndpoints = {
+              course: `/api/courses/${id}/force-delete`,
+              department: `/api/departments/${id}/force-delete`,
+              academic_year: `/api/academic-years/${id}/force-delete`,
+              faculty: `/api/faculties/${id}/force-delete`,
+              student: `/api/students/${id}/force-delete`
+            };
+            const alt = deleteEndpoints[type];
+            if (alt) {
+              res = await fetch(alt, { method: 'DELETE', credentials: 'include' });
+            }
           }
-        }
 
-        if (res.ok) {
-          fetchArchives();
-        } else {
-          alert('Failed to delete');
+          if (res.ok) {
+            alert('Item permanently deleted successfully!');
+            await fetchArchives(); // Refresh the table
+          } else {
+            alert('Failed to delete item. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+          alert('Failed to delete item. Please try again.');
         }
       });
     });
