@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f8fafc;
-  /* Background image with blur effect */
+  background: #f3f6fb;
+  /* Background image with subtle blur and dim for legibility */
 }
 .login-page::before {
   content: "";
@@ -15,8 +15,8 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(2px);
-  opacity: 0.7;
+  filter: blur(3px);
+  opacity: 0.6;
   z-index: 0;
 }
 
@@ -91,14 +91,14 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-  width: 95%;
-  background: white;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.08);
+  max-width: 940px; /* closer to prototype card width */
+  width: 92%;
+  background: #ffffff;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
 /* Left side image same width as form */
@@ -121,7 +121,7 @@
   flex-direction: column;
   justify-content: center;
   background: #ffffff;
-  padding: 3rem 3.5rem;
+  padding: 2.75rem 3rem;
   position: relative;
 }
 
@@ -134,17 +134,17 @@
 }
 
 .login-sub {
-  font-size: 1rem;
+  font-size: 0.975rem;
   color: #64748b;
-  margin-bottom: 2.5rem;
-  font-weight: 400;
+  margin-bottom: 2rem;
+  font-weight: 500;
 }
 
 /* Form styling */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-group {
@@ -158,10 +158,10 @@
   color: #374151;
 }
 .form-group .form-input {
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   border-radius: 12px;
   padding: 0.875rem 1rem;
-  font-size: 1rem;
+  font-size: 0.975rem;
   transition: all 0.2s ease;
   background: #ffffff;
   color: #1f2937;
@@ -169,7 +169,7 @@
 .form-group .form-input:focus {
   border-color: #3b5efb;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 94, 251, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 94, 251, 0.12);
   transform: translateY(-1px);
 }
 .form-group .form-input:hover {
@@ -188,7 +188,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -0.5rem;
+  margin-top: -0.25rem;
 }
 .form-row.form-aux {
   margin-top: -0.25rem;
@@ -213,20 +213,20 @@
   padding: 0.875rem 2rem;
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.975rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 .btn.btn-primary {
-  background: linear-gradient(135deg, #3b5efb 0%, #2c4dd4 100%);
+  background: linear-gradient(135deg, #3b5efb 0%, #2951e1 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 94, 251, 0.3);
+  box-shadow: 0 6px 18px rgba(59, 94, 251, 0.28);
 }
 .btn.btn-primary:hover {
-  background: linear-gradient(135deg, #3047d4 0%, #1e3bb8 100%);
+  background: linear-gradient(135deg, #2f49db 0%, #1f3fc2 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 94, 251, 0.4);
+  box-shadow: 0 10px 28px rgba(59, 94, 251, 0.38);
 }
 .btn.btn-primary:active {
   transform: translateY(0);
@@ -234,7 +234,7 @@
 }
 .btn.btn-ghost {
   background: transparent;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   color: #374151;
   font-weight: 600;
 }
@@ -242,7 +242,7 @@
   background: #f9fafb;
   border-color: #d1d5db;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .btn.btn-ghost:active {
   transform: translateY(0);

@@ -611,3 +611,113 @@
     }
   }
 }
+
+.profile-avatar {
+  .avatar-circle {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:focus {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+
+    &.has-image .avatar-icon {
+      display: none;
+    }
+  }
+
+  .avatar-image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-image.visible {
+    display: block;
+  }
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center; /* centered modal */
+  justify-content: center; /* centered modal */
+  padding: 16px;
+  z-index: 1100;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Drawer variation for left-side export modal */
+/* drawer variant removed for this modal */
+
+/* no drawer animation */
+
+.modal.large { max-width: 800px; }
+
+.modal-header,
+.modal-footer {
+  padding: 16px 20px;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+}
+
+.modal-footer {
+  border-bottom: 0;
+  border-top: none;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modal-body {
+  padding: 16px 20px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal-close {
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* separators to mimic prototype */
+.modal-separator {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 20px;
+}
+
+/* Activity component removed */

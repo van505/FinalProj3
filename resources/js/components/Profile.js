@@ -117,7 +117,8 @@ export function loadProfile(app) {
           <section class="profile-content">
             <div class="profile-summary">
               <div class="profile-avatar">
-                <div class="avatar-circle">
+                <div class="avatar-circle" id="avatarCircle" role="button" tabindex="0" aria-label="Upload profile picture">
+                  <img id="avatarImage" class="avatar-image" alt="Profile picture" />
                   <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
@@ -153,8 +154,7 @@ export function loadProfile(app) {
                     <input type="email" id="email" class="form-input" required />
                   </div>
                   <div class="form-actions">
-                    <button type="button" class="btn btn-secondary">Download Data</button>
-                    <button type="button" class="btn btn-warning">Activity Log</button>
+                    <button type="button" id="downloadDataBtn" class="btn btn-secondary">Download Data</button>
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                   </div>
                   <div id="profileMsg" class="form-message" aria-live="polite"></div>
@@ -186,9 +186,36 @@ export function loadProfile(app) {
         </div>
       </div>
     </div>
+
+    <input type="file" id="avatarInput" class="hidden-file-input" accept="image/*" />
+
+    <div id="exportModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+        <div class="modal-header">
+          <h3 id="exportModalTitle" class="modal-title">Download My Data</h3>
+          <button type="button" id="exportModalClose" class="modal-close" aria-label="Close">×</button>
+        </div>
+        <div class="modal-separator"></div>
+        <div class="modal-body">
+          <label for="exportFormat" class="form-label">Select Format</label>
+          <select id="exportFormat" class="form-input">
+            <option value="pdf">PDF</option>
+            <option value="doc">Word (.doc)</option>
+            <option value="xls">Excel (.csv)</option>
+          </select>
+        </div>
+        <div class="modal-separator"></div>
+        <div class="modal-footer">
+          <button type="button" id="exportCancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="exportConfirmBtn" class="btn btn-primary">Download</button>
+        </div>
+      </div>
+    </div>
+
+    
   `;
 
-  // Navigation handlers (keep logic unchanged)
+  // Navigation
   document.getElementById("menuSettings").addEventListener("click", (e) => {
     e.preventDefault();
     loadSystemSettings(app);
@@ -200,24 +227,51 @@ export function loadProfile(app) {
     });
   });
 
-  // Token for auth requests — logic preserved
+  // Auth
   const token = localStorage.getItem("token");
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/api",
     headers: { Authorization: `Bearer ${token}` }
   });
 
+  // State
+  let currentUser = null;
+
   // Load user data
   async function loadProfileData() {
     try {
       const res = await api.get("/profile");
       const user = res.data;
+      currentUser = user;
       document.getElementById("name").value = user.name;
       document.getElementById("email").value = user.email;
       document.getElementById("summaryName").textContent = user.name;
       document.getElementById("summaryEmail").textContent = user.email;
       document.getElementById("heroName").textContent = (user.name || "User").split(" ")[0];
       document.getElementById("heroDate").textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+      // Avatar
+      const avatarImage = document.getElementById("avatarImage");
+      const avatarCircle = document.getElementById("avatarCircle");
+      const storedAvatar = localStorage.getItem("avatarUrl");
+      let serverAvatar = user.avatar_url || user.avatar;
+      if (serverAvatar && typeof serverAvatar === "string" && serverAvatar.startsWith("/")) {
+        // normalize relative URL to absolute if API baseURL is set
+        try { serverAvatar = new URL(serverAvatar, api.defaults.baseURL || window.location.origin).toString(); } catch (_) {}
+      }
+      const effectiveAvatar = serverAvatar || storedAvatar || null;
+      if (effectiveAvatar) {
+        avatarImage.src = effectiveAvatar;
+        avatarImage.classList.add("visible");
+        avatarCircle.classList.add("has-image");
+        if (effectiveAvatar !== storedAvatar) {
+          localStorage.setItem("avatarUrl", effectiveAvatar);
+        }
+      } else {
+        avatarImage.removeAttribute("src");
+        avatarImage.classList.remove("visible");
+        avatarCircle.classList.remove("has-image");
+      }
     } catch (err) {
       console.error(err);
       document.getElementById("profileMsg").textContent = "Failed to load profile.";
@@ -225,7 +279,7 @@ export function loadProfile(app) {
   }
   loadProfileData();
 
-  // Update Profile (logic unchanged)
+  // Profile update
   document.getElementById("profileForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
@@ -241,7 +295,7 @@ export function loadProfile(app) {
     }
   });
 
-  // Change Password (logic unchanged)
+  // Password update
   document.getElementById("passwordForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const current_password = document.getElementById("current_password").value;
@@ -268,7 +322,167 @@ export function loadProfile(app) {
     }
   });
 
-  // Logout (logic unchanged)
+  // Export helpers
+  function openExportModal() {
+    const overlay = document.getElementById("exportModal");
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.classList.add("open");
+    document.getElementById("exportFormat").value = "pdf";
+  }
+  function closeExportModal() {
+    const overlay = document.getElementById("exportModal");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.classList.remove("open");
+  }
+  function downloadBlob(filename, blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+  function toProfileDocHtml(user) {
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Profile</title></head><body>
+      <h1>Profile</h1>
+      <p><strong>Name:</strong> ${user.name || ''}</p>
+      <p><strong>Email:</strong> ${user.email || ''}</p>
+    </body></html>`;
+  }
+  function toActivityDocHtml(items) {
+    const rows = items.map(a => `<tr><td>${a.date || a.created_at || ''}</td><td>${a.action || a.type || a.event || ''}</td><td>${a.details || a.description || ''}</td></tr>`).join("");
+    return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Activity Log</title></head><body>
+      <h1>Activity Log</h1>
+      <table border="1" cellspacing="0" cellpadding="6"><thead><tr><th>Date</th><th>Action</th><th>Details</th></tr></thead><tbody>${rows}</tbody></table>
+    </body></html>`;
+  }
+  function toProfileCsv(user) {
+    return ["Field,Value", `Name,${JSON.stringify(user.name || '')}`, `Email,${JSON.stringify(user.email || '')}`].join("\n");
+  }
+  function toActivityCsv(items) {
+    const header = "Date,Action,Details";
+    const rows = items.map(a => [a.date || a.created_at || '', a.action || a.type || a.event || '', (a.details || a.description || '').toString().replace(/\n/g, ' ')].map(v => JSON.stringify(v)).join(","));
+    return [header, ...rows].join("\n");
+  }
+  function openPrintWindow(html) {
+    const win = window.open("", "_blank");
+    if (!win) return;
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    win.print();
+  }
+
+  // Download Data
+  document.getElementById("downloadDataBtn").addEventListener("click", () => {
+    openExportModal();
+  });
+
+  // Activity Log removed
+
+  // Export modal events
+  document.getElementById("exportModalClose").addEventListener("click", closeExportModal);
+  document.getElementById("exportCancelBtn").addEventListener("click", closeExportModal);
+  document.getElementById("exportConfirmBtn").addEventListener("click", () => {
+    const format = document.getElementById("exportFormat").value; // pdf | doc | xls
+    if (currentUser) {
+      if (format === "doc") {
+        const html = toProfileDocHtml(currentUser);
+        const blob = new Blob([html], { type: "application/msword" });
+        downloadBlob("profile.doc", blob);
+      } else if (format === "xls") {
+        const csv = toProfileCsv(currentUser);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        downloadBlob("profile.csv", blob);
+      } else {
+        const html = toProfileDocHtml(currentUser);
+        openPrintWindow(html);
+      }
+    }
+    closeExportModal();
+  });
+
+  // Avatar upload
+  const avatarCircle = document.getElementById("avatarCircle");
+  const avatarInput = document.getElementById("avatarInput");
+  const avatarImage = document.getElementById("avatarImage");
+
+  function triggerAvatarPicker() {
+    avatarInput.click();
+  }
+  avatarCircle.addEventListener("click", triggerAvatarPicker);
+  avatarCircle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      triggerAvatarPicker();
+    }
+  });
+
+  avatarInput.addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const msg = document.getElementById("profileMsg");
+    msg.textContent = "";
+    const reader = new FileReader();
+    reader.onload = () => {
+      avatarImage.src = reader.result;
+      avatarImage.classList.add("visible");
+      avatarCircle.classList.add("has-image");
+    };
+    reader.readAsDataURL(file);
+
+    async function tryUpload(endpoint, fieldName) {
+      const form = new FormData();
+      form.append(fieldName, file);
+      return api.post(endpoint, form, { headers: { "Content-Type": "multipart/form-data" } });
+    }
+
+    const attempts = [
+      { endpoint: "/profile/avatar", field: "avatar" },
+      { endpoint: "/profile/avatar/upload", field: "avatar" },
+      { endpoint: "/user/avatar", field: "avatar" },
+      { endpoint: "/user/avatar", field: "file" },
+      { endpoint: "/user/photo", field: "photo" },
+      { endpoint: "/users/avatar", field: "avatar" },
+      { endpoint: "/profile/photo", field: "image" }
+    ];
+
+    let uploadedUrl = null;
+    let lastError = null;
+    for (const a of attempts) {
+      try {
+        const res = await tryUpload(a.endpoint, a.field);
+        const url = (res && res.data && (res.data.avatar_url || res.data.url || res.data.path)) || null;
+        if (url) {
+          uploadedUrl = url;
+          break;
+        }
+      } catch (err) {
+        lastError = err;
+      }
+    }
+
+    if (uploadedUrl) {
+      try {
+        const abs = uploadedUrl.startsWith("http") ? uploadedUrl : new URL(uploadedUrl, api.defaults.baseURL || window.location.origin).toString();
+        avatarImage.src = abs;
+        localStorage.setItem("avatarUrl", abs);
+      } catch (_) {
+        avatarImage.src = uploadedUrl;
+        localStorage.setItem("avatarUrl", uploadedUrl);
+      }
+      msg.textContent = "Profile picture updated.";
+    } else {
+      console.error("Avatar upload failed", lastError);
+      msg.textContent = "Failed to upload profile picture.";
+    }
+
+    avatarInput.value = "";
+  });
+
+  // Logout
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     try {
       await api.post("/auth/logout");

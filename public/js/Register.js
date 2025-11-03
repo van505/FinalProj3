@@ -17992,6 +17992,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Students__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Students */ "./resources/js/components/Students.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -18000,9 +18006,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 function loadProfile(app) {
-  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar\">\n        <div class=\"sidebar-content\">\n          <div class=\"sidebar-header\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"sidebar-logo\" />\n            <h1 class=\"sidebar-title\">EDUTrack</h1>\n          </div>\n          \n          <button class=\"new-item-btn\">\n            <svg class=\"btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n              <line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line>\n              <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n            </svg>\n            New Item\n          </button>\n          \n          <ul class=\"sidebar-menu\">\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"overview\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>\n                </svg>\n                <span>Overview</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"students\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Students</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"faculty\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"9\" cy=\"7\" r=\"4\"></circle>\n                  <path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path>\n                  <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path>\n                </svg>\n                <span>Faculty</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" id=\"menuReport\" data-page=\"report\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M18 20V10\"></path>\n                  <path d=\"M12 20V4\"></path>\n                  <path d=\"M6 20v-6\"></path>\n                </svg>\n                <span>Report</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item active\" data-page=\"profile\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Profile</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" id=\"menuSettings\" data-page=\"settings\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n                  <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path>\n                </svg>\n                <span>System Settings</span>\n              </a>\n            </li>\n          </ul>\n        </div>\n        \n        <div class=\"sidebar-footer\">\n          <span class=\"version-text\">v1.0.0</span>\n        </div>\n      </nav>\n\n      <div class=\"main-content\">\n        <header class=\"top-header\">\n          <div class=\"header-left\">\n            <h1 class=\"page-title\">My Profile</h1>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n              <svg class=\"search-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n                <path d=\"M21 21l-4.35-4.35\"></path>\n              </svg>\n            </div>\n          </div>\n        </header>\n\n        <div class=\"content-area\">\n          <section class=\"welcome-banner\">\n            <div class=\"banner-content\">\n              <div class=\"welcome-text\">\n                <h2 class=\"welcome-title\">Welcome, <span id=\"heroName\">User</span></h2>\n                <p class=\"welcome-date\" id=\"heroDate\"></p>\n              </div>\n              <div class=\"banner-actions\">\n                <button id=\"logoutBtn\" class=\"logout-btn\">Log out</button>\n              </div>\n            </div>\n          </section>\n\n          <section class=\"profile-content\">\n            <div class=\"profile-summary\">\n              <div class=\"profile-avatar\">\n                <div class=\"avatar-circle\">\n                  <svg class=\"avatar-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                    <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                    <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                  </svg>\n                </div>\n              </div>\n              <div class=\"profile-info\">\n                <h3 class=\"profile-name\" id=\"summaryName\">Admin User</h3>\n                <p class=\"profile-email\" id=\"summaryEmail\">admin@gmail.com</p>\n                <div class=\"profile-meta\">\n                  <div class=\"meta-item\">\n                    <span class=\"meta-label\">Role:</span>\n                    <span class=\"meta-value\">Admin</span>\n                  </div>\n                  <div class=\"meta-item\">\n                    <span class=\"meta-label\">Status:</span>\n                    <span class=\"meta-value status-active\">Active</span>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"profile-forms\">\n              <div class=\"form-section\">\n                <h3 class=\"section-title\">Profile Information</h3>\n                <form id=\"profileForm\" class=\"profile-form\">\n                  <div class=\"form-group\">\n                    <label for=\"name\" class=\"form-label\">Full Name*</label>\n                    <input type=\"text\" id=\"name\" class=\"form-input\" required />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"email\" class=\"form-label\">Email Address*</label>\n                    <input type=\"email\" id=\"email\" class=\"form-input\" required />\n                  </div>\n                  <div class=\"form-actions\">\n                    <button type=\"button\" class=\"btn btn-secondary\">Download Data</button>\n                    <button type=\"button\" class=\"btn btn-warning\">Activity Log</button>\n                    <button type=\"submit\" class=\"btn btn-primary\">Update Profile</button>\n                  </div>\n                  <div id=\"profileMsg\" class=\"form-message\" aria-live=\"polite\"></div>\n                </form>\n              </div>\n\n              <div class=\"form-section\">\n                <h3 class=\"section-title\">Change Password</h3>\n                <form id=\"passwordForm\" class=\"password-form\">\n                  <div class=\"form-group\">\n                    <label for=\"current_password\" class=\"form-label\">Current Password:</label>\n                    <input type=\"password\" id=\"current_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"new_password\" class=\"form-label\">New Password:</label>\n                    <input type=\"password\" id=\"new_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"confirm_password\" class=\"form-label\">Confirm New Password:</label>\n                    <input type=\"password\" id=\"confirm_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-actions right\">\n                    <button type=\"submit\" class=\"btn btn-primary\">Update Password</button>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </section>\n        </div>\n      </div>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"dashboard-container\">\n      <nav class=\"sidebar\">\n        <div class=\"sidebar-content\">\n          <div class=\"sidebar-header\">\n            <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"sidebar-logo\" />\n            <h1 class=\"sidebar-title\">EDUTrack</h1>\n          </div>\n          \n          <button class=\"new-item-btn\">\n            <svg class=\"btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n              <line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line>\n              <line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line>\n            </svg>\n            New Item\n          </button>\n          \n          <ul class=\"sidebar-menu\">\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"overview\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path>\n                </svg>\n                <span>Overview</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"students\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Students</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" data-page=\"faculty\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"9\" cy=\"7\" r=\"4\"></circle>\n                  <path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path>\n                  <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path>\n                </svg>\n                <span>Faculty</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" id=\"menuReport\" data-page=\"report\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M18 20V10\"></path>\n                  <path d=\"M12 20V4\"></path>\n                  <path d=\"M6 20v-6\"></path>\n                </svg>\n                <span>Report</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item active\" data-page=\"profile\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                </svg>\n                <span>Profile</span>\n              </a>\n            </li>\n            <li>\n              <a href=\"#\" class=\"menu-item\" id=\"menuSettings\" data-page=\"settings\">\n                <svg class=\"menu-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                  <circle cx=\"12\" cy=\"12\" r=\"3\"></circle>\n                  <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path>\n                </svg>\n                <span>System Settings</span>\n              </a>\n            </li>\n          </ul>\n        </div>\n        \n        <div class=\"sidebar-footer\">\n          <span class=\"version-text\">v1.0.0</span>\n        </div>\n      </nav>\n\n      <div class=\"main-content\">\n        <header class=\"top-header\">\n          <div class=\"header-left\">\n            <h1 class=\"page-title\">My Profile</h1>\n          </div>\n          <div class=\"header-right\">\n            <div class=\"search-container\">\n              <input type=\"text\" class=\"search-input\" placeholder=\"Search\">\n              <svg class=\"search-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n                <path d=\"M21 21l-4.35-4.35\"></path>\n              </svg>\n            </div>\n          </div>\n        </header>\n\n        <div class=\"content-area\">\n          <section class=\"welcome-banner\">\n            <div class=\"banner-content\">\n              <div class=\"welcome-text\">\n                <h2 class=\"welcome-title\">Welcome, <span id=\"heroName\">User</span></h2>\n                <p class=\"welcome-date\" id=\"heroDate\"></p>\n              </div>\n              <div class=\"banner-actions\">\n                <button id=\"logoutBtn\" class=\"logout-btn\">Log out</button>\n              </div>\n            </div>\n          </section>\n\n          <section class=\"profile-content\">\n            <div class=\"profile-summary\">\n              <div class=\"profile-avatar\">\n                <div class=\"avatar-circle\" id=\"avatarCircle\" role=\"button\" tabindex=\"0\" aria-label=\"Upload profile picture\">\n                  <img id=\"avatarImage\" class=\"avatar-image\" alt=\"Profile picture\" />\n                  <svg class=\"avatar-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                    <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"></path>\n                    <circle cx=\"12\" cy=\"7\" r=\"4\"></circle>\n                  </svg>\n                </div>\n              </div>\n              <div class=\"profile-info\">\n                <h3 class=\"profile-name\" id=\"summaryName\">Admin User</h3>\n                <p class=\"profile-email\" id=\"summaryEmail\">admin@gmail.com</p>\n                <div class=\"profile-meta\">\n                  <div class=\"meta-item\">\n                    <span class=\"meta-label\">Role:</span>\n                    <span class=\"meta-value\">Admin</span>\n                  </div>\n                  <div class=\"meta-item\">\n                    <span class=\"meta-label\">Status:</span>\n                    <span class=\"meta-value status-active\">Active</span>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"profile-forms\">\n              <div class=\"form-section\">\n                <h3 class=\"section-title\">Profile Information</h3>\n                <form id=\"profileForm\" class=\"profile-form\">\n                  <div class=\"form-group\">\n                    <label for=\"name\" class=\"form-label\">Full Name*</label>\n                    <input type=\"text\" id=\"name\" class=\"form-input\" required />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"email\" class=\"form-label\">Email Address*</label>\n                    <input type=\"email\" id=\"email\" class=\"form-input\" required />\n                  </div>\n                  <div class=\"form-actions\">\n                    <button type=\"button\" id=\"downloadDataBtn\" class=\"btn btn-secondary\">Download Data</button>\n                    <button type=\"submit\" class=\"btn btn-primary\">Update Profile</button>\n                  </div>\n                  <div id=\"profileMsg\" class=\"form-message\" aria-live=\"polite\"></div>\n                </form>\n              </div>\n\n              <div class=\"form-section\">\n                <h3 class=\"section-title\">Change Password</h3>\n                <form id=\"passwordForm\" class=\"password-form\">\n                  <div class=\"form-group\">\n                    <label for=\"current_password\" class=\"form-label\">Current Password:</label>\n                    <input type=\"password\" id=\"current_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"new_password\" class=\"form-label\">New Password:</label>\n                    <input type=\"password\" id=\"new_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-group\">\n                    <label for=\"confirm_password\" class=\"form-label\">Confirm New Password:</label>\n                    <input type=\"password\" id=\"confirm_password\" class=\"form-input\" />\n                  </div>\n                  <div class=\"form-actions right\">\n                    <button type=\"submit\" class=\"btn btn-primary\">Update Password</button>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </section>\n        </div>\n      </div>\n    </div>\n\n    <input type=\"file\" id=\"avatarInput\" class=\"hidden-file-input\" accept=\"image/*\" />\n\n    <div id=\"exportModal\" class=\"modal-overlay\" aria-hidden=\"true\">\n      <div class=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"exportModalTitle\">\n        <div class=\"modal-header\">\n          <h3 id=\"exportModalTitle\" class=\"modal-title\">Download My Data</h3>\n          <button type=\"button\" id=\"exportModalClose\" class=\"modal-close\" aria-label=\"Close\">\xD7</button>\n        </div>\n        <div class=\"modal-separator\"></div>\n        <div class=\"modal-body\">\n          <label for=\"exportFormat\" class=\"form-label\">Select Format</label>\n          <select id=\"exportFormat\" class=\"form-input\">\n            <option value=\"pdf\">PDF</option>\n            <option value=\"doc\">Word (.doc)</option>\n            <option value=\"xls\">Excel (.csv)</option>\n          </select>\n        </div>\n        <div class=\"modal-separator\"></div>\n        <div class=\"modal-footer\">\n          <button type=\"button\" id=\"exportCancelBtn\" class=\"btn btn-secondary\">Cancel</button>\n          <button type=\"button\" id=\"exportConfirmBtn\" class=\"btn btn-primary\">Download</button>\n        </div>\n      </div>\n    </div>\n\n    \n  ";
 
-  // Navigation handlers (keep logic unchanged)
+  // Navigation
   document.getElementById("menuSettings").addEventListener("click", function (e) {
     e.preventDefault();
     (0,_SystemSettings__WEBPACK_IMPORTED_MODULE_0__.loadSystemSettings)(app);
@@ -18014,7 +18020,7 @@ function loadProfile(app) {
     });
   });
 
-  // Token for auth requests — logic preserved
+  // Auth
   var token = localStorage.getItem("token");
   var api = axios__WEBPACK_IMPORTED_MODULE_2___default().create({
     baseURL: "http://127.0.0.1:8000/api",
@@ -18023,22 +18029,26 @@ function loadProfile(app) {
     }
   });
 
+  // State
+  var currentUser = null;
+
   // Load user data
   function loadProfileData() {
     return _loadProfileData.apply(this, arguments);
   }
   function _loadProfileData() {
-    _loadProfileData = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var res, user, _t4;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.p = _context4.n) {
+    _loadProfileData = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var res, user, _avatarImage, _avatarCircle, storedAvatar, serverAvatar, effectiveAvatar, _t5;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
           case 0:
-            _context4.p = 0;
-            _context4.n = 1;
+            _context6.p = 0;
+            _context6.n = 1;
             return api.get("/profile");
           case 1:
-            res = _context4.v;
+            res = _context6.v;
             user = res.data;
+            currentUser = user;
             document.getElementById("name").value = user.name;
             document.getElementById("email").value = user.email;
             document.getElementById("summaryName").textContent = user.name;
@@ -18050,23 +18060,48 @@ function loadProfile(app) {
               month: 'short',
               year: 'numeric'
             });
-            _context4.n = 3;
+
+            // Avatar
+            _avatarImage = document.getElementById("avatarImage");
+            _avatarCircle = document.getElementById("avatarCircle");
+            storedAvatar = localStorage.getItem("avatarUrl");
+            serverAvatar = user.avatar_url || user.avatar;
+            if (serverAvatar && typeof serverAvatar === "string" && serverAvatar.startsWith("/")) {
+              // normalize relative URL to absolute if API baseURL is set
+              try {
+                serverAvatar = new URL(serverAvatar, api.defaults.baseURL || window.location.origin).toString();
+              } catch (_) {}
+            }
+            effectiveAvatar = serverAvatar || storedAvatar || null;
+            if (effectiveAvatar) {
+              _avatarImage.src = effectiveAvatar;
+              _avatarImage.classList.add("visible");
+              _avatarCircle.classList.add("has-image");
+              if (effectiveAvatar !== storedAvatar) {
+                localStorage.setItem("avatarUrl", effectiveAvatar);
+              }
+            } else {
+              _avatarImage.removeAttribute("src");
+              _avatarImage.classList.remove("visible");
+              _avatarCircle.classList.remove("has-image");
+            }
+            _context6.n = 3;
             break;
           case 2:
-            _context4.p = 2;
-            _t4 = _context4.v;
-            console.error(_t4);
+            _context6.p = 2;
+            _t5 = _context6.v;
+            console.error(_t5);
             document.getElementById("profileMsg").textContent = "Failed to load profile.";
           case 3:
-            return _context4.a(2);
+            return _context6.a(2);
         }
-      }, _callee4, null, [[0, 2]]);
+      }, _callee6, null, [[0, 2]]);
     }));
     return _loadProfileData.apply(this, arguments);
   }
   loadProfileData();
 
-  // Update Profile (logic unchanged)
+  // Profile update
   document.getElementById("profileForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
       var name, email, msg, res, _t;
@@ -18104,7 +18139,7 @@ function loadProfile(app) {
     };
   }());
 
-  // Change Password (logic unchanged)
+  // Password update
   document.getElementById("passwordForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(e) {
       var current_password, new_password, confirm_password, msg, res, _t2;
@@ -18151,29 +18186,251 @@ function loadProfile(app) {
     };
   }());
 
-  // Logout (logic unchanged)
-  document.getElementById("logoutBtn").addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-    var _t3;
-    return _regenerator().w(function (_context3) {
-      while (1) switch (_context3.p = _context3.n) {
+  // Export helpers
+  function openExportModal() {
+    var overlay = document.getElementById("exportModal");
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.classList.add("open");
+    document.getElementById("exportFormat").value = "pdf";
+  }
+  function closeExportModal() {
+    var overlay = document.getElementById("exportModal");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.classList.remove("open");
+  }
+  function downloadBlob(filename, blob) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+  function toProfileDocHtml(user) {
+    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Profile</title></head><body>\n      <h1>Profile</h1>\n      <p><strong>Name:</strong> ".concat(user.name || '', "</p>\n      <p><strong>Email:</strong> ").concat(user.email || '', "</p>\n    </body></html>");
+  }
+  function toActivityDocHtml(items) {
+    var rows = items.map(function (a) {
+      return "<tr><td>".concat(a.date || a.created_at || '', "</td><td>").concat(a.action || a.type || a.event || '', "</td><td>").concat(a.details || a.description || '', "</td></tr>");
+    }).join("");
+    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Activity Log</title></head><body>\n      <h1>Activity Log</h1>\n      <table border=\"1\" cellspacing=\"0\" cellpadding=\"6\"><thead><tr><th>Date</th><th>Action</th><th>Details</th></tr></thead><tbody>".concat(rows, "</tbody></table>\n    </body></html>");
+  }
+  function toProfileCsv(user) {
+    return ["Field,Value", "Name,".concat(JSON.stringify(user.name || '')), "Email,".concat(JSON.stringify(user.email || ''))].join("\n");
+  }
+  function toActivityCsv(items) {
+    var header = "Date,Action,Details";
+    var rows = items.map(function (a) {
+      return [a.date || a.created_at || '', a.action || a.type || a.event || '', (a.details || a.description || '').toString().replace(/\n/g, ' ')].map(function (v) {
+        return JSON.stringify(v);
+      }).join(",");
+    });
+    return [header].concat(_toConsumableArray(rows)).join("\n");
+  }
+  function openPrintWindow(html) {
+    var win = window.open("", "_blank");
+    if (!win) return;
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    win.print();
+  }
+
+  // Download Data
+  document.getElementById("downloadDataBtn").addEventListener("click", function () {
+    openExportModal();
+  });
+
+  // Activity Log removed
+
+  // Export modal events
+  document.getElementById("exportModalClose").addEventListener("click", closeExportModal);
+  document.getElementById("exportCancelBtn").addEventListener("click", closeExportModal);
+  document.getElementById("exportConfirmBtn").addEventListener("click", function () {
+    var format = document.getElementById("exportFormat").value; // pdf | doc | xls
+    if (currentUser) {
+      if (format === "doc") {
+        var html = toProfileDocHtml(currentUser);
+        var blob = new Blob([html], {
+          type: "application/msword"
+        });
+        downloadBlob("profile.doc", blob);
+      } else if (format === "xls") {
+        var csv = toProfileCsv(currentUser);
+        var _blob = new Blob([csv], {
+          type: "text/csv;charset=utf-8;"
+        });
+        downloadBlob("profile.csv", _blob);
+      } else {
+        var _html = toProfileDocHtml(currentUser);
+        openPrintWindow(_html);
+      }
+    }
+    closeExportModal();
+  });
+
+  // Avatar upload
+  var avatarCircle = document.getElementById("avatarCircle");
+  var avatarInput = document.getElementById("avatarInput");
+  var avatarImage = document.getElementById("avatarImage");
+  function triggerAvatarPicker() {
+    avatarInput.click();
+  }
+  avatarCircle.addEventListener("click", triggerAvatarPicker);
+  avatarCircle.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      triggerAvatarPicker();
+    }
+  });
+  avatarInput.addEventListener("change", /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(e) {
+      var file, msg, reader, tryUpload, _tryUpload, attempts, uploadedUrl, lastError, _i, _attempts, a, res, url, abs, _t3;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            _tryUpload = function _tryUpload3() {
+              _tryUpload = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(endpoint, fieldName) {
+                var form;
+                return _regenerator().w(function (_context3) {
+                  while (1) switch (_context3.n) {
+                    case 0:
+                      form = new FormData();
+                      form.append(fieldName, file);
+                      return _context3.a(2, api.post(endpoint, form, {
+                        headers: {
+                          "Content-Type": "multipart/form-data"
+                        }
+                      }));
+                  }
+                }, _callee3);
+              }));
+              return _tryUpload.apply(this, arguments);
+            };
+            tryUpload = function _tryUpload2(_x4, _x5) {
+              return _tryUpload.apply(this, arguments);
+            };
+            file = e.target.files && e.target.files[0];
+            if (file) {
+              _context4.n = 1;
+              break;
+            }
+            return _context4.a(2);
+          case 1:
+            msg = document.getElementById("profileMsg");
+            msg.textContent = "";
+            reader = new FileReader();
+            reader.onload = function () {
+              avatarImage.src = reader.result;
+              avatarImage.classList.add("visible");
+              avatarCircle.classList.add("has-image");
+            };
+            reader.readAsDataURL(file);
+            attempts = [{
+              endpoint: "/profile/avatar",
+              field: "avatar"
+            }, {
+              endpoint: "/profile/avatar/upload",
+              field: "avatar"
+            }, {
+              endpoint: "/user/avatar",
+              field: "avatar"
+            }, {
+              endpoint: "/user/avatar",
+              field: "file"
+            }, {
+              endpoint: "/user/photo",
+              field: "photo"
+            }, {
+              endpoint: "/users/avatar",
+              field: "avatar"
+            }, {
+              endpoint: "/profile/photo",
+              field: "image"
+            }];
+            uploadedUrl = null;
+            lastError = null;
+            _i = 0, _attempts = attempts;
+          case 2:
+            if (!(_i < _attempts.length)) {
+              _context4.n = 8;
+              break;
+            }
+            a = _attempts[_i];
+            _context4.p = 3;
+            _context4.n = 4;
+            return tryUpload(a.endpoint, a.field);
+          case 4:
+            res = _context4.v;
+            url = res && res.data && (res.data.avatar_url || res.data.url || res.data.path) || null;
+            if (!url) {
+              _context4.n = 5;
+              break;
+            }
+            uploadedUrl = url;
+            return _context4.a(3, 8);
+          case 5:
+            _context4.n = 7;
+            break;
+          case 6:
+            _context4.p = 6;
+            _t3 = _context4.v;
+            lastError = _t3;
+          case 7:
+            _i++;
+            _context4.n = 2;
+            break;
+          case 8:
+            if (uploadedUrl) {
+              try {
+                abs = uploadedUrl.startsWith("http") ? uploadedUrl : new URL(uploadedUrl, api.defaults.baseURL || window.location.origin).toString();
+                avatarImage.src = abs;
+                localStorage.setItem("avatarUrl", abs);
+              } catch (_) {
+                avatarImage.src = uploadedUrl;
+                localStorage.setItem("avatarUrl", uploadedUrl);
+              }
+              msg.textContent = "Profile picture updated.";
+            } else {
+              console.error("Avatar upload failed", lastError);
+              msg.textContent = "Failed to upload profile picture.";
+            }
+            avatarInput.value = "";
+          case 9:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[3, 6]]);
+    }));
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+    var _t4;
+    return _regenerator().w(function (_context5) {
+      while (1) switch (_context5.p = _context5.n) {
         case 0:
-          _context3.p = 0;
-          _context3.n = 1;
+          _context5.p = 0;
+          _context5.n = 1;
           return api.post("/auth/logout");
         case 1:
-          _context3.n = 3;
+          _context5.n = 3;
           break;
         case 2:
-          _context3.p = 2;
-          _t3 = _context3.v;
+          _context5.p = 2;
+          _t4 = _context5.v;
           console.warn("Logout request failed, clearing token anyway.");
         case 3:
           localStorage.removeItem("token");
           window.location.href = "/";
         case 4:
-          return _context3.a(2);
+          return _context5.a(2);
       }
-    }, _callee3, null, [[0, 2]]);
+    }, _callee5, null, [[0, 2]]);
   })));
 }
 

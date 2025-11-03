@@ -11986,8 +11986,8 @@ textarea.form-control-lg {
   display: flex;
   flex-direction: column;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f8fafc;
-  /* Background image with blur effect */
+  background: #f3f6fb;
+  /* Background image with subtle blur and dim for legibility */
 }
 .login-page::before {
   content: "";
@@ -11997,8 +11997,8 @@ textarea.form-control-lg {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(2px);
-  opacity: 0.7;
+  filter: blur(3px);
+  opacity: 0.6;
   z-index: 0;
 }
 
@@ -12073,14 +12073,14 @@ textarea.form-control-lg {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-  width: 95%;
-  background: white;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.08);
+  max-width: 940px; /* closer to prototype card width */
+  width: 92%;
+  background: #ffffff;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
 /* Left side image same width as form */
@@ -12103,7 +12103,7 @@ textarea.form-control-lg {
   flex-direction: column;
   justify-content: center;
   background: #ffffff;
-  padding: 3rem 3.5rem;
+  padding: 2.75rem 3rem;
   position: relative;
 }
 
@@ -12116,17 +12116,17 @@ textarea.form-control-lg {
 }
 
 .login-sub {
-  font-size: 1rem;
+  font-size: 0.975rem;
   color: #64748b;
-  margin-bottom: 2.5rem;
-  font-weight: 400;
+  margin-bottom: 2rem;
+  font-weight: 500;
 }
 
 /* Form styling */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-group {
@@ -12140,10 +12140,10 @@ textarea.form-control-lg {
   color: #374151;
 }
 .form-group .form-input {
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   border-radius: 12px;
   padding: 0.875rem 1rem;
-  font-size: 1rem;
+  font-size: 0.975rem;
   transition: all 0.2s ease;
   background: #ffffff;
   color: #1f2937;
@@ -12151,7 +12151,7 @@ textarea.form-control-lg {
 .form-group .form-input:focus {
   border-color: #3b5efb;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 94, 251, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 94, 251, 0.12);
   transform: translateY(-1px);
 }
 .form-group .form-input:hover {
@@ -12170,7 +12170,7 @@ textarea.form-control-lg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -0.5rem;
+  margin-top: -0.25rem;
 }
 .form-row.form-aux {
   margin-top: -0.25rem;
@@ -12195,20 +12195,20 @@ textarea.form-control-lg {
   padding: 0.875rem 2rem;
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.975rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 .btn.btn-primary {
-  background: linear-gradient(135deg, #3b5efb 0%, #2c4dd4 100%);
+  background: linear-gradient(135deg, #3b5efb 0%, #2951e1 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 94, 251, 0.3);
+  box-shadow: 0 6px 18px rgba(59, 94, 251, 0.28);
 }
 .btn.btn-primary:hover {
-  background: linear-gradient(135deg, #3047d4 0%, #1e3bb8 100%);
+  background: linear-gradient(135deg, #2f49db 0%, #1f3fc2 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 94, 251, 0.4);
+  box-shadow: 0 10px 28px rgba(59, 94, 251, 0.38);
 }
 .btn.btn-primary:active {
   transform: translateY(0);
@@ -12216,7 +12216,7 @@ textarea.form-control-lg {
 }
 .btn.btn-ghost {
   background: transparent;
-  border: 2px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   color: #374151;
   font-weight: 600;
 }
@@ -12224,7 +12224,7 @@ textarea.form-control-lg {
   background: #f9fafb;
   border-color: #d1d5db;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .btn.btn-ghost:active {
   transform: translateY(0);
@@ -12350,7 +12350,7 @@ textarea.form-control-lg {
 .sidebar {
   width: 280px;
   height: 100vh;
-  background: linear-gradient(135deg, #3b5efb 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #CD8383 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13690,6 +13690,110 @@ textarea.form-control-lg {
     justify-content: stretch;
   }
 }
+.profile-avatar .avatar-circle {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.profile-avatar .avatar-circle:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.profile-avatar .avatar-circle.has-image .avatar-icon {
+  display: none;
+}
+.profile-avatar .avatar-image {
+  display: none;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-avatar .avatar-image.visible {
+  display: block;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center; /* centered modal */
+  justify-content: center; /* centered modal */
+  padding: 16px;
+  z-index: 1100;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Drawer variation for left-side export modal */
+/* drawer variant removed for this modal */
+/* no drawer animation */
+.modal.large {
+  max-width: 800px;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 16px 20px;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+}
+
+.modal-footer {
+  border-bottom: 0;
+  border-top: none;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modal-body {
+  padding: 16px 20px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal-close {
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* separators to mimic prototype */
+.modal-separator {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 20px;
+}
+
+/* Activity component removed */
 .dashboard-container {
   display: flex;
   height: 100vh;
