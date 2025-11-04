@@ -171,7 +171,7 @@ export function loadFaculty(app) {
       </div>
 
       <!-- Modal -->
-      <div id="facultyModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+      <div id="facultyModal" class="faculty-modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-content" role="document">
           <button id="closeFacultyModal" class="modal-close" aria-label="Close">&times;</button>
           <h3 id="facultyModalTitle" class="modal-title">Add New Faculty</h3>
@@ -250,6 +250,11 @@ export function loadFaculty(app) {
       </div>
     </div>
   `;
+  
+  const facultyModalEl = document.getElementById("facultyModal");
+  if (facultyModalEl && facultyModalEl.parentElement !== document.body) {
+    document.body.appendChild(facultyModalEl);
+  }
 
   // ----- existing logic (kept unchanged) -----
   let allFaculty = [];
@@ -394,11 +399,13 @@ export function loadFaculty(app) {
     document.getElementById("facultyModalTitle").textContent = "Add New Faculty";
     document.getElementById("submitBtn").textContent = "Save Faculty";
     resetForm();
+    document.body.classList.add("modal-open");
   }
 
   function hideModal() {
     document.getElementById("facultyModal").classList.add("hidden");
     resetForm();
+    document.body.classList.remove("modal-open");
   }
 
   // Submit form

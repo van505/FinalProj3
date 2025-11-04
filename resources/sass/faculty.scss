@@ -59,6 +59,11 @@ $success-color: #16a34a;
   }
 }
 
+// Prevent body scroll when modal is open
+body.modal-open {
+  overflow: hidden;
+}
+
 // Main
 .faculty-main {
   flex: 1;
@@ -214,28 +219,47 @@ $success-color: #16a34a;
 }
 
 // Modal
-.modal {
+.faculty-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: block;
+  z-index: 9999;
+  pointer-events: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 200ms ease;
 
   &.hidden {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .modal-content {
     background: white;
     border-radius: 12px;
-    width: 100%;
-    max-width: 600px;
+    width: min(600px, 100%);
     padding: 2rem;
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 0.25s ease-in-out;
+    transition: transform 250ms ease, opacity 250ms ease;
+    max-height: 90vh;
+    overflow: auto;
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  &.hidden .modal-content {
+    transform: translate(-50%, calc(-50% - 8px)) scale(0.98);
+    opacity: 0;
   }
 
   .modal-close {
@@ -248,7 +272,7 @@ $success-color: #16a34a;
     cursor: pointer;
   }
 
-  .faculty-form {
+  .student-form, .faculty-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;

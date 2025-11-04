@@ -473,6 +473,85 @@
   letter-spacing: -0.02em;
 }
 
+/* Students modal: no backdrop, blocks outside clicks, with transitions */
+.student-modal {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: block;
+  z-index: 9999;
+  padding: 1rem;
+  box-sizing: border-box;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 200ms ease;
+  pointer-events: auto; /* capture clicks to block page */
+}
+
+.student-modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.student-modal .modal-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(800px, 95%);
+  max-height: 90vh;
+  overflow: auto;
+  margin: 0;
+  pointer-events: all;
+  transition: transform 250ms ease, opacity 250ms ease;
+  opacity: 1;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.student-modal.hidden .modal-content {
+  transform: translate(-50%, calc(-50% - 8px)) scale(0.98);
+  opacity: 0;
+}
+
+/* Close button and title styling for student modal */
+.student-modal .modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.student-modal .modal-close:hover {
+  background: #e2e8f0;
+  color: #374151;
+}
+
+.student-modal .modal-close svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+.student-modal .modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
+}
+
 /* ---------- Student Form ---------- */
 .student-form {
   display: grid;

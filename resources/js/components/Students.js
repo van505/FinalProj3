@@ -182,7 +182,7 @@ export function loadStudents(app) {
         </div>
       </div>
 
-      <div id="studentModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+      <div id="studentModal" class="student-modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-content" role="document">
           <button id="closeStudentModal" class="modal-close" aria-label="Close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -292,6 +292,11 @@ export function loadStudents(app) {
       </div>
     </div>
   `;
+
+    const studentModalEl = document.getElementById("studentModal");
+    if (studentModalEl && studentModalEl.parentElement !== document.body) {
+        document.body.appendChild(studentModalEl);
+    }
 
     let isEditing = false;
     let allStudents = [];
@@ -589,9 +594,8 @@ export function loadStudents(app) {
                         "Edit Student";
                     document.getElementById("submitBtn").textContent =
                         "Update Student";
-                    document.getElementById("cancelBtn").style.display =
-                        "inline-block";
                     isEditing = true;
+                    document.body.classList.add("modal-open");
                 } catch (error) {
                     console.error("Error fetching student data:", error.response?.data || error);
                     
@@ -614,10 +618,12 @@ export function loadStudents(app) {
             "Add New Student";
         document.getElementById("submitBtn").textContent = "Save Student";
         resetForm();
+        document.body.classList.add("modal-open");
     }
     function hideStudentModal() {
         document.getElementById("studentModal").classList.add("hidden");
         resetForm();
+        document.body.classList.remove("modal-open");
     }
 
     // Add Student button (sidebar and top)
@@ -687,7 +693,6 @@ export function loadStudents(app) {
     function resetForm() {
         form.reset();
         isEditing = false;
-        document.getElementById("cancelBtn").style.display = "none";
     }
 
     // Filters & search
