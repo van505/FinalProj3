@@ -188,7 +188,7 @@ body.modal-open {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.45);
   display: block;
   z-index: 9999;
   pointer-events: auto;
@@ -204,15 +204,15 @@ body.modal-open {
   pointer-events: none;
 }
 .faculty-modal .modal-content {
-  background: white;
-  border-radius: 12px;
-  width: min(600px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  width: min(800px, 95%);
   padding: 2rem;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transition: transform 250ms ease, opacity 250ms ease;
   max-height: 90vh;
   overflow: auto;
@@ -227,31 +227,44 @@ body.modal-open {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: transparent;
+  background: #f1f5f9;
   border: none;
-  font-size: 1.5rem;
+  border-radius: 8px;
+  padding: 0.5rem;
   cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
+  font-size: 1rem;
 }
-.faculty-modal .student-form, .faculty-modal .faculty-form {
+.faculty-modal .modal-close:hover {
+  background: #e2e8f0;
+  color: #374151;
+}
+.faculty-modal .modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
+}
+.faculty-modal .faculty-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
-.faculty-modal .student-form input,
-.faculty-modal .student-form select, .faculty-modal .faculty-form input,
+.faculty-modal .faculty-form input,
 .faculty-modal .faculty-form select {
   padding: 0.6rem;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 0.9rem;
 }
-.faculty-modal .student-form input:focus,
-.faculty-modal .student-form select:focus, .faculty-modal .faculty-form input:focus,
+.faculty-modal .faculty-form input:focus,
 .faculty-modal .faculty-form select:focus {
   border-color: #0ea5e9;
   outline: none;
 }
-.faculty-modal .student-form .form-actions, .faculty-modal .faculty-form .form-actions {
+.faculty-modal .faculty-form .form-actions {
   grid-column: span 2;
   display: flex;
   justify-content: flex-end;

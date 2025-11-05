@@ -100,7 +100,8 @@ export function loadReport(app) {
         <div class="content-area">
           <section class="report-banner">
             <div class="banner-content">
-              <h2 class="banner-title">Report</h2>
+              <h2 class="banner-title">Report Management </h2>
+              <p class="banner-subtitle">can filter and download</p>
             </div>
           </section>
 

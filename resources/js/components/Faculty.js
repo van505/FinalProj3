@@ -383,6 +383,7 @@ export function loadFaculty(app) {
     document.getElementById("facultyModalTitle").textContent = "Edit Faculty";
     document.getElementById("submitBtn").textContent = "Update Faculty";
     document.getElementById("facultyModal").classList.remove("hidden");
+    document.body.classList.add("modal-open");
   }
 
   // Modal logic
