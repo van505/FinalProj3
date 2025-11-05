@@ -189,8 +189,8 @@ export function loadProfile(app) {
 
     <input type="file" id="avatarInput" class="hidden-file-input" accept="image/*" />
 
-    <div id="exportModal" class="modal-overlay" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+    <div id="exportModal" class="profile-export-modal" aria-hidden="true">
+      <div class="profile-export-card" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
         <div class="modal-header">
           <h3 id="exportModalTitle" class="modal-title">Download My Data</h3>
           <button type="button" id="exportModalClose" class="modal-close" aria-label="Close">×</button>
@@ -214,6 +214,12 @@ export function loadProfile(app) {
 
     
   `;
+
+  // Ensure the export modal overlay is attached to document.body for reliable centering and stacking
+  const exportOverlayEl = document.getElementById("exportModal");
+  if (exportOverlayEl && exportOverlayEl.parentElement !== document.body) {
+    document.body.appendChild(exportOverlayEl);
+  }
 
   // Navigation
   document.getElementById("menuSettings").addEventListener("click", (e) => {
@@ -328,11 +334,13 @@ export function loadProfile(app) {
     overlay.setAttribute("aria-hidden", "false");
     overlay.classList.add("open");
     document.getElementById("exportFormat").value = "pdf";
+    document.body.classList.add("modal-open");
   }
   function closeExportModal() {
     const overlay = document.getElementById("exportModal");
     overlay.setAttribute("aria-hidden", "true");
     overlay.classList.remove("open");
+    document.body.classList.remove("modal-open");
   }
   function downloadBlob(filename, blob) {
     const url = URL.createObjectURL(blob);
@@ -430,6 +438,7 @@ export function loadProfile(app) {
       avatarImage.src = reader.result;
       avatarImage.classList.add("visible");
       avatarCircle.classList.add("has-image");
+      try { localStorage.setItem("avatarUrl", reader.result); } catch (_) {}
     };
     reader.readAsDataURL(file);
 

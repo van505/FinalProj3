@@ -13334,9 +13334,9 @@ textarea.form-control-lg {
 .welcome-banner {
   background: linear-gradient(135deg, #2563EB 0%, #CD8383 100%);
   border-radius: 20px;
-  padding: 2rem 2.5rem;
+  padding: 3rem 2.5rem;
   color: #ffffff;
-  box-shadow: 0 10px 30px rgba(59, 94, 251, 0.3);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -13359,13 +13359,13 @@ textarea.form-control-lg {
   align-items: center;
 }
 .welcome-banner .welcome-text .welcome-title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   letter-spacing: -0.02em;
 }
 .welcome-banner .welcome-text .welcome-date {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0;
   opacity: 0.9;
   font-weight: 400;
@@ -13374,10 +13374,10 @@ textarea.form-control-lg {
   background: #ef4444;
   color: #ffffff;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 1rem;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -13402,19 +13402,22 @@ textarea.form-control-lg {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #f1f5f9;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  text-align: center;
+  gap: 1rem;
 }
 
 .profile-avatar .avatar-circle {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: linear-gradient(135deg, #3b5efb 0%, #8b5cf6 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 15px rgba(59, 94, 251, 0.3);
+  border: 4px solid #ffffff;
 }
 .profile-avatar .avatar-circle .avatar-icon {
   width: 32px;
@@ -13717,23 +13720,32 @@ textarea.form-control-lg {
   display: none;
 }
 
+/* Lock background scroll when any modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
 /* Modal */
-.modal-overlay {
+.profile-export-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  display: none;
-  align-items: center; /* centered modal */
-  justify-content: center; /* centered modal */
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   padding: 16px;
   z-index: 1100;
+  transition: opacity 200ms ease;
 }
 
-.modal-overlay.open {
-  display: flex;
+.profile-export-modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-.modal {
+.profile-export-card {
   width: 100%;
   max-width: 480px;
   background: #ffffff;
@@ -13741,53 +13753,64 @@ textarea.form-control-lg {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.98);
+  opacity: 0;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+
+.profile-export-modal.open .profile-export-card {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
 /* Drawer variation for left-side export modal */
 /* drawer variant removed for this modal */
 /* no drawer animation */
-.modal.large {
+.profile-export-card.large {
   max-width: 800px;
 }
 
-.modal-header,
-.modal-footer {
+.profile-export-card .modal-header,
+.profile-export-card .modal-footer {
   padding: 16px 20px;
   border-bottom: none;
   display: flex;
   align-items: center;
 }
 
-.modal-footer {
+.profile-export-card .modal-footer {
   border-bottom: 0;
   border-top: none;
   gap: 8px;
   justify-content: flex-end;
 }
 
-.modal-body {
+.profile-export-card .modal-body {
   padding: 16px 20px;
 }
 
-.modal-title {
+.profile-export-card .modal-title {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: #2196F3;
 }
 
-.modal-close {
+.profile-export-card .modal-close {
   margin-left: auto;
   background: transparent;
   border: 0;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  color: #6b7280;
+  color: #2196F3;
 }
 
 /* separators to mimic prototype */
-.modal-separator {
+.profile-export-card .modal-separator {
   height: 1px;
   background: #e5e7eb;
   margin: 0 20px;
