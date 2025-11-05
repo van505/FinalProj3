@@ -42848,16 +42848,69 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 function loadLogin(app, goRegister) {
-  app.innerHTML = "\n    <div class=\"login-page\">\n      <!-- Top header -->\n      <header class=\"login-header\">\n        <div class=\"header-content\">\n          <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"header-logo\" />\n          <div class=\"header-text\">\n            <h1 class=\"header-title\">EDUTrack</h1>\n            <p class=\"header-tagline\">Lets you manage faculty and monitor student and more</p>\n          </div>\n        </div>\n      </header>\n\n      <div class=\"login-content\">\n        <div class=\"login-container\">\n          <!-- Left image -->\n          <div class=\"login-side\">\n            <img src=\"/images/login-hero2.jpg\" alt=\"Students\" class=\"side-img\" />\n          </div>\n\n          <!-- Login form -->\n          <div class=\"login-form-container\">\n            <h2 class=\"login-title\">Login</h2>\n            <p class=\"login-sub\">Manage students, faculty, and more</p>\n\n            <form id=\"loginForm\" class=\"login-form\" autocomplete=\"on\" novalidate>\n              <div class=\"form-group\">\n                <label for=\"email\" class=\"form-label\">E-Mail</label>\n                <input type=\"email\" id=\"email\" name=\"email\" class=\"form-input\" placeholder=\"you@example.com\" required />\n              </div>\n\n              <div class=\"form-group\">\n                <label for=\"password\" class=\"form-label\">Password</label>\n                <input type=\"password\" id=\"password\" name=\"password\" class=\"form-input\" placeholder=\"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\" required />\n              </div>\n\n              <div class=\"form-row form-aux\">\n                <div></div>\n                <a href=\"#\" id=\"forgotPassword\" class=\"link-muted\">Forgot password?</a>\n              </div>\n\n              <div class=\"form-actions\">\n                <button type=\"submit\" class=\"btn btn-primary\">Login</button>\n              </div>\n\n              <div class=\"divider\">or</div>\n\n              <div class=\"form-actions\">\n                <button type=\"button\" class=\"btn btn-ghost\" id=\"goRegister\">Register now</button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n\n      <!-- Footer -->\n      <footer class=\"login-footer\">\n        <div class=\"footer-content\">\n          <div class=\"footer-links\">\n            <a href=\"#\" class=\"footer-link\">Calendar</a>\n            <a href=\"#\" class=\"footer-link\">About us</a>\n            <a href=\"#\" class=\"footer-link\">Contact Us</a>\n          </div>\n        </div>\n      </footer>\n    </div>\n  ";
+  app.innerHTML = "\n    <div class=\"login-page\">\n      <!-- Top header -->\n      <header class=\"login-header\">\n        <div class=\"header-content\">\n          <img src=\"/images/logo.png\" alt=\"EDUTrack logo\" class=\"header-logo\" />\n          <div class=\"header-text\">\n            <h1 class=\"header-title\">EDUTrack</h1>\n            <p class=\"header-tagline\">Lets you manage faculty and monitor student and more</p>\n          </div>\n        </div>\n      </header>\n\n      <div class=\"login-content\">\n        <div class=\"login-container\">\n          <!-- Left image -->\n          <div class=\"login-side\">\n            <img src=\"/images/login-hero2.jpg\" alt=\"Students\" class=\"side-img\" />\n          </div>\n\n          <!-- Login form -->\n          <div class=\"login-form-container\">\n            <h2 class=\"login-title\">Login</h2>\n            <p class=\"login-sub\">Manage students, faculty, and more</p>\n\n            <form id=\"loginForm\" class=\"login-form\" autocomplete=\"on\" novalidate>\n              <div class=\"form-group\">\n                <label for=\"email\" class=\"form-label\">E-Mail</label>\n                <input type=\"email\" id=\"email\" name=\"email\" class=\"form-input\" placeholder=\"you@example.com\" required />\n              </div>\n\n              <div class=\"form-group\">\n                <label for=\"password\" class=\"form-label\">Password</label>\n                <input type=\"password\" id=\"password\" name=\"password\" class=\"form-input\" placeholder=\"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\" required />\n              </div>\n\n              <div class=\"form-row form-aux\">\n                <div></div>\n                <a href=\"#\" id=\"forgotPassword\" class=\"link-muted\">Forgot password?</a>\n              </div>\n\n              <div class=\"form-actions\">\n                <button type=\"submit\" class=\"btn btn-primary\">Login</button>\n              </div>\n\n              <div class=\"divider\">or</div>\n\n              <div class=\"form-actions\">\n                <button type=\"button\" class=\"btn btn-ghost\" id=\"goRegister\">Register now</button>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n\n      <!-- Footer -->\n      <footer class=\"login-footer\">\n        <div class=\"footer-content\">\n          <div class=\"footer-links\">\n            <a href=\"#\" class=\"footer-link\">Calendar</a>\n            <a href=\"#\" class=\"footer-link\">About us</a>\n            <a href=\"#\" class=\"footer-link\">Contact Us</a>\n          </div>\n        </div>\n      </footer>\n      \n      <!-- Login Status Overlay -->\n      <div id=\"loginOverlay\" class=\"login-overlay\" aria-hidden=\"true\">\n        <div class=\"login-modal-card is-loading\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"loginOverlayTitle\">\n          <div class=\"modal-body\">\n            <!-- Loading state -->\n            <div class=\"state state-loading\">\n              <div class=\"spinner\" aria-hidden=\"true\"></div>\n              <h3 id=\"loginOverlayTitle\" class=\"status-title\">Loading...</h3>\n              <p class=\"status-text\">Please wait.</p>\n            </div>\n            <!-- Success state -->\n            <div class=\"state state-success\" aria-live=\"polite\">\n              <div class=\"icon-circle success\">\n                <svg class=\"icon\" viewBox=\"0 0 24 24\">\n                  <path d=\"M20 6L9 17l-5-5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" />\n                </svg>\n              </div>\n              <div class=\"status-pill success\">Successfully login!</div>\n            </div>\n            <!-- Error state -->\n            <div class=\"state state-error\" aria-live=\"assertive\">\n              <div class=\"icon-circle error\">\n                <svg class=\"icon\" viewBox=\"0 0 24 24\">\n                  <path d=\"M6 18L18 6M6 6l12 12\" stroke-linecap=\"round\" stroke-linejoin=\"round\" />\n                </svg>\n              </div>\n              <p id=\"loginErrorText\" class=\"status-text\">Error statement here</p>\n              <div class=\"status-pill error\">Failed to Login!</div>\n              <a href=\"#\" id=\"backToLogin\" class=\"back-link\">Go back to login form</a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  ";
+  var overlay = document.getElementById("loginOverlay");
+  var overlayCard = overlay.querySelector('.login-modal-card');
+  var errorTextEl = document.getElementById('loginErrorText');
+  var loginBtn = document.querySelector('#loginForm .btn.btn-primary');
+  var registerBtn = document.getElementById('goRegister');
+  function setOverlayMode(mode, msg) {
+    overlayCard.classList.remove('is-loading', 'is-success', 'is-error');
+    overlayCard.classList.add("is-".concat(mode));
+    if (mode === 'error' && msg) errorTextEl.textContent = msg;
+  }
+  function openOverlay(mode, msg) {
+    setOverlayMode(mode, msg);
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+  function closeOverlay() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+  document.getElementById('backToLogin').addEventListener('click', function (e) {
+    e.preventDefault();
+    closeOverlay();
+    loginBtn.disabled = false;
+    if (registerBtn) registerBtn.disabled = false;
+  });
+
+  // Close on clicking the dim background
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      closeOverlay();
+      loginBtn.disabled = false;
+      if (registerBtn) registerBtn.disabled = false;
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      closeOverlay();
+      loginBtn.disabled = false;
+      if (registerBtn) registerBtn.disabled = false;
+    }
+  });
+
+  // Ensure overlay sits at top level
+  if (overlay.parentElement !== document.body) {
+    document.body.appendChild(overlay);
+  }
   document.getElementById("loginForm").addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
-      var email, password, response, _err$response, _err$response2, _t;
+      var email, password, response, _err$response, _err$response2, msg, _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
           case 0:
             e.preventDefault();
             email = document.getElementById("email").value.trim();
             password = document.getElementById("password").value.trim();
+            loginBtn.disabled = true;
+            if (registerBtn) registerBtn.disabled = true;
+            openOverlay('loading');
             _context.p = 1;
             _context.n = 2;
             return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/login", {
@@ -42866,19 +42919,23 @@ function loadLogin(app, goRegister) {
             });
           case 2:
             response = _context.v;
-            // ✅ Save token for later API use
+            // Save token
             localStorage.setItem("token", response.data.token);
             (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Authorization"] = "Bearer ".concat(response.data.token);
 
-            // ✅ Go to dashboard after successful login
-            window.location.href = '/dashboard';
+            // Success state then redirect
+            setOverlayMode('success');
+            setTimeout(function () {
+              window.location.href = '/dashboard';
+            }, 900);
             _context.n = 4;
             break;
           case 3:
             _context.p = 3;
             _t = _context.v;
             console.error("Login error:", ((_err$response = _t.response) === null || _err$response === void 0 ? void 0 : _err$response.data) || _t.message);
-            alert(((_err$response2 = _t.response) === null || _err$response2 === void 0 || (_err$response2 = _err$response2.data) === null || _err$response2 === void 0 ? void 0 : _err$response2.message) || "Invalid credentials!");
+            msg = (_t === null || _t === void 0 || (_err$response2 = _t.response) === null || _err$response2 === void 0 || (_err$response2 = _err$response2.data) === null || _err$response2 === void 0 ? void 0 : _err$response2.message) || (_t === null || _t === void 0 ? void 0 : _t.message) || "Invalid credentials!";
+            openOverlay('error', msg);
           case 4:
             return _context.a(2);
         }

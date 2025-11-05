@@ -21,6 +21,9 @@
   }
 }
 
+/* Lock background scroll when overlay is open */
+body.modal-open { overflow: hidden; }
+
 /* Header bar */
 .login-header {
   background: linear-gradient(135deg, #3b5efb 0%, #2c4dd4 100%);
@@ -222,6 +225,16 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 46px; /* matches prototype height */
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 94, 251, 0.2);
+  }
 
   &.btn-primary {
     background: linear-gradient(135deg, #3b5efb 0%, #2951e1 100%);
@@ -241,7 +254,7 @@
   }
 
   &.btn-ghost {
-    background: transparent;
+    background: #ffffff;
     border: 1.5px solid #e5e7eb;
     color: #374151;
     font-weight: 600;
@@ -261,6 +274,11 @@
 
 .form-actions {
   margin-top: 0.5rem;
+}
+
+/* Make buttons span full input width inside the login form */
+.login-form .btn {
+  width: 100%;
 }
 
 /* Divider */
@@ -288,6 +306,98 @@
     margin-left: 1rem;
   }
 }
+
+/* -------- Login Status Overlay (Loading / Success / Error) -------- */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1100;
+  transition: opacity 200ms ease;
+  backdrop-filter: blur(2px);
+}
+.login-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.login-modal-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.98);
+  opacity: 0;
+  width: min(520px, 95%);
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 1px solid #e5e7eb;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+.login-overlay.open .login-modal-card {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.login-modal-card .modal-body {
+  padding: 28px 32px;
+  text-align: center;
+}
+.login-modal-card .state { display: none; }
+.login-modal-card.is-loading .state-loading { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.login-modal-card.is-success .state-success { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.login-modal-card.is-error .state-error { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+/* Spinner */
+.spinner {
+  width: 56px;
+  height: 56px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #3b5efb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Icon circles */
+.icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+.icon { width: 36px; height: 36px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.icon-circle.success { background: #ecfdf5; color: #10b981; border: 2px solid #10b981; }
+.icon-circle.error { background: #fef2f2; color: #ef4444; border: 2px solid #ef4444; }
+
+.status-title { margin: 4px 0 0; font-weight: 700; color: #1f2937; }
+.status-text { margin: 0; color: #6b7280; }
+
+.status-pill {
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  min-width: 240px;
+  display: inline-block;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.status-pill.success { background: #34d399; color: #ffffff; }
+.status-pill.error { background: #ef4444; color: #ffffff; }
+
+.back-link {
+  color: #3b5efb;
+  text-decoration: none;
+  font-weight: 600;
+}
+.back-link:hover { text-decoration: underline; }
 
 /* Footer */
 .login-footer {
