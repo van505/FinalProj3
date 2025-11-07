@@ -12562,9 +12562,9 @@ body.modal-open {
 }
 
 .new-item-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
@@ -12578,7 +12578,7 @@ body.modal-open {
   margin-bottom: 2rem;
 }
 .new-item-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f2f4f7;
   transform: translateY(-1px);
 }
 .new-item-btn .btn-icon {
@@ -13360,9 +13360,9 @@ body.modal-open {
 }
 
 .new-item-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
@@ -13376,7 +13376,7 @@ body.modal-open {
   margin-bottom: 2rem;
 }
 .new-item-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f2f4f7;
   transform: translateY(-1px);
 }
 .new-item-btn .btn-icon {
@@ -14041,9 +14041,9 @@ body.modal-open {
 }
 
 .new-item-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
@@ -14057,7 +14057,7 @@ body.modal-open {
   margin-bottom: 2rem;
 }
 .new-item-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f2f4f7;
   transform: translateY(-1px);
 }
 .new-item-btn .btn-icon {
@@ -15107,9 +15107,9 @@ body.modal-open {
 }
 
 .new-item-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
@@ -15123,7 +15123,7 @@ body.modal-open {
   margin-bottom: 2rem;
 }
 .new-item-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f2f4f7;
   transform: translateY(-1px);
 }
 .new-item-btn .btn-icon {
@@ -15709,9 +15709,9 @@ body.modal-open {
 }
 
 .new-item-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 0.75rem 1rem;
   border-radius: 12px;
   cursor: pointer;
@@ -15725,7 +15725,7 @@ body.modal-open {
   margin-bottom: 2rem;
 }
 .new-item-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f2f4f7;
   transform: translateY(-1px);
 }
 .new-item-btn .btn-icon {
