@@ -231,22 +231,41 @@
   .banner-content {
     position: relative;
     z-index: 1;
+  }
+
+  .banner-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1rem; // space between icon and text
   }
 
   .banner-icon {
-    width: 40px;
-    height: 40px;
+    width: 55px;
+    height: 55px;
     stroke-width: 2;
+    flex-shrink: 0; // keeps icon size fixed
+  }
+
+  .banner-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .banner-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+  }
+
+  .banner-subtitle {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 400;
   }
 }
 

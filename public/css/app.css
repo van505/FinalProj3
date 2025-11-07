@@ -15877,20 +15877,36 @@ body.modal-open {
 .system-settings-banner .banner-content {
   position: relative;
   z-index: 1;
+}
+.system-settings-banner .banner-header {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 .system-settings-banner .banner-icon {
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   stroke-width: 2;
+  flex-shrink: 0;
+}
+.system-settings-banner .banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .system-settings-banner .banner-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
   letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+.system-settings-banner .banner-subtitle {
+  font-size: 1.1rem;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 400;
 }
 
 /* ---------- Filters Section ---------- */
