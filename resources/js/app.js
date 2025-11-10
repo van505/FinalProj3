@@ -3,6 +3,8 @@ axios.defaults.headers.common["Accept"] = "application/json";
 
 require("./bootstrap");
 import "./bootstrap";
+// Global notifications (overrides alert/confirm with modal)
+import "./utils/notifications";
 
 // Import components
 import { loadLogin } from "./components/Login";

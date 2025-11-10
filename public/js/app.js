@@ -42243,17 +42243,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.js");
-/* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.js");
-/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.js");
-/* harmony import */ var _components_Students__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Students */ "./resources/js/components/Students.js");
-/* harmony import */ var _components_Faculty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Faculty */ "./resources/js/components/Faculty.js");
-/* harmony import */ var _components_Report__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Report */ "./resources/js/components/Report.js");
-/* harmony import */ var _components_SystemSettings__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/SystemSettings */ "./resources/js/components/SystemSettings.js");
-/* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.js");
+/* harmony import */ var _utils_notifications__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/notifications */ "./resources/js/utils/notifications.js");
+/* harmony import */ var _utils_notifications__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_utils_notifications__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.js");
+/* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.js");
+/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.js");
+/* harmony import */ var _components_Students__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Students */ "./resources/js/components/Students.js");
+/* harmony import */ var _components_Faculty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Faculty */ "./resources/js/components/Faculty.js");
+/* harmony import */ var _components_Report__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Report */ "./resources/js/components/Report.js");
+/* harmony import */ var _components_SystemSettings__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/SystemSettings */ "./resources/js/components/SystemSettings.js");
+/* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.js");
 
 (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults).headers.common["Accept"] = "application/json";
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+// Global notifications (overrides alert/confirm with modal)
 
 
 // Import components
@@ -42277,21 +42281,21 @@ if (app) {
 
     // ✅ Handle initial load based on URL
     if (path === "/dashboard") {
-      (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_4__.loadDashboard)(app);
+      (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_5__.loadDashboard)(app);
     } else if (path === "/students") {
-      (0,_components_Students__WEBPACK_IMPORTED_MODULE_5__.loadStudents)(app);
+      (0,_components_Students__WEBPACK_IMPORTED_MODULE_6__.loadStudents)(app);
     } else if (path === "/faculty") {
-      (0,_components_Faculty__WEBPACK_IMPORTED_MODULE_6__.loadFaculty)(app);
+      (0,_components_Faculty__WEBPACK_IMPORTED_MODULE_7__.loadFaculty)(app);
     } else if (path === "/report") {
-      (0,_components_Report__WEBPACK_IMPORTED_MODULE_7__.loadReport)(app);
+      (0,_components_Report__WEBPACK_IMPORTED_MODULE_8__.loadReport)(app);
     } else if (path === "/systemsettings") {
-      (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_8__.loadSystemSettings)(app);
+      (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_9__.loadSystemSettings)(app);
     } else if (path === "/profile") {
-      (0,_components_Profile__WEBPACK_IMPORTED_MODULE_9__.loadProfile)(app);
+      (0,_components_Profile__WEBPACK_IMPORTED_MODULE_10__.loadProfile)(app);
     } else {
       // default to dashboard
       window.history.pushState({}, "", "/dashboard");
-      (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_4__.loadDashboard)(app);
+      (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_5__.loadDashboard)(app);
     }
 
     // ✅ Sidebar link navigation (no page refresh)
@@ -42309,22 +42313,22 @@ if (app) {
 
       // ✅ Handle navigation
       if (page === "overview" || page === "dashboard") {
-        (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_4__.loadDashboard)(app);
+        (0,_components_Dashboard__WEBPACK_IMPORTED_MODULE_5__.loadDashboard)(app);
         window.history.pushState({}, "", "/dashboard");
       } else if (page === "students") {
-        (0,_components_Students__WEBPACK_IMPORTED_MODULE_5__.loadStudents)(app);
+        (0,_components_Students__WEBPACK_IMPORTED_MODULE_6__.loadStudents)(app);
         window.history.pushState({}, "", "/students");
       } else if (page === "faculty") {
-        (0,_components_Faculty__WEBPACK_IMPORTED_MODULE_6__.loadFaculty)(app);
+        (0,_components_Faculty__WEBPACK_IMPORTED_MODULE_7__.loadFaculty)(app);
         window.history.pushState({}, "", "/faculty");
       } else if (page === "report") {
-        (0,_components_Report__WEBPACK_IMPORTED_MODULE_7__.loadReport)(app);
+        (0,_components_Report__WEBPACK_IMPORTED_MODULE_8__.loadReport)(app);
         window.history.pushState({}, "", "/report");
       } else if (page === "settings") {
-        (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_8__.loadSystemSettings)(app);
+        (0,_components_SystemSettings__WEBPACK_IMPORTED_MODULE_9__.loadSystemSettings)(app);
         window.history.pushState({}, "", "/systemsettings");
       } else if (page === "profile") {
-        (0,_components_Profile__WEBPACK_IMPORTED_MODULE_9__.loadProfile)(app);
+        (0,_components_Profile__WEBPACK_IMPORTED_MODULE_10__.loadProfile)(app);
         window.history.pushState({}, "", "/profile");
       }
     });
@@ -42333,7 +42337,7 @@ if (app) {
     if (path !== "/") {
       window.history.pushState({}, "", "/");
     }
-    (0,_components_Login__WEBPACK_IMPORTED_MODULE_2__.loadLogin)(app, _components_Register__WEBPACK_IMPORTED_MODULE_3__.loadRegister);
+    (0,_components_Login__WEBPACK_IMPORTED_MODULE_3__.loadLogin)(app, _components_Register__WEBPACK_IMPORTED_MODULE_4__.loadRegister);
   }
 }
 
@@ -42576,6 +42580,9 @@ function loadFaculty(app) {
   if (facultyModalEl && facultyModalEl.parentElement !== document.body) {
     document.body.appendChild(facultyModalEl);
   }
+  var mq = function mq(sel) {
+    return facultyModalEl === null || facultyModalEl === void 0 ? void 0 : facultyModalEl.querySelector(sel);
+  };
 
   // ----- existing logic (kept unchanged) -----
   var allFaculty = [];
@@ -42589,10 +42596,11 @@ function loadFaculty(app) {
   } // Fetch faculty
   function _loadSelectOptions() {
     _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, yearsRes;
+      var _departmentsRes$data, _yearsRes$data, _yield$Promise$all, _yield$Promise$all2, departmentsRes, yearsRes, deptsRaw, yearsRaw, deptFilter, deptSelect, yearFilter, yearSelect, _t;
       return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.n) {
+        while (1) switch (_context2.p = _context2.n) {
           case 0:
+            _context2.p = 0;
             _context2.n = 1;
             return Promise.all([axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/departments"), axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/academic-years")]);
           case 1:
@@ -42600,24 +42608,56 @@ function loadFaculty(app) {
             _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
             departmentsRes = _yield$Promise$all2[0];
             yearsRes = _yield$Promise$all2[1];
-            allDepartments = departmentsRes.data;
-            allAcademicYears = yearsRes.data;
-            document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
-              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
-            }).join("");
-            document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
-              return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
-            }).join("");
-            document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
-              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
-            }).join("");
-            document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
-              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
-            }).join("");
+            // Some backends wrap payload under .data
+            deptsRaw = (departmentsRes === null || departmentsRes === void 0 || (_departmentsRes$data = departmentsRes.data) === null || _departmentsRes$data === void 0 ? void 0 : _departmentsRes$data.data) || (departmentsRes === null || departmentsRes === void 0 ? void 0 : departmentsRes.data) || [];
+            yearsRaw = (yearsRes === null || yearsRes === void 0 || (_yearsRes$data = yearsRes.data) === null || _yearsRes$data === void 0 ? void 0 : _yearsRes$data.data) || (yearsRes === null || yearsRes === void 0 ? void 0 : yearsRes.data) || []; // Normalize fields
+            allDepartments = (deptsRaw || []).map(function (d) {
+              return {
+                id: d.id,
+                name: d.name || d.department_name || ""
+              };
+            });
+            allAcademicYears = (yearsRaw || []).map(function (y) {
+              return {
+                id: y.id,
+                year: y.year || y.academic_year || ""
+              };
+            });
+            deptFilter = document.getElementById("departmentFilter");
+            deptSelect = document.getElementById("departmentSelect");
+            yearFilter = document.getElementById("academicYearFilter");
+            yearSelect = document.getElementById("academicYearSelectForm");
+            if (deptFilter) {
+              deptFilter.innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
+                return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+              }).join("");
+            }
+            if (deptSelect) {
+              deptSelect.innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
+                return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
+              }).join("");
+            }
+            if (yearFilter) {
+              yearFilter.innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
+                return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
+              }).join("");
+            }
+            if (yearSelect) {
+              yearSelect.innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
+                return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
+              }).join("");
+            }
+            _context2.n = 3;
+            break;
           case 2:
+            _context2.p = 2;
+            _t = _context2.v;
+            console.error("Error loading select options:", _t);
+            alert("Failed to load dropdown options. Please refresh the page.");
+          case 3:
             return _context2.a(2);
         }
-      }, _callee2);
+      }, _callee2, null, [[0, 2]]);
     }));
     return _loadSelectOptions.apply(this, arguments);
   }
@@ -42626,7 +42666,7 @@ function loadFaculty(app) {
   } // Render table
   function _fetchFaculty() {
     _fetchFaculty = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var res, _t;
+      var res, _t2;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
@@ -42641,8 +42681,8 @@ function loadFaculty(app) {
             break;
           case 2:
             _context3.p = 2;
-            _t = _context3.v;
-            console.error("Error fetching faculty:", _t);
+            _t2 = _context3.v;
+            console.error("Error fetching faculty:", _t2);
           case 3:
             return _context3.a(2);
         }
@@ -42700,6 +42740,7 @@ function loadFaculty(app) {
             _context4.n = 1;
             return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/faculty/".concat(id));
           case 1:
+            alert('Faculty archived successfully!');
             fetchFaculty();
           case 2:
             return _context4.a(2);
@@ -42713,34 +42754,45 @@ function loadFaculty(app) {
   } // Modal logic
   function _openEditModal() {
     _openEditModal = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(id) {
-      var res, f;
+      var _mq, _mq2;
+      var needDepts, needYears, res, f;
       return _regenerator().w(function (_context5) {
         while (1) switch (_context5.n) {
           case 0:
+            // Ensure selects exist before setting values
+            needDepts = (((_mq = mq("#departmentSelect")) === null || _mq === void 0 ? void 0 : _mq.options.length) || 0) <= 1;
+            needYears = (((_mq2 = mq("#academicYearSelectForm")) === null || _mq2 === void 0 ? void 0 : _mq2.options.length) || 0) <= 1;
+            if (!(needDepts || needYears || !allDepartments.length || !allAcademicYears.length)) {
+              _context5.n = 1;
+              break;
+            }
             _context5.n = 1;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
+            return loadSelectOptions();
           case 1:
+            _context5.n = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/faculty/".concat(id));
+          case 2:
             res = _context5.v;
             f = res.data;
             isEditing = true;
-            document.getElementById("edit_id").value = f.id;
-            document.getElementById("faculty_id").value = f.faculty_id;
-            document.getElementById("first_name").value = f.first_name;
-            document.getElementById("middle_name").value = f.middle_name || "";
-            document.getElementById("last_name").value = f.last_name;
-            document.getElementById("email").value = f.email;
-            document.getElementById("phone").value = f.phone || "";
-            document.getElementById("address").value = f.address || "";
-            document.getElementById("position").value = f.position || "";
-            document.getElementById("date_hired").value = f.date_hired || "";
-            document.getElementById("departmentSelect").value = f.department_id || "";
-            document.getElementById("academicYearSelectForm").value = f.academic_year_id || "";
-            document.getElementById("yearstatus").value = f.yearstatus || "active";
-            document.getElementById("facultyModalTitle").textContent = "Edit Faculty";
-            document.getElementById("submitBtn").textContent = "Update Faculty";
+            mq("#edit_id").value = f.id;
+            mq("#faculty_id").value = f.faculty_id;
+            mq("#first_name").value = f.first_name;
+            mq("#middle_name").value = f.middle_name || "";
+            mq("#last_name").value = f.last_name;
+            mq("#email").value = f.email;
+            mq("#phone").value = f.phone || "";
+            mq("#address").value = f.address || "";
+            mq("#position").value = f.position || "";
+            mq("#date_hired").value = f.date_hired || "";
+            mq("#departmentSelect").value = f.department_id || "";
+            mq("#academicYearSelectForm").value = f.academic_year_id || "";
+            mq("#yearstatus").value = f.yearstatus || "active";
+            mq("#facultyModalTitle").textContent = "Edit Faculty";
+            mq("#submitBtn").textContent = "Update Faculty";
             document.getElementById("facultyModal").classList.remove("hidden");
             document.body.classList.add("modal-open");
-          case 2:
+          case 3:
             return _context5.a(2);
         }
       }, _callee5);
@@ -42753,13 +42805,20 @@ function loadFaculty(app) {
     addFacultyBtnTop.addEventListener("click", showModal);
   }
   document.getElementById("closeFacultyModal").addEventListener("click", hideModal);
-  document.getElementById("cancelBtn").addEventListener("click", hideModal);
+  mq("#cancelBtn").addEventListener("click", hideModal);
   function showModal() {
+    var _document$getElementB, _document$getElementB2;
     document.getElementById("facultyModal").classList.remove("hidden");
-    document.getElementById("facultyModalTitle").textContent = "Add New Faculty";
-    document.getElementById("submitBtn").textContent = "Save Faculty";
+    mq("#facultyModalTitle").textContent = "Add New Faculty";
+    mq("#submitBtn").textContent = "Save Faculty";
     resetForm();
     document.body.classList.add("modal-open");
+    // Ensure selects have options when opening
+    var needDepts = (((_document$getElementB = document.getElementById("departmentSelect")) === null || _document$getElementB === void 0 ? void 0 : _document$getElementB.options.length) || 0) <= 1;
+    var needYears = (((_document$getElementB2 = document.getElementById("academicYearSelectForm")) === null || _document$getElementB2 === void 0 ? void 0 : _document$getElementB2.options.length) || 0) <= 1;
+    if (needDepts || needYears) {
+      loadSelectOptions();
+    }
   }
   function hideModal() {
     document.getElementById("facultyModal").classList.add("hidden");
@@ -42768,7 +42827,7 @@ function loadFaculty(app) {
   }
 
   // Submit form
-  var form = document.getElementById("facultyForm");
+  var form = mq("#facultyForm");
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(e) {
       var data, id;
@@ -42794,6 +42853,7 @@ function loadFaculty(app) {
           case 3:
             hideModal();
             fetchFaculty();
+            alert(isEditing ? 'Faculty updated successfully!' : 'Faculty added successfully!');
           case 4:
             return _context.a(2);
         }
@@ -44232,6 +44292,8 @@ function loadReport(app) {
           case 22:
             return _context0.a(3, 23);
           case 23:
+            // Success confirmation (global modal styles)
+            alert('Successfully exported report!');
             _context0.n = 25;
             break;
           case 24:
@@ -44394,6 +44456,9 @@ function loadStudents(app) {
   if (studentModalEl && studentModalEl.parentElement !== document.body) {
     document.body.appendChild(studentModalEl);
   }
+  var smq = function smq(sel) {
+    return studentModalEl === null || studentModalEl === void 0 ? void 0 : studentModalEl.querySelector(sel);
+  };
   var isEditing = false;
   var allStudents = [];
   var allDepartments = [];
@@ -44407,7 +44472,7 @@ function loadStudents(app) {
   // When department filter changes, update course filter options
   function _loadSelectOptions() {
     _loadSelectOptions = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-      var _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes, _error$response8, _error$response9, _t4;
+      var _departmentsRes$data, _coursesRes$data, _yearsRes$data, _yield$Promise$all, _yield$Promise$all2, departmentsRes, coursesRes, yearsRes, deptsRaw, coursesRaw, yearsRaw, _error$response8, _error$response9, _t4;
       return _regenerator().w(function (_context4) {
         while (1) switch (_context4.p = _context4.n) {
           case 0:
@@ -44420,9 +44485,29 @@ function loadStudents(app) {
             departmentsRes = _yield$Promise$all2[0];
             coursesRes = _yield$Promise$all2[1];
             yearsRes = _yield$Promise$all2[2];
-            allDepartments = departmentsRes.data;
-            allCourses = coursesRes.data;
-            allAcademicYears = yearsRes.data;
+            deptsRaw = (departmentsRes === null || departmentsRes === void 0 || (_departmentsRes$data = departmentsRes.data) === null || _departmentsRes$data === void 0 ? void 0 : _departmentsRes$data.data) || (departmentsRes === null || departmentsRes === void 0 ? void 0 : departmentsRes.data) || [];
+            coursesRaw = (coursesRes === null || coursesRes === void 0 || (_coursesRes$data = coursesRes.data) === null || _coursesRes$data === void 0 ? void 0 : _coursesRes$data.data) || (coursesRes === null || coursesRes === void 0 ? void 0 : coursesRes.data) || [];
+            yearsRaw = (yearsRes === null || yearsRes === void 0 || (_yearsRes$data = yearsRes.data) === null || _yearsRes$data === void 0 ? void 0 : _yearsRes$data.data) || (yearsRes === null || yearsRes === void 0 ? void 0 : yearsRes.data) || []; // Normalize fields
+            allDepartments = (deptsRaw || []).map(function (d) {
+              return {
+                id: d.id,
+                name: d.name || d.department_name || ""
+              };
+            });
+            allCourses = (coursesRaw || []).map(function (c) {
+              var _c$department;
+              return {
+                id: c.id,
+                name: c.name || c.course_name || "",
+                department_id: c.department_id || ((_c$department = c.department) === null || _c$department === void 0 ? void 0 : _c$department.id)
+              };
+            });
+            allAcademicYears = (yearsRaw || []).map(function (y) {
+              return {
+                id: y.id,
+                year: y.year || y.academic_year || ""
+              };
+            });
 
             // Department filter
             document.getElementById("departmentFilter").innerHTML = "<option value=\"\">All Departments</option>" + allDepartments.map(function (d) {
@@ -44434,17 +44519,17 @@ function loadStudents(app) {
 
             // Academic year filter
             document.getElementById("academicYearFilter").innerHTML = "<option value=\"\">All Academic Years</option>" + allAcademicYears.map(function (y) {
-              return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
             }).join("");
 
             // Department select (form)
-            document.getElementById("departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
+            smq("#departmentSelect").innerHTML = "<option value=\"\">Select Department</option>" + allDepartments.map(function (d) {
               return "<option value=\"".concat(d.id, "\">").concat(d.name, "</option>");
             }).join("");
 
             // Academic year select (form)
-            document.getElementById("academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
-              return "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
+            smq("#academicYearSelectForm").innerHTML = "<option value=\"\">Select Academic Year</option>" + allAcademicYears.map(function (y) {
+              return "<option value=\"".concat(y.id, "\">").concat(y.year, "</option>");
             }).join("");
 
             // Course select (form, initially all)
@@ -44504,8 +44589,8 @@ function loadStudents(app) {
     }
   });
   function updateCourseSelect() {
-    var deptId = document.getElementById("departmentSelect").value;
-    var courseSelect = document.getElementById("courseSelect");
+    var deptId = smq("#departmentSelect").value;
+    var courseSelect = smq("#courseSelect");
     var filteredCourses = deptId ? allCourses.filter(function (c) {
       return c.department_id == deptId;
     }) : allCourses;
@@ -44630,42 +44715,53 @@ function loadStudents(app) {
     // Edit logic
     document.querySelectorAll(".edit-btn").forEach(function (btn) {
       btn.addEventListener("click", /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var id, res, s, _error$response3, _error$response4, _t2;
+        var id, _document$getElementB, _document$getElementB2, _document$getElementB3, needDepts, needCourses, needYears, res, s, _error$response3, _error$response4, _t2;
         return _regenerator().w(function (_context2) {
           while (1) switch (_context2.p = _context2.n) {
             case 0:
               id = btn.dataset.id;
               _context2.p = 1;
+              // Ensure selects are ready before setting values
+              needDepts = (((_document$getElementB = document.getElementById("departmentSelect")) === null || _document$getElementB === void 0 ? void 0 : _document$getElementB.options.length) || 0) <= 1;
+              needCourses = (((_document$getElementB2 = document.getElementById("courseSelect")) === null || _document$getElementB2 === void 0 ? void 0 : _document$getElementB2.options.length) || 0) <= 1;
+              needYears = (((_document$getElementB3 = document.getElementById("academicYearSelectForm")) === null || _document$getElementB3 === void 0 ? void 0 : _document$getElementB3.options.length) || 0) <= 1;
+              if (!(needDepts || needCourses || needYears || !allDepartments.length || !allCourses.length || !allAcademicYears.length)) {
+                _context2.n = 2;
+                break;
+              }
               _context2.n = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students/".concat(id));
+              return loadSelectOptions();
             case 2:
+              _context2.n = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/students/".concat(id));
+            case 3:
               res = _context2.v;
               s = res.data;
-              document.getElementById("edit_id").value = s.id;
-              document.getElementById("studID").value = s.studID;
-              document.getElementById("firstname").value = s.firstname;
-              document.getElementById("middlename").value = s.middlename || "";
-              document.getElementById("lastname").value = s.lastname;
-              document.getElementById("suffix").value = s.suffix || "";
-              document.getElementById("email").value = s.email;
-              document.getElementById("phone").value = s.phone || "";
-              document.getElementById("date_of_birth").value = s.date_of_birth || "";
-              document.getElementById("sex").value = s.sex || "";
-              document.getElementById("departmentSelect").value = s.department_id || "";
+              smq("#edit_id").value = s.id;
+              smq("#studID").value = s.studID;
+              smq("#firstname").value = s.firstname;
+              smq("#middlename").value = s.middlename || "";
+              smq("#lastname").value = s.lastname;
+              smq("#suffix").value = s.suffix || "";
+              smq("#email").value = s.email;
+              smq("#phone").value = s.phone || "";
+              smq("#date_of_birth").value = s.date_of_birth || "";
+              smq("#sex").value = s.sex || "";
+              smq("#departmentSelect").value = s.department_id || "";
               updateCourseSelect();
-              document.getElementById("courseSelect").value = s.course_id || "";
-              document.getElementById("academicYearSelectForm").value = s.academic_year_id || "";
-              document.getElementById("yearstatus").value = s.yearstatus || "";
-              document.getElementById("enrollment_date").value = s.enrollment_date || "";
+              smq("#courseSelect").value = s.course_id || "";
+              smq("#academicYearSelectForm").value = s.academic_year_id || "";
+              smq("#yearstatus").value = s.yearstatus || "";
+              smq("#enrollment_date").value = s.enrollment_date || "";
               document.getElementById("studentModal").classList.remove("hidden");
               document.getElementById("studentModalTitle").textContent = "Edit Student";
               document.getElementById("submitBtn").textContent = "Update Student";
               isEditing = true;
               document.body.classList.add("modal-open");
-              _context2.n = 4;
+              _context2.n = 5;
               break;
-            case 3:
-              _context2.p = 3;
+            case 4:
+              _context2.p = 4;
               _t2 = _context2.v;
               console.error("Error fetching student data:", ((_error$response3 = _t2.response) === null || _error$response3 === void 0 ? void 0 : _error$response3.data) || _t2);
               if (((_error$response4 = _t2.response) === null || _error$response4 === void 0 ? void 0 : _error$response4.status) === 401) {
@@ -44675,21 +44771,29 @@ function loadStudents(app) {
               } else {
                 alert("Failed to fetch student data. Please try again.");
               }
-            case 4:
+            case 5:
               return _context2.a(2);
           }
-        }, _callee2, null, [[1, 3]]);
+        }, _callee2, null, [[1, 4]]);
       })));
     });
   }
 
   // Modal logic
   function showStudentModal() {
+    var _document$getElementB4, _document$getElementB5, _document$getElementB6;
     document.getElementById("studentModal").classList.remove("hidden");
     document.getElementById("studentModalTitle").textContent = "Add New Student";
     document.getElementById("submitBtn").textContent = "Save Student";
     resetForm();
     document.body.classList.add("modal-open");
+    // Ensure selects have options when opening
+    var needDepts = (((_document$getElementB4 = document.getElementById("departmentSelect")) === null || _document$getElementB4 === void 0 ? void 0 : _document$getElementB4.options.length) || 0) <= 1;
+    var needCourses = (((_document$getElementB5 = document.getElementById("courseSelect")) === null || _document$getElementB5 === void 0 ? void 0 : _document$getElementB5.options.length) || 0) <= 1;
+    var needYears = (((_document$getElementB6 = document.getElementById("academicYearSelectForm")) === null || _document$getElementB6 === void 0 ? void 0 : _document$getElementB6.options.length) || 0) <= 1;
+    if (needDepts || needCourses || needYears || !allDepartments.length || !allCourses.length || !allAcademicYears.length) {
+      loadSelectOptions();
+    }
   }
   function hideStudentModal() {
     document.getElementById("studentModal").classList.add("hidden");
@@ -44704,11 +44808,11 @@ function loadStudents(app) {
     addTop.addEventListener("click", showStudentModal);
   }
   document.getElementById("closeStudentModal").addEventListener("click", hideStudentModal);
-  document.getElementById("cancelBtn").addEventListener("click", hideStudentModal);
+  smq("#cancelBtn").addEventListener("click", hideStudentModal);
 
   // Submit (Add/Edit)
-  var form = document.getElementById("studentForm");
-  var submitBtn = document.getElementById("submitBtn");
+  var form = smq("#studentForm");
+  var submitBtn = smq("#submitBtn");
   form.addEventListener("submit", /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(e) {
       var formData, id, _error$response5, _error$response6, _error$response7, errors, errorMessages, _t3;
@@ -46322,6 +46426,157 @@ function loadSystemSettings(app) {
     });
   });
 }
+
+/***/ }),
+
+/***/ "./resources/js/utils/notifications.js":
+/*!*********************************************!*\
+  !*** ./resources/js/utils/notifications.js ***!
+  \*********************************************/
+/***/ (() => {
+
+// Global Notification & Confirm Modal
+// Initializes once and overrides window.alert and window.confirm
+
+(function initNotifications() {
+  if (window.__notificationsInitialized) return;
+  window.__notificationsInitialized = true;
+  var modal = document.createElement('div');
+  modal.id = 'notifyModal';
+  modal.className = 'notify-modal hidden';
+  modal.innerHTML = "\n    <div class=\"notify-backdrop\"></div>\n    <div class=\"notify-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"notifyTitle\" aria-describedby=\"notifyMessage\">\n      <button class=\"notify-close\" type=\"button\" aria-label=\"Close\">\xD7</button>\n      <div class=\"notify-icon\" aria-hidden=\"true\"></div>\n      <h3 id=\"notifyTitle\" class=\"notify-title\"></h3>\n      <p id=\"notifyMessage\" class=\"notify-message\"></p>\n      <div class=\"notify-actions\">\n        <button type=\"button\" class=\"btn btn-primary\" id=\"notifyOk\">OK</button>\n        <button type=\"button\" class=\"btn btn-secondary hidden\" id=\"notifyCancel\">Cancel</button>\n      </div>\n    </div>";
+  document.body.appendChild(modal);
+  var dialog = modal.querySelector('.notify-dialog');
+  var closeBtn = modal.querySelector('.notify-close');
+  var okBtn = modal.querySelector('#notifyOk');
+  var cancelBtn = modal.querySelector('#notifyCancel');
+  var titleEl = modal.querySelector('#notifyTitle');
+  var msgEl = modal.querySelector('#notifyMessage');
+  var iconEl = modal.querySelector('.notify-icon');
+  var resolver = null; // for optional async confirm helper
+
+  function hide() {
+    modal.classList.add('hidden');
+    dialog.classList.remove('show');
+    document.body.classList.remove('modal-open');
+    // cleanup listeners specific to this show
+    okBtn.onclick = null;
+    cancelBtn.onclick = null;
+    closeBtn.onclick = null;
+  }
+  function show(_ref) {
+    var kind = _ref.kind,
+      title = _ref.title,
+      message = _ref.message,
+      _ref$confirm = _ref.confirm,
+      confirm = _ref$confirm === void 0 ? false : _ref$confirm;
+    // kind: 'success' | 'error' | 'info'
+    modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+
+    // set visual state
+    modal.dataset.kind = kind;
+    iconEl.className = "notify-icon ".concat(kind);
+    titleEl.textContent = title || (kind === 'success' ? 'Success' : kind === 'error' ? 'Error' : 'Notice');
+    msgEl.innerHTML = message || '';
+
+    // buttons
+    if (confirm) {
+      cancelBtn.classList.remove('hidden');
+      okBtn.textContent = 'Confirm';
+    } else {
+      cancelBtn.classList.add('hidden');
+      okBtn.textContent = 'OK';
+    }
+
+    // wire actions
+    closeBtn.onclick = hide;
+    if (confirm) {
+      okBtn.onclick = function () {
+        hide();
+        resolver && resolver(true);
+      };
+      cancelBtn.onclick = function () {
+        hide();
+        resolver && resolver(false);
+      };
+    } else {
+      okBtn.onclick = hide;
+      cancelBtn.onclick = null;
+    }
+
+    // animate in
+    requestAnimationFrame(function () {
+      return dialog.classList.add('show');
+    });
+  }
+  function classifyMessage(msg) {
+    var m = (msg || '').toLowerCase();
+    if (m.includes('fail') || m.includes('error') || m.includes('invalid') || m.includes('unauth')) return 'error';
+    if (m.includes('success') || m.includes('saved') || m.includes('updated') || m.includes('added') || m.includes('archived') || m.includes('deleted') || m.includes('sent') || m.includes('export')) return 'success';
+    return 'info';
+  }
+
+  // Expose helpers
+  window.notify = {
+    success: function success(message) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Successfully added!';
+      show({
+        kind: 'success',
+        title: title,
+        message: message
+      });
+    },
+    error: function error(message) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Failed';
+      show({
+        kind: 'error',
+        title: title,
+        message: message
+      });
+    },
+    info: function info(message) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Notice';
+      show({
+        kind: 'info',
+        title: title,
+        message: message
+      });
+    },
+    confirm: function confirm(message) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
+      return new Promise(function (resolve) {
+        resolver = resolve;
+        show({
+          kind: 'info',
+          title: title,
+          message: message,
+          confirm: true
+        });
+      });
+    }
+  };
+
+  // Override alert and confirm globally to keep existing logic untouched
+  var nativeAlert = window.alert.bind(window);
+  var nativeConfirm = window.confirm.bind(window);
+  window.alert = function (msg) {
+    try {
+      var kind = classifyMessage(String(msg));
+      show({
+        kind: kind,
+        title: kind === 'success' ? 'Success' : kind === 'error' ? 'Error' : 'Notice',
+        message: String(msg)
+      });
+    } catch (e) {
+      // Fallback to native if something goes wrong
+      nativeAlert(msg);
+    }
+  };
+
+  // Do NOT override confirm to avoid changing existing synchronous logic
+  window.confirm = nativeConfirm;
+})();
 
 /***/ }),
 

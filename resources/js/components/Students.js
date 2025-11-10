@@ -297,6 +297,7 @@ export function loadStudents(app) {
     if (studentModalEl && studentModalEl.parentElement !== document.body) {
         document.body.appendChild(studentModalEl);
     }
+    const smq = (sel) => studentModalEl?.querySelector(sel);
 
     let isEditing = false;
     let allStudents = [];
@@ -312,9 +313,14 @@ export function loadStudents(app) {
                 axios.get("/api/courses"),
                 axios.get("/api/academic-years"),
             ]);
-            allDepartments = departmentsRes.data;
-            allCourses = coursesRes.data;
-            allAcademicYears = yearsRes.data;
+            const deptsRaw = departmentsRes?.data?.data || departmentsRes?.data || [];
+            const coursesRaw = coursesRes?.data?.data || coursesRes?.data || [];
+            const yearsRaw = yearsRes?.data?.data || yearsRes?.data || [];
+
+            // Normalize fields
+            allDepartments = (deptsRaw || []).map(d => ({ id: d.id, name: d.name || d.department_name || "" }));
+            allCourses = (coursesRaw || []).map(c => ({ id: c.id, name: c.name || c.course_name || "", department_id: c.department_id || c.department?.id }));
+            allAcademicYears = (yearsRaw || []).map(y => ({ id: y.id, year: y.year || y.academic_year || "" }));
 
             // Department filter
             document.getElementById("departmentFilter").innerHTML =
@@ -330,31 +336,21 @@ export function loadStudents(app) {
             document.getElementById("academicYearFilter").innerHTML =
                 `<option value="">All Academic Years</option>` +
                 allAcademicYears
-                    .map(
-                        (y) =>
-                            `<option value="${y.id}">${
-                                y.year || y.academic_year
-                            }</option>`
-                    )
+                    .map((y) => `<option value="${y.id}">${y.year}</option>`)
                     .join("");
 
             // Department select (form)
-            document.getElementById("departmentSelect").innerHTML =
+            smq("#departmentSelect").innerHTML =
                 `<option value="">Select Department</option>` +
                 allDepartments
                     .map((d) => `<option value="${d.id}">${d.name}</option>`)
                     .join("");
 
             // Academic year select (form)
-            document.getElementById("academicYearSelectForm").innerHTML =
+            smq("#academicYearSelectForm").innerHTML =
                 `<option value="">Select Academic Year</option>` +
                 allAcademicYears
-                    .map(
-                        (y) =>
-                            `<option value="${y.id}">${
-                                y.year || y.academic_year
-                            }</option>`
-                    )
+                    .map((y) => `<option value="${y.id}">${y.year}</option>`)
                     .join("");
 
             // Course select (form, initially all)
@@ -414,8 +410,8 @@ export function loadStudents(app) {
     });
 
     function updateCourseSelect() {
-        const deptId = document.getElementById("departmentSelect").value;
-        const courseSelect = document.getElementById("courseSelect");
+        const deptId = smq("#departmentSelect").value;
+        const courseSelect = smq("#courseSelect");
         let filteredCourses = deptId
             ? allCourses.filter((c) => c.department_id == deptId)
             : allCourses;
@@ -560,31 +556,38 @@ export function loadStudents(app) {
             btn.addEventListener("click", async () => {
                 const id = btn.dataset.id;
                 try {
+                    // Ensure selects are ready before setting values
+                    const needDepts = (document.getElementById("departmentSelect")?.options.length || 0) <= 1;
+                    const needCourses = (document.getElementById("courseSelect")?.options.length || 0) <= 1;
+                    const needYears = (document.getElementById("academicYearSelectForm")?.options.length || 0) <= 1;
+                    if (needDepts || needCourses || needYears || !allDepartments.length || !allCourses.length || !allAcademicYears.length) {
+                        await loadSelectOptions();
+                    }
                     const res = await axios.get(`/api/students/${id}`);
                     const s = res.data;
 
-                    document.getElementById("edit_id").value = s.id;
-                    document.getElementById("studID").value = s.studID;
-                    document.getElementById("firstname").value = s.firstname;
-                    document.getElementById("middlename").value =
+                    smq("#edit_id").value = s.id;
+                    smq("#studID").value = s.studID;
+                    smq("#firstname").value = s.firstname;
+                    smq("#middlename").value =
                         s.middlename || "";
-                    document.getElementById("lastname").value = s.lastname;
-                    document.getElementById("suffix").value = s.suffix || "";
-                    document.getElementById("email").value = s.email;
-                    document.getElementById("phone").value = s.phone || "";
-                    document.getElementById("date_of_birth").value =
+                    smq("#lastname").value = s.lastname;
+                    smq("#suffix").value = s.suffix || "";
+                    smq("#email").value = s.email;
+                    smq("#phone").value = s.phone || "";
+                    smq("#date_of_birth").value =
                         s.date_of_birth || "";
-                    document.getElementById("sex").value = s.sex || "";
-                    document.getElementById("departmentSelect").value =
+                    smq("#sex").value = s.sex || "";
+                    smq("#departmentSelect").value =
                         s.department_id || "";
                     updateCourseSelect();
-                    document.getElementById("courseSelect").value =
+                    smq("#courseSelect").value =
                         s.course_id || "";
-                    document.getElementById("academicYearSelectForm").value =
+                    smq("#academicYearSelectForm").value =
                         s.academic_year_id || "";
-                    document.getElementById("yearstatus").value =
+                    smq("#yearstatus").value =
                         s.yearstatus || "";
-                    document.getElementById("enrollment_date").value =
+                    smq("#enrollment_date").value =
                         s.enrollment_date || "";
 
                     document
@@ -619,6 +622,13 @@ export function loadStudents(app) {
         document.getElementById("submitBtn").textContent = "Save Student";
         resetForm();
         document.body.classList.add("modal-open");
+        // Ensure selects have options when opening
+        const needDepts = (document.getElementById("departmentSelect")?.options.length || 0) <= 1;
+        const needCourses = (document.getElementById("courseSelect")?.options.length || 0) <= 1;
+        const needYears = (document.getElementById("academicYearSelectForm")?.options.length || 0) <= 1;
+        if (needDepts || needCourses || needYears || !allDepartments.length || !allCourses.length || !allAcademicYears.length) {
+            loadSelectOptions();
+        }
     }
     function hideStudentModal() {
         document.getElementById("studentModal").classList.add("hidden");
@@ -637,13 +647,11 @@ export function loadStudents(app) {
     document
         .getElementById("closeStudentModal")
         .addEventListener("click", hideStudentModal);
-    document
-        .getElementById("cancelBtn")
-        .addEventListener("click", hideStudentModal);
+    smq("#cancelBtn").addEventListener("click", hideStudentModal);
 
     // Submit (Add/Edit)
-    const form = document.getElementById("studentForm");
-    const submitBtn = document.getElementById("submitBtn");
+    const form = smq("#studentForm");
+    const submitBtn = smq("#submitBtn");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();

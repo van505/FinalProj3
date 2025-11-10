@@ -255,6 +255,7 @@ export function loadFaculty(app) {
   if (facultyModalEl && facultyModalEl.parentElement !== document.body) {
     document.body.appendChild(facultyModalEl);
   }
+  const mq = (sel) => facultyModalEl?.querySelector(sel);
 
   // ----- existing logic (kept unchanged) -----
   let allFaculty = [];
@@ -264,28 +265,48 @@ export function loadFaculty(app) {
 
   // Load dropdown data
   async function loadSelectOptions() {
-    const [departmentsRes, yearsRes] = await Promise.all([
-      axios.get("/api/departments"),
-      axios.get("/api/academic-years")
-    ]);
-    allDepartments = departmentsRes.data;
-    allAcademicYears = yearsRes.data;
+    try {
+      const [departmentsRes, yearsRes] = await Promise.all([
+        axios.get("/api/departments"),
+        axios.get("/api/academic-years")
+      ]);
+      // Some backends wrap payload under .data
+      const deptsRaw = departmentsRes?.data?.data || departmentsRes?.data || [];
+      const yearsRaw = yearsRes?.data?.data || yearsRes?.data || [];
 
-    document.getElementById("departmentFilter").innerHTML =
-      `<option value="">All Departments</option>` +
-      allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+      // Normalize fields
+      allDepartments = (deptsRaw || []).map(d => ({ id: d.id, name: d.name || d.department_name || "" }));
+      allAcademicYears = (yearsRaw || []).map(y => ({ id: y.id, year: y.year || y.academic_year || "" }));
 
-    document.getElementById("departmentSelect").innerHTML =
-      `<option value="">Select Department</option>` +
-      allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+      const deptFilter = document.getElementById("departmentFilter");
+      const deptSelect = document.getElementById("departmentSelect");
+      const yearFilter = document.getElementById("academicYearFilter");
+      const yearSelect = document.getElementById("academicYearSelectForm");
 
-    document.getElementById("academicYearFilter").innerHTML =
-      `<option value="">All Academic Years</option>` +
-      allAcademicYears.map(y => `<option value="${y.id}">${y.year}</option>`).join("");
-
-    document.getElementById("academicYearSelectForm").innerHTML =
-      `<option value="">Select Academic Year</option>` +
-      allAcademicYears.map(y => `<option value="${y.id}">${y.year}</option>`).join("");
+      if (deptFilter) {
+        deptFilter.innerHTML =
+          `<option value="">All Departments</option>` +
+          allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+      }
+      if (deptSelect) {
+        deptSelect.innerHTML =
+          `<option value="">Select Department</option>` +
+          allDepartments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+      }
+      if (yearFilter) {
+        yearFilter.innerHTML =
+          `<option value="">All Academic Years</option>` +
+          allAcademicYears.map(y => `<option value="${y.id}">${y.year}</option>`).join("");
+      }
+      if (yearSelect) {
+        yearSelect.innerHTML =
+          `<option value="">Select Academic Year</option>` +
+          allAcademicYears.map(y => `<option value="${y.id}">${y.year}</option>`).join("");
+      }
+    } catch (err) {
+      console.error("Error loading select options:", err);
+      alert("Failed to load dropdown options. Please refresh the page.");
+    }
   }
 
   // Fetch faculty
@@ -357,31 +378,38 @@ export function loadFaculty(app) {
   async function deleteFaculty(id) {
     if (confirm("Delete this faculty?")) {
       await axios.delete(`/api/faculty/${id}`);
+      alert('Faculty archived successfully!');
       fetchFaculty();
     }
   }
 
   async function openEditModal(id) {
+    // Ensure selects exist before setting values
+    const needDepts = (mq("#departmentSelect")?.options.length || 0) <= 1;
+    const needYears = (mq("#academicYearSelectForm")?.options.length || 0) <= 1;
+    if (needDepts || needYears || !allDepartments.length || !allAcademicYears.length) {
+      await loadSelectOptions();
+    }
     const res = await axios.get(`/api/faculty/${id}`);
     const f = res.data;
     isEditing = true;
 
-    document.getElementById("edit_id").value = f.id;
-    document.getElementById("faculty_id").value = f.faculty_id;
-    document.getElementById("first_name").value = f.first_name;
-    document.getElementById("middle_name").value = f.middle_name || "";
-    document.getElementById("last_name").value = f.last_name;
-    document.getElementById("email").value = f.email;
-    document.getElementById("phone").value = f.phone || "";
-    document.getElementById("address").value = f.address || "";
-    document.getElementById("position").value = f.position || "";
-    document.getElementById("date_hired").value = f.date_hired || "";
-    document.getElementById("departmentSelect").value = f.department_id || "";
-    document.getElementById("academicYearSelectForm").value = f.academic_year_id || "";
-    document.getElementById("yearstatus").value = f.yearstatus || "active";
+    mq("#edit_id").value = f.id;
+    mq("#faculty_id").value = f.faculty_id;
+    mq("#first_name").value = f.first_name;
+    mq("#middle_name").value = f.middle_name || "";
+    mq("#last_name").value = f.last_name;
+    mq("#email").value = f.email;
+    mq("#phone").value = f.phone || "";
+    mq("#address").value = f.address || "";
+    mq("#position").value = f.position || "";
+    mq("#date_hired").value = f.date_hired || "";
+    mq("#departmentSelect").value = f.department_id || "";
+    mq("#academicYearSelectForm").value = f.academic_year_id || "";
+    mq("#yearstatus").value = f.yearstatus || "active";
 
-    document.getElementById("facultyModalTitle").textContent = "Edit Faculty";
-    document.getElementById("submitBtn").textContent = "Update Faculty";
+    mq("#facultyModalTitle").textContent = "Edit Faculty";
+    mq("#submitBtn").textContent = "Update Faculty";
     document.getElementById("facultyModal").classList.remove("hidden");
     document.body.classList.add("modal-open");
   }
@@ -393,14 +421,20 @@ export function loadFaculty(app) {
     addFacultyBtnTop.addEventListener("click", showModal);
   }
   document.getElementById("closeFacultyModal").addEventListener("click", hideModal);
-  document.getElementById("cancelBtn").addEventListener("click", hideModal);
+  mq("#cancelBtn").addEventListener("click", hideModal);
 
   function showModal() {
     document.getElementById("facultyModal").classList.remove("hidden");
-    document.getElementById("facultyModalTitle").textContent = "Add New Faculty";
-    document.getElementById("submitBtn").textContent = "Save Faculty";
+    mq("#facultyModalTitle").textContent = "Add New Faculty";
+    mq("#submitBtn").textContent = "Save Faculty";
     resetForm();
     document.body.classList.add("modal-open");
+    // Ensure selects have options when opening
+    const needDepts = (document.getElementById("departmentSelect")?.options.length || 0) <= 1;
+    const needYears = (document.getElementById("academicYearSelectForm")?.options.length || 0) <= 1;
+    if (needDepts || needYears) {
+      loadSelectOptions();
+    }
   }
 
   function hideModal() {
@@ -410,7 +444,7 @@ export function loadFaculty(app) {
   }
 
   // Submit form
-  const form = document.getElementById("facultyForm");
+  const form = mq("#facultyForm");
   form.addEventListener("submit", async e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
@@ -422,6 +456,7 @@ export function loadFaculty(app) {
 
     hideModal();
     fetchFaculty();
+    alert(isEditing ? 'Faculty updated successfully!' : 'Faculty added successfully!');
   });
 
   function resetForm() {

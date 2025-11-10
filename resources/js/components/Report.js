@@ -684,6 +684,9 @@ export function loadReport(app) {
           break;
       }
 
+      // Success confirmation (global modal styles)
+      alert('Successfully exported report!');
+
     } catch (err) {
       console.error("Error exporting report:", err);
       alert("Failed to export report. Please try again.");

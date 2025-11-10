@@ -14,9 +14,9 @@ use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DashboardController;
 /*
-|--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -31,20 +31,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 // Protected routes
-//Course routes
-
-Route::get('/courses', [CourseController::class, 'index']);
-Route::post('/courses', [CourseController::class, 'store']);
-Route::put('/courses/{id}', [CourseController::class, 'update']);
-Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+// Course routes
+Route::apiResource('courses', CourseController::class)->only(['index','store','update','destroy']);
 Route::get('/courses/archived', [CourseController::class, 'getArchived']);
 Route::post('/courses/restore/{id}', [CourseController::class, 'restore']);
 
 // Department routes
-Route::get('/departments', [DepartmentController::class, 'index']);
-Route::post('/departments', [DepartmentController::class, 'store']);
-Route::put('/departments/{id}', [DepartmentController::class, 'update']);
-Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
+Route::apiResource('departments', DepartmentController::class)->only(['index','store','update','destroy']);
 
 // Profile routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -55,24 +48,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Student routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/students', [StudentController::class, 'index']);
-    Route::post('/students', [StudentController::class, 'store']);
-    Route::get('/students/{id}', [StudentController::class, 'show']);
-    Route::put('/students/{id}', [StudentController::class, 'update']);
-    Route::delete('/students/{id}', [StudentController::class, 'destroy']);
+    Route::apiResource('students', StudentController::class)->only(['index','store','show','update','destroy']);
 });
 
 // Faculty routes
-Route::get('/faculty', [FacultyController::class, 'index']);
-Route::post('/faculty', [FacultyController::class, 'store']);
-Route::get('/faculty/{id}', [FacultyController::class, 'show']);
-Route::put('/faculty/{id}', [FacultyController::class, 'update']);
-Route::delete('/faculty/{id}', [FacultyController::class, 'destroy']);
+Route::apiResource('faculty', FacultyController::class)->only(['index','store','show','update','destroy']);
 
-Route::get('/academic-years', [AcademicYearController::class, 'index']);
-Route::post('/academic-years', [AcademicYearController::class, 'store']);
-Route::put('/academic-years/{id}', [AcademicYearController::class, 'update']);
-Route::delete('/academic-years/{id}', [AcademicYearController::class, 'destroy']);
+// Academic years
+Route::apiResource('academic-years', AcademicYearController::class)->only(['index','store','update','destroy']);
 Route::put('/academic-years/{id}/activate', [AcademicYearController::class, 'activate']);
 
 
@@ -80,17 +63,8 @@ Route::put('/academic-years/{id}/activate', [AcademicYearController::class, 'act
 Route::get('/archives', [ArchiveController::class, 'index']);
 Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
 
-// Restore item by type and ID
-Route::post('/archives/restore/{type}/{id}', [ArchiveController::class, 'restore']);
-
 // Report routes
-
-Route::get('/reports', [ReportController::class, 'index']);
-Route::post('/reports', [ReportController::class, 'store']);
-Route::get('/reports/{id}', [ReportController::class, 'show']);
-Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
+Route::apiResource('reports', ReportController::class)->only(['index','store','show','destroy']);
 
 // Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/students', [StudentController::class, 'index']);
-Route::get('/faculty', [FacultyController::class, 'index']);
