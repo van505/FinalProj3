@@ -222,20 +222,38 @@ export function loadReport(app) {
   fetchDropdowns();
   fetchReport();
 
-  document.getElementById("filterBtn").addEventListener("click", fetchReport);
+  document.getElementById("filterBtn").addEventListener("click", clearFilters);
   document.getElementById("reportType").addEventListener("change", fetchReport);
   document.getElementById("courseSelect").addEventListener("change", fetchReport);
-  document.getElementById("departmentSelect").addEventListener("change", fetchReport);
+  document.getElementById("departmentSelect").addEventListener("change", () => {
+    updateCourseOptions();
+    fetchReport();
+  });
   document.getElementById("academicYearSelect").addEventListener("change", fetchReport);
   document.getElementById("exportBtn").addEventListener("click", exportReport);
   document.querySelector(".btn-send-report").addEventListener("click", sendReport);
 
+  // Auth-aware GET helper
+  async function apiGet(url) {
+    const token = localStorage.getItem("token");
+    const res = await fetch(url, {
+      headers: {
+        "Accept": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }
+    });
+    return res;
+  }
+
+  // cache for dependent Course dropdown
+  let allCoursesCache = [];
+
   async function fetchDropdowns() {
     try {
       const [courseRes, deptRes, yearRes] = await Promise.all([
-        fetch("/api/courses"),
-        fetch("/api/departments"),
-        fetch("/api/academic-years")
+        apiGet("/api/courses"),
+        apiGet("/api/departments"),
+        apiGet("/api/academic-years")
       ]);
       const [courses, departments, years] = await Promise.all([
         courseRes.json(),
@@ -247,9 +265,10 @@ export function loadReport(app) {
       const deptSelect = document.getElementById("departmentSelect");
       const yearSelect = document.getElementById("academicYearSelect");
 
-      courses.forEach(c => {
-        courseSelect.innerHTML += `<option value="${c.id}">${c.name || c.course_name}</option>`;
-      });
+      // normalize and cache courses
+      const courseList = Array.isArray(courses) ? courses : (courses?.data || []);
+      allCoursesCache = courseList.map(c => ({ id: c.id, name: c.name || c.course_name, department_id: c.department_id || c.department?.id }));
+      updateCourseOptions();
       departments.forEach(d => {
         deptSelect.innerHTML += `<option value="${d.id}">${d.name || d.department_name}</option>`;
       });
@@ -259,6 +278,38 @@ export function loadReport(app) {
     } catch (err) {
       console.error("Error loading dropdowns:", err);
     }
+  }
+
+  function updateCourseOptions() {
+    const courseSelect = document.getElementById("courseSelect");
+    const deptSelect = document.getElementById("departmentSelect");
+    const selectedDept = deptSelect?.value || "";
+    if (!courseSelect) return;
+    const options = [
+      `<option value="">All Courses</option>`,
+      ...allCoursesCache
+        .filter(c => !selectedDept || (c.department_id && String(c.department_id) === String(selectedDept)))
+        .map(c => `<option value="${c.id}">${c.name}</option>`)
+    ].join("");
+    const current = courseSelect.value;
+    courseSelect.innerHTML = options;
+    // if previously selected course still fits the dept, keep it; otherwise reset
+    if (!allCoursesCache.find(c => String(c.id) === String(current) && (!selectedDept || String(c.department_id) === String(selectedDept)))) {
+      courseSelect.value = "";
+    } else {
+      courseSelect.value = current;
+    }
+  }
+
+  function clearFilters() {
+    const courseSelect = document.getElementById("courseSelect");
+    const deptSelect = document.getElementById("departmentSelect");
+    const yearSelect = document.getElementById("academicYearSelect");
+    if (courseSelect) courseSelect.value = "";
+    if (deptSelect) deptSelect.value = "";
+    if (yearSelect) yearSelect.value = "";
+    updateCourseOptions();
+    fetchReport();
   }
 
   async function fetchReport() {
@@ -299,12 +350,12 @@ export function loadReport(app) {
           summaryText = `Showing <strong>${data.length}</strong> departments found.`;
           break;
         case 'academic_years':
-          headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
+          headers = ['#', 'Academic Year', 'Status', 'Created Date'];
           data = await fetchAcademicYearsReport();
           summaryText = `Showing <strong>${data.length}</strong> academic years found.`;
           break;
         case 'archives':
-          headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
+          headers = ['#', 'Type', 'Name/Title', 'Archived Date'];
           data = await fetchArchivesReport();
           summaryText = `Showing <strong>${data.length}</strong> archived items found.`;
           break;
@@ -375,10 +426,6 @@ export function loadReport(app) {
                   ${item.is_active ? "Active" : "Inactive"}
                 </span></td>
                 <td>${item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A'}</td>
-                <td>
-                  <button class="action-btn edit-btn" data-id="${item.id}">Edit</button>
-                  <button class="action-btn archive-btn" data-id="${item.id}">Archive</button>
-                </td>
               </tr>
             `;
           case 'archives':
@@ -388,10 +435,6 @@ export function loadReport(app) {
                 <td>${item.type}</td>
                 <td>${item.name}</td>
                 <td>${item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A'}</td>
-                <td>
-                  <button class="action-btn edit-btn" data-type="${item.group}" data-id="${item.id}">Restore</button>
-                  <button class="action-btn archive-btn" data-type="${item.group}" data-id="${item.id}">Delete</button>
-                </td>
               </tr>
             `;
           default:
@@ -410,17 +453,30 @@ export function loadReport(app) {
   // Individual fetch functions for each report type
   async function fetchStudentsReport(course, department, year) {
     // Try multiple possible endpoints
-    let res = await fetch('/api/students');
+    let res = await apiGet('/api/students');
     if (!res.ok) {
-      res = await fetch('/api/reports/students');
+      res = await apiGet('/api/reports/students');
     }
     if (!res.ok) {
-      res = await fetch('/api/reports/student');
+      res = await apiGet('/api/reports/student');
     }
     
     if (!res.ok) return [];
     
-    let data = await res.json();
+    let raw = await res.json();
+    let data = [];
+    const candidates = [
+      raw,
+      raw?.data,
+      raw?.data?.data,
+      raw?.students,
+      raw?.students?.data,
+      raw?.data?.students,
+      raw?.data?.students?.data
+    ];
+    for (const c of candidates) {
+      if (Array.isArray(c)) { data = c; break; }
+    }
     
     // Apply client-side filtering
     if (course) {
@@ -596,12 +652,12 @@ export function loadReport(app) {
           title = "Departments Report";
           break;
         case 'academic_years':
-          headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
+          headers = ['#', 'Academic Year', 'Status', 'Created Date'];
           data = await fetchAcademicYearsReport();
           title = "Academic Years Report";
           break;
         case 'archives':
-          headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
+          headers = ['#', 'Type', 'Name/Title', 'Archived Date'];
           data = await fetchArchivesReport();
           title = "Archives Report";
           break;
@@ -652,16 +708,14 @@ export function loadReport(app) {
               index + 1,
               item.year || item.academic_year,
               item.is_active ? "Active" : "Inactive",
-              item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A',
-              'Available'
+              item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A'
             ];
           case 'archives':
             return [
               index + 1,
               item.type,
               item.name,
-              item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A',
-              'Available'
+              item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A'
             ];
           default:
             return [];

@@ -232,7 +232,7 @@ export async function loadDashboard(app) {
         });
 
         renderChart("studentsChart", "Students per Course", courseCounts);
-        renderChart("facultyChart", "Faculty per Department", deptCounts);
+        renderPieChart("facultyChart", deptCounts);
 
         const recentActivity = [
             ...students.slice(-3).map(s => `👨‍🎓 New student added: ${s.firstname || s.name || s.studID || "Student"}`),
@@ -271,6 +271,50 @@ function renderChart(canvasId, label, dataObj) {
             },
             scales: { y: { beginAtZero: true } },
         },
+    });
+}
+
+function renderPieChart(canvasId, dataObj) {
+    const ctx = document.getElementById(canvasId).getContext("2d");
+    const labels = Object.keys(dataObj);
+    const values = Object.values(dataObj);
+    const baseColors = [
+        "#4B6BFB", "#22C55E", "#EAB308", "#F97316", "#EF4444",
+        "#06B6D4", "#A855F7", "#84CC16", "#10B981", "#0EA5E9",
+        "#F43F5E", "#14B8A6", "#8B5CF6", "#D946EF", "#F59E0B"
+    ];
+    const colors = labels.map((_, i) => baseColors[i % baseColors.length]);
+
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels,
+            datasets: [
+                {
+                    data: values,
+                    backgroundColor: colors,
+                    borderWidth: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: 10 },
+            plugins: {
+                legend: {
+                    position: "right",
+                    align: "center",
+                    labels: {
+                        boxWidth: 14,
+                        boxHeight: 14,
+                        usePointStyle: true,
+                        pointStyle: "circle",
+                        padding: 12
+                    }
+                }
+            }
+        }
     });
 }
 

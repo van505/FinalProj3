@@ -17615,7 +17615,7 @@ function _loadDashboard() {
             deptCounts[dept] = (deptCounts[dept] || 0) + 1;
           });
           renderChart("studentsChart", "Students per Course", courseCounts);
-          renderChart("facultyChart", "Faculty per Department", deptCounts);
+          renderPieChart("facultyChart", deptCounts);
           recentActivity = [].concat(_toConsumableArray(students.slice(-3).map(function (s) {
             return "\uD83D\uDC68\u200D\uD83C\uDF93 New student added: ".concat(s.firstname || s.name || s.studID || "Student");
           })), _toConsumableArray(faculty.slice(-3).map(function (f) {
@@ -17663,6 +17663,46 @@ function renderChart(canvasId, label, dataObj) {
       scales: {
         y: {
           beginAtZero: true
+        }
+      }
+    }
+  });
+}
+function renderPieChart(canvasId, dataObj) {
+  var ctx = document.getElementById(canvasId).getContext("2d");
+  var labels = Object.keys(dataObj);
+  var values = Object.values(dataObj);
+  var baseColors = ["#4B6BFB", "#22C55E", "#EAB308", "#F97316", "#EF4444", "#06B6D4", "#A855F7", "#84CC16", "#10B981", "#0EA5E9", "#F43F5E", "#14B8A6", "#8B5CF6", "#D946EF", "#F59E0B"];
+  var colors = labels.map(function (_, i) {
+    return baseColors[i % baseColors.length];
+  });
+  new chart_js_auto__WEBPACK_IMPORTED_MODULE_0__["default"](ctx, {
+    type: "pie",
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: 10
+      },
+      plugins: {
+        legend: {
+          position: "right",
+          align: "center",
+          labels: {
+            boxWidth: 14,
+            boxHeight: 14,
+            usePointStyle: true,
+            pointStyle: "circle",
+            padding: 12
+          }
         }
       }
     }
@@ -18521,12 +18561,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   loadReport: () => (/* binding */ loadReport)
 /* harmony export */ });
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -18541,72 +18587,142 @@ function loadReport(app) {
   // --- Functionality (unchanged) ---
   fetchDropdowns();
   fetchReport();
-  document.getElementById("filterBtn").addEventListener("click", fetchReport);
+  document.getElementById("filterBtn").addEventListener("click", clearFilters);
   document.getElementById("reportType").addEventListener("change", fetchReport);
   document.getElementById("courseSelect").addEventListener("change", fetchReport);
-  document.getElementById("departmentSelect").addEventListener("change", fetchReport);
+  document.getElementById("departmentSelect").addEventListener("change", function () {
+    updateCourseOptions();
+    fetchReport();
+  });
   document.getElementById("academicYearSelect").addEventListener("change", fetchReport);
   document.getElementById("exportBtn").addEventListener("click", exportReport);
   document.querySelector(".btn-send-report").addEventListener("click", sendReport);
+
+  // Auth-aware GET helper
+  function apiGet(_x) {
+    return _apiGet.apply(this, arguments);
+  } // cache for dependent Course dropdown
+  function _apiGet() {
+    _apiGet = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(url) {
+      var token, res;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            token = localStorage.getItem("token");
+            _context.n = 1;
+            return fetch(url, {
+              headers: _objectSpread({
+                "Accept": "application/json"
+              }, token ? {
+                Authorization: "Bearer ".concat(token)
+              } : {})
+            });
+          case 1:
+            res = _context.v;
+            return _context.a(2, res);
+        }
+      }, _callee);
+    }));
+    return _apiGet.apply(this, arguments);
+  }
+  var allCoursesCache = [];
   function fetchDropdowns() {
     return _fetchDropdowns.apply(this, arguments);
   }
   function _fetchDropdowns() {
-    _fetchDropdowns = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-      var _yield$Promise$all, _yield$Promise$all2, courseRes, deptRes, yearRes, _yield$Promise$all3, _yield$Promise$all4, courses, departments, years, courseSelect, deptSelect, yearSelect, _t;
-      return _regenerator().w(function (_context) {
-        while (1) switch (_context.p = _context.n) {
+    _fetchDropdowns = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      var _yield$Promise$all, _yield$Promise$all2, courseRes, deptRes, yearRes, _yield$Promise$all3, _yield$Promise$all4, courses, departments, years, courseSelect, deptSelect, yearSelect, courseList, _t;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
           case 0:
-            _context.p = 0;
-            _context.n = 1;
-            return Promise.all([fetch("/api/courses"), fetch("/api/departments"), fetch("/api/academic-years")]);
+            _context2.p = 0;
+            _context2.n = 1;
+            return Promise.all([apiGet("/api/courses"), apiGet("/api/departments"), apiGet("/api/academic-years")]);
           case 1:
-            _yield$Promise$all = _context.v;
+            _yield$Promise$all = _context2.v;
             _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 3);
             courseRes = _yield$Promise$all2[0];
             deptRes = _yield$Promise$all2[1];
             yearRes = _yield$Promise$all2[2];
-            _context.n = 2;
+            _context2.n = 2;
             return Promise.all([courseRes.json(), deptRes.json(), yearRes.json()]);
           case 2:
-            _yield$Promise$all3 = _context.v;
+            _yield$Promise$all3 = _context2.v;
             _yield$Promise$all4 = _slicedToArray(_yield$Promise$all3, 3);
             courses = _yield$Promise$all4[0];
             departments = _yield$Promise$all4[1];
             years = _yield$Promise$all4[2];
             courseSelect = document.getElementById("courseSelect");
             deptSelect = document.getElementById("departmentSelect");
-            yearSelect = document.getElementById("academicYearSelect");
-            courses.forEach(function (c) {
-              courseSelect.innerHTML += "<option value=\"".concat(c.id, "\">").concat(c.name || c.course_name, "</option>");
+            yearSelect = document.getElementById("academicYearSelect"); // normalize and cache courses
+            courseList = Array.isArray(courses) ? courses : (courses === null || courses === void 0 ? void 0 : courses.data) || [];
+            allCoursesCache = courseList.map(function (c) {
+              var _c$department;
+              return {
+                id: c.id,
+                name: c.name || c.course_name,
+                department_id: c.department_id || ((_c$department = c.department) === null || _c$department === void 0 ? void 0 : _c$department.id)
+              };
             });
+            updateCourseOptions();
             departments.forEach(function (d) {
               deptSelect.innerHTML += "<option value=\"".concat(d.id, "\">").concat(d.name || d.department_name, "</option>");
             });
             years.forEach(function (y) {
               yearSelect.innerHTML += "<option value=\"".concat(y.id, "\">").concat(y.year || y.academic_year, "</option>");
             });
-            _context.n = 4;
+            _context2.n = 4;
             break;
           case 3:
-            _context.p = 3;
-            _t = _context.v;
+            _context2.p = 3;
+            _t = _context2.v;
             console.error("Error loading dropdowns:", _t);
           case 4:
-            return _context.a(2);
+            return _context2.a(2);
         }
-      }, _callee, null, [[0, 3]]);
+      }, _callee2, null, [[0, 3]]);
     }));
     return _fetchDropdowns.apply(this, arguments);
+  }
+  function updateCourseOptions() {
+    var courseSelect = document.getElementById("courseSelect");
+    var deptSelect = document.getElementById("departmentSelect");
+    var selectedDept = (deptSelect === null || deptSelect === void 0 ? void 0 : deptSelect.value) || "";
+    if (!courseSelect) return;
+    var options = ["<option value=\"\">All Courses</option>"].concat(_toConsumableArray(allCoursesCache.filter(function (c) {
+      return !selectedDept || c.department_id && String(c.department_id) === String(selectedDept);
+    }).map(function (c) {
+      return "<option value=\"".concat(c.id, "\">").concat(c.name, "</option>");
+    }))).join("");
+    var current = courseSelect.value;
+    courseSelect.innerHTML = options;
+    // if previously selected course still fits the dept, keep it; otherwise reset
+    if (!allCoursesCache.find(function (c) {
+      return String(c.id) === String(current) && (!selectedDept || String(c.department_id) === String(selectedDept));
+    })) {
+      courseSelect.value = "";
+    } else {
+      courseSelect.value = current;
+    }
+  }
+  function clearFilters() {
+    var courseSelect = document.getElementById("courseSelect");
+    var deptSelect = document.getElementById("departmentSelect");
+    var yearSelect = document.getElementById("academicYearSelect");
+    if (courseSelect) courseSelect.value = "";
+    if (deptSelect) deptSelect.value = "";
+    if (yearSelect) yearSelect.value = "";
+    updateCourseOptions();
+    fetchReport();
   }
   function fetchReport() {
     return _fetchReport.apply(this, arguments);
   } // Individual fetch functions for each report type
   function _fetchReport() {
-    _fetchReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+    _fetchReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
       var type, course, department, year, tbody, header, summary, data, headers, summaryText, _t2, _t3;
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.p = _context2.n) {
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
           case 0:
             type = document.getElementById("reportType").value;
             course = document.getElementById("courseSelect").value;
@@ -18616,73 +18732,73 @@ function loadReport(app) {
             header = document.getElementById("reportHeader");
             summary = document.getElementById("reportSummary");
             tbody.innerHTML = "<tr><td colspan=\"4\" class=\"no-data\">Loading...</td></tr>";
-            _context2.p = 1;
+            _context3.p = 1;
             data = [];
             headers = [];
             summaryText = "";
             _t2 = type;
-            _context2.n = _t2 === 'students' ? 2 : _t2 === 'faculty' ? 4 : _t2 === 'courses' ? 6 : _t2 === 'departments' ? 8 : _t2 === 'academic_years' ? 10 : _t2 === 'archives' ? 12 : 14;
+            _context3.n = _t2 === 'students' ? 2 : _t2 === 'faculty' ? 4 : _t2 === 'courses' ? 6 : _t2 === 'departments' ? 8 : _t2 === 'academic_years' ? 10 : _t2 === 'archives' ? 12 : 14;
             break;
           case 2:
             headers = ['#', 'Student Name', 'Course', 'Academic Year', 'Status'];
-            _context2.n = 3;
+            _context3.n = 3;
             return fetchStudentsReport(course, department, year);
           case 3:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> students found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 4:
             headers = ['#', 'Faculty Name', 'Department', 'Academic Year', 'Status'];
-            _context2.n = 5;
+            _context3.n = 5;
             return fetchFacultyReport(course, department, year);
           case 5:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> faculty found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 6:
             headers = ['#', 'Course Name', 'Department', 'Created Date', 'Status'];
-            _context2.n = 7;
+            _context3.n = 7;
             return fetchCoursesReport();
           case 7:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> courses found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 8:
             headers = ['#', 'Department Name', 'Head', 'Created Date', 'Status'];
-            _context2.n = 9;
+            _context3.n = 9;
             return fetchDepartmentsReport();
           case 9:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> departments found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 10:
-            headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
-            _context2.n = 11;
+            headers = ['#', 'Academic Year', 'Status', 'Created Date'];
+            _context3.n = 11;
             return fetchAcademicYearsReport();
           case 11:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> academic years found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 12:
-            headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
-            _context2.n = 13;
+            headers = ['#', 'Type', 'Name/Title', 'Archived Date'];
+            _context3.n = 13;
             return fetchArchivesReport();
           case 13:
-            data = _context2.v;
+            data = _context3.v;
             summaryText = "Showing <strong>".concat(data.length, "</strong> archived items found.");
-            return _context2.a(3, 14);
+            return _context3.a(3, 14);
           case 14:
             // Update table headers
             header.innerHTML = headers.map(function (h) {
               return "<th>".concat(h, "</th>");
             }).join('');
             if (data.length) {
-              _context2.n = 15;
+              _context3.n = 15;
               break;
             }
             tbody.innerHTML = "<tr><td colspan=\"".concat(headers.length, "\" class=\"no-data\">No records found</td></tr>");
             summary.textContent = "";
-            return _context2.a(2);
+            return _context3.a(2);
           case 15:
             // Render table rows based on data type
             tbody.innerHTML = data.map(function (item, index) {
@@ -18697,69 +18813,90 @@ function loadReport(app) {
                 case 'departments':
                   return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.name || item.department_name, "</td>\n                <td>").concat(item.head || item.department_head || 'N/A', "</td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n                <td><span class=\"status-badge active\">Active</span></td>\n              </tr>\n            ");
                 case 'academic_years':
-                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.year || item.academic_year, "</td>\n                <td><span class=\"status-badge ").concat(item.is_active ? "active" : "inactive", "\">\n                  ").concat(item.is_active ? "Active" : "Inactive", "\n                </span></td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n                <td>\n                  <button class=\"action-btn edit-btn\" data-id=\"").concat(item.id, "\">Edit</button>\n                  <button class=\"action-btn archive-btn\" data-id=\"").concat(item.id, "\">Archive</button>\n                </td>\n              </tr>\n            ");
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.year || item.academic_year, "</td>\n                <td><span class=\"status-badge ").concat(item.is_active ? "active" : "inactive", "\">\n                  ").concat(item.is_active ? "Active" : "Inactive", "\n                </span></td>\n                <td>").concat(item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', "</td>\n              </tr>\n            ");
                 case 'archives':
-                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.type, "</td>\n                <td>").concat(item.name, "</td>\n                <td>").concat(item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A', "</td>\n                <td>\n                  <button class=\"action-btn edit-btn\" data-type=\"").concat(item.group, "\" data-id=\"").concat(item.id, "\">Restore</button>\n                  <button class=\"action-btn archive-btn\" data-type=\"").concat(item.group, "\" data-id=\"").concat(item.id, "\">Delete</button>\n                </td>\n              </tr>\n            ");
+                  return "\n              <tr>\n                <td>".concat(index + 1, "</td>\n                <td>").concat(item.type, "</td>\n                <td>").concat(item.name, "</td>\n                <td>").concat(item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A', "</td>\n              </tr>\n            ");
                 default:
                   return '';
               }
             }).join('');
             summary.innerHTML = "<div class=\"summary-box\">".concat(summaryText, "</div>");
-            _context2.n = 17;
+            _context3.n = 17;
             break;
           case 16:
-            _context2.p = 16;
-            _t3 = _context2.v;
+            _context3.p = 16;
+            _t3 = _context3.v;
             console.error("Error fetching report:", _t3);
             tbody.innerHTML = "<tr><td colspan=\"5\" class=\"no-data\">Error loading data</td></tr>";
           case 17:
-            return _context2.a(2);
+            return _context3.a(2);
         }
-      }, _callee2, null, [[1, 16]]);
+      }, _callee3, null, [[1, 16]]);
     }));
     return _fetchReport.apply(this, arguments);
   }
-  function fetchStudentsReport(_x, _x2, _x3) {
+  function fetchStudentsReport(_x2, _x3, _x4) {
     return _fetchStudentsReport.apply(this, arguments);
   }
   function _fetchStudentsReport() {
-    _fetchStudentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(course, department, year) {
-      var res, data;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.n) {
+    _fetchStudentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(course, department, year) {
+      var _raw$data, _raw$students, _raw$data2, _raw$data3;
+      var res, raw, data, candidates, _i, _candidates, c;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.n) {
           case 0:
-            _context3.n = 1;
-            return fetch('/api/students');
+            _context4.n = 1;
+            return apiGet('/api/students');
           case 1:
-            res = _context3.v;
+            res = _context4.v;
             if (res.ok) {
-              _context3.n = 3;
+              _context4.n = 3;
               break;
             }
-            _context3.n = 2;
-            return fetch('/api/reports/students');
+            _context4.n = 2;
+            return apiGet('/api/reports/students');
           case 2:
-            res = _context3.v;
+            res = _context4.v;
           case 3:
             if (res.ok) {
-              _context3.n = 5;
+              _context4.n = 5;
               break;
             }
-            _context3.n = 4;
-            return fetch('/api/reports/student');
+            _context4.n = 4;
+            return apiGet('/api/reports/student');
           case 4:
-            res = _context3.v;
+            res = _context4.v;
           case 5:
             if (res.ok) {
-              _context3.n = 6;
+              _context4.n = 6;
               break;
             }
-            return _context3.a(2, []);
+            return _context4.a(2, []);
           case 6:
-            _context3.n = 7;
+            _context4.n = 7;
             return res.json();
           case 7:
-            data = _context3.v;
+            raw = _context4.v;
+            data = [];
+            candidates = [raw, raw === null || raw === void 0 ? void 0 : raw.data, raw === null || raw === void 0 || (_raw$data = raw.data) === null || _raw$data === void 0 ? void 0 : _raw$data.data, raw === null || raw === void 0 ? void 0 : raw.students, raw === null || raw === void 0 || (_raw$students = raw.students) === null || _raw$students === void 0 ? void 0 : _raw$students.data, raw === null || raw === void 0 || (_raw$data2 = raw.data) === null || _raw$data2 === void 0 ? void 0 : _raw$data2.students, raw === null || raw === void 0 || (_raw$data3 = raw.data) === null || _raw$data3 === void 0 || (_raw$data3 = _raw$data3.students) === null || _raw$data3 === void 0 ? void 0 : _raw$data3.data];
+            _i = 0, _candidates = candidates;
+          case 8:
+            if (!(_i < _candidates.length)) {
+              _context4.n = 10;
+              break;
+            }
+            c = _candidates[_i];
+            if (!Array.isArray(c)) {
+              _context4.n = 9;
+              break;
+            }
+            data = c;
+            return _context4.a(3, 10);
+          case 9:
+            _i++;
+            _context4.n = 8;
+            break;
+          case 10:
             // Apply client-side filtering
             if (course) {
               data = data.filter(function (s) {
@@ -18779,53 +18916,53 @@ function loadReport(app) {
                 return s.academic_year_id == year || ((_s$academic_year = s.academic_year) === null || _s$academic_year === void 0 ? void 0 : _s$academic_year.id) == year;
               });
             }
-            return _context3.a(2, data);
+            return _context4.a(2, data);
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return _fetchStudentsReport.apply(this, arguments);
   }
-  function fetchFacultyReport(_x4, _x5, _x6) {
+  function fetchFacultyReport(_x5, _x6, _x7) {
     return _fetchFacultyReport.apply(this, arguments);
   }
   function _fetchFacultyReport() {
-    _fetchFacultyReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(course, department, year) {
+    _fetchFacultyReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(course, department, year) {
       var res, data;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.n) {
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.n) {
           case 0:
-            _context4.n = 1;
+            _context5.n = 1;
             return fetch('/api/faculties');
           case 1:
-            res = _context4.v;
+            res = _context5.v;
             if (res.ok) {
-              _context4.n = 3;
+              _context5.n = 3;
               break;
             }
-            _context4.n = 2;
+            _context5.n = 2;
             return fetch('/api/faculty');
           case 2:
-            res = _context4.v;
+            res = _context5.v;
           case 3:
             if (res.ok) {
-              _context4.n = 5;
+              _context5.n = 5;
               break;
             }
-            _context4.n = 4;
+            _context5.n = 4;
             return fetch('/api/reports/faculty');
           case 4:
-            res = _context4.v;
+            res = _context5.v;
           case 5:
             if (res.ok) {
-              _context4.n = 6;
+              _context5.n = 6;
               break;
             }
-            return _context4.a(2, []);
+            return _context5.a(2, []);
           case 6:
-            _context4.n = 7;
+            _context5.n = 7;
             return res.json();
           case 7:
-            data = _context4.v;
+            data = _context5.v;
             // Apply client-side filtering
             if (course) {
               data = data.filter(function (f) {
@@ -18845,9 +18982,9 @@ function loadReport(app) {
                 return f.academic_year_id == year || ((_f$academic_year = f.academic_year) === null || _f$academic_year === void 0 ? void 0 : _f$academic_year.id) == year;
               });
             }
-            return _context4.a(2, data);
+            return _context5.a(2, data);
         }
-      }, _callee4);
+      }, _callee5);
     }));
     return _fetchFacultyReport.apply(this, arguments);
   }
@@ -18855,49 +18992,13 @@ function loadReport(app) {
     return _fetchCoursesReport.apply(this, arguments);
   }
   function _fetchCoursesReport() {
-    _fetchCoursesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+    _fetchCoursesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
       var res, data, department;
-      return _regenerator().w(function (_context5) {
-        while (1) switch (_context5.n) {
-          case 0:
-            _context5.n = 1;
-            return fetch('/api/courses');
-          case 1:
-            res = _context5.v;
-            if (res.ok) {
-              _context5.n = 2;
-              break;
-            }
-            return _context5.a(2, []);
-          case 2:
-            _context5.n = 3;
-            return res.json();
-          case 3:
-            data = _context5.v;
-            department = document.getElementById("departmentSelect").value; // Apply client-side filtering
-            if (department) {
-              data = data.filter(function (c) {
-                var _c$department;
-                return c.department_id == department || ((_c$department = c.department) === null || _c$department === void 0 ? void 0 : _c$department.id) == department;
-              });
-            }
-            return _context5.a(2, data);
-        }
-      }, _callee5);
-    }));
-    return _fetchCoursesReport.apply(this, arguments);
-  }
-  function fetchDepartmentsReport() {
-    return _fetchDepartmentsReport.apply(this, arguments);
-  }
-  function _fetchDepartmentsReport() {
-    _fetchDepartmentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-      var res, data, course, coursesRes, courses, targetCourse;
       return _regenerator().w(function (_context6) {
         while (1) switch (_context6.n) {
           case 0:
             _context6.n = 1;
-            return fetch('/api/departments');
+            return fetch('/api/courses');
           case 1:
             res = _context6.v;
             if (res.ok) {
@@ -18910,50 +19011,30 @@ function loadReport(app) {
             return res.json();
           case 3:
             data = _context6.v;
-            course = document.getElementById("courseSelect").value; // Apply client-side filtering (if needed)
-            // For departments, we might filter by courses that belong to them
-            if (!course) {
-              _context6.n = 6;
-              break;
-            }
-            _context6.n = 4;
-            return fetch('/api/courses');
-          case 4:
-            coursesRes = _context6.v;
-            if (!coursesRes.ok) {
-              _context6.n = 6;
-              break;
-            }
-            _context6.n = 5;
-            return coursesRes.json();
-          case 5:
-            courses = _context6.v;
-            targetCourse = courses.find(function (c) {
-              return c.id == course;
-            });
-            if (targetCourse) {
-              data = data.filter(function (d) {
-                return d.id == targetCourse.department_id;
+            department = document.getElementById("departmentSelect").value; // Apply client-side filtering
+            if (department) {
+              data = data.filter(function (c) {
+                var _c$department2;
+                return c.department_id == department || ((_c$department2 = c.department) === null || _c$department2 === void 0 ? void 0 : _c$department2.id) == department;
               });
             }
-          case 6:
             return _context6.a(2, data);
         }
       }, _callee6);
     }));
+    return _fetchCoursesReport.apply(this, arguments);
+  }
+  function fetchDepartmentsReport() {
     return _fetchDepartmentsReport.apply(this, arguments);
   }
-  function fetchAcademicYearsReport() {
-    return _fetchAcademicYearsReport.apply(this, arguments);
-  }
-  function _fetchAcademicYearsReport() {
-    _fetchAcademicYearsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-      var res, data, year;
+  function _fetchDepartmentsReport() {
+    _fetchDepartmentsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+      var res, data, course, coursesRes, courses, targetCourse;
       return _regenerator().w(function (_context7) {
         while (1) switch (_context7.n) {
           case 0:
             _context7.n = 1;
-            return fetch('/api/academic-years');
+            return fetch('/api/departments');
           case 1:
             res = _context7.v;
             if (res.ok) {
@@ -18966,29 +19047,50 @@ function loadReport(app) {
             return res.json();
           case 3:
             data = _context7.v;
-            year = document.getElementById("academicYearSelect").value; // Apply client-side filtering
-            if (year) {
-              data = data.filter(function (a) {
-                return a.id == year;
+            course = document.getElementById("courseSelect").value; // Apply client-side filtering (if needed)
+            // For departments, we might filter by courses that belong to them
+            if (!course) {
+              _context7.n = 6;
+              break;
+            }
+            _context7.n = 4;
+            return fetch('/api/courses');
+          case 4:
+            coursesRes = _context7.v;
+            if (!coursesRes.ok) {
+              _context7.n = 6;
+              break;
+            }
+            _context7.n = 5;
+            return coursesRes.json();
+          case 5:
+            courses = _context7.v;
+            targetCourse = courses.find(function (c) {
+              return c.id == course;
+            });
+            if (targetCourse) {
+              data = data.filter(function (d) {
+                return d.id == targetCourse.department_id;
               });
             }
+          case 6:
             return _context7.a(2, data);
         }
       }, _callee7);
     }));
+    return _fetchDepartmentsReport.apply(this, arguments);
+  }
+  function fetchAcademicYearsReport() {
     return _fetchAcademicYearsReport.apply(this, arguments);
   }
-  function fetchArchivesReport() {
-    return _fetchArchivesReport.apply(this, arguments);
-  }
-  function _fetchArchivesReport() {
-    _fetchArchivesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-      var res, data, rows;
+  function _fetchAcademicYearsReport() {
+    _fetchAcademicYearsReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      var res, data, year;
       return _regenerator().w(function (_context8) {
         while (1) switch (_context8.n) {
           case 0:
             _context8.n = 1;
-            return fetch('/api/archives');
+            return fetch('/api/academic-years');
           case 1:
             res = _context8.v;
             if (res.ok) {
@@ -19001,6 +19103,41 @@ function loadReport(app) {
             return res.json();
           case 3:
             data = _context8.v;
+            year = document.getElementById("academicYearSelect").value; // Apply client-side filtering
+            if (year) {
+              data = data.filter(function (a) {
+                return a.id == year;
+              });
+            }
+            return _context8.a(2, data);
+        }
+      }, _callee8);
+    }));
+    return _fetchAcademicYearsReport.apply(this, arguments);
+  }
+  function fetchArchivesReport() {
+    return _fetchArchivesReport.apply(this, arguments);
+  }
+  function _fetchArchivesReport() {
+    _fetchArchivesReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      var res, data, rows;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.n) {
+          case 0:
+            _context9.n = 1;
+            return fetch('/api/archives');
+          case 1:
+            res = _context9.v;
+            if (res.ok) {
+              _context9.n = 2;
+              break;
+            }
+            return _context9.a(2, []);
+          case 2:
+            _context9.n = 3;
+            return res.json();
+          case 3:
+            data = _context9.v;
             rows = [];
             (data.courses || []).forEach(function (c) {
               return rows.push({
@@ -19047,9 +19184,9 @@ function loadReport(app) {
                 archived_at: s.archived_at
               });
             });
-            return _context8.a(2, rows);
+            return _context9.a(2, rows);
         }
-      }, _callee8);
+      }, _callee9);
     }));
     return _fetchArchivesReport.apply(this, arguments);
   }
@@ -19057,23 +19194,23 @@ function loadReport(app) {
     return _sendReport.apply(this, arguments);
   } // Enhanced export functionality
   function _sendReport() {
-    _sendReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+    _sendReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
       var title, subject, content, res, _t4;
-      return _regenerator().w(function (_context9) {
-        while (1) switch (_context9.p = _context9.n) {
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
           case 0:
             title = document.getElementById("reportTitle").value.trim();
             subject = document.getElementById("reportSubject").value;
             content = document.getElementById("reportContent").value.trim();
             if (!(!title || !subject || !content)) {
-              _context9.n = 1;
+              _context0.n = 1;
               break;
             }
             alert("Please fill in all fields before sending.");
-            return _context9.a(2);
+            return _context0.a(2);
           case 1:
-            _context9.p = 1;
-            _context9.n = 2;
+            _context0.p = 1;
+            _context0.n = 2;
             return fetch("/api/reports", {
               method: "POST",
               headers: {
@@ -19086,9 +19223,9 @@ function loadReport(app) {
               })
             });
           case 2:
-            res = _context9.v;
+            res = _context0.v;
             if (res.ok) {
-              _context9.n = 3;
+              _context0.n = 3;
               break;
             }
             throw new Error("Failed to send report");
@@ -19097,17 +19234,17 @@ function loadReport(app) {
             document.getElementById("reportTitle").value = "";
             document.getElementById("reportSubject").value = "";
             document.getElementById("reportContent").value = "";
-            _context9.n = 5;
+            _context0.n = 5;
             break;
           case 4:
-            _context9.p = 4;
-            _t4 = _context9.v;
+            _context0.p = 4;
+            _t4 = _context0.v;
             console.error("Error sending report:", _t4);
             alert("❌ Failed to send report. Please try again.");
           case 5:
-            return _context9.a(2);
+            return _context0.a(2);
         }
-      }, _callee9, null, [[1, 4]]);
+      }, _callee0, null, [[1, 4]]);
     }));
     return _sendReport.apply(this, arguments);
   }
@@ -19115,78 +19252,78 @@ function loadReport(app) {
     return _exportReport.apply(this, arguments);
   }
   function _exportReport() {
-    _exportReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+    _exportReport = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
       var format, type, course, department, year, data, headers, title, exportData, _t5, _t6, _t7;
-      return _regenerator().w(function (_context0) {
-        while (1) switch (_context0.p = _context0.n) {
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.p = _context1.n) {
           case 0:
             format = document.getElementById("exportFormat").value;
             type = document.getElementById("reportType").value;
             course = document.getElementById("courseSelect").value;
             department = document.getElementById("departmentSelect").value;
             year = document.getElementById("academicYearSelect").value;
-            _context0.p = 1;
+            _context1.p = 1;
             data = [];
             headers = [];
             title = ""; // Get data based on report type
             _t5 = type;
-            _context0.n = _t5 === 'students' ? 2 : _t5 === 'faculty' ? 4 : _t5 === 'courses' ? 6 : _t5 === 'departments' ? 8 : _t5 === 'academic_years' ? 10 : _t5 === 'archives' ? 12 : 14;
+            _context1.n = _t5 === 'students' ? 2 : _t5 === 'faculty' ? 4 : _t5 === 'courses' ? 6 : _t5 === 'departments' ? 8 : _t5 === 'academic_years' ? 10 : _t5 === 'archives' ? 12 : 14;
             break;
           case 2:
             headers = ['#', 'Student Name', 'Course', 'Academic Year', 'Status'];
-            _context0.n = 3;
+            _context1.n = 3;
             return fetchStudentsReport(course, department, year);
           case 3:
-            data = _context0.v;
+            data = _context1.v;
             title = "Students Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 4:
             headers = ['#', 'Faculty Name', 'Department', 'Academic Year', 'Status'];
-            _context0.n = 5;
+            _context1.n = 5;
             return fetchFacultyReport(course, department, year);
           case 5:
-            data = _context0.v;
+            data = _context1.v;
             title = "Faculty Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 6:
             headers = ['#', 'Course Name', 'Department', 'Created Date', 'Status'];
-            _context0.n = 7;
+            _context1.n = 7;
             return fetchCoursesReport();
           case 7:
-            data = _context0.v;
+            data = _context1.v;
             title = "Courses Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 8:
             headers = ['#', 'Department Name', 'Head', 'Created Date', 'Status'];
-            _context0.n = 9;
+            _context1.n = 9;
             return fetchDepartmentsReport();
           case 9:
-            data = _context0.v;
+            data = _context1.v;
             title = "Departments Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 10:
-            headers = ['#', 'Academic Year', 'Status', 'Created Date', 'Actions'];
-            _context0.n = 11;
+            headers = ['#', 'Academic Year', 'Status', 'Created Date'];
+            _context1.n = 11;
             return fetchAcademicYearsReport();
           case 11:
-            data = _context0.v;
+            data = _context1.v;
             title = "Academic Years Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 12:
-            headers = ['#', 'Type', 'Name/Title', 'Archived Date', 'Actions'];
-            _context0.n = 13;
+            headers = ['#', 'Type', 'Name/Title', 'Archived Date'];
+            _context1.n = 13;
             return fetchArchivesReport();
           case 13:
-            data = _context0.v;
+            data = _context1.v;
             title = "Archives Report";
-            return _context0.a(3, 14);
+            return _context1.a(3, 14);
           case 14:
             if (data.length) {
-              _context0.n = 15;
+              _context1.n = 15;
               break;
             }
             alert("No data to export!");
-            return _context0.a(2);
+            return _context1.a(2);
           case 15:
             // Prepare data for export
             exportData = data.map(function (item, index) {
@@ -19201,48 +19338,48 @@ function loadReport(app) {
                 case 'departments':
                   return [index + 1, item.name || item.department_name, item.head || item.department_head || 'N/A', item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', 'Active'];
                 case 'academic_years':
-                  return [index + 1, item.year || item.academic_year, item.is_active ? "Active" : "Inactive", item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A', 'Available'];
+                  return [index + 1, item.year || item.academic_year, item.is_active ? "Active" : "Inactive", item.created_at ? new Date(item.created_at).toLocaleDateString() : 'N/A'];
                 case 'archives':
-                  return [index + 1, item.type, item.name, item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A', 'Available'];
+                  return [index + 1, item.type, item.name, item.archived_at ? new Date(item.archived_at).toLocaleDateString() : 'N/A'];
                 default:
                   return [];
               }
             }); // Export based on format
             _t6 = format;
-            _context0.n = _t6 === 'csv' ? 16 : _t6 === 'pdf' ? 17 : _t6 === 'excel' ? 19 : _t6 === 'word' ? 21 : 23;
+            _context1.n = _t6 === 'csv' ? 16 : _t6 === 'pdf' ? 17 : _t6 === 'excel' ? 19 : _t6 === 'word' ? 21 : 23;
             break;
           case 16:
             exportToCSV(headers, exportData, title);
-            return _context0.a(3, 23);
+            return _context1.a(3, 23);
           case 17:
-            _context0.n = 18;
+            _context1.n = 18;
             return exportToPDF(headers, exportData, title);
           case 18:
-            return _context0.a(3, 23);
+            return _context1.a(3, 23);
           case 19:
-            _context0.n = 20;
+            _context1.n = 20;
             return exportToExcel(headers, exportData, title);
           case 20:
-            return _context0.a(3, 23);
+            return _context1.a(3, 23);
           case 21:
-            _context0.n = 22;
+            _context1.n = 22;
             return exportToWord(headers, exportData, title);
           case 22:
-            return _context0.a(3, 23);
+            return _context1.a(3, 23);
           case 23:
             // Success confirmation (global modal styles)
             alert('Successfully exported report!');
-            _context0.n = 25;
+            _context1.n = 25;
             break;
           case 24:
-            _context0.p = 24;
-            _t7 = _context0.v;
+            _context1.p = 24;
+            _t7 = _context1.v;
             console.error("Error exporting report:", _t7);
             alert("Failed to export report. Please try again.");
           case 25:
-            return _context0.a(2);
+            return _context1.a(2);
         }
-      }, _callee0, null, [[1, 24]]);
+      }, _callee1, null, [[1, 24]]);
     }));
     return _exportReport.apply(this, arguments);
   }
@@ -19262,14 +19399,14 @@ function loadReport(app) {
     link.click();
     URL.revokeObjectURL(url);
   }
-  function exportToPDF(_x7, _x8, _x9) {
+  function exportToPDF(_x8, _x9, _x0) {
     return _exportToPDF.apply(this, arguments);
   }
   function _exportToPDF() {
-    _exportToPDF = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(headers, data, title) {
+    _exportToPDF = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(headers, data, title) {
       var htmlContent, printWindow;
-      return _regenerator().w(function (_context1) {
-        while (1) switch (_context1.n) {
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.n) {
           case 0:
             // Create a simple HTML table and use browser's print to PDF
             htmlContent = "\n      <!DOCTYPE html>\n      <html>\n        <head>\n          <meta charset=\"utf-8\">\n          <title>".concat(title, "</title>\n          <style>\n            body { font-family: Arial, sans-serif; margin: 20px; }\n            h1 { color: #2563EB; text-align: center; }\n            .date { color: #666; font-size: 12px; text-align: center; margin-bottom: 20px; }\n            table { border-collapse: collapse; width: 100%; margin-top: 20px; }\n            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n            th { background-color: #2563EB; color: white; font-weight: bold; }\n            tr:nth-child(even) { background-color: #f2f2f2; }\n            @media print {\n              body { margin: 0; }\n              @page { margin: 1cm; }\n            }\n          </style>\n        </head>\n        <body>\n          <h1>").concat(title, "</h1>\n          <p class=\"date\">Generated on: ").concat(new Date().toLocaleDateString(), "</p>\n          <table>\n            <thead>\n              <tr>\n                ").concat(headers.map(function (h) {
@@ -19290,20 +19427,20 @@ function loadReport(app) {
               printWindow.close();
             }, 500);
           case 1:
-            return _context1.a(2);
+            return _context10.a(2);
         }
-      }, _callee1);
+      }, _callee10);
     }));
     return _exportToPDF.apply(this, arguments);
   }
-  function exportToExcel(_x0, _x1, _x10) {
+  function exportToExcel(_x1, _x10, _x11) {
     return _exportToExcel.apply(this, arguments);
   }
   function _exportToExcel() {
-    _exportToExcel = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(headers, data, title) {
+    _exportToExcel = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(headers, data, title) {
       var csvContent, blob, link, url;
-      return _regenerator().w(function (_context10) {
-        while (1) switch (_context10.n) {
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.n) {
           case 0:
             // Create CSV format that Excel can open
             csvContent = [headers.join(",")].concat(_toConsumableArray(data.map(function (row) {
@@ -19321,20 +19458,20 @@ function loadReport(app) {
             link.click();
             URL.revokeObjectURL(url);
           case 1:
-            return _context10.a(2);
+            return _context11.a(2);
         }
-      }, _callee10);
+      }, _callee11);
     }));
     return _exportToExcel.apply(this, arguments);
   }
-  function exportToWord(_x11, _x12, _x13) {
+  function exportToWord(_x12, _x13, _x14) {
     return _exportToWord.apply(this, arguments);
   }
   function _exportToWord() {
-    _exportToWord = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(headers, data, title) {
+    _exportToWord = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12(headers, data, title) {
       var htmlContent, blob, link, url;
-      return _regenerator().w(function (_context11) {
-        while (1) switch (_context11.n) {
+      return _regenerator().w(function (_context12) {
+        while (1) switch (_context12.n) {
           case 0:
             // Create HTML content for Word export
             htmlContent = "\n      <html>\n        <head>\n          <meta charset=\"utf-8\">\n          <title>".concat(title, "</title>\n          <style>\n            body { font-family: Arial, sans-serif; margin: 20px; }\n            h1 { color: #2563EB; }\n            table { border-collapse: collapse; width: 100%; margin-top: 20px; }\n            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n            th { background-color: #2563EB; color: white; }\n            tr:nth-child(even) { background-color: #f2f2f2; }\n            .date { color: #666; font-size: 12px; }\n          </style>\n        </head>\n        <body>\n          <h1>").concat(title, "</h1>\n          <p class=\"date\">Generated on: ").concat(new Date().toLocaleDateString(), "</p>\n          <table>\n            <thead>\n              <tr>\n                ").concat(headers.map(function (h) {
@@ -19354,9 +19491,9 @@ function loadReport(app) {
             link.click();
             URL.revokeObjectURL(url);
           case 1:
-            return _context11.a(2);
+            return _context12.a(2);
         }
-      }, _callee11);
+      }, _callee12);
     }));
     return _exportToWord.apply(this, arguments);
   }

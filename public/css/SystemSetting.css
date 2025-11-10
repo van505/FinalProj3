@@ -1,3 +1,113 @@
+/* ---------- Add/Edit Course Section (match Department form) ---------- */
+.add-edit-course-section {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.course-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.course-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.course-form .form-group .form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+}
+.course-form .form-group .form-input,
+.course-form .form-group .form-select {
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  color: #1f2937;
+}
+.course-form .form-group .form-input:focus,
+.course-form .form-group .form-select:focus {
+  border-color: #2563EB;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+.course-form .form-group .form-input:hover,
+.course-form .form-group .form-select:hover {
+  border-color: #d1d5db;
+}
+.course-form .form-group .form-input::-moz-placeholder, .course-form .form-group .form-select::-moz-placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+.course-form .form-group .form-input::placeholder,
+.course-form .form-group .form-select::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+.course-form .form-group .form-select {
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+.course-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.course-form .form-actions .btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.875rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.course-form .form-actions .btn.btn-cancel {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+}
+.course-form .form-actions .btn.btn-cancel:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+.course-form .form-actions .btn.btn-add-course {
+  background: linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+.course-form .form-actions .btn.btn-add-course:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+.course-form .form-actions .btn.btn-add-course:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
 .dashboard-container {
   display: flex;
   height: 100vh;
